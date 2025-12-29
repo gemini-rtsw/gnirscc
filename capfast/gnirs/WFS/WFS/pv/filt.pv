@@ -1,0 +1,55 @@
+# $Id: filt.pv,v 1.3 2009/11/19 01:36:27 mrippa Exp $
+
+group {
+	#
+	# Strings loaded by pvload into the WFS filter menu record.
+	#
+
+	string $(top)filtSelMenu.ZRST = "ED/795-1";
+	string $(top)filtSelMenu.ONST = "DARK";
+	string $(top)filtSelMenu.TWST = "J";
+	string $(top)filtSelMenu.THST = "H";
+	string $(top)filtSelMenu.FRST = "K'";
+	string $(top)filtSelMenu.FVST = "K";
+	string $(top)filtSelMenu.SXST = "K/215";
+	string $(top)filtSelMenu.SVST = "J/L3Z-4";
+	string $(top)filtSelMenu.EIST = "H/L5-2";
+	string $(top)filtSelMenu.NIST = "Open09";
+	string $(top)filtSelMenu.TEST = "537";
+	string $(top)filtSelMenu.ELST = "Open11";
+ 
+	#
+	# Scale and offset values loaded by pvload for the WFS filter mechanism.
+	# These units map named positions into numbers.  These must match
+	# values in cfg.tcl (offset = pos00 and scale = pos01 - pos00).
+	#
+
+	float $(top)filtScale.VAL = 9428.0;
+	long $(top)filtOffset.VAL = 2786;
+	string $(sadtop)filtUnits.VAL = "pos num";
+
+	#
+	# Values that correspond to the park position, maximum of 4.  (Set unused
+	# positions to "park".  Note:  Alternate names for the home position are
+	# defined in ENG/pv/cfg.tcl and the ENG/pv/*/*.lut (generated using
+	# ENG/pv/cfg.tcl).
+	#
+
+	string $(sadtop)filtParkSub.C = "park";
+	string $(sadtop)filtParkSub.D = "pos11";
+	string $(sadtop)filtParkSub.E = "park";
+	string $(sadtop)filtParkSub.F = "park";
+
+	#
+	# Ignore limits, since this is a circular device.
+	#
+
+	long $(sadtop)filtEngCyclic = 0;
+
+	#
+	# Initialize input strings to sane values.
+	#
+
+	double $(top)filtMove.A = 0;
+	long $(top)filtEngMove.A = 0;
+}

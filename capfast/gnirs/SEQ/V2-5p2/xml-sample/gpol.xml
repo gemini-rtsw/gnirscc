@@ -1,0 +1,12 @@
+ <system name="gpol">
+    <param name="modulator" value="Optical/near-IR"/>
+    <param name="modulator" value="Thermal IR"/>
+    <param name="calibrator" value="None"/>
+    <param name="calibrator" value="Wire-grid"/>
+    <param name="calibrator" value="UV polaroid"/>
+    <param name="calibrator" value="Optical polaroid"/>
+    <param name="angle" value="0.0"/>
+    <param name="angle" value="22.5"/>
+    <param name="angle" value="45.0"/>
+    <param name="angle" value="67.5"/>
+</system>

@@ -1,0 +1,15 @@
+[symbol2]
+bbox -256 -32 96 160
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 4 0 -80 64 niriWfs
+v 0 -256 160
+-256 -32
+96 -32
+96 160
+-256 160
+_
+[comments]

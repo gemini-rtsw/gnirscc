@@ -1,0 +1,122 @@
+#+
+# gmos.ca
+#
+# Channel access configuration file for the GMOS package
+#
+# D Terrett 24 July 2001
+#
+# Copyright CCLRC
+#-
+
+apply gmos::apply   gm:apply    gm:applyC    IS Primary Apply Record 
+apply gmos::dcapply gm:dc:apply gm:dc:applyC DC Primary Apply Record
+
+status gmos::apply Apply message
+{
+   mess       gm:applyC.OMSS    0    Command completion message
+}
+status gmos::dcapply Apply message
+{
+   mess       gm:dc:applyC.OMSS    0    Command completion message
+}
+
+status gmos::status GMOS status
+{
+   applyC          gm:applyC.VAL        0    Command status
+   message         gm:applyC.OMSS       0    Command completion message
+   observe         gm:observeC.VAL      0    Observe status
+   disperser       gm:sad:grName        0    Disperser
+   disperserOrder  gm:sad:grOrder       0    Disperser Order
+   disperserLambda gm:sad:grEffWavelen  0    Disperser Wavelength
+   fpu             gm:mskPos.A          0    Focal Plane Unit
+   inbeam          gm:sad:cc:mskLoc     0    In/Out the beam
+   filter1         gm:sad:filtName1     0    filter 1
+   filter2         gm:sad:filtName2     0    filter 2
+   stageMode       gm:dtaTrack.VALA     0    dtaTrack
+}
+
+status gmos::dcstatus GMOS status
+{
+   applyC       gm:dc:applyC.VAL     0    Command status
+   message      gm:dc:applyC.OMSS    0    Command completion message
+   observe      gm:dc:observeC.VAL   0    Observe status
+   exposureTime gm:dc:dcSetup.VALA   0    Exposure Time
+   ccdXstart    gm:dc:roi.B          0    CCD X start
+   ccdXsize     gm:dc:roi.D          0    CCD X size
+   ccdXBinning  gm:dc:roi.T          0    CCD X Binning Value
+   ccdYstart    gm:dc:roi.C          0    CCD Y start
+   ccdYsize     gm:dc:roi.E          0    CCD Y size
+   ccdYBinning  gm:dc:roi.S          0    CCD Y Binning Value
+   nsState      gm:dc:dcSetup.VALF   0    nsState
+   nsRows       gm:dc:dcSetup.VALG   0    nsRows
+   shutterState gm:dc:dcSetup.VALB   0    shutterState
+   ampReadMode  gm:dc:dcSetup.VALD   0    ampReadMode
+   gainSetting  gm:dc:dcSetup.VALC   0    gainSetting
+   ampCount     gm:dc:dcSetup.VALE   0    ampCount
+}
+
+command gmos::observe gmos::dcapply Observe
+{
+   label      gm:dc:observe.A        DHS data label
+   dummy      gm:dc:observe.B        Dummy no used
+}
+
+command gmos::endObserve gmos::apply End Observe
+{
+   dummy      gm:endObserve.A   Dummy  
+}
+
+command gmos::stop gmos::dcapply Stop observation
+{
+   dummy      gm:dc:stop.A
+}
+
+command gmos::abort gmos::dcapply Abort observation
+{
+   dummy      gm:dc:abort.A
+}
+
+command gmos::pause gmos::dcapply Pause observation
+{
+   dummy      gm:dc:pause.A
+}
+
+command gmos::continue gmos::dcapply Continue observation
+{
+   dummy      gm:dc:continue.A
+}
+
+command gmos::config gmos::apply Setup a Configuration
+{
+# Not used - probably sent over to tcs/agSeq
+#  posAngle          tcs:xxxxxx           Position Angle
+#  posAngleMode      tcs:xxxxxx           Position Angle Mode
+   filter1           gm:fltPos.A          Filter1
+   filter2           gm:fltPos.B          Filter2
+   disperser         gm:grSelect.B        Disperser
+   disperserMode     gm:gratingModeMenu   Disperser Mode
+   disperserOrder    gm:grSelect.D        Disperser Order
+   disperserLambda   gm:grSelect.C        Disperser Wavelength
+   fpu               gm:mskPos.A          Focal Plane Unit
+   inbeam            gm:mskPos.B          In/Out the beam
+   stageMode         gm:dtaTrack.A        Translation Stage Mode
+# Not used in current release
+#   adc               gm:xxxxxx      Atmospheric Dispersion Corrector
+}
+
+command gmos::dcconfig gmos::dcapply Setup a DC Configuration
+{
+   ampReadMode       gm:dc:readOutRate    Amplifier Read Mode     
+   exposureTime      gm:dc:dcSetup.A      Exposure Time
+   nsState           gm:dc:dcSetup.F      NodShuffle State     
+   nsRows            gm:dc:dcSetup.G      NodShuffle Rows     
+   gainSetting       gm:dc:gain           Amplifier Gain Setting
+   ampCount          gm:dc:dcRdPorts      Detector Readout Amplifier Count
+   ccdXstart         gm:dc:roi.B          CCD X start
+   ccdXsize          gm:dc:roi.D          CCD X size
+   ccdXBinning       gm:dc:roi.T          CCD X Binning Value
+   ccdYstart         gm:dc:roi.C          CCD Y start
+   ccdYsize          gm:dc:roi.E          CCD Y size
+   ccdYBinning       gm:dc:roi.S          CCD Y Binning Value
+   shutterState      gm:dc:shutterState   Shutter State
+}

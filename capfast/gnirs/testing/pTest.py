@@ -1,0 +1,745 @@
+#FileName:	  TempLog.py
+#Parameters:  None
+#Purpose:	  Test program for the temperature card
+#Description: This routine opens a socket to the gemini controller, 
+#			   reads temperature data and graphs it real time.	
+# Previous requirements:  The logtemps routine must be run on the ioc that 
+#						   is connected to the temperature card.
+#Author:	  Peter Ruckle	1-29-99
+from Tkinter import *
+import thread
+import socket
+import os
+import time
+import string
+#from	tkSimpleDialog import Dialog
+import tkMessageBox
+import Pmw 
+from FileDialog import *
+
+socketText = {'HOST' :'seed.tuc.noao.edu', 'PORTOUT': '5547', 'PORTIN' :'5548'}
+motorNames = ['aa', 'bb', 'cc', 'd']
+pressureNames = ['p1','p2','p3','p4']
+temperatureNames = ['t1','t2','t3','t4']
+recordNames = []
+data = ''
+#dictionaries to store values
+socketObject = {}
+motorEntry = {}
+motorFrame = {}
+entryText = {'aa':1, 'bb':2, 'cc':3, 'd':4}
+motorLimit = {}
+motorMoving = {}
+minY = {}
+maxY = {}
+stepY = {}
+
+#variables
+class Vars:
+	xp = 0
+	windowHeight=850
+	windowWidth=250
+	ypix = 50  #placement of y axis in pixels
+	xpix = 100	# placement of x axis in pixels
+
+	sx=3	   # time scale factor
+	sy=2	   #temperature scale factor
+	totalTime = 5000 # total time in minutes
+	graphHeight = 850.
+	tStep = 10
+	width=80
+	height=15
+	charWidth=15
+	bg="gray"
+	fg="red"
+	connected = 0
+	inFileOpen = 0
+	outFileOpen = 0
+	inFileName ='/home/gemini/gnirs/control/data/test/records'
+	outFileName ='/home/gemini/gnirs/control/data/test/record.log'
+#	inFile
+#	outFile
+
+## class MotorEntry:
+##	   def __init__(self,parent,side,motor):
+##	#create
+##	motorEntry[motor] = makeEntry(parent,side)
+##	#set local text value
+##	motorName=motor
+##	#bind to event probably when focus leaves
+##	   def getValue():
+##	# check if legal value
+##	try:
+##		val = int(entry.get())
+##		return val
+
+##	#if not legal, inform user
+##	except ValueError:
+##		raise EntryError
+	   
+
+### Class to store data for a graph
+class GraphData:
+
+	def __init__(self,name,type,min,max,step):
+		self.graphName = type + name
+		#	print "type = %s, name = %s graphName = %s" %(type, name,self.graphName)
+		self.min = min
+		self.max = max
+		self.step = step
+		self.points = []
+		self.display = 0
+	
+
+	def addPoint (self,x):
+		self.points.append(x)
+
+
+###	 Class to create graph window	 
+class GraphWindow:
+	
+	def __init__(self,n,d,R):
+		name = n
+		win = Tk()
+		win.title(n)
+		self.graph = Pmw.ScrolledCanvas(win,usehullsize = 1,	\
+					hscrollmode='dynamic',	\
+					hull_height = vars.windowHeight,   \
+					hull_width = vars.windowWidth,		\
+					vscrollmode='dynamic')
+		self.graph.pack(padx = 5, pady = 5, fill = 'both', expand = 1)
+		#	self.graph.create_line(vars.xpix,vars.windowHeight-vars.ypix,vars.windowWidth+50,
+		#				   vars.windowHeight-vars.ypix,width=4)
+		# y axis
+		self.graph.create_line(vars.xpix,vars.graphHeight-vars.ypix,	\
+							   vars.xpix,0,width=4)
+		self.graph.create_text(20,vars.windowHeight/2-30,	\
+				   anchor = 'nw',text = "Temp")
+		height = vars.graphHeight-vars.ypix
+		for y in range(0,height,20):
+			# print "y = %d, height = %d, RANGE = %s" % (y ,height, R)
+			self.graph.create_line(vars.xpix-5,	  \
+				   height-y,
+				   vars.totalTime*vars.sx+50,height-y)
+
+			self.graph.create_text(vars.xpix-20,	\
+				   height- y , 
+				   anchor = 'center',	 text = str(R*y/height))
+	  
+
+
+	#x axis
+		self.graph.create_text(vars.windowWidth/2,vars.graphHeight-10,	 \
+				   anchor = 'nw',
+							   text = 'Time (minutes)') 
+		self.graph.create_line(vars.xpix+vars.sx,  \
+				   vars.graphHeight-vars.ypix,
+				   vars.xpix+vars.totalTime*vars.sx,  \
+				  vars.graphHeight-vars.ypix ,width=4)
+		t = d.graphName
+		for x in range(0,vars.totalTime,20):
+			self.graph.create_line(vars.xpix+x*vars.sx,	  \
+				   height+5,
+				   vars.xpix+x*vars.sx,0)
+			self.graph.create_text(vars.xpix+x*vars.sx,	   \
+				   height+20, 
+				   anchor = 'center',	 text = str(x))
+	  
+		self.graph.resizescrollregion()
+
+
+
+### Class to store all information for all graphs
+class Graphs:
+	def __init__(self):
+		self.count = 0
+		self.time = {}
+		self.graphData = {}
+		self.graph = {}
+		self.win = {}
+
+	def create (self):
+	#create graphs
+		for pres in recordNames:
+			self.graphData[pres] = GraphData(pres,"Pressure",minY[pres], \
+										 maxY[pres],stepY[pres])
+#for temp in temperatureNames:
+#			self.graphData[temp] = GraphData(temp,"Temperature",min[temp], \
+#						 max[temp],step[temp])
+		
+
+	def plotPoint(self,name,x,time):		
+		tp = vars.xpix + time*vars.sx/60 
+#		print "name = %s, display = %d val = %f time = %d"		\
+#			  % (name,self.graphData[name].display,x,time)
+		yp= (vars.graphHeight - vars.ypix)*	   \
+			(1- (x-self.graphData[name].min)/		\
+			 (self.graphData[name].max-self.graphData[name].min))
+## 		print "ypix = %d height = %d" % (yp,vars.graphHeight - vars.ypix)
+		if self.graphData[name].display == 1:
+		## changed from graph
+			#		print 'tpixels = %d, ypixels = %f height = %f, ypix = %f ' \
+			#		  % (tp, yp, vars.windowHeight, vars.ypix)
+	  
+		## 	try:
+				self.win[name].graph.create_oval(tp,yp-1,tp+1,yp+1,	  \
+											 outline='blue')
+		## 	except:
+## 				self.graphData[name].display=0
+
+
+
+
+	def createWindow(self,name):
+		R = self.graphData[name].max - self.graphData[name].min
+		self.win[name]=GraphWindow(name,self.graphData[name],R)
+		self.graphData[name].display=1
+	## draw graph components
+
+		print "create window %s" % self.graphData[name].graphName
+		
+		#	print self.graphData[name].points
+	##draw graph values
+		i = 0
+		time = 0
+		for val in self.graphData[name].points:
+			print  "time = %d val = %d " % (self.time[i],val)
+			self.plotPoint(name,val,self.time[i])
+			i = i+1
+	
+  
+	def plotPoints(self,s,mask):		
+		data = s.recv(1000)
+		if data[0:3] == 'end':
+			closeSockets()
+		else:
+			outFile.writeData(data)
+		## 	print data
+			p = 0
+		
+			#  current time
+			if len(data) > 0:
+				(time,p) = nextInt(data,p)
+				self.time[self.count] = time
+				self.count = self.count +1
+				for d in recordNames:
+				## 	print "name = %s\n" % d
+					(val,p)=nextFloat(data,p)
+				
+					self.graphData[d].addPoint(val)
+					
+					self.plotPoint(d,val,time)
+			else:
+				print "received null string from socket\n"
+
+
+class loadFileDialog:
+	def __init__(self,master):
+		self.dialog = LoadFileDialog(master)
+		self.filename = self.dialog.go(dir_or_file=inFileEntryText.get(),key="test")
+		#		self.set_selection(vars.inFile)
+
+
+		
+class InFile:
+	def __init__(self,root,fileName):
+		self.root=root
+		self.fileName = fileName
+
+
+
+	def window(self):
+	## 	print "filewindow"
+		if vars.connected == 0:
+			self.dialog = loadFileDialog(self.root) 
+			inFileEntryText.set(self.dialog.filename)
+
+	def open(self):
+		try:
+			
+		## 	print 'infileopen'
+			self.file1 = open(inFileEntryText.get(),'r')
+			vars.inFileOpen = 1
+			print self.fileName
+			# read file
+			while 1:
+				val = self.file1.readline()
+				if len(val) >0:
+					if val[-1:0] == "\n":
+					## 	print val
+						val[-1:0] = 0
+					## 	print val
+					(name,ymin,ymax) = self.parse(val)
+					recordNames.append(name)
+					minY[name]=ymin
+					maxY[name]=ymax
+					stepY[name]=1
+				else :
+					break
+		except IOError:
+			print "Error Opening file"
+			for x in recordNames:
+				print x
+		
+		self.file1.close()
+		graphs.create()
+		if vars.outFileOpen == 1:
+			outFile.writeRecords(recordNames)
+
+	def parse(self,data):
+		p=0
+		(name,p) = nextString(data,p)
+		(min,p) = nextInt(data,p)
+		(max,p) = nextFloat(data,p)
+		return (name,min,max)
+
+
+class OutFile:
+	def __init__(self,root,fileName):
+		self.root=root
+		self.fileName = fileName
+		self.recordNames = ''
+
+	def window(self):
+	## 	print "outFilewindow"
+		if vars.connected == 0:
+			self.dialog = saveFileDialog(self.root)
+			outFileEntryText.set( self.dialog.fileName	)
+
+	def open(self,write=0):
+	## 	print "outFileOpen"
+		self.file1 = open(outFileEntryText.get(),'a')
+		vars.outFileOpen = 1
+		if write > 0:
+			if vars.inFileOpen == 1:
+				self.writeRecords(recordNames)
+		## 	print self.recordNames
+
+	def writeRecords(self,recordList):
+		self.recordNames=	string.join(recordList,",")
+#		print("time = %s" % time.asctime())
+#		self.file1.write("\ntime = %s\n" % time.asctime())
+		self.file1.write("%s\n" % self.recordNames)
+		self.close()
+
+	def writeData (self,data):
+		print "write to file\n"
+		self.open()
+		self.file1.write("%s\n" % data)
+		self.close()
+
+	def close(self):
+## 		print "close file"
+		if vars.outFileOpen == 1:
+			self.file1.close()
+			vars.outFileOpen = 0
+
+
+class saveFileDialog:
+	def __init__(self,master):
+		self.dialog = SaveFileDialog(master)
+		self.fileName = self.dialog.go(dir_or_file=outFileEntryText.get(),key="test")
+#		self.dialog.withdraw()
+
+
+	#  function that is run when open button is pressed for out file
+
+
+	def display (self):
+		self.dialog.activate()
+
+
+
+
+
+
+
+
+
+class recordSelect:
+	def __init__ (self,parent):
+		self.dialog = Pmw.ComboBoxDialog(parent,
+										 title = 'Graph list',
+										 buttons = ('OK', 'Cancel'),
+										 defaultbutton = 'OK',
+										 combobox_labelpos = 'n',
+										 label_text = 'Pick record to graph',
+										 scrolledlist_items = recordNames)
+		self.dialog.withdraw()
+
+	def getRecord (self):
+		return self.dialog.get()
+
+	def display(self):
+		result = self.dialog.activate()
+	## 	print 'You clicked on', result, self.dialog.get()
+
+### Class for socket communication to the vxworks machine
+
+class SocketDialog:
+	init = {'host':'seed.tuc.noao.edu','inport':'5547','outport':'5548','inFile':'/home/gemini/gnirs/control/data/test/records','outFile':'/home/gemini/gnirs/control/data/test/record.log'} 
+	OK = 0
+	def __init__(self, master):
+	
+		self.dialog = Pmw.Dialog(master,
+								 buttons = ('OK','Cancel'),
+								 defaultbutton = 'OK',
+								 title = 'Socket Information',
+								 command = self.execute)
+		self.dialog.withdraw()
+		
+		self.host = StringVar()
+		self.inport = StringVar()
+		self.outport = StringVar()
+	
+		Label(self.dialog.interior(), text='Host:').grid(row=0, sticky=W)
+		Label(self.dialog.interior(), text='Incoming Socket:').grid(row=1, sticky=W)
+		Label(self.dialog.interior(), text='Outgoing Socket:').grid(row=2, sticky=W)
+	
+		self.hostEntry	 = Entry(self.dialog.interior(), width = 16, textvariable =self.host)
+		self.host.set(self.init['host'])
+
+		self.insockEntry  = Entry(self.dialog.interior(), width = 16,textvariable =self.inport )
+		self.inport.set(self.init['inport'])
+
+		self.outsockEntry  = Entry(self.dialog.interior(), width = 16, textvariable = self.outport)
+		self.outport.set(self.init['outport'])
+
+
+		
+		self.hostEntry.grid(row=0, column=1, sticky=W)
+		self.insockEntry.grid(row=1, column=1, sticky=W)
+		self.outsockEntry.grid(row=2, column=1, sticky=W)
+	
+
+		self.dialog.activate()
+		# return self.hostEntry
+
+	def execute (self,result):
+	 ##   print 'execute'
+	   if result == 'OK':
+		   self.OK = 1
+	   else:
+		   self.OK = 0	
+	   print 'kill'
+	   self.dialog.deactivate(result)
+
+		
+
+
+
+
+## helper functions to create objects and place them in the parent
+def makeFrame(parent,side):
+	w=Frame(parent)
+	w.pack(side=side, expand=YES, fill=BOTH)
+	return w
+
+def makeLabel(parent,side,text,w):
+	w=Label(parent,text=text,width=w)
+	w.pack(side=side)
+	return w
+
+def makeEntry(parent,side,init,ww):
+	val=StringVar()
+	w=Entry(parent,width=ww,textvariable=val)
+	val.set(init)
+	w.pack(side=side)
+	#	 print init
+	#	 print w.get()
+	return w
+
+def makeCanvas(parent,side,text):
+	w=Canvas(parent,height=vars.height,width=vars.width,bg=vars.bg)
+	w.create_text(vars.width/2,vars.height/2,anchor=CENTER,fill=vars.fg,text=text)
+
+	w.pack(side=side)
+	return w
+
+
+
+#old mark routine
+def Mark():
+## 	print 'Mark, xp = \n',vars.xp
+	if vars.xp > 0:
+		graph.create_line(vars.xp,vars.windowHeight-vars.ypix,vars.xp+10,0,width=4,fill = 'green')
+
+##send command to move motors (executed when move button pressed)
+def moveMotors():
+	outString = "moveMotors "
+## 	print "move button pressed" 
+	try:
+		for motor in motorNames:
+			outString = outString + motorEntry[motor].get() + " "
+		## 	print outString
+			outSock.send(outString,socket.MSG_EOR)
+			
+	except:
+			print "socket Error from moveMotors"
+
+# setup button routine
+def setup():
+## 	print "setup button pressed"
+	try:
+		outSock.send("setup",socket.MSG_EOR)
+
+	except:
+		print "socket Error from setup"
+
+def testStr():
+	str1 = "abc,def,ghi,jkl"
+	p = 0
+	p1 = 0
+	
+	(str2,p) = nextString(str1,p)
+## 	print('string')
+## 	print(str2)
+	
+	(str2,p) = nextString(str1,p)
+## 	print(str2)
+
+	(str2,p) = nextString(str1,p)
+## 	print(str2)
+  
+def nextInt(inStr,n):
+	(str,n1) = nextString(inStr,n)
+## 	print "string = %s, val = %s" % (inStr,str)
+	if len(inStr)>0:
+		i = string.atoi(str)
+	else:
+		return (0,0)
+#	print "val = %d" %i
+	return (i,n1)
+
+def nextFloat(inStr,n):
+	(str,n1) = nextString(inStr,n)
+	f = string.atof(str)
+	return (f,n1)
+		  
+def nextString(inStr,n):
+	n1 = n;
+## 	print "length = %d" % len(inStr)
+	if len(inStr)>n1:
+		while inStr[n1] != ',':
+			n1=n1+1
+		#	print "n1 = %d" % n1
+			if n1 >= len(inStr):
+				break
+	else:
+		out=""
+	if n1 > len(inStr):
+		out = ""
+	else:
+		out = inStr[n:n1]
+	return (out,n1+1)
+	
+def closeSockets():
+	tkinter.deletefilehandler(inSock)
+	inSock.close()
+	#	 outSock.close()
+	vars.connected = 0
+
+def createGraph (parent):
+	graphDialog = recordSelect(parent)
+	graphDialog.display()
+	graphs.createWindow(graphDialog.getRecord())
+
+def limit (motor):
+	motorLimit[motor].itemconfigure(motorLimit[motor].find_closest(0,0),fill=vars.fg)
+	
+	
+def nolimit (motor):
+	motorLimit[motor].itemconfigure(motorLimit[motor].find_closest(0,0),fill=vars.bg)
+
+def killSocket():
+	try:
+		outSock.send("end",socket.MSG_EOR)
+		outSock.close()	 
+		tkinter.deletefilehandler(inSock) 
+		inSock.close()	
+		vars.connected = 0
+	except socket.error:
+		print'socket not connected'
+
+
+
+def socketWindow(parent):
+## 	print "socketwindow"
+	data=""
+	if vars.connected == 0:
+		dialog = SocketDialog(parent)
+		host =	dialog.host.get()
+		inport = dialog.inport.get()
+		outport = dialog.outport.get()
+		if dialog.OK == 1:
+			if sockConnect(host,inport,outport) == 1:
+				vars.connected = 1
+				if vars.inFileOpen == 1:
+					data= string.join(recordNames,",")
+				## 	print "data = %s" % data
+					outSock.send(data)
+			
+	else:
+		print 'Already connected'
+
+def sockConnect(host,inPortStr,outPortStr):
+	#create input socket and register with event
+	# Open socket to host
+	print host
+	portIn = string.atoi(inPortStr)
+	portOut = string.atoi(outPortStr)	
+	print 'port = %d' % portIn
+	try:
+		inSock.connect((host,portIn))
+		print'connected to socket' 
+		tkinter.createfilehandler(inSock,tkinter.READABLE,plotPoints)
+		time.sleep(2)
+		#	print'register done'
+		# register callback routine for socket reading
+		## This routine is registered with the os.	Whenever there is data to be 
+		##read, this gets called.  The data is read parsed and graphed
+		#create output socket
+		# Host to connect to
+		#portOut = 5548
+	## 	print host
+## 		print portOut
+   
+		outSock.connect((host,portOut))
+		print'connected to socket'
+		return 1
+	except :
+		print 'not connected'
+		return 0
+
+def plotPoints(s,mask):
+	#	 print 'here'
+	graphs.plotPoints(s,mask)
+
+def quit():
+	killSocket()
+	outFile.close()
+	print 'end program'
+	rootFrame.quit()
+
+
+def mainWindow():
+	#motor widgets
+	#	motorLabel = Label(text="Motor Control")
+	#menu
+	#	menuF = Frame(rootFrame,relief=RAISED,borderwidth=2)
+	#	tempM =Menubutton(menuF,text='Temperature Graph') 
+	#	tempM.pack(side=LEFT)
+	#	tempM.menu = Menu(tempM)
+	#	for val in temperatureNames:
+	#		tempM.menu.add_command(label=val,command=lambda v=val,g=graphs:g.createWindow(v))
+	#	tempM['menu'] = tempM.menu
+	#	presM = Menubutton(menuF,text='Pressure Graph')
+	#	presM.pack(side=LEFT)
+	#	presM.menu = Menu(presM)
+	#	for val in pressureNames:
+	#		presM.menu.add_command(label=val)
+	#	presM['menu'] = presM.menu
+	#place menu frame on main frame
+	#	menuF.pack(side=TOP,fill=X)
+	#	menuF.tk_menuBar(tempM,presM)
+	#create frames for motor motion widgets
+	#	for motor in motorNames:
+	#		motorFrame[motor] = makeFrame(rootFrame,TOP)
+	#		mLabel=makeLabel(motorFrame[motor],LEFT,motor)
+	#		motorEntry[motor] = makeEntry(motorFrame[motor],LEFT,entryText[motor])
+	#		motorMoving[motor] = makeCanvas(motorFrame[motor],LEFT,"MOVING")
+	#		motorLimit[motor] = makeCanvas(motorFrame[motor],LEFT,"At Limit")
+	#file frame
+
+	# create file labels
+	makeLabel(inFileFrame,LEFT,'Input File name:',23)
+	makeLabel(outFileFrame,LEFT,'Output Log File name: ',23)
+	#	Label(self.dialog.interior(), text='Input File name:').grid(row=0, sticky=W)
+	#	Label(self.dialog.interior(), text='Output File name:').grid(row=1, sticky=W)
+
+
+
+
+
+
+
+	# Button frame 
+	mFrame = makeFrame(rootFrame,TOP)
+
+	socketB = Button(mFrame,text="Connection",fg="blue", command=lambda r=root:socketWindow(r))
+	graphB = Button(mFrame,text="GRAPH",fg="blue",command=lambda r=root:createGraph(r))
+	quitB = Button(mFrame,text="Quit",fg="red",command=quit)
+
+
+	# create buttons to start dialog windows
+	outFileOpenB = Button(outFileFrame,text="Open",fg="blue",command= lambda w=1,o=outFile:o.open(w))
+	inFileButton = Button(inFileFrame,text="CHANGE",fg="blue",command=lambda i=inFile:i.window())
+	inFileOpenB = Button(inFileFrame,text="Open",fg="blue", command=lambda i=inFile:i.open())
+	outFileButton = Button(outFileFrame,text="CHANGE",fg="blue",command= lambda o=outFile:o.window())
+	
+	# pack button frame
+	outFileOpenB.pack(side=RIGHT)
+	inFileOpenB.pack(side=RIGHT)
+	
+	inFileButton.pack(side=RIGHT)
+	outFileButton.pack(side=RIGHT)
+	
+	socketB.pack(side=LEFT) 
+	graphB.pack(side=LEFT) 
+	quitB.pack(side=RIGHT) 
+	#	setupB.pack(side=LEFT) 
+#pack this window
+	rootFrame.pack()
+
+
+
+
+
+#main portion of program
+str1=""
+vars = Vars()
+root = Tk() 
+#Pmw.initialise(root)
+
+rootFrame = Frame(root);
+
+# create objects
+outFile = OutFile(root,vars.outFileName)
+inFile = InFile(root,vars.inFileName)
+inFileText = StringVar()
+outFileText = StringVar()
+
+#frame objects
+inFileFrame =  makeFrame(rootFrame,TOP)
+outFileFrame =  makeFrame(rootFrame,TOP)
+
+# create filename entry fields
+inFileEntryText = StringVar()
+inFileEntry  = Entry(inFileFrame,width=60,textvariable = inFileEntryText)
+inFileEntryText.set(vars.inFileName)
+inFileEntry.pack(side=LEFT)
+
+
+outFileEntryText = StringVar()
+outFileEntry  = Entry(outFileFrame,width=60,textvariable = outFileEntryText)
+outFileEntryText.set(vars.outFileName)
+outFileEntry.pack(side=LEFT)
+
+#set up windows
+root.title('Gnirs Testing')
+
+# create sockets to host
+outSock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+inSock = socket.socket(socket.AF_INET,socket.SOCK_STREAM) 
+
+##
+graphs = Graphs()
+mainWindow()
+
+
+
+
+
+
+
+root.mainloop()

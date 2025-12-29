@@ -1,0 +1,10 @@
+The components controller is composed of two levels.
+
+The lower level can be controlled completely by the command line, or through an
+epics interface.  The command line interface was meant to be a development and
+debugging tool.  All scientific work will be done through the EPICS interface.
+The EPICS interface can control the CC with use of the CC Engineering screens. 
+In a working system, however, there will be two levels above it.  The Instrument
+Sequencer and the OCS.  
+
+

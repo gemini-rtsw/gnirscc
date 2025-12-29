@@ -1,0 +1,857 @@
+
+Press any key to stop auto-boot...
+ 0
+auto-booting...
+
+
+boot device          : ei
+processor number     : 0 
+host name            : ace
+file name            : /vw/config/mv167/vxWorks
+inet on ethernet (e) : 140.252.31.234:ffffff00
+host inet (h)        : 140.252.31.42
+gateway inet (g)     : 140.252.31.41
+user (u)             : irlab
+flags (f)            : 0x8 
+target name (tn)     : pancake
+startup script (s)   : /home/gemini/gnirs/niri/WFS/bin/mv167/startup
+
+Attaching network interface ei0... done.
+Attaching network interface lo0... done.
+Loading... 451900 + 50756 + 26078
+Starting at 0x20000...
+
+Attaching network interface ei0... done.
+Attaching network interface lo0... done.
+Loading symbol table from ace:/vw/config/mv167/vxWorks.sym ...done
+ 
+
+ ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+ ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+ ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+      ]]]]]]]]]]]  ]]]]     ]]]]]]]]]]       ]]              ]]]]         (R)
+ ]     ]]]]]]]]]  ]]]]]]     ]]]]]]]]       ]]               ]]]]            
+ ]]     ]]]]]]]  ]]]]]]]]     ]]]]]] ]     ]]                ]]]]            
+ ]]]     ]]]]] ]    ]]]  ]     ]]]] ]]]   ]]]]]]]]]  ]]]] ]] ]]]]  ]]   ]]]]]
+ ]]]]     ]]]  ]]    ]  ]]]     ]] ]]]]] ]]]]]]   ]] ]]]]]]] ]]]] ]]   ]]]]  
+ ]]]]]     ]  ]]]]     ]]]]]      ]]]]]]]] ]]]]   ]] ]]]]    ]]]]]]]    ]]]] 
+ ]]]]]]      ]]]]]     ]]]]]]    ]  ]]]]]  ]]]]   ]] ]]]]    ]]]]]]]]    ]]]]
+ ]]]]]]]    ]]]]]  ]    ]]]]]]  ]    ]]]   ]]]]   ]] ]]]]    ]]]] ]]]]    ]]]]
+ ]]]]]]]]  ]]]]]  ]]]    ]]]]]]]      ]     ]]]]]]]  ]]]]    ]]]]  ]]]] ]]]]]
+ ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+ ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]       Development System
+ ]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+ ]]]]]]]]]]]]]]]]]]]]]]]]]]]       VxWorks version 5.2
+ ]]]]]]]]]]]]]]]]]]]]]]]]]]       KERNEL: WIND version 2.4
+ ]]]]]]]]]]]]]]]]]]]]]]]]]       Copyright Wind River Systems, Inc., 1984-1995
+
+                               CPU: Motorola MVME167.  Processor #0.
+                              Memory Size: 0x1000000.  BSP version 1.0.
+
+Executing startup script /home/gemini/gnirs/niri/WFS/bin/mv167/startup ...
+#+
+# FILENAME
+# --------
+# startupWfs.vws
+#
+# PURPOSE
+# -------
+# VxWorks startup script to load and execute system (iocCore) software.
+# This version of the startup loads the Instrument Sequencer,
+# Components Controller and Detector Controller components of the
+# Gemini Near Infared Imager (NIRI) system together one one IOC.
+#
+# P R O T O T Y P E   W F S   H A R D W A R E
+#
+# REQUIREMENTS
+# ------------
+# Assumes that the VxWorks boot parameters are set to execute this file.
+# Assumes EPICS 3.12.2Gem4 is available.
+#
+# INVOCATION
+# ----------
+# Executed automatically when IOC rebooted.
+#
+# AUTHORS
+# -------
+# Steven Beard  (smb@roe.ac.uk) -- Original version
+# Hubert Yamada (yamada@newton.ifa.hawaii.edu) -- NIRI version
+#-
+
+# cd to application install directory (beware automounter problems)
+cd "/chard/gemini/gnirs/niri/WFS"
+value = 0 = 0x0
+pwd
+ace:/chard/gemini/gnirs/niri/WFS
+value = 33 = 0x21 = '!'
+
+# Execute the file containing site-specific information such as the default
+# router and local vxWorks security password file.
+
+< ./bin/mv167/local
+#
+# This file contains site-specific information
+# 
+# Network stuff: Change to your default router if required
+# routeAdd "0", "140.252.1.4"
+
+# Login stuff: If you use vxWorks security you might use one of the following
+# loginUserAdd "user", "GaRbAgEpWd"
+# < /usr/local/VxWorks/etc/passwd
+
+# Any other site-specific stuff
+
+#
+# Do the "nfsMount" here if you are using NFS
+#
+# nfsMount "<hostname>", "<Name of remote directory to mount>", "<Local device name>"
+
+
+#nfsMount "manta", "/export/home/epics/nfs", "/home/epics/nfs"
+
+cd "."
+value = 0 = 0x0
+hostAdd "hart", "140.252.1.215"
+value = 0 = 0x0
+
+hostAdd "daikon", "140.252.23.168"
+value = 0 = 0x0
+hostAdd "gateway", "140.252.31.41"
+value = 0 = 0x0
+routeDelete "140.252.31.0","gateway"
+value = 0 = 0x0
+routeAdd "140.252.23.0","gateway"
+value = 0 = 0x0
+routeAdd "140.252.15.0","gateway"
+value = 0 = 0x0
+routeAdd "128.171.188.193", "gateway"
+value = 0 = 0x0
+
+# Make delete key work for backspace
+tyBackspaceSet 0177
+value = 3 = 0x3
+
+# Load EPICS core and record stuff
+ld < epics/base/bin/mv167/iocCore
+value = 16337964 = 0xf94c2c = _ca_server_port + 0x11c
+ld < epics/base/bin/mv167/drvSup
+value = 16185956 = 0xf6fa64
+ld < epics/base/bin/mv167/recSup
+value = 15179100 = 0xe79d5c
+ld < epics/base/bin/mv167/devSup
+value = 15690324 = 0xef6a54
+
+# Load EPICS extensions
+ld < epics/extensions/bin/mv167/pvload
+value = 16248404 = 0xf7ee54 = _pai_xy566dil + 0x87c
+
+# If using state programs, load the sequencer
+ld < epics/base/bin/mv167/seq
+value = 16211692 = 0xf75eec
+
+# Load any application records, device support or drivers here,
+# or code for subroutine records
+
+# Load other Gemini libraries (SLALIB, TIMELIB, ASTLIB) here.
+
+ld < /dlirim2/epics/Gem5/extensions/src/gemini/slalib/bin/mv167/slalib
+value = 16287848 = 0xf88868 = _ticksH + 0x8f4
+ld < /dlirim2/epics/Gem5/extensions/src/gemini/timelib/bin/mv167/timelib
+value = 15149292 = 0xe728ec = _dttd + 0x54
+ld < /dlirim2/epics/Gem5/extensions/src/gemini/astlib/bin/mv167/astlib
+value = 15178480 = 0xe79af0 = timelib_bss + 0x770
+
+# NIRI/OIWFS driver, device and record support
+ld < /home/gemini/gnirs/niri/ENG/bin/mv167/eng.o
+value = 15183008 = 0xe7aca0
+
+# CICS utility libraries
+ld < ./LIB/bin/mv167/cics.o
+value = 16257660 = 0xf8127c = _semMutex + 0x7c
+ld < ./LIB/bin/mv167/sys.o
+value = 16216800 = 0xf772e0
+ld < ./LIB/bin/mv167/comp.o
+value = 16216364 = 0xf7712c
+ld < ./LIB/bin/mv167/eng.o
+value = 16222976 = 0xf78b00
+
+# WFS-specific software
+ld < ./WFS/bin/mv167/wfs.o
+value = 16223412 = 0xf78cb4
+
+# Configure software
+< /home/gemini/gnirs/niri/ENG/bin/mv167/drvConf
+# $Id: wfsBoot,v 1.2 2009/05/27 19:31:45 fkraemer Exp $
+
+#
+# Configure OMS board.
+#
+
+#void homsSetup(int num_cards,        /* maximum number of cards in rack */
+#     int num_channels,  /* Channels per card (4 or 8) */
+#     void *addrs,       /* Base Address(0x0-0xb000 on 4K boundary) */
+#     unsigned vector,   /* noninterrupting(0), valid vectors(64-255) */
+#     int int_level,     /* interrupt level (1-6) */
+#     int scan_rate)     /* polling rate - 1/60 sec units */
+homsSetup(2,8,0xFC80,0,5,6)
+value = 0 = 0x0
+
+#
+# Configure xy490 board.
+#
+
+#void xy490Init(
+#     int board,              /* Board id (0 or 1) */
+#     int addr,               /* Board base Address */
+#     unsigned vector)        /* valid vectors (128-254) [uses two vectors] */
+#xy490Init(0, 0xE000, 0xE0)
+#sysIntEnable(2)
+#< /home/gemini/gnirs/niri/ENG/bin/mv167/drvSimConf
+
+# Configure the Bancom driver (read documentation)
+# BCconfigure 1, 0, 200, 2, 25
+
+# Configure the Timestamp system, 1=Master IOC
+TSconfigure 1, 0, 0, 0, 0, 0
+value = 0 = 0x0
+
+#
+# Use VxWorks time (same as Unix time) instead of Bancom / timebus?
+# (0 = Yes, 1 = No )
+#
+
+compUseVxTime=0
+_compUseVxTime = 0xeee156: value = 0 = 0x0
+
+# Load one or more ASCII databases here
+dbLoad "/home/gemini/gnirs/niri/ENG/data/default.dctsdr"
+value = 0 = 0x0
+
+# Low-level databases
+dbLoadRecords "/home/gemini/gnirs/niri/ENG/data/engTop.db"
+value = 0 = 0x0
+
+dbLoadRecords "/home/gemini/gnirs/niri/ENG/data/wfsTop.db"
+value = 0 = 0x0
+#dbLoadRecords "/home/gemini/gnirs/niri/ENG/data/wfsSimTop.db"
+
+# NIRI/CICS On Instrument Wavefront Sensor database
+dbLoadRecords "./WFS/data/niriWfsTop.db"
+value = 0 = 0x0
+dbLoadRecords "./WFS/data/niriWfsSadTop.db"
+value = 0 = 0x0
+
+# This turns off logging
+# iocLogDisable=1
+
+iocInit "./data/resource.def"
+############################################################################
+###  @(#)EPICS IOC CORE
+###  @(#)Version R3.12.2GEM5
+############################################################################
+drvHoms::hmotor_init: (echo off) message returned = urce.def
+card # = 1
+task: 0Xf93af4 tShell
+PV: nirs:eng:wfs:prbxHs1B  devAiXy566Se (init_record) ai_xy566_driver error
+card # = 1
+PV: nirs:eng:wfs:prbxHs1P  devAiXy566Se (init_record) ai_xy566_driver error
+card # = 1
+PV: nirs:eng:wfs:prbxHs2B  devAiXy566Se (init_record) ai_xy566_driver error
+card # = 1
+PV: nirs:eng:wfs:prbxHs2P  devAiXy566Se (init_record) ai_xy566_driver error
+card # = 1
+PV: nirs:eng:wfs:prbyHs1B  devAiXy566Se (init_record) ai_xy566_driver error
+card # = 1
+PV: nirs:eng:wfs:prbyHs1P  devAiXy566Se (init_record) ai_xy566_driver error
+card # = 1
+PV: nirs:eng:wfs:prbyHs2B  devAiXy566Se (init_record) ai_xy566_driver error
+card # = 1
+PV: nirs:eng:wfs:prbyHs2P  devAiXy566Se (init_record) ai_xy566_driver error
+Illegal field value PV: nirs:eng:wfs:filtMotor  devHOMS (init_record) card does not exist!
+Illegal field value PV: nirs:eng:wfs:focMotor  devHOMS (init_record) card does not exist!
+Illegal field value PV: nirs:eng:wfs:prbxMotor  devHOMS (init_record) card does not exist!
+Illegal field value PV: nirs:eng:wfs:prbyMotor  devHOMS (init_record) card does not exist!
+0xf93af4 (tShell): iocInit: Database Failed during Initialization
+0xf93af4 (tShell): iocInit: All initialization complete
+value = 0 = 0x0
+
+# Initialise the databases
+
+< ./WFS/bin/mv167/wfsParm
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+# NIRI/CICS On Instrument Wavefront Sensor parameters
+
+pvload "./WFS/data/sys1.pv","top=nirs:wfs:,sadtop=nirs:wfs:"
+value = 0 = 0x0
+
+pvload "./WFS/data/debug.pv","top=nirs:wfs:,sadtop=nirs:wfs:"
+value = 0 = 0x0
+
+pvload "./WFS/data/filt.pv","top=nirs:wfs:,sadtop=nirs:wfs:"
+value = 0 = 0x0
+pvload "./WFS/data/foc.pv","top=nirs:wfs:,sadtop=nirs:wfs:"
+value = 0 = 0x0
+pvload "./WFS/data/prb.pv","top=nirs:wfs:,sadtop=nirs:wfs:"
+value = 0 = 0x0
+pvload "./WFS/data/lockCfg.pv","top=nirs:wfs:,sadtop=nirs:wfs:"
+value = 0 = 0x0
+pvload "./WFS/data/lockGen.pv","top=nirs:wfs:,sadtop=nirs:wfs:"
+value = 0 = 0x0
+pvload "./WFS/data/lockObs.pv","top=nirs:wfs:,sadtop=nirs:wfs:"
+value = 0 = 0x0
+pvload "./WFS/data/lockTmp.pv","top=nirs:wfs:,sadtop=nirs:wfs:"
+value = 0 = 0x0
+pvload "./WFS/data/fol.pv","top=nirs:wfs:,sadtop=nirs:wfs:"
+value = 0 = 0x0
+
+pvload "./WFS/data/sys2.pv","top=nirs:wfs:,sadtop=nirs:wfs:"
+value = 0 = 0x0
+< /home/gemini/gnirs/niri/ENG/bin/mv167/engParm
+# $Id: wfsBoot,v 1.2 2009/05/27 19:31:45 fkraemer Exp $
+
+pvload "./ENG/data/lock.pv","top=nirs:"
+value = 0 = 0x0
+
+stateMap "warm","warm"
+value = 0 = 0x0
+stateMap "cold","cold"
+value = 0 = 0x0
+stateMap "changing","null"
+value = 0 = 0x0
+< /home/gemini/gnirs/niri/ENG/bin/mv167/wfsParm
+# $Id: wfsBoot,v 1.2 2009/05/27 19:31:45 fkraemer Exp $
+
+pvload "./ENG/data/wfs.pv","top=nirs:"
+pvload: put nirs:eng:wfs:focReset.VAL: Could not perform a database value put for that channel
+pvload: put nirs:eng:wfs:prbxReset.VAL: Could not perform a database value put for that channel
+pvload: put nirs:eng:wfs:prbyReset.VAL: Could not perform a database value put for that channel
+pvload: put nirs:eng:wfs:filtReset.VAL: Could not perform a database value put for that channel
+value = 0 = 0x0
+
+#< /home/gemini/gnirs/niri/ENG/bin/mv167/engSimParm
+#< /home/gemini/gnirs/niri/ENG/bin/mv167/wfsSimParm
+
+# Initialize the interlock handler.
+
+< /home/gemini/gnirs/niri/ENG/bin/mv167/lockBusy
+# $Id: wfsBoot,v 1.2 2009/05/27 19:31:45 fkraemer Exp $
+
+stateConfig "./ENG/data/busy.ste", "./ENG/data", "top=nirs:"
+value = 0 = 0x0
+< /home/gemini/gnirs/niri/ENG/bin/mv167/lockWfs
+# $Id: wfsBoot,v 1.2 2009/05/27 19:31:45 fkraemer Exp $
+
+stateConfig "./ENG/data/wfs.ste", "./ENG/data", "top=nirs:"
+value = 0 = 0x0
+< /home/gemini/gnirs/niri/ENG/bin/mv167/lockIdle
+# $Id: wfsBoot,v 1.2 2009/05/27 19:31:45 fkraemer Exp $
+
+stateConfig "./ENG/data/idle.ste", "./ENG/data", "top=nirs:"
+value = 0 = 0x0
+
+# Start sequences
+
+< /home/gemini/gnirs/niri/ENG/bin/mv167/engSeq
+# $Id: wfsBoot,v 1.2 2009/05/27 19:31:45 fkraemer Exp $
+
+#
+# Spawn a process to monitor changes in temperature state.  This isn't
+# a sequencer function, but is included here because it is similar to
+# a sequencer function.
+#
+
+sp stateCheck
+task spawned: id = 0xadc05c, name = t1
+value = 11386972 = 0xadc05c
+< /home/gemini/gnirs/niri/ENG/bin/mv167/wfsSeq
+stateSet: pvload "./ENG/data/null/busy.pv", "top=nirs:", 0
+# $Id: wfsBoot,v 1.2 2009/05/27 19:31:45 fkraemer Exp $
+
+seq &engWfsSt,"name=engWfsSt, top=nirs:eng:"
+@(#)SEQ Version 1.9.2: Wed May 26 11:10:17 MST 1999
+tShell 08/30/01 22:21:27: Spawning state program "engWfsSt", task name = "engWfsSt"
+tShell 08/30/01 22:21:27:   Task id = 11285040 = 0xac3230
+value = 11285040 = 0xac3230
+< ./WFS/bin/mv167/wfsSeq
+engWfsSt 08/30/01 22:21:27: Spawning task 11274640: "engWfsSt_1"
+engWfsSt 08/30/01 22:21:27: Spawning task 11264240: "engWfsSt_2"
+engWfsSt 08/30/01 22:21:27: Spawning task 11253840: "engWfsSt_3"
+stateSet: pvload "./ENG/data/null/wfs.pv", "top=nirs:", 0
+# NIRI On Instrument Wavefront Sensor sequences
+seq &compPseudoSt, "name=folSet, top=nirs:wfs:, sadtop=nirs:wfs:, eng=nirs:wfs:, sys=sys, mech=folSet"
+@(#)SEQ Version 1.9.2: Wed May 26 11:10:17 MST 1999
+tShell 08/30/01 22:21:29: Spawning state program "compPseudoSt", task name = "folSet"
+tShell 08/30/01 22:21:29:   Task id = 11239488 = 0xab8040
+value = 11239488 = 0xab8040
+seq &compPseudoSt, "name=wfsLockObs, top=nirs:wfs:, sadtop=nirs:wfs:, eng=nirs:eng:, sys=sys, mech=lockObs"
+@(#)SEQ Version 1.9.2: Wed May 26 11:10:17 MST 1999
+tShell 08/30/01 22:21:29: Spawning state program "compPseudoSt", task name = "wfsLockObs"
+tShell 08/30/01 22:21:29:   Task id = 11227544 = 0xab5198
+value = 11227544 = 0xab5198
+seq &compPseudoSt, "name=wfsLockGen, top=nirs:wfs:, sadtop=nirs:wfs:, eng=nirs:eng:, sys=sys, mech=lockGen"s
+@(#)SEQ Version 1.9.2: Wed May 26 11:10:17 MST 1999tateSet: pvload 
+tShell 08/30/01 22:21:29: Spawning state program "compPseudoSt", task name = "wfsLockGen"
+tShell 08/30/01 22:21:29:   Task id = 11"209104 = 0xab0990
+./value = ENG/data/nul11209104l/wfsFilt.pv = 0x", "ab0990
+seq &compPseudoSt, "name=wfsLockCfg, top=nirs:wfs:, sadtop=nirs:wfs:, eng=nirs:eng:, sys=sys, mech=lockCfg"top=
+@(#)SEQ Version 1.9.2: Wed nMay 26 11:10:17 MST 1999irs:
+tShell 08/30/01 22:21:29: Spawning state program "compPseudoSt", task name = "wfsLockCfg"
+", tShell 08/30/01 22:21:29:   Task id = 11193240 = 0xaacb98
+0value = 
+11193240 = 0xaacb98
+seq &compPseudoSt, "name=wfsLockTmp, top=nirs:wfs:, sadtop=nirs:wfs:, eng=nirs:eng:, sys=sys, mech=lockTmp"
+@(#)SEQ Version 1.9.2: Wed May 26 11:10:17 MST 1999
+tShell 08/30/01 22:21:30: Spawning state program "compPseudoSt", task name = "wfsLockTmp"
+tShell 08/30/01 22:21:30:   Task id = 11175380 = 0xaa85d4
+value = 11175380 = 0xaa85d4
+seq &engSt, "name=wfsFilt, top=nirs:wfs:, sadtop=nirs:wfs:, eng=nirs:eng:wfs:, sys=sys, mech=filt"
+@(#)SEQ Version 1.9.2: Wed May 26 11:10:17 MST 1999
+tShell 08/30/01 22:21:30: Spawning state program "engSt", task name = "wfsFilt"
+tShell 08/30/01 22:21:30:   Task id = 11154008 = 0xaa3258
+value = 11154008 = 0xaa3258
+seq &engSt, "name=wfsFoc, top=nirs:wfs:, sadtop=nirs:wfs:, eng=nirs:eng:wfs:, sys=sys, mech=foc"
+@(#)SEQ Version 1.9.2: Wed May 26 11:10:17 MST 1999
+tShell 08/30/01 22:21:30: Spawning state program "engSt", task name = "wfsFoc"
+stateSet: pvtShell 08/30/01 22:21:30:   Task id = 11116324 = 0xa99f24
+lvalue = 11116324 = 0xa99f24
+seq &enoad "gSt, "name=wfsPrbx, top=nirs:wfs:, sadtop=nirs:wfs:, eng=nirs:eng:wfs:, sys=sys, mech=prbx"./ENG/data/null/w
+@(#)SEQ Version 1.9.2: Wed May 26 11:10:17 MST 1999fsFoc.pv
+tShell 08/30/01 22:21:31: Spawning state program "engSt", task name = "wfsPrbx"
+", "tShell 08/30/01 22:21:31:   Task id = 11092164 = 0xa940c4
+top=nirs:value = ", 11092164 = 0xa940c4
+seq &engSt, "name=wfsPrby, top=nirs:wfs:, sadtop=nirs:wfs:, eng=nirs:eng:wfs:, sys=sys, mech=prby"0
+@(#)SEQ Version 1.9.2: Wed May 26 11:10:17 MST 1999
+
+tShell 08/30/01 22:21:31: Spawning state program "engSt", task name = "wfsPrby"
+tShell 08/30/01 22:21:31:   Task id = 11066864 = 0xa8ddf0
+value = 11066864 = 0xa8ddf0
+seq &cicsSysSt, "name=cicsWfs, top=nirs:wfs:, sadtop=nirs:wfs:, sys=sys"
+@(#)SEQ Version 1.9.2: Wed May 26 11:10:17 MST 1999
+tShell 08/30/01 22:21:31: Spawning state program "cicsSysSt", task name = "cicsWfs"
+cicsWfs 08/30/01 22:21:31: Spawning task 11029616: "cicsWfs_1"
+tShell 08/30/01 22:21:32:   Task id = 11043276 = 0xa881cc
+value = cicsWfs 08/30/0110432761 22:21:32:  = 0xSpawning task 1a881cc1019144: "cicsWfs_2
+seq &engModeSt, "name=filtWfsBeamSt, top=nirs:wfs:, sadtop=nirs:wfs:, eng=nirs:eng:wfs:, mech=filt, prefix=Beam""
+
+@(#)SEQ Version 1.9.2: Wed May 26 11:10:17 MST 1999
+tShell 08/30/01 22:21:32: Spawning state program "engModeSt", task name = "filtWfsBeamSt"
+tShell 08/30/01 22:21:32:   Task id = 11006824 = 0xa7f368
+value = 11006824 = 0xa7f368
+
+
+# Make the CICS logging functions use a semaphore
+cicsInitLogging
+value = 16228864 = 0xf7a200
+
+# Final engineering parameters
+
+< /home/gemini/gnirs/niri/ENG/bin/mv167/donest
+ateSet: pvload "./ENG/data/null/wfsPrbx.pv", "top=nirs:", 0
+# $Id: wfsBoot,v 1.2 2009/05/27 19:31:45 fkraemer Exp $
+
+#
+# All initialization should be complete.  Clear the interlock, so that
+# commands may be executed. 
+#
+
+dbpf "nirs:eng:lockInitMenu","READY"
+DBR_STRING:          READY    
+value = 0 = 0x0
+
+# Enable extra debugging output
+#cicsSetDebug(10)
+
+shellPromptSet "NIRI/OIWFS/CICS> "
+value = 593880 = 0x90fd8 = _shellHistSize + 0x4
+
+# End of startupWfs.vws
+stateSet: pvload "./ENG/data/null/wfsPrby.pv", "top=nirs:", 0
+
+Done executing startup script /home/gemini/gnirs/niri/WFS/bin/mv167/startup
+NIRI/OIWFS/CICS>
+
+
+
+
+
+
+
+
+
+Press any key to stop auto-boot...
+ 0
+auto-booting...
+
+
+boot device          : ei
+processor number     : 0 
+host name            : ace
+file name            : /vw/config/mv167/vxWorks
+inet on ethernet (e) : 140.252.31.234:ffffff00
+host inet (h)        : 140.252.31.42
+gateway inet (g)     : 140.252.31.41
+user (u)             : irlab
+flags (f)            : 0x8 
+target name (tn)     : pancake
+startup script (s)   : /home/gemini/gnirs/niri/ENG/bin/mv167/startupWfs
+
+Attaching network interface ei0... done.
+Attaching network interface lo0... done.
+Loading... 451900 + 50756 + 26078
+Starting at 0x20000...
+
+Attaching network interface ei0... done.
+Attaching network interface lo0... done.
+Loading symbol table from ace:/vw/config/mv167/vxWorks.sym ...done
+ 
+
+ ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+ ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+ ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+      ]]]]]]]]]]]  ]]]]     ]]]]]]]]]]       ]]              ]]]]         (R)
+ ]     ]]]]]]]]]  ]]]]]]     ]]]]]]]]       ]]               ]]]]            
+ ]]     ]]]]]]]  ]]]]]]]]     ]]]]]] ]     ]]                ]]]]            
+ ]]]     ]]]]] ]    ]]]  ]     ]]]] ]]]   ]]]]]]]]]  ]]]] ]] ]]]]  ]]   ]]]]]
+ ]]]]     ]]]  ]]    ]  ]]]     ]] ]]]]] ]]]]]]   ]] ]]]]]]] ]]]] ]]   ]]]]  
+ ]]]]]     ]  ]]]]     ]]]]]      ]]]]]]]] ]]]]   ]] ]]]]    ]]]]]]]    ]]]] 
+ ]]]]]]      ]]]]]     ]]]]]]    ]  ]]]]]  ]]]]   ]] ]]]]    ]]]]]]]]    ]]]]
+ ]]]]]]]    ]]]]]  ]    ]]]]]]  ]    ]]]   ]]]]   ]] ]]]]    ]]]] ]]]]    ]]]]
+ ]]]]]]]]  ]]]]]  ]]]    ]]]]]]]      ]     ]]]]]]]  ]]]]    ]]]]  ]]]] ]]]]]
+ ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+ ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]       Development System
+ ]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+ ]]]]]]]]]]]]]]]]]]]]]]]]]]]       VxWorks version 5.2
+ ]]]]]]]]]]]]]]]]]]]]]]]]]]       KERNEL: WIND version 2.4
+ ]]]]]]]]]]]]]]]]]]]]]]]]]       Copyright Wind River Systems, Inc., 1984-1995
+
+                               CPU: Motorola MVME167.  Processor #0.
+                              Memory Size: 0x1000000.  BSP version 1.0.
+
+Executing startup script /home/gemini/gnirs/niri/ENG/bin/mv167/startupWfs ...
+# $Id: wfsBoot,v 1.2 2009/05/27 19:31:45 fkraemer Exp $
+
+#
+# VxWorks startup script to load and execute system (iocCore) software.
+#
+# Full working WFS-only system.
+#
+
+# First, vxWorks startup issues:
+
+# Make delete key work for backspace
+tyBackspaceSet 0177
+value = 3 = 0x3
+
+# cd to application install directory (beware automounter problems)
+cd "/chard/gemini/gnirs/niri/ENG"
+value = 0 = 0x0
+pwd
+ace:/chard/gemini/gnirs/niri/ENG
+value = 33 = 0x21 = '!'
+
+# The local file contains site-specific information
+# such as the default router and the vxWorks password file.
+
+< ./bin/mv167/local
+#
+# This file contains site-specific information
+# 
+# Network stuff: Change to your default router if required
+# routeAdd "0", "140.252.1.4"
+
+# Login stuff: If you use vxWorks security you might use one of the following
+# loginUserAdd "user", "GaRbAgEpWd"
+# < /usr/local/VxWorks/etc/passwd
+
+# Any other site-specific stuff
+
+#
+# Do the "nfsMount" here if you are using NFS
+#
+# nfsMount "<hostname>", "<Name of remote directory to mount>", "<Local device name>"
+
+
+#nfsMount "manta", "/export/home/epics/nfs", "/home/epics/nfs"
+
+cd "."
+value = 0 = 0x0
+hostAdd "hart", "140.252.1.215"
+value = 0 = 0x0
+
+hostAdd "daikon", "140.252.23.168"
+value = 0 = 0x0
+hostAdd "gateway", "140.252.31.41"
+value = 0 = 0x0
+routeDelete "140.252.31.0","gateway"
+value = 0 = 0x0
+routeAdd "140.252.23.0","gateway"
+value = 0 = 0x0
+routeAdd "140.252.15.0","gateway"
+value = 0 = 0x0
+routeAdd "128.171.188.193", "gateway"
+value = 0 = 0x0
+
+# Load EPICS core and record stuff
+ld < epics/base/bin/mv167/iocCore
+value = 15628820 = 0xee7a14
+ld < epics/base/bin/mv167/drvSup
+value = 16261356 = 0xf820ec
+ld < epics/base/bin/mv167/recSup
+value = 15180792 = 0xe7a3f8
+ld < epics/base/bin/mv167/devSup
+value = 15629636 = 0xee7d44
+
+# If using state programs, load the sequencer
+ld < epics/base/bin/mv167/seq
+value = 15690760 = 0xef6c08
+
+# If using pvload, load it
+ld < epics/extensions/bin/mv167/pvload
+value = 16338096 = 0xf94cb0 = _ca_server_port + 0x1a0
+
+# Load any application records, device support or drivers here,
+# or code for subroutine records
+ld < ./bin/mv167/eng.o
+value = 16188316 = 0xf7039c
+
+# Configure software
+< ./bin/mv167/drvConf
+# $Id: wfsBoot,v 1.2 2009/05/27 19:31:45 fkraemer Exp $
+
+#
+# Configure OMS board.
+#
+
+#void homsSetup(int num_cards,        /* maximum number of cards in rack */
+#     int num_channels,  /* Channels per card (4 or 8) */
+#     void *addrs,       /* Base Address(0x0-0xb000 on 4K boundary) */
+#     unsigned vector,   /* noninterrupting(0), valid vectors(64-255) */
+#     int int_level,     /* interrupt level (1-6) */
+#     int scan_rate)     /* polling rate - 1/60 sec units */
+homsSetup(2,8,0xFC80,0,5,6)
+value = 0 = 0x0
+
+#
+# Configure xy490 board.
+#
+
+#void xy490Init(
+#     int board,              /* Board id (0 or 1) */
+#     int addr,               /* Board base Address */
+#     unsigned vector)        /* valid vectors (128-254) [uses two vectors] */
+#xy490Init(0, 0xE000, 0xE0)
+#sysIntEnable(2)
+#< ./bin/mv167/drvAltConf
+#< ./bin/mv167/drvSimConf
+
+# Load sequences here
+# ld < ./bin/mv167/testseq.o
+
+# Configure the Timestamp system, 1=Master IOC
+TSconfigure 1, 0, 0, 0, 0, 0
+value = 0 = 0x0
+
+# Load one or more ASCII databases here
+dbLoad "./data/default.dctsdr"
+value = 0 = 0x0
+
+dbLoadRecords "./ENG/data/engTop.db"
+value = 0 = 0x0
+
+#dbLoadRecords "./ENG/data/ccTop.db"
+#dbLoadRecords "./ENG/data/ccSimTop.db"
+
+#dbLoadRecords "./ENG/data/altwfsTop.db"
+dbLoadRecords "./ENG/data/wfsTop.db"
+value = 0 = 0x0
+#dbLoadRecords "./ENG/data/wfsSimTop.db"
+
+#dbLoadRecords "./ENG/data/tmpTop.db"
+#dbLoadRecords "./ENG/data/tmpSimTop.db"
+
+# Add records to monitor all input lines (only needed for debugging)
+
+#dbLoadRecords "./ENG/data/atodTop.db"
+#dbLoadRecords "./ENG/data/dioTop.db"
+
+# This turns off logging
+# iocLogDisable=1
+iocInit "./data/resource.def"
+############################################################################
+###  @(#)EPICS IOC CORE
+###  @(#)Version R3.12.2GEM5
+############################################################################
+drvHoms::hmotor_init: (echo off) message returned = urce.def
+card # = 1
+task: 0Xf94130 tShell
+PV: nirs:eng:wfs:prbxHs1B  devAiXy566Se (init_record) ai_xy566_driver error
+card # = 1
+PV: nirs:eng:wfs:prbxHs1P  devAiXy566Se (init_record) ai_xy566_driver error
+card # = 1
+PV: nirs:eng:wfs:prbxHs2B  devAiXy566Se (init_record) ai_xy566_driver error
+card # = 1
+PV: nirs:eng:wfs:prbxHs2P  devAiXy566Se (init_record) ai_xy566_driver error
+card # = 1
+PV: nirs:eng:wfs:prbyHs1B  devAiXy566Se (init_record) ai_xy566_driver error
+card # = 1
+PV: nirs:eng:wfs:prbyHs1P  devAiXy566Se (init_record) ai_xy566_driver error
+card # = 1
+PV: nirs:eng:wfs:prbyHs2B  devAiXy566Se (init_record) ai_xy566_driver error
+card # = 1
+PV: nirs:eng:wfs:prbyHs2P  devAiXy566Se (init_record) ai_xy566_driver error
+Illegal field value PV: nirs:eng:wfs:filtMotor  devHOMS (init_record) card does not exist!
+Illegal field value PV: nirs:eng:wfs:focMotor  devHOMS (init_record) card does not exist!
+Illegal field value PV: nirs:eng:wfs:prbxMotor  devHOMS (init_record) card does not exist!
+Illegal field value PV: nirs:eng:wfs:prbyMotor  devHOMS (init_record) card does not exist!
+0xf94130 (tShell): iocInit: Database Failed during Initialization
+0xf94130 (tShell): iocInit: All initialization complete
+value = 0 = 0x0
+
+# Load parameters.
+
+< ./bin/mv167/engParm
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+card # = 1
+# $Id: wfsBoot,v 1.2 2009/05/27 19:31:45 fkraemer Exp $
+
+pvload "./ENG/data/lock.pv","top=nirs:"
+value = 0 = 0x0
+
+stateMap "warm","warm"
+value = 0 = 0x0
+stateMap "cold","cold"
+value = 0 = 0x0
+stateMap "changing","null"
+value = 0 = 0x0
+#< ./bin/mv167/ccParm
+< ./bin/mv167/wfsParm
+# $Id: wfsBoot,v 1.2 2009/05/27 19:31:45 fkraemer Exp $
+
+pvload "./ENG/data/wfs.pv","top=nirs:"
+pvload: put nirs:eng:wfs:focReset.VAL: Could not perform a database value put for that channel
+pvload: put nirs:eng:wfs:prbxReset.VAL: Could not perform a database value put for that channel
+pvload: put nirs:eng:wfs:prbyReset.VAL: Could not perform a database value put for that channel
+pvload: put nirs:eng:wfs:filtReset.VAL: Could not perform a database value put for that channel
+value = 0 = 0x0
+#< ./bin/mv167/tmpParm
+
+#< ./bin/mv167/engSimParm
+#< ./bin/mv167/ccSimParm
+#< ./bin/mv167/wfsSimParm
+#< ./bin/mv167/tmpSimParm
+
+# Initialize the interlock handler.
+
+< ./bin/mv167/lockBusy
+# $Id: wfsBoot,v 1.2 2009/05/27 19:31:45 fkraemer Exp $
+
+stateConfig "./ENG/data/busy.ste", "./ENG/data", "top=nirs:"
+value = 0 = 0x0
+#< ./bin/mv167/lockCc
+< ./bin/mv167/lockWfs
+# $Id: wfsBoot,v 1.2 2009/05/27 19:31:45 fkraemer Exp $
+
+stateConfig "./ENG/data/wfs.ste", "./ENG/data", "top=nirs:"
+value = 0 = 0x0
+< ./bin/mv167/lockIdle
+# $Id: wfsBoot,v 1.2 2009/05/27 19:31:45 fkraemer Exp $
+
+stateConfig "./ENG/data/idle.ste", "./ENG/data", "top=nirs:"
+value = 0 = 0x0
+
+# Start sequences.
+
+< ./bin/mv167/engSeq
+# $Id: wfsBoot,v 1.2 2009/05/27 19:31:45 fkraemer Exp $
+
+#
+# Spawn a process to monitor changes in temperature state.  This isn't
+# a sequencer function, but is included here because it is similar to
+# a sequencer function.
+#
+
+sp stateCheck
+task spawned: id = 0xcd8518, name = t1
+value = 13468952 = 0xcd8518
+#< ./bin/mv167/ccSeq
+< ./bin/mv167/wfsSeq
+stateSet: pvload "./ENG/data/null/busy.pv", "top=nirs:", 0
+# $Id: wfsBoot,v 1.2 2009/05/27 19:31:45 fkraemer Exp $
+
+seq &engWfsSt,"name=engWfsSt, top=nirs:eng:"
+@(#)SEQ Version 1.9.2: Wed May 26 11:10:17 MST 1999
+tShell 08/30/01 22:29:29: Spawning state program "engWfsSt", task name = "engWfsSt"
+tShell 08/30/01 22:29:29:   Task id = 13448552 = 0xcd3568
+value = 13448552 = 0xcd3568
+
+# Final initialization.
+
+< ./bin/mv167/done
+engWfsSt 08/30/01 22:29:29: Spawning task 13438152: "engWfsSt_1"
+engWfsSt 08/30/01 22:29:29: Spawning task 13427752: "engWfsSt_2"
+engWfsSt 08/30/01 22:29:29: Spawning task 13417352: "engWfsSt_3"
+stateSet: pvload "./ENG/data/null/wfs.pv", "top=nirs:", 0
+stateSet: pvload "./ENG/data/null/wfsFilt.pv", "top=nirs:", 0
+# $Id: wfsBoot,v 1.2 2009/05/27 19:31:45 fkraemer Exp $
+
+#
+# All initialization should be complete.  Clear the interlock, so that
+# commands may be executed. 
+#
+
+dbpf "nirs:eng:lockInitMenu","READY"
+DBR_STRING:          READY    
+value = 0 = 0x0
+
+# Set the prompt.
+
+shellPromptSet "NIRI/WFS> "
+value = 593880 = 0x90fd8 = _shellHistSize + 0x4
+
+Done executing startup script /home/gemini/gnirs/niri/ENG/bin/mv167/startupWfs
+stateSet: pvload "./ENG/data/null/wfsFoc.pv", "top=nirs:", 0
+NIRI/WFS> stateSet: pvload "./ENG/data/null/wfsPrbx.pv", "top=nirs:", 0
+stateSet: pvload "./ENG/data/null/wfsPrby.pv", "top=nirs:", 0
+stateSet: pvload "./ENG/data/null/idle.pv", "top=nirs:", 0
+

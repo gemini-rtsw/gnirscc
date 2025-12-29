@@ -1,0 +1,13 @@
+*%
+.applTop
+.epics
+.version
+config
+epics
+config.par
+bin
+data
+Distfile
+alh
+alh/O.*
+alh/O.solaris

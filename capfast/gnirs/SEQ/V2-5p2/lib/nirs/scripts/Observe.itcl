@@ -1,0 +1,55 @@
+#+
+#  Observe
+#
+#  An observe object controls a NIRI observation
+#
+#  Options:
+#           -niri              The name of an Niri object for configuring
+#                              the camera.
+#
+#  Methods:
+#           start               Starts an observation
+#
+#           stop                Stops an observation
+#
+#           abort               Aborts an observation
+#
+#  D Terrett 24 July 2001
+#
+#  Copyright CCLRC
+#+
+
+itcl::class Niri::Observe {
+   public {
+      constructor {args} {eval configure $args}
+      method start {dhslabel}
+      method stop {}
+      method abort {}
+      method end {}
+      variable niri ""
+   }
+}
+
+itcl::body Niri::Observe::start {dhslabel} {
+   cs niri::observe set label  $dhslabel
+   if { ![string is space $niri] } {
+      $niri apply
+      cs niri::apply postWait
+   }
+}
+
+itcl::body Niri::Observe::stop {} {
+   cs niri::stop set dummy value 1
+   cs niri::apply post
+}
+
+itcl::body Niri::Observe::abort {} {
+   cs niri::abort set dummy value 1
+   cs niri::apply post
+}
+
+itcl::body Niri::Observe::end {} {
+   cs niri::endObserve set dummy value mark
+   cs niri::apply postWait
+}
+

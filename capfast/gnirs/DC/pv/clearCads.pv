@@ -1,0 +1,26 @@
+
+group {
+
+   long $(top)abort.DIR = 1;
+   long $(top)arSetup.DIR = 1;
+   long $(top)continue.DIR = 1;
+   long $(top)datum.DIR = 1;
+   long $(top)debug.DIR = 1;
+   long $(top)drRoiSet.DIR = 1;
+   long $(top)endGuide.DIR = 1;
+   long $(top)endObserve.DIR = 1;
+   long $(top)endVerify.DIR = 1;
+   long $(top)guide.DIR = 1;
+   long $(top)init.DIR = 1;
+   long $(top)observe.DIR = 1;
+   long $(top)obsSetup.DIR = 1;
+   long $(top)park.DIR = 1;
+   long $(top)pause.DIR = 1;
+   long $(top)reboot.DIR = 1;
+   long $(top)setDhsInfo.DIR = 1;
+   long $(top)setWcs.DIR = 1;
+   long $(top)stop.DIR = 1;
+   long $(top)test.DIR = 1;
+   long $(top)verify.DIR = 1;
+
+}

@@ -1,0 +1,433 @@
+/*
+ * Copyright 2001 Association of Universities for Research in Astronomy, Inc.
+ * See the file COPYRIGHT for more details.
+ *
+ * FILENAME:
+ * util.c
+ *
+ * FUNCTION NAME(S):
+ *  doPosition   -   Parse and store configuration position information 
+ *  getClockSpeed   -   Sets current tick rate into global location 
+ *  gnirsInitLogging   -   Initialise semaphore used by gnirsLogMessage 
+ *  gnirsLogMessage   -   Log an informational message 
+ *  gnirsSetDebug   -   Change the current debugging level 
+ *  healthString   -   Converts health descriptor to string 
+ *  parseKeywordValue   -   Determine and store value for given keyword 
+ *  readConfig   -   Read the configuration file and set values 
+ *  strnlc   -   Converts a string to lower case 
+ *
+ *INDENT-OFF*
+ * $Log: util.wfd,v $
+ * Revision 1.2  2009/05/27 19:32:11  fkraemer
+ * fkraemer - copied my complete working dir over trunk
+ *
+ *INDENT-ON*
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * getClockSpeed
+ *
+ * INVOCATION:
+ * getClockSpeed()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Sets current tick rate into global location
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * readConfig
+ *
+ * INVOCATION:
+ * readConfig(file)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) file (char *)   input configuration file
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Read the configuration file and set values
+ *
+ * DESCRIPTION:
+ * Read configuration file line by line.  Look for a header which is
+ * marked by surrounding square brackets, ie., [ motor 5], [mechanism slit],
+ * and so on.  Valid headers are "motor", "mechanism", "filters",
+ * "temperature", "cryo", and "grating".
+ *
+ * All the lines following this header and up to the next are parsed
+ * by parseKeywordValue() except for "filters", which uses setFilters().
+ *
+ * Blank lines are ignored.  A '#' starts a comment, which continues until
+ * the end of the line, and which is ignored.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * parseKeywordValue
+ *
+ * INVOCATION:
+ * parseKeywordValue(keyword, pItem, base, rhs, orig)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) keyword (char *)         keyword as determined by calling routine
+ * (>) pItem (itemConfig *)     pointer to configuration description table
+ * (>) base (char *)            pointer to storage area/structures for data
+ * (>) rhs (char *)             right hand side of input (values)
+ * (>) orig (char *)            original full input line, for error messages
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Determine and store value for given keyword
+ *
+ * DESCRIPTION:
+ * Look up keyword in configuration description structure (pItem).  From
+ * that, determine how to parse rest of line and where in the data
+ * structure to store the value.  Convert the rhs and store, checking for
+ * some errors.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * doPosition
+ *
+ * INVOCATION:
+ * doPosition(base, rhs, orig)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) base (char *)            pointer to storage area/structures for data
+ * (>) rhs (char *)             right hand side of input (values)
+ * (>) orig (char *)            original full input line, for error messages
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Parse and store configuration position information
+ *
+ * DESCRIPTION:
+ * Allowed positions for a given mechanism are stored in linked list
+ * data structures.  Parse the input line, which consists of name,
+ * numeric position, and (optionally) index number.  Store the position
+ * indexed by name in the appropriate linked list.  The index number,
+ * a small positive integer, can be used as an alias for the named
+ * position.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * strnlc
+ *
+ * INVOCATION:
+ * strnlc(out, in, len)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) out (char *)	Converted string
+ * (>) in (char *)	Input string
+ * (>) len (int)	Maximum length of string to return
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Converts a string to lower case
+ *
+ * DESCRIPTION:
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * healthString
+ *
+ * INVOCATION:
+ * healthString(hp, health)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (<) hp (char *)    Where to store string
+ * (>) health (int)   Health as an enum
+ * (>) len (int)      Maximum length of string to return
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Converts health descriptor to string
+ *
+ * DESCRIPTION:
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Nov 2, 1999      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * gnirsInitLogging
+ *
+ * INVOCATION:
+ * gnirsInitLogging()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ *      < debug        long       Debug level associated with message.
+ *                                0 means message is always logged.
+ *                                1 is used for important log messages.
+ *                                2 is used for supplemental messages.
+ *                                3 is used for unimportant messages.
+ *                                In general, messages are only logged
+ *                                if debug <= gnirsDebugLevel.
+ *      < message     char*       Message to be logged.
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Initialise semaphore used by gnirsLogMessage
+ * This routine should be invoked from the VxWorks startup script
+ * if there is a need to use a mutual exclusion semaphore in the
+ * GNIRS logging. If the routine is not executed, the semaphore will
+ * not be used.
+ *
+ * EXTERNAL VARIABLES:
+ *      > useSem  short     Flag indicating whether to use a semaphore.
+ *      > semMutex SEM_ID   ID of semaphore created.
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ *   janet tvedt  (tvedt@naoo.edu)
+ *   steven beard (smb@roe.ac.uk)
+ *
+ *   history:
+ *   xx-apr-1997: original version as initcicslogging.              (tvedt)
+ *   17-jun-1997: comment prologue added. renamed to
+ *                gnirsinitlogging to obey gemini programming
+ *                standards (which recommends that all library
+ *                functions begin with the same prefix). set
+ *                "usesem" variable.                                (smb)
+ *   2-nov-1999:  renamed; used as gnirsinitlogging (rwolff)
+ *   3-mar-2001:  renamed; used as gnirsinitlogging (rwolff)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * gnirsLogMessage
+ *
+ * INVOCATION:
+ *   long debug;
+ *   gnirsLogMessage( debug, format, ...)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) debug        long       Debug level associated with message.
+ *                                0 means message is always logged.
+ *                                1 is used for important log messages.
+ *                                2 is used for supplemental messages.
+ *                                3 is used for unimportant messages.
+ *                                In general, messages are only logged
+ *                                if debug <= gnirsDebugLevel.
+ * (>) format (const char *)
+ * (>) ... ()
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Log an informational message
+ * This routine is called whenever the GNIRS software needs to output
+ * an informational message. By directing all messages through this
+ * routine it should be possible to redirect the messages easily,
+ * for example through the "historyLog" record monitored by the Data
+ * Handling System. For the moment the messages are passed to the
+ * EPICS "LogMsg" function.
+ *
+ * EXTERNAL VARIABLES:
+ *   Globals:
+ *      External functions:
+ *      LogMsg        VxWorks function for logging a message.
+ *
+ *      External variables:
+ *      > gnirsDebugLevel  long        Current debugging level.
+ *                                0 = No debugging or logging.
+ *                                    Errors and warnings only.
+ *                                1 = Logging but no debugging.
+ *                                    Errors and warnings, plus important
+ *                                    log messages.
+ *                                2 = Minimum debugging.
+ *                                    Errors, warnings, log messages, plus
+ *                                    supplemental information.
+ *                                3 = Full debugging. All messages.
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *   It is assumed the current debug level has already been defined.
+ *
+ * DEFICIENCIES:
+ *   This routine should not be used in very time-critical pieces of code
+ *   where the time spent calling the routine and checking the debug level
+ *   would be significant.
+ *
+ *   The "historyLog" record is not long enough to contain more than
+ *   MAX_STRING_SIZE characters of the message, so history log messages
+ *   might be truncated.
+ *
+ *   The VxWorks logMsg() function returns before the message you have given
+ *   it has been displayed. On the one hand this means the function does not
+ *   delay real-time code. On the other hand this means that if logMsg() is
+ *   given a message buffer, that message buffer can be overwritten before
+ *   the message is displayed. The symptoms are some messages getting lost
+ *   while others are repeated. I have used a ring buffer in gnirsLogMessage()
+ *   as a means of alleviating the problem, but it will still happen if
+ *   there are sufficient messages to fill the ring buffer
+ *
+ *   Author:
+ *   Steven Beard  (smb@roe.ac.uk)
+ *   Janet Tvedt  (tvedt@naoo.edu)
+ *
+ * HISTORY:
+ *   03-Dec-1996: Original version.                                 (smb)
+ *   15-Jan-1996: Added check on debugLevel.                        (smb)
+ *   23-Jan-1997: static storage class removed from histMsg.
+ *                Use MAX_STRING_SIZE to declare size of history
+ *                log message.                                      (smb)
+ *   27-Jan-1997: It was found that some messages delivered to
+ *                logMsg() were getting lost, whereas others were.
+ *                getting overwritten (see "LIMITATIONS" above. Ring
+ *                buffer introduced into which pending messages can
+ *                be queued.                                        (smb)
+ *   17-Jun-1997: Modified to use a semaphore.                      (tvedt,smb)
+ *   27-Jun-1997: Code to write history log added (but commented
+ *                out, since it still needs testing).               (smb)
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * gnirsSetDebug
+ *
+ * INVOCATION:
+ * gnirsSetDebug(long debug)
+ *
+ * PARAMETERS (">" input, "!" modified, "<" output)
+ * (>) debug (const long)      New debugging level
+ *                             For details see "gnirsLogMessage" above.
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Change the current debugging level
+ * This routine is called whenever the SDSU software needs to change the
+ * current debugging level.
+ *
+ * EXTERNAL VARIABLES:
+ *  < gnirsDebugLevel  long       Current debugging level.
+ *                                For details see "gnirsLogMessage" above.
+ *
+ * REQUIREMENTS:
+ *
+ * DEFICIENCIES:
+ *
+ * Author:
+ * Steven Beard  (smb@roe.ac.uk)
+ *
+ * History:
+ * 14-Jan-1997: Original version.                  (smb)
+ *-
+ */

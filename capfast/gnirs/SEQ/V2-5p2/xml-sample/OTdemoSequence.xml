@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sequence PUBLIC "-//Gemini Observatory//DTD for OT Science Program Sequence//EN" "Seq.dtd">
+<sequence version="0.1">
+  <step name="step 1">
+    <system name="instrument">
+      <param name="posAngle" value="0" />
+      <param name="coadds" value="1" />
+      <param name="mask" value="none" />
+      <param name="filter" value="H" />
+      <param name="instrument" value="NIRI" />
+      <param name="camera" value="f/14" />
+      <param name="exposureTime" value="60.0" />
+      <param name="disperser" value="none" />
+    </system>
+    <system name="telescope">
+      <param name="q" value="10.0" />
+      <param name="guideWithPWFS2" value="PWFS2-1" />
+      <param name="p" value="10.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 2">
+    <system name="telescope">
+      <param name="q" value="10.0" />
+      <param name="guideWithPWFS2" value="park" />
+      <param name="p" value="0.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 3">
+    <system name="telescope">
+      <param name="q" value="10.0" />
+      <param name="guideWithPWFS2" value="PWFS2-1" />
+      <param name="p" value="-10.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 4">
+    <system name="telescope">
+      <param name="q" value="0.0" />
+      <param name="p" value="-10.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 5">
+    <system name="telescope">
+      <param name="q" value="0.0" />
+      <param name="p" value="0.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 6">
+    <system name="telescope">
+      <param name="q" value="0.0" />
+      <param name="p" value="10.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 7">
+    <system name="telescope">
+      <param name="q" value="-10.0" />
+      <param name="p" value="10.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 8">
+    <system name="telescope">
+      <param name="q" value="-10.0" />
+      <param name="p" value="0.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 9">
+    <system name="telescope">
+      <param name="q" value="-10.0" />
+      <param name="p" value="-10.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 10">
+    <system name="telescope">
+      <param name="q" value="10.0" />
+      <param name="guideWithPWFS2" value="PWFS2-1" />
+      <param name="p" value="10.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 11">
+    <system name="telescope">
+      <param name="q" value="10.0" />
+      <param name="guideWithPWFS2" value="freeze" />
+      <param name="p" value="0.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 12">
+    <system name="telescope">
+      <param name="q" value="10.0" />
+      <param name="guideWithPWFS2" value="PWFS2-1" />
+      <param name="p" value="-10.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 13">
+    <system name="telescope">
+      <param name="q" value="0.0" />
+      <param name="p" value="-10.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 14">
+    <system name="telescope">
+      <param name="q" value="0.0" />
+      <param name="p" value="0.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 15">
+    <system name="telescope">
+      <param name="q" value="0.0" />
+      <param name="p" value="10.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 16">
+    <system name="telescope">
+      <param name="q" value="-10.0" />
+      <param name="p" value="10.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 17">
+    <system name="telescope">
+      <param name="q" value="-10.0" />
+      <param name="p" value="0.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 18">
+    <system name="telescope">
+      <param name="q" value="-10.0" />
+      <param name="p" value="-10.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 19">
+    <system name="telescope">
+      <param name="q" value="10.0" />
+      <param name="guideWithPWFS2" value="PWFS2-1" />
+      <param name="p" value="10.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 20">
+    <system name="telescope">
+      <param name="q" value="10.0" />
+      <param name="guideWithPWFS2" value="freeze" />
+      <param name="p" value="0.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 21">
+    <system name="telescope">
+      <param name="q" value="10.0" />
+      <param name="guideWithPWFS2" value="PWFS2-1" />
+      <param name="p" value="-10.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 22">
+    <system name="telescope">
+      <param name="q" value="0.0" />
+      <param name="p" value="-10.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 23">
+    <system name="telescope">
+      <param name="q" value="0.0" />
+      <param name="p" value="0.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 24">
+    <system name="telescope">
+      <param name="q" value="0.0" />
+      <param name="p" value="10.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 25">
+    <system name="telescope">
+      <param name="q" value="-10.0" />
+      <param name="p" value="10.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 26">
+    <system name="telescope">
+      <param name="q" value="-10.0" />
+      <param name="p" value="0.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+  <step name="step 27">
+    <system name="telescope">
+      <param name="q" value="-10.0" />
+      <param name="p" value="-10.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60.0" />
+      <param name="observeType" value="OBJECT" />
+      <param name="coadds" value="1" />
+    </system>
+  </step>
+</sequence>
+

@@ -1,0 +1,4 @@
+nirsTop.dl is the top level diagram.  The macros it depends on are T and S.  
+T is the CC prefix (eg. nirs:cc) and S is the CC sad prefix (eg. nirs:sad:cc).
+
+These require edd2.4 to edit and dm2.4 to run.  

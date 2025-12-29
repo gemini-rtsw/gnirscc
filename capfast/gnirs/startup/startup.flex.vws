@@ -1,0 +1,48 @@
+#
+# VxWorks startup script to load and execute system (iocCore) software.
+#
+# First, vxWorks startup issues:
+
+# Make delete key work for backspace
+tyBackspaceSet 0177
+
+# cd to application install directory (beware automounter problems)
+cd "$(install)"
+pwd
+
+# The local file contains site-specific information
+# such as the default router and the vxWorks password file.
+
+< $(version)/bin/$(arch)/local.flex
+
+# Load EPICS core and record stuff
+ld < $(epics)/base/bin/$(arch)/iocCore
+ld < $(epics)/base/bin/$(arch)/drvSup
+ld < $(epics)/base/bin/$(arch)/recSup
+ld < $(epics)/base/bin/$(arch)/devSup
+
+# If using state programs, load the sequencer
+# ld < $(epics)/base/bin/$(arch)/seq
+
+# Load any application records, device support or drivers here,
+# or code for subroutine records
+# ld < $(version)/bin/$(arch)/testsub.o
+
+# Load sequences here
+# ld < $(version)/bin/$(arch)/testseq.o
+
+# Configure the Timestamp system, 1=Master IOC
+TSconfigure 1, 0, 0, 0, 0, 0
+
+# Load one or more ASCII databases here
+dbLoad "$(version)/data/$(dctsdr).dctsdr"
+# dbLoadRecords "$(version)/data/test.db"
+
+# This turns off logging
+# iocLogDisable=1
+
+iocInit "$(version)/data/resource.def"
+
+# Start sequences
+# seq &testseq
+

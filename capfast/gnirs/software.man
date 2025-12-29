@@ -1,0 +1,93 @@
+1.  start epics screens
+2.  start temp logger
+3.  start repeatability test
+4.  low level motor control
+5.  changing home switch
+6.  modifying gnirsConfig
+
+
+
+
+1.  start epics screens
+
+	from an ace or otter window
+	
+	nirsSeqStart
+
+
+2.  start temp logger
+	This program will not overwrite an existing file, so you must select a
+	 unique filename
+
+	from components controller screen
+
+	startLog 15, "/home/gemini/gnirs/data/test/temps.log"
+
+	the first parameter is the time between reads
+	the second parameter is a unique filename with full path
+
+	'killLog'			 to stop logging
+
+	you must stop the logging before the computer is rebooted or turned off 
+	or the data will be lost
+
+3. repeatability test
+
+	This must be started from an otter screen
+	
+
+	otter <  cd /home/gemini/gnirs/control/data/test
+
+	otter <   python -i gnirs.py
+
+	>>> homeTest (7,250000,-250000,3,50)
+
+
+	parameter 1: motor number
+	parameter 2: step position
+	parameter 3: step position #2
+	parameter 4: times to repeat test
+	parameter 5:  # of steps for bracketing home position
+
+
+	control-C stops a running script (it is safest to reboot the system 
+		after a control-c)
+	control-D exits out of the python shell and returns control to the 
+		components controller screen
+
+	
+4. low level motor control
+	from cc window
+
+	-> motorOn 7
+	-> cmd 7
+	>
+
+	some useful  commands
+	LF - turn limits off
+	VL# - set velocity (eg. VL1000)
+	AC# - set acceleration
+	MA# GO - move to absolute position
+	MR# GO - move relative position
+	SD - stop motion
+
+
+5.  changing home switch
+	useAlt 7,1
+
+	parameter 1: motor number
+	parameter 2: 0 = primary, 1= secondary
+
+
+6.  modifying Config parameters
+	change gnirsConfig file
+	run 'gmake' from an irlab account on ace otter or kiwi
+	open initCad epics screen
+	press mark button
+ 
+	make sure system is in idle state
+	press start button
+
+	wait for system to go back to idle
+
+	

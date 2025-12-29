@@ -1,0 +1,10 @@
+# $Id: lockCfg.pv,v 1.2 2009/05/27 19:35:00 fkraemer Exp $
+
+group {
+	#
+	# Strings loaded by pvload into the lockObs menu record.
+	#
+
+	string $(top)lockCfgSelMenu.ZRST = "lock";
+	string $(top)lockCfgSelMenu.ONST = "unlock";
+}

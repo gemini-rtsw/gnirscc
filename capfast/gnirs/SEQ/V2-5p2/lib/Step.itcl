@@ -1,0 +1,420 @@
+# Step.itcl
+#
+# A Step encapulates the logic necessary to sequence movng the telescope,
+# collect data headers and take an exposure. The interaction with the
+# real-time systems is handled by tcs, gcal, dhs and instrument objects.
+#
+# D Terrett  28 October 2002
+#
+# Copyright CCLRC 2002
+#+
+
+itcl::class Step {
+   public {
+      constructor {args} {
+         # by default, do everything
+         set stepFlag(headersbefore)    1
+         set stepFlag(headersafter)     1
+         set stepFlag(observeTcs)       1
+         set stepFlag(endObserveTcs)    1
+         set stepFlag(observeInst)      1
+         set stepFlag(endObserveInst)   1
+         set stepFlag(incDatalabel)     1
+         eval configure $args
+         }
+      destructor {}
+      method abort {} {set aborted 1 ; return [$instobj abort]}
+      method stop {} {return [$instobj stop]}
+      method continue {}
+      method move {whendone {system  "all"}}
+      method observe {whendone}
+      method pause {}
+      variable dhsobj ""
+      variable gcalobj
+      variable gpolobj
+      variable instobj
+      variable tcsobj
+      variable p ""
+      variable q ""
+      variable aborted 0
+      variable datalabel ""
+      
+      # public interface to action flag
+      variable headersbefore 
+      variable headersafter  
+      variable observeTcs    
+      variable endObserveTcs 
+      variable observeInst   
+      variable endObserveInst
+      variable incDatalabel  
+      common beep 1
+   }
+   private {
+      method movedone {system status}
+      method obsdone {status}
+      common tcssim
+      common gcalsim
+      common gpolsim
+      common instsim
+      common dhssim
+      variable doneproc
+      variable gcalready 1
+      variable gpolready 1
+      variable instready 1
+      variable tcsready 1
+      variable stepFlag
+   }
+}
+
+# Create class common simulation objects.
+namespace eval Step {
+   set tcssim [SimTcs #auto]
+   set gcalsim [SimGcal #auto]
+   set gpolsim [SimGpol #auto]
+   set instsim [SimInst #auto]
+   set dhssim [SimHdrInfo #auto]
+}
+
+itcl::body Step::destructor {} {
+
+# Delete the subsystem objects.
+   catch {itcl::delete object $dhsobj}
+   catch {itcl::delete object $gcalobj}
+   catch {itcl::delete object $gpolobj}
+   catch {itcl::delete object $instobj}
+   catch {itcl::delete object $tcsobj}
+}
+
+itcl::body Step::move {whendone {system "all"}} {
+
+# Save the proc to call when the move is complete.
+   set doneproc $whendone
+
+# set the dhs header observe type
+# if it's empty we'll keep whatever the display says
+   if {![string is space [$tcsobj cget -observeType]]} {
+      set ::dhshdr::obstype [$tcsobj cget -observeType]
+   }
+
+# Ditto the object name.
+   if {![string is space [$instobj cget -object]]} {
+      set ::dhshdr::object [$instobj cget -object]
+   }
+
+# Set the data label if specified in the step.
+   if { $::OcsEnable && $datalabel != "" } {
+      set ::dhshdr::datalabel $datalabel
+   }
+
+   if { [string equal $system "all"] || [string equal $system "tcs"] } {
+
+# Set the A&G and science fold names in the tcs object from their values
+# in the intrument object.
+      $tcsobj configure -agname [$instobj cget -agname] \
+             -sfname [$instobj cget -sfname]
+
+# Start the tcs move.
+      set tcsready 0
+      if { $::Flags(simtcs) } {
+         $tcssim move [itcl::code $this movedone tcs]
+      } else {
+         if { ! [$tcsobj move [itcl::code $this movedone tcs]] } {
+            return 0
+         }
+      }
+   }
+
+   if { [string equal $system "all"] || [string equal $system "inst"] } {
+
+# Start the instrument setup.
+      set instready 0
+      if { $::Flags(siminst) } {
+         $instsim setup [itcl::code $this movedone inst]
+      } else {
+         if { ! [$instobj setup [itcl::code $this movedone inst]] } {
+            return 0
+         }
+      }
+   }
+
+   if { [string equal $system "all"] || [string equal $system "gcal"] } {
+
+# Start the GCAL setup
+      set gcalready 0
+      if { $::Flags(simgcal) } {
+         $gcalsim setup [itcl::code $this movedone gcal]
+      } else {
+         if { ! [$gcalobj setup [itcl::code $this movedone gcal]] } {
+            return 0
+         }
+      }
+   }
+   
+   if { [string equal $system "all"] || [string equal $system "gpol"] } {
+
+# Start the GPOL setup
+      set gpolready 0
+      if { $::Flags(simgpol) } {
+         $gpolsim setup [itcl::code $this movedone gpol]
+      } else {
+         if { ! [$gpolobj setup [itcl::code $this movedone gpol]] } {
+            return 0
+         }
+      }
+   }
+   return 1
+}
+
+itcl::body Step::observe {whendone} {
+
+# Reset the abort flag
+   set aborted 0
+
+# Save the proc to call when the observation is complete.
+   set doneproc $whendone
+
+# Configure the observeType
+   $dhsobj configure -observeType $::dhshdr::obstype
+   
+# Send the "before" headers to the DHS.
+   if {$stepFlag(headersbefore)} {
+      if { $::Flags(simdhs) } {
+         $dhssim sendbefore
+      } else {
+         $dhsobj sendbefore
+      }
+   }
+
+# Send observe to the tcs.
+   if {$stepFlag(observeTcs)} {
+      if { $::Flags(simtcs) } {
+         $tcssim observe
+      } else {
+         if { ! [$tcsobj observe] } {
+            return 0
+         }
+      }
+   }
+
+# observe
+   if {$stepFlag(observeInst)} {
+      if { $::Flags(siminst) } {
+         $instsim observe $::dhshdr::dhslabel [itcl::code $this obsdone]
+      } else {
+         if { ! [$instobj observe $::dhshdr::dhslabel\
+               [itcl::code $this obsdone]] } {
+            return 0
+         }
+      }
+   }
+   
+# if nothing actually started, wakeup in the background
+   if { [ expr { ( $stepFlag(observeTcs) == 0 ) && \
+         ( $stepFlag(observeInst) == 0 )} ] } {
+      after idle $whendone 1
+      }
+   
+   return 1
+}
+
+itcl::body Step::movedone {system status} {
+
+# This method is called when a system object has completed the move
+# operation. When all the systems indicate that they are ready the
+# Sequence object callback is called to indicate that the move is
+# complete.
+
+   if { $status } {
+      switch $system {
+         tcs {
+            set tcsready 1
+         }
+         inst {
+            set instready 1
+         }
+         gcal {
+            set gcalready 1
+         }
+         gpol {
+            set gpolready 1
+         }
+      }
+      if { $tcsready && $instready && $gcalready && $gpolready } {
+            $doneproc 1
+      }
+   } else {
+      $doneproc 0
+   }
+   return
+}
+
+itcl::body Step::obsdone {status} {
+
+# This method is called when the instrument indicates that the exposure
+#  has finished. Note that if the incoming status is bad the endObserves
+#  are still sent and the dhs after headers posted so that if the instrument
+#  has written some data it receives the correct headers.
+
+#  Sent endObserve to the tcs.
+   if {$stepFlag(endObserveTcs)} {
+      if { $::Flags(simtcs) } {
+         $tcssim endobserve
+      } else {
+         if { ! [$tcsobj endobserve] } {
+            set status 0
+         }
+      }
+   }
+
+   if { ! $aborted } {
+
+#  Sent endObserve to instrument.
+      if {$stepFlag(endObserveInst)} {
+         if { $::Flags(siminst) } {
+            $instsim endobserve
+         } else {
+            if { ! [$instobj endobserve] } {
+               set status 0
+            }
+         }
+      }
+      
+# Send the "after" headers to the DHS.
+      if {$stepFlag(headersafter)} {
+         if { $::Flags(simdhs) } {
+            $dhssim sendafter
+         } else {
+            $dhsobj sendafter
+         }
+      }
+   }
+# else .. do something to cleanup the trash in /staging/temp.
+
+
+# Call the sequence object callback to indicate that the observation is
+# complete.
+   $doneproc $status
+
+# Increment the data label in preparation for the next observe. Tcl 
+# interprets integers with leading zeros as octal numbers so scan is used
+# to force the current value to be interpreted as decimal.
+   if {$stepFlag(incDatalabel)} {
+        if { $::dhshdr::datalabel == "" } {
+           set ::dhshdr::datalabel 000
+        } else {
+           set ::dhshdr::datalabel [format %03d \
+                 [expr {[scan $::dhshdr::datalabel %d] + 1}]]
+        }
+     }
+
+# Ring the bell to wake up the astronomer.
+   if { $beep } {
+      bell
+      }
+
+   return
+}
+
+itcl::body Step::abort {} {
+   set aborted 1
+   if { $::Flags(siminst) } {
+      return [$instsim abort]
+   } else {
+      return [$instobj abort]
+   }
+}
+
+itcl::body Step::stop {} {
+   if { $::Flags(siminst) } {
+      return [$instsim stop]
+   } else {
+      return [$instobj stop]
+   }
+}
+
+itcl::body Step::pause {} {
+
+# Send a pause command to the instrument and then, if it was successful,
+# a pause command to the tcs.
+   if { $::Flags(siminst) } {
+      $instsim pause
+      if { $::Flags(simtcs) } {
+         return [$tcssim pause]
+      } else {
+         return [$tcsobj pause]
+      }
+   } else {
+      if { [$instobj pause] } {
+         if { $::Flags(simtcs) } {
+            return [$tcssim pause]
+         } else {
+            return [$tcsobj pause]
+         }
+      } else {
+         return 0
+      }
+   }
+}
+
+itcl::body Step::continue {} {
+
+# Send a continue command to the instrument and then, if it was successful,
+# a continue command to the tcs.
+   if { $::Flags(siminst) } {
+      $instsim continue
+      if { $::Flags(simtcs) } {
+         $tcssim continue
+         return 1
+      } else {
+         return [$tcsobj continue]
+      }
+   } else {
+      if { [$instobj continue] } {
+         if { $::Flags(simtcs) } {
+            $tcssim continue
+            return 1
+         } else {
+            return [$tcsobj continue]
+         }
+      } else {
+         return 0
+      }
+   }
+}
+
+itcl::configbody Step::headersbefore {
+   set stepFlag(headersbefore) $headersbefore
+   }
+itcl::configbody Step::headersafter {
+   set stepFlag(headersafter) $headersafter
+   }
+itcl::configbody Step::observeTcs {
+   set stepFlag(observeTcs) $observeTcs
+   }
+itcl::configbody Step::endObserveTcs {
+   set stepFlag(endObserveTcs) $endObserveTcs
+   }
+itcl::configbody Step::observeInst {
+   set stepFlag(observeInst) $observeInst
+   }
+itcl::configbody Step::endObserveInst {
+   set stepFlag(endObserveInst) $endObserveInst
+   }
+itcl::configbody Step::incDatalabel {
+   set stepFlag(incDatalabel) $incDatalabel
+   }
+
+# Config bodies to copy the name of the dhs header object into the instrument
+# object.
+
+itcl::configbody Step::dhsobj {
+   if { $instobj != "" } {
+      $instobj configure -dhsobj $dhsobj
+   }
+}
+
+itcl::configbody Step::instobj {
+   if { $instobj != "" } {
+      $instobj configure -dhsobj $dhsobj
+   }
+}

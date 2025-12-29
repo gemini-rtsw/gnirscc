@@ -1,0 +1,107 @@
+#
+# Define initial and default values for GNAAC parameters and constants.
+#
+$(top)dcHealth.SCAN = 0;
+
+group {
+   string $(top)arSetup.A = "/dlirim0/gn.4/gnaacSrc/tpsource/ucode/NAAC/";
+   string $(top)arSetup.B = "gnAIII_1024xSU01_4u";
+}
+
+group {
+
+   string $(sadtop)detID   = "SN7638228.1.2";
+#   string $(top)detType    = "ALLADIN_III";
+   string $(top)imPath    = "/data0/caTest";
+   string $(top)imName    = "naacData";
+   long   $(top)imNum.VAL     = 0;
+   long $(top)dataSimulation = 1;
+
+}
+
+group {
+   string $(top)naacState.VAL = "IDLE";
+}
+
+group {
+
+ 		$(top)obsSetup.A 	= 0;
+ 	float	$(top)coadds.VAL 	= 1;
+	long	$(top)colHigh.VAL 	= 1023;
+ 	long	$(top)colLow.VAL 	= 0;
+ 	long	$(top)curCols.VAL 	= 1024;
+ 	long	$(top)curMaxCol.VAL	= 1024;
+	long	$(top)curMaxRow.VAL 	= 1024;
+ 	long	$(top)curRows.VAL 	= 1024;
+ 	float	$(top)fDly.VAL 	 	= 0.0;
+	long	$(top)hdrDetail.VAL 	= 0;
+	float	$(top)intTime.VAL 	= 1.0;
+ 	float	$(top)integTime.VAL 	= 1.0;
+ 	long	$(top)maxCol.VAL 	= 1024;
+ 	long	$(top)maxRow.VAL 	= 1024;
+ 	long	$(top)numCoAdds.VAL 	= 1;
+	long    $(top)DAvgNum.VAL	= 2;
+ 	long	$(top)numDAvgs.VAL 	= 4;
+ 	long	$(top)numLNRs.VAL 	= 1;
+ 	long	$(top)numPics.VAL 	= 1;
+ 		$(top)obsSetupDone.VAL 	= 1;
+		$(top)pMode.VAL 	= 0;
+		$(top)pucDone.VAL 	= 0;
+ 	long	$(top)rowHigh.VAL 	= 1023;
+ 	long	$(top)rowLow.VAL 	= 0;
+ 		$(top)sequenceNum.VAL 	= 1;
+ 	long	$(top)uCodeType.VAL 	= 0;
+ 	long	$(top)ucFrmsPCycle.VAL 	= 2;
+ 	long	$(top)ReadHK.VAL 	= 0;
+
+}
+
+#group {
+#	float	$(top)footDesiredTemp.VAL = 27.0;
+#	float	$(top)mntDesiredTemp.VAL = 24.5;
+#	float	$(top)setFootPGain = 50;
+#	float	$(top)setFootIGain = 100;
+#	float	$(top)servoCntrl.VAL = 1;
+
+#}
+
+
+# broke I couldn't get these values in from the capfast drawings by default had to use this method
+group {
+	$(top)c0_15:lC1.A = 0;
+	$(top)c16_31:lC1.A = 1;
+	$(top)c32_47:lC1.A = 2;
+	$(top)c48_63:lC1.A = 3;
+	$(top)c64_79:lC1.A = 4;
+	$(top)c80_95:lC1.A = 5;
+	$(top)c96_111:lC1.A = 6;
+	$(top)c112_127:lC1.A = 7;
+	$(top)c128_143:lC1.A = 8;
+	$(top)c144_159:lC1.A = 9;
+	$(top)c160_175:lC1.A = 10;
+	$(top)c176_191:lC1.A = 11;
+	$(top)c192_207:lC1.A = 12;
+	$(top)c208_223:lC1.A = 13;
+	$(top)c224_239:lC1.A = 14;
+	$(top)c240_255:lC1.A = 15;
+	$(top)hC1.DIR = 2;
+
+}
+
+$(top)ReadHK.SCAN 	= 3;
+$(top)dcHealth.SCAN = 3;
+
+#$(top)ReadHK.SCAN 	= 0;
+#$(top)dcHealth.SCAN = 0;
+
+$(top)is1024.VAL = 1;
+$(top)is128.VAL = 0;
+$(top)is256.VAL = 0;
+$(top)is384.VAL = 0;
+$(top)is512.VAL = 0;
+$(top)is768.VAL = 0;
+
+$(top)forceDownLd.VAL = 1;
+$(top)maxRow.VAL = 1024;	 
+$(top)maxCol.VAL = 1024;
+$(top)dataSimulation = 0;

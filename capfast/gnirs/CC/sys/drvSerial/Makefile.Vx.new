@@ -1,0 +1,70 @@
+#
+# Demo Makefile for building a Unix or VxWorks version of a sub-directory of an
+# application src directory (i.e. two levels down, and another to the directory
+# where the host architecture-specific version is built).
+
+# Define the location of the application directory relative to here (if it
+# was at a lower level, this line would have to be changed).
+ 
+# Include file identifying the target architecture (defines the T_A macro) and
+# application configuration definitions
+include $(TOP)/config/CONFIG
+
+# External libraries on which this directory is dependent (such libraries should
+# be referenced via relative paths or INSTALL_LIB (deprecated) if they are in
+# this application directory tree, via EPICS_APPLIC_LIB if they are part of
+# the overall application, via EPICS_BASE_LIB if they are part of EPICS base,
+# or via EPICS_EXTENSIONS_LIB if they are part of EPICS extensions.
+DEPLIBS	=
+
+# User compiler and loader flags (., .., INSTALL_INCLUDE, EPICS_APPLIC_INCLUDE,
+# EPICS_BASE_INCLUDE and EPICS_EXTENSIONS_INCLUDE - including record directories -
+# are automatically searched)
+USR_CFLAGS   =
+USR_INCLUDES =
+USR_LDFLAGS  =
+USR_LDLIBS   =
+
+# Names of C source files (no extensions) and derived macros (NAMES is not a
+# standard macro but this illustrates use of pattern matching macros)
+SRCS.c	= $(wildcard ../*.c)
+OBJS	= $(SRCS.c:../%.c=%.o)
+
+# Standard macros for files which are to be built and installed. By default the
+# INSTALL_xxx directories are sub-directories of the main application directory
+# but EPICS_APPLIC_INSTALL can override this and EPICS_APPLIC_VERSION can
+# specify a named sub-directory to use as the root of the install tree.
+
+# PROD (products) and SCRIPTS are installed in INSTALL_BIN
+PROD	= sioSup 
+SCRIPTS	=
+
+# LIBNAME is installed in INSTALL_LIB
+LIBNAME	=
+
+# INC is installed in INSTALL_INCLUDE
+INC	= drvSerial.h 
+
+# MAN1 is installed in INSTALL_MAN/man1
+MAN1	=
+
+# DOCS are installed in INSTALL_DOC
+DOCS	=
+
+# DATA are installed in INSTALL_DATA
+DATA	=
+
+# Any extra targets can be placed in a TARGETS macro (the build target builds
+# only pre_build, LIBNAME, TARGETS and PROD)
+TARGETS = 
+DBDINSTALL = $(patsubst ../%, %, $(wildcard ../*.dbd))
+
+# Rules for building Unix or VxWorks targets (include RULES.Build or RULES.Build)
+include $(TOP)/config/RULES.Build
+
+$(PROD): $(OBJS)
+	$(RM) $@
+	$(LINK.c) $@ $(OBJS)
+
+ 
+ 

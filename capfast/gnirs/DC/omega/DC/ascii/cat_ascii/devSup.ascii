@@ -1,0 +1,17 @@
+!
+! device support for talking to the transputers
+!
+"ai"		INST_IO	"devAiWFireVarMsg"		"wFireVarMsg"
+"ao"		INST_IO	"devAoWFireVarMsg"		"wFireVarMsg"
+"longin"	INST_IO	"devLiWFireVarMsg"		"wFireVarMsg"
+"longout"	INST_IO	"devLoWFireVarMsg"		"wFireVarMsg"
+"longout"	INST_IO	"devWFireCmdMsg"		"wFireCmdMsg"
+"stringin"	INST_IO	"devSiWFireVarMsg"		"wFireVarMsg"
+"stringout"	INST_IO	"devSoWFireVarMsg"		"wFireVarMsg"
+!  device support for talking to the temperature controller
+#"ai"           INST_IO  "devAiOcyc"         "Omega CYC3200"
+#"tcon"         INST_IO "devTconOcyc"        "Omega CYC3200"
+
+#old
+#"ai"		INST_IO "devAiTemp"			"tempCard"
+#"ao"		INST_IO "devAoTemp"			"tempCard"

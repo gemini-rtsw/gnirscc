@@ -1,0 +1,40 @@
+device support ai's for temp card 			result record
+
+ 	record(ai,"naac:dc:readTempMntLGain") 		naac:dc:tempMntLGain
+ 	record(ai,"naac:dc:readTempMntSP") 		this
+     	record(ai,"naac:dc:readTempFootSP") 		this
+     	record(ai,"naac:dc:readTempMntHC") 		this
+     	record(ai,"naac:dc:readTempFootHC") 		this
+     	record(ai,"naac:dc:readTempMntLG") 		naac:dc:tempMntLG
+     	record(ai,"naac:dc:readTempMntHG") 		naac:dc:tempMntHG
+     	record(ai,"naac:dc:readTempFootLGain") 		naac:dc:tempFootLGain
+     	record(ai,"naac:dc:readTempFootRef") 		naac:dc:tempFootRef
+     	record(ai,"naac:dc:readTempMntRef") 		naac:dc:tempMntRef
+       	record(ai,"naac:dc:readTempMntServoErr") 	naac:dc:tempMntServoErr
+     	record(ai,"naac:dc:readTempFootServoErr") 	naac:dc:tempMntServoErr
+     	record(ai,"naac:dc:readTempFootLG") 		naac:dc:tempFootLG
+	record(ai,"naac:dc:readTempFootHGain") 		naac:dctempFootHGain
+     	record(ai,"naac:dc:readTempMntHGain") 		naac:dc:tempMntHGain
+     	record(ai,"naac:dc:readTempMntServo") 		naac:dc:tempMntServo
+     	record(ai,"naac:dc:readTempFootServo") 		naac:dc:tempMntServo
+     	record(ai,"naac:dc:readTempFootHG") 		naac:dc:tempFootHG
+     	record(ai,"naac:dc:readTempMntPGain") 		this
+     	record(ai,"naac:dc:readTempMntDAC") 		this
+     	record(ai,"naac:dc:readTempMntIGain") 		this
+     	record(ai,"naac:dc:readTempFoogIGain") 		this
+     	record(ai,"naac:dc:readTempFootDAC") 		this
+     	record(ai,"naac:dc:readTempFootPGain") 		this
+     	record(ai,"naac:dc:readTempMntHtrFdBk") 	naac:dc:tempMntHtrFdBk
+     	record(ai,"naac:dc:readTempFootHtrFdBk") 	naac:dc:tempFootHtrFdBk
+
+
+device support ao's
+	record(ao,"naac:dc:setTempFootPGain") 
+     	record(ao,"naac:dc:setTempFootDAC") 
+     	record(ao,"naac:dc:setTempFootIGain") 
+     	record(ao,"naac:dc:setTempFootHtrDAC") 
+     	record(ao,"naac:dc:setTempMntHtrDAC") 
+     	record(ao,"naac:dc:setTempMntIGain") 
+     	record(ao,"naac:dc:setTempMntDAC") 
+     	record(ao,"naac:dc:setTempMntPGain") 
+

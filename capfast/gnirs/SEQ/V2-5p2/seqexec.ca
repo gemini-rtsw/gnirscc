@@ -1,0 +1,253 @@
+#+
+# seqexec.ca
+#
+# Channel access configuration file for the sequence executor application.
+#
+# Copyright CCLRC
+#-
+
+# Define the TCS apply record.
+
+   apply tcsApply tcs:apply tcs:applyC Primary TCS Apply Record
+
+# Pointing origin offset commands.
+   command offsetPoA1 tcsApply Offset pointing origin A1
+   {
+      x tcs:offsetPoA1.A 0 X
+      y tcs:offsetPoA1.B 0 Y
+   }
+
+   command offsetPoB1 tcsApply Offset pointing origin B1
+   {
+      x tcs:offsetPoB1.A 0 X
+      y tcs:offsetPoB1.B 0 Y
+   }
+
+   command offsetPoC1 tcsApply Offset pointing origin C1
+   {
+      x tcs:offsetPoC1.A 0 X
+      y tcs:offsetPoC1.B 0 Y
+   }
+
+# Guiding start/stop commands.
+
+   command m2Guide tcsApply M2 Guiding
+   {
+      state      tcs:m2GuideControl.A State
+   }
+
+   command m1Guide tcsApply M1 Guiding
+   {
+      state      tcs:m1GuideMode.A State
+   }
+
+   command mountGuide tcsApply Define mount guiding
+   {
+      mode       tcs:mountGuideMode.A Mode
+      source     tcs:mountGuideMode.B Guide Source
+      p1weight   tcs:mountGuideMode.C P1 weight
+      p2weight   tcs:mountGuideMode.D P2 weight
+   }
+
+
+# Probe follow commands.
+   command p1Follow tcsApply PWFS1 probe following
+   {
+      followState tcs:pwfs1Follow.A State
+   }
+
+   command p2Follow tcsApply PWFS2 probe following
+   {
+      followState tcs:pwfs2Follow.A State
+   }
+
+   command oiFollow tcsApply OIWFS probe following
+   {
+      followState tcs:oiwfsFollow.A State
+   }
+
+   command pwfs1Park tcsApply Park P1
+   {
+      dummy      tcs:pwfs1Park.A
+   }
+
+   command pwfs2Park tcsApply Park P2
+   {
+      dummy      tcs:pwfs2Park.A
+   }
+
+   command oiwfsPark tcsApply Park OIWFS
+   {
+      dummy      tcs:oiwfsPark.A
+   }
+
+   command pwfs1Guide tcsApply P1 guide configuration
+   {
+      nodachopa tcs:configPwfs1.A Nod A Chop A
+      nodachopb tcs:configPwfs1.B Nod A Chop B
+      nodachopc tcs:configPwfs1.C Nod A Chop C
+      nodbchopa tcs:configPwfs1.D Nod B Chop A
+      nodbchopb tcs:configPwfs1.E Nod B Chop B
+      nodbchopc tcs:configPwfs1.F Nod B Chop C
+      nodcchopa tcs:configPwfs1.G Nod C Chop A
+      nodcchopb tcs:configPwfs1.H Nod C Chop B
+      nodcchopc tcs:configPwfs1.I Nod C Chop C
+   }
+
+   command pwfs2Guide tcsApply P2 guide configuration
+   {
+      nodachopa tcs:configPwfs2.A Nod A Chop A
+      nodachopb tcs:configPwfs2.B Nod A Chop B
+      nodachopc tcs:configPwfs2.C Nod A Chop C
+      nodbchopa tcs:configPwfs2.D Nod B Chop A
+      nodbchopb tcs:configPwfs2.E Nod B Chop B
+      nodbchopc tcs:configPwfs2.F Nod B Chop C
+      nodcchopa tcs:configPwfs2.G Nod C Chop A
+      nodcchopb tcs:configPwfs2.H Nod C Chop B
+      nodcchopc tcs:configPwfs2.I Nod C Chop C
+   }
+
+   command oiwfsGuide tcsApply OIWFS guide configuration
+   {
+      nodachopa tcs:configOiwfs.A Nod A Chop A
+      nodachopb tcs:configOiwfs.B Nod A Chop B
+      nodachopc tcs:configOiwfs.C Nod A Chop C
+      nodbchopa tcs:configOiwfs.D Nod B Chop A
+      nodbchopb tcs:configOiwfs.E Nod B Chop B
+      nodbchopc tcs:configOiwfs.F Nod B Chop C
+      nodcchopa tcs:configOiwfs.G Nod C Chop A
+      nodcchopb tcs:configOiwfs.H Nod C Chop B
+      nodcchopc tcs:configOiwfs.I Nod C Chop C
+   }
+
+   command pwfs1Observe tcsApply Start P1
+   {
+      noexp      tcs:pwfs1Observe.A      Exposures
+      int        tcs:pwfs1Observe.B      interval
+      outopt     tcs:pwfs1Observe.C      Output options
+      label      tcs:pwfs1Observe.D      DHS label
+      output     tcs:pwfs1Observe.E      DHS output
+      path       tcs:pwfs1Observe.F      Path
+      name       tcs:pwfs1Observe.G      Filename
+   }
+
+   command pwfs1StopObserve tcsApply Stop P1
+   {
+      dummy      tcs:pwfs1StopObserve.A
+   }
+
+   command pwfs2Observe tcsApply Start P2
+   {
+      noexp      tcs:pwfs2Observe.A      Exposures
+      int        tcs:pwfs2Observe.B      interval
+      outopt     tcs:pwfs2Observe.C      Output options
+      label      tcs:pwfs2Observe.D      DHS label
+      output     tcs:pwfs2Observe.E      DHS output
+      path       tcs:pwfs2Observe.F      Path
+      name       tcs:pwfs2Observe.G      Filename
+   }
+
+   command pwfs2StopObserve tcsApply Stop P2
+   {
+      dummy      tcs:pwfs2StopObserve.A
+   }
+
+   command oiwfsObserve tcsApply Start OIWFS
+   {
+      noexp      tcs:oiwfsObserve.A      Exposures
+      int        tcs:oiwfsObserve.B      interval
+      outopt     tcs:oiwfsObserve.C      Output options
+      label      tcs:oiwfsObserve.D      DHS label
+      output     tcs:oiwfsObserve.E      DHS output
+      path       tcs:oiwfsObserve.F      Path
+      name       tcs:oiwfsObserve.G      Filename
+   }
+
+   command oiwfsStopObserve tcsApply Stop OIWFS
+   {
+      dummy      tcs:oiwfsStopObserve.A
+   }
+
+   command scienceFold tcsApply Position science fold
+   {
+      scfold     tcs:scienceFold.A Position
+   }
+
+   command scienceFoldPark tcsApply Park science fold
+   {
+      dummy tcs:scienceFoldPark.A
+   }
+
+# TCS sequence commands for observe / endObserve
+   command tcs::observe tcsApply Observe
+   {
+      dummy     tcs:observe.A
+   }
+   command tcs::endObserve tcsApply End Observe
+   {
+      dummy     tcs:endObserve.A
+   }
+
+# TCS sequence commands for pause / continue
+   command tcs::pause tcsApply Pause
+   {
+      dummy     tcs:pause.A
+   }
+   command tcs::continue tcsApply Continue
+   {
+      dummy     tcs:continue.A
+   }
+
+# TCS state records
+   status tcsstate
+    {
+      inPosition       tcs:sad:inPosition       0 TCS in position
+      instrAA          tcs:sad:instrAA          0 Instrument alignment angle
+      xoffsetPoA1      tcs:offsetPoA1.VALA      0 X offset
+      yoffsetPoA1      tcs:offsetPoA1.VALB      0 Y offset
+      m2GuideState     tcs:om:m2GuideState      0 M2 guiding state
+      absorbTipTilt    tcs:absorbTipTiltFlag    0 Absorb Tip/Tilt
+      m1Guide          tcs:im:m1GuideOn         0 M1 guide
+      m2p1Guide        tcs:drives:p1GuideConfig 0 M2 P1 guide config
+      m2p2Guide        tcs:drives:p2GuideConfig 0 M2 P2 guide config
+      m2oiGuide        tcs:drives:oiGuideConfig 0 M2 OI guide config
+      m1GuideSource    tcs:m1GuideConfig.VALB   0 M1 guide source
+      port1Label       ag:port:port1            0 ISS port 1 label
+      port2Label       ag:port:port2            0 ISS port 2 label
+      port3Label       ag:port:port3            0 ISS port 3 label
+      port4Label       ag:port:port4            0 ISS port 4 label
+      port5Label       ag:port:port5            0 ISS port 5 label
+      sfName           ag:sfName                0 Science fold position
+      sfParked         ag:sfParked              0 Science parked
+      p1FollowS        ag:p1:followS            0 P1 follow mode
+      p2FollowS        ag:p2:followS            0 P2 follow mode
+      oiFollowS        ag:oi:followS            0 OI follow mode
+      p1Parked         ag:p1:probeParked        0 P1 probe parked
+      p2Parked         ag:p2:probeParked        0 P2 probe parked
+      pwfs1On          tcs:drives:p1Integrating 0 P1 integrating
+      pwfs2On          tcs:drives:p2Integrating 0 P2 integrating
+      oiwfsOn          tcs:drives:oiIntegrating 0 OI integrating
+   }
+
+# DhsHdr (common headers)
+#include <ca_config/dhshdr.ca>
+
+# GCAL
+#include <ca_config/gcal.ca>
+
+# GPOL
+#include <ca_config/gpol.ca>
+
+# Instruments control & specific headers
+
+#include <ca_config/niri.ca>
+#include <ca_config/nirihdr.ca>
+
+#include <ca_config/gmos.ca>
+#include <ca_config/gmoshdr.ca>
+
+#include <ca_config/trecs.ca>
+
+#include <ca_config/michellehdr.ca>
+
+#include <ca_config/acqcam.ca>

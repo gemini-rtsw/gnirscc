@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sequence PUBLIC "-//Gemini Observatory//DTD for OT Science Program Sequence//EN" "Seq.dtd">
+<sequence version="0.1">
+  <step name="NIRI + sky">
+    <system name="instrument">
+       <param name="instrument" value="NIRI"/>
+    </system>
+    <system name="observe">
+      <param name="observeType" value="OBJECT"/>
+    </system>
+  </step>
+  <step name="NIRI + GCAL">
+    <system name="instrument">
+       <param name="instrument" value="NIRI"/>
+    </system>
+    <system name="observe">
+      <param name="observeType" value="FLAT"/>
+    </system>
+  </step>
+  <step name="AC + sky">
+    <system name="instrument">
+       <param name="instrument" value="Acquisition Camera"/>
+    </system>
+    <system name="observe">
+      <param name="observeType" value="OBJECT"/>
+    </system>
+  </step>
+  <step name="AC + GCAL">
+    <system name="instrument">
+       <param name="instrument" value="Acquisition Camera"/>
+    </system>
+    <system name="observe">
+      <param name="observeType" value="FLAT"/>
+    </system>
+  </step>
+</sequence>

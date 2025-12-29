@@ -1,0 +1,15 @@
+s is the icon code I worked on at the last.  The fix was to give better
+return messages when variables were set.  If only one variable is set
+the variable and what it is set to is printed out via a send_debug
+print statement.  The statment will look like "Variable # i set to n".
+
+If an array of fariables is set the message will be
+Variables i - i+n set.
+ 
+Files involved in this change are:
+common/var_sr.c
+icon/inst_setvars.c
+
+These files still exist on lemming because Peter was working on them.
+In order to make them there needs to be an include directory, with a number of 
+include files in it, one level above this one.

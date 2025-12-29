@@ -1,0 +1,38 @@
+#+
+#  SimGcal.itcl
+#
+#  A SimGcal object simulates a real Gcal object in the absence of the real
+#  GCAL.
+#
+#  D Terrett 29 January 2002
+#
+#  Copyright CCLRC
+#+
+
+itcl::class SimGcal {
+   public {
+      constructor {args} {eval configure $args}
+      destructor {}
+      method configure {args} {}
+      method setup {whendone}
+   }
+   private {
+      variable afterid ""
+   }
+}
+
+itcl::body SimGcal::destructor {} {
+   if { $afterid != "" } {
+       after cancel $afterid
+   }
+}
+
+itcl::body SimGcal::setup {whendone} {
+
+# Configures the instrument ready to take an exposure.
+
+# Execute the whendone script 1 second in the future.
+   puts "simulate configuring GCAL"
+   set afterid [after idle $whendone 1]
+   return 1
+}

@@ -1,0 +1,52 @@
+##########################
+# GNIRS Configuration file
+#
+# Read with readConfig("gnirsConfig")
+#
+#
+# '#' marks the beginning of a comment; everything in the remainder of the
+# line is ignored.
+# Blank lines are ignored.
+#
+#  '[...]' Marks the beginning of a section, and the end of the previous one.
+#
+# Commas are optional when there are multiple values per line; for
+# strings, the enclosing '"' are required.
+
+# True is non-zero, false is zero.
+# For home switch type, use 0 for normal home switch, 1 for (positive) limit
+# The Limit offsets are the distances from the soft limit to the hard limit.
+
+# Bit settings --- The initial value is not used for input ports, but is
+# needed in order that the software doesn't have to distinguish between
+# input and output in the scanf statement that reads these lines.
+# "reset" is set high (disabled) while "enabled" is set low
+# which is also the disabled setting.
+##########################
+[Motor 1]
+name = "Env. Cover"		# limited to 12 XXX characters
+type = Binary
+homeLevel = "L"
+fullTravel = 140000		# full distance between switches
+backlash = 200
+initString = ""
+
+# Next 4 items have two parameters: acceleration, then velocity
+seek = 1400, 4000
+backoff = 200 800
+probe = 20,40
+probeH = 1, 5			# careful probe of home switch position
+
+# True is non-zero, false is zero.
+# For home switch type, use 0 for normal home switch, 1 for (positive) limit
+# switch position  aux offset   port   bit  altInUse?  type
+home =        0,      -42,        5,    5,      0	1
+posLimit =    0,     1240
+negLimit = -139800,   -1730
+
+#          port  bit  value
+enable =    5,    3,   0
+reset =     5,    4,   1
+
+isenabled = 1,    2,   0
+fault =     1,    3,   0

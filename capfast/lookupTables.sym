@@ -1,0 +1,11 @@
+[symbol2]
+bbox 352 512 640 640
+uniq 1
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 150 0 0 384 544 Lookup Tables
+l 150 0 0 384 592 NIRS Sequencer
+r 0 352 512 640 640
+[comments]

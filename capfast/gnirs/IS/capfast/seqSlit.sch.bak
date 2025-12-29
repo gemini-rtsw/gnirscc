@@ -1,0 +1,69 @@
+[schematic2]
+uniq 114
+[tools]
+[detail]
+w 420 571 100 0 n#113 ecad8.slitPos.PLNK 256 288 416 288 416 864 704 864 estringouts.slitName.SLNK
+w 546 907 100 0 n#111 ecad8.slitPos.VALA 256 928 448 928 448 896 704 896 estringouts.slitName.DOL
+w 930 859 100 0 n#110 hwout.hwout#100.outp 960 848 960 848 estringouts.slitName.OUT
+w 610 259 100 0 n#103 ecad8.slitPos.STLK 256 256 1024 256 eevents.maskCadStartEvent.SLNK
+w 968 291 100 0 n#81 hwin.hwin#80.in 960 288 1024 288 eevents.maskCadStartEvent.INP
+w 312 1187 100 0 n#46 ecad8.slitPos.VAL 256 1120 256 1184 416 1184 outhier.VAL.p
+w 318 1091 100 0 n#9 ecad8.slitPos.MESS 256 1088 416 1088 outhier.MESS.p
+w -242 1092 100 0 n#8 inhier.ICID.P -464 1024 -384 1024 -384 1088 -64 1088 ecad8.slitPos.ICID
+w -282 1122 100 0 n#7 inhier.DIR.P -464 1120 -64 1120 ecad8.slitPos.DIR
+s -480 944 100 0 Input attributes:
+s -480 896 100 0 A: Mask or IFU ID
+s 2144 1696 140 0 seqMask.sch
+[cell use]
+use estringouts 704 791 100 0 slitName
+xform 0 832 864
+p 640 670 100 0 0 OMSL:closed_loop
+p 672 896 75 1280 -1 pproc(DOL):PP
+use hwout 960 807 100 0 hwout#100
+xform 0 1056 848
+p 1056 839 100 0 -1 val(outp):$(cc)slitPosCad.B
+use seqMechNames 1232 1127 100 0 seqMechNames#99
+xform 0 1352 1272
+p 1248 1168 100 0 -1 set0:mech slit
+use oslBorderC -720 -745 100 0 oslBorderC#87
+xform 0 960 560
+p 2220 -496 120 256 -1 Title:NIRS IS - mask commands
+use hwin 768 247 100 0 hwin#80
+xform 0 864 288
+p 771 280 100 0 -1 val(in):$(event)
+use eevents 1024 167 100 0 maskCadStartEvent
+xform 0 1168 256
+p 1136 160 100 1024 0 name:$(top)$(I)
+use outhier 408 1048 100 0 MESS
+xform 0 400 1088
+use outhier 408 1144 100 0 VAL
+xform 0 400 1184
+use ecad8 -40 168 100 0 slitPos
+xform 0 96 672
+p -112 1214 100 0 -1 DESC:Triggers a subsystem CAD on START only
+p 48 888 100 0 1 FTVA:LONG
+p 48 832 100 0 1 FTVB:LONG
+p 48 784 100 0 0 FTVC:STRING
+p 48 736 100 0 0 FTVD:LONG
+p 32 736 100 0 0 FTVE:DOUBLE
+p 32 704 100 0 0 FTVF:DOUBLE
+p 128 462 100 0 0 FTVH:STRING
+p 0 128 100 0 1 INAM:seqCadInitSlit
+p 32 512 100 0 0 PREC:4
+p 0 64 100 0 1 SNAM:seqCadSlit
+p 352 832 100 0 -1 def(OUTB):
+p 320 766 100 0 0 def(OUTC):0.0
+p 320 702 100 0 0 def(OUTD):0.0
+p 320 638 100 0 0 def(OUTE):0.0
+p 320 574 100 0 0 def(OUTF):0.0
+p 320 510 100 0 0 def(OUTG):0.0
+p 336 446 100 0 0 def(OUTH):0.0
+p 0 110 100 0 0 name:$(top)$(I)
+p 256 896 75 768 -1 pproc(OUTA):NPP
+p 256 832 75 768 -1 pproc(OUTB):NPP
+p 256 448 75 768 -1 pproc(OUTH):NPP
+use inhier -456 984 100 0 ICID
+xform 0 -464 1024
+use inhier -456 1080 100 0 DIR
+xform 0 -464 1120
+[comments]

@@ -1,0 +1,33 @@
+[symbol2]
+bbox 0 -32 608 96
+port 592 32 100 2048 HOMSS symbol 3 608 32 0
+port 592 64 100 2048 HVAL symbol 3 608 64 0
+port 592 0 100 2048 HFLNK symbol 2 608 0 0
+uniq 163
+[tools]
+[attributes]
+p 80 32 100 768 1 set0:mech $(mech)
+p 80 0 100 768 1 set1:desc $(desc)
+p 80 -32 100 768 1 set2:eng $(eng)
+[layers]
+<symbol>
+l 100 3 0 208 64 comp1mSad
+v 0 512 96
+512 64
+192 64
+_
+v 0 512 96
+512 64
+96 64
+96 96
+0 96
+0 -32
+608 -32
+608 96
+512 96
+_
+v 1 192 64
+192 96
+512 96
+_
+[comments]

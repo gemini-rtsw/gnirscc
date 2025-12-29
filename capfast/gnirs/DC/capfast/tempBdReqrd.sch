@@ -1,0 +1,317 @@
+[schematic2]
+uniq 179
+[tools]
+[detail]
+w 592 -29 100 0 n#174 hwin.hwin#176.in 616 -32 616 -32 eais.rdMntLVal.INP
+w 1104 -29 100 0 n#173 hwin.hwin#175.in 1128 -32 1128 -32 eais.rdFootLVal.INP
+w 624 419 100 0 n#168 hwin.hwin#170.in 648 416 648 416 eais.rdMntDGain.INP
+w 1136 419 100 0 n#167 hwin.hwin#169.in 1160 416 1160 416 eais.rdFootDGain.INP
+w 2014 603 100 0 n#123 esubs.mntHGainSub.FLNK 1992 664 2008 664 2008 600 2080 600 eais.mntHGain.SLNK
+w 2042 1131 100 0 n#122 esubs.mntHtrFBSub.FLNK 2008 1184 2032 1184 2032 1120 2112 1120 eais.mntHtrFB.SLNK
+w 562 1139 100 0 n#121 esubs.footHtrFBSub.FLNK 536 1192 552 1192 552 1128 632 1128 eais.footHtrFB.SLNK
+w 582 619 100 0 n#116 esubs.footHGainSub.FLNK 552 672 576 672 576 608 648 608 eais.footHGain.SLNK
+w 1570 1355 100 0 n#115 eais.rdMntHtrFB.VAL 1448 1168 1480 1168 1480 1344 1720 1344 esubs.mntHtrFBSub.INPA
+w 1562 963 100 0 n#114 eais.rdMntHtrFB.FLNK 1448 1200 1464 1200 1464 960 1720 960 esubs.mntHtrFBSub.SLNK
+w 2030 1163 100 0 n#113 esubs.mntHtrFBSub.VAL 2008 1152 2112 1152 eais.mntHtrFB.INP
+w 554 1171 100 0 n#112 esubs.footHtrFBSub.VAL 536 1160 632 1160 eais.footHtrFB.INP
+w 74 1363 100 0 n#111 eais.rdFootHtrFB.VAL -88 1200 -40 1200 -40 1352 248 1352 esubs.footHtrFBSub.INPA
+w -12 1095 100 0 n#110 eais.rdFootHtrFB.FLNK -88 1232 -8 1232 -8 968 248 968 esubs.footHtrFBSub.SLNK
+w 2006 635 100 0 n#109 esubs.mntHGainSub.VAL 1992 632 2080 632 eais.mntHGain.INP
+w 1550 827 100 0 n#108 eais.rdMntHGain.VAL 1416 624 1456 624 1456 824 1704 824 esubs.mntHGainSub.INPA
+w 1530 443 100 0 n#107 eais.rdMntHGain.FLNK 1416 656 1416 440 1704 440 esubs.mntHGainSub.SLNK
+w 570 643 100 0 n#106 esubs.footHGainSub.VAL 552 640 648 640 eais.footHGain.INP
+w 86 835 100 0 n#105 eais.rdFootHGain.VAL -56 656 -32 656 -32 832 264 832 esubs.footHGainSub.INPA
+w 98 451 100 0 n#104 eais.rdFootHGain.FLNK -56 688 -8 688 -8 448 264 448 esubs.footHGainSub.SLNK
+w -336 707 100 0 n#90 hwin.hwin#135.in -312 704 -312 704 eais.rdFootHGain.INP
+w 1136 675 100 0 n#89 hwin.hwin#134.in 1160 672 1160 672 eais.rdMntHGain.INP
+w 232 291 100 0 n#85 hwin.hwin#129.in 256 288 256 288 eais.rdMntIGain.INP
+w 776 291 100 0 n#84 hwin.hwin#130.in 800 288 800 288 eais.rdMntPGain.INP
+w -312 291 100 0 n#83 hwin.hwin#128.in -288 288 -288 288 eais.rdFootIGain.INP
+w 1288 291 100 0 n#82 hwin.hwin#127.in 1312 288 1312 288 eais.rdFootPGain.INP
+w 1168 1219 100 0 n#81 hwin.hwin#126.in 1192 1216 1192 1216 eais.rdMntHtrFB.INP
+w -368 1251 100 0 n#80 hwin.hwin#125.in -344 1248 -344 1248 eais.rdFootHtrFB.INP
+w 1954 2179 100 0 n#38 esubs.mntRefSub.FLNK 1928 2224 1944 2224 1944 2168 2024 2168 2024 2160 eais.mntRef.SLNK
+w 2102 1667 100 0 n#37 esubs.mntLGainSub.FLNK 2072 1720 2096 1720 2096 1656 2168 1656 eais.mntLGain.SLNK
+w 522 1651 100 0 n#36 esubs.footLGainSub.FLNK 496 1704 512 1704 512 1640 592 1640 eais.footLGain.SLNK
+w 518 2179 100 0 n#35 esubs.footRefSub.FLNK 488 2224 512 2224 512 2168 584 2168 584 2160 eais.footRef.SLNK
+w 1610 1507 100 0 n#22 eais.rdMntLGain.FLNK 1464 1624 1496 1624 1496 1496 1784 1496 esubs.mntLGainSub.SLNK
+w 1532 1731 100 0 n#21 eais.rdMntLGain.VAL 1464 1592 1528 1592 1528 1880 1784 1880 esubs.mntLGainSub.INPA
+w -36 1715 100 0 n#20 eais.rdFootLGain.VAL -72 1576 -40 1576 -40 1864 208 1864 esubs.footLGainSub.INPA
+w 98 1483 100 0 n#19 eais.rdFootLGain.FLNK -72 1608 48 1608 48 1480 208 1480 esubs.footLGainSub.SLNK
+w 2090 1691 100 0 n#18 esubs.mntLGainSub.VAL 2072 1688 2168 1688 eais.mntLGain.INP
+w 514 1683 100 0 n#17 esubs.footLGainSub.VAL 496 1672 592 1672 eais.footLGain.INP
+w 1178 1643 100 0 n#16 hwin.hwin#53.in 1208 1640 1208 1640 eais.rdMntLGain.INP
+w 1478 2395 100 0 n#15 eais.rdMntRef.VAL 1352 2168 1376 2168 1376 2384 1640 2384 esubs.mntRefSub.INPA
+w 1946 2203 100 0 n#14 esubs.mntRefSub.VAL 1928 2192 2024 2192 eais.mntRef.INP
+w 1444 2095 100 0 n#13 eais.rdMntRef.FLNK 1352 2200 1440 2200 1440 2000 1640 2000 esubs.mntRefSub.SLNK
+w 506 2203 100 0 n#12 esubs.footRefSub.VAL 488 2192 584 2192 eais.footRef.INP
+w 38 2395 100 0 n#11 eais.rdFootRef.VAL -104 2152 -64 2152 -64 2384 200 2384 esubs.footRefSub.INPA
+w 54 2011 100 0 n#10 eais.rdFootRef.FLNK -104 2184 -32 2184 -32 2000 200 2000 esubs.footRefSub.SLNK
+w -352 1627 100 0 n#3 hwin.hwin#46.in -328 1624 -328 1624 eais.rdFootLGain.INP
+w 1072 2219 100 0 n#2 hwin.hwin#44.in 1096 2216 1096 2216 eais.rdMntRef.INP
+w -384 2203 100 0 n#1 hwin.hwin#45.in -360 2200 -360 2200 eais.rdFootRef.INP
+[cell use]
+use eais 680 0 100 0 rdMntLVal
+xform 0 744 -64
+p 584 -386 100 0 0 AOFF:-1
+p 502 56 100 0 0 DTYP:tempCard
+p 360 -258 100 0 0 EGUF:32767.
+p 360 -290 100 0 0 EGUL:-32768.
+p 360 -162 100 0 0 PINI:YES
+p 360 -226 100 0 0 PREC:3
+p 360 -66 100 0 0 SCAN:Passive
+use eais 1192 0 100 0 rdFootLVal
+xform 0 1256 -64
+p 1014 56 100 0 0 DTYP:tempCard
+p 872 -258 100 0 0 EGUF:32767.0
+p 872 -290 100 0 0 EGUL:-32768.
+p 872 -162 100 0 0 PINI:YES
+p 872 -226 100 0 0 PREC:3
+p 872 -66 100 0 0 SCAN:Passive
+use eais 712 448 100 0 rdMntDGain
+xform 0 776 384
+p 534 504 100 0 0 DTYP:tempCard
+p 392 190 100 0 0 EGUF:32767.0
+p 392 158 100 0 0 EGUL:-32768.0
+p 392 286 100 0 0 PINI:YES
+p 392 222 100 0 0 PREC:3
+p 392 382 100 0 0 SCAN:Passive
+use eais 1224 448 100 0 rdFootDGain
+xform 0 1288 384
+p 1046 504 100 0 0 DTYP:tempCard
+p 904 190 100 0 0 EGUF:32767.0
+p 904 158 100 0 0 EGUL:-32768.0
+p 904 286 100 0 0 PINI:YES
+p 904 222 100 0 0 PREC:3
+p 904 382 100 0 0 SCAN:Passive
+use eais -248 736 100 0 rdFootHGain
+xform 0 -184 672
+p -344 350 100 0 0 AOFF:-1
+p -426 792 100 0 0 DTYP:tempCard
+p -568 478 100 0 0 EGUF:32767.0
+p -568 446 100 0 0 EGUL:-32768.0
+p -568 638 100 0 0 PHAS:0
+p -568 510 100 0 0 PREC:3
+p -568 670 100 0 0 SCAN:10 second
+use eais 1224 704 100 0 rdMntHGain
+xform 0 1288 640
+p 1128 318 100 0 0 AOFF:-1
+p 1046 760 100 0 0 DTYP:tempCard
+p 904 446 100 0 0 EGUF:32767.0
+p 904 414 100 0 0 EGUL:-32768.0
+p 904 606 100 0 0 PHAS:0
+p 904 478 100 0 0 PREC:3
+p 904 638 100 0 0 SCAN:10 second
+use eais 864 320 100 0 rdMntPGain
+xform 0 928 256
+p 686 376 100 0 0 DTYP:tempCard
+p 544 62 100 0 0 EGUF:32767.0
+p 544 30 100 0 0 EGUL:-32768.0
+p 544 158 100 0 0 PINI:YES
+p 544 94 100 0 0 PREC:3
+p 544 254 100 0 0 SCAN:Passive
+use eais 320 320 100 0 rdMntIGain
+xform 0 384 256
+p 142 376 100 0 0 DTYP:tempCard
+p 0 62 100 0 0 EGUF:32767.0
+p 0 30 100 0 0 EGUL:-32768.0
+p 0 158 100 0 0 PINI:YES
+p 0 94 100 0 0 PREC:3
+p 0 254 100 0 0 SCAN:Passive
+use eais -224 320 100 0 rdFootIGain
+xform 0 -160 256
+p -402 376 100 0 0 DTYP:tempCard
+p -544 62 100 0 0 EGUF:32767.0
+p -544 30 100 0 0 EGUL:-32768.0
+p -544 158 100 0 0 PINI:YES
+p -544 94 100 0 0 PREC:3
+p -544 254 100 0 0 SCAN:Passive
+use eais 1376 320 100 0 rdFootPGain
+xform 0 1440 256
+p 1198 376 100 0 0 DTYP:tempCard
+p 1056 62 100 0 0 EGUF:32767.0
+p 1056 30 100 0 0 EGUL:-32768.0
+p 1056 158 100 0 0 PINI:YES
+p 1056 94 100 0 0 PREC:3
+p 1056 254 100 0 0 SCAN:Passive
+use eais 720 680 100 0 footHGain
+xform 0 776 608
+p 616 542 100 0 0 HIGH:50
+p 616 606 100 0 0 HIHI:3000
+p 616 574 100 0 0 LOLO:-1
+p 616 510 100 0 0 LOW:-1
+p 392 446 100 0 0 PREC:3
+use eais 2152 672 100 0 mntHGain
+xform 0 2208 600
+p 1824 438 100 0 0 PREC:3
+use eais 1256 1248 100 0 rdMntHtrFB
+xform 0 1320 1184
+p 1078 1304 100 0 0 DTYP:tempCard
+p 936 1150 100 0 0 PHAS:0
+p 936 1022 100 0 0 PREC:3
+p 936 1182 100 0 0 SCAN:10 second
+use eais -280 1280 100 0 rdFootHtrFB
+xform 0 -216 1216
+p -458 1336 100 0 0 DTYP:tempCard
+p -600 1182 100 0 0 PHAS:0
+p -600 1054 100 0 0 PREC:3
+p -600 1214 100 0 0 SCAN:10 second
+use eais 704 1200 100 0 footHtrFB
+xform 0 760 1128
+p 376 966 100 0 0 PREC:3
+use eais 2184 1192 100 0 mntHtrFB
+xform 0 2240 1120
+p 1856 958 100 0 0 PREC:3
+use eais 2240 1728 100 0 mntLGain
+xform 0 2296 1656
+p 1912 1494 100 0 0 PREC:3
+use eais 664 1712 100 0 footLGain
+xform 0 720 1640
+p 336 1478 100 0 0 PREC:3
+use eais 1272 1672 100 0 rdMntLGain
+xform 0 1336 1608
+p 1094 1728 100 0 0 DTYP:tempCard
+p 952 1574 100 0 0 PHAS:0
+p 952 1446 100 0 0 PREC:3
+p -184 1560 100 0 0 SCAN:10 second
+use eais 2096 2232 100 0 mntRef
+xform 0 2152 2160
+p 1768 1998 100 0 0 PREC:3
+use eais -264 1656 100 0 rdFootLGain
+xform 0 -200 1592
+p -442 1712 100 0 0 DTYP:tempCard
+p -584 1558 100 0 0 PHAS:0
+p -584 1430 100 0 0 PREC:3
+p -584 1590 100 0 0 SCAN:10 second
+use eais -296 2232 100 0 rdFootRef
+xform 0 -232 2168
+p -474 2288 100 0 0 DTYP:tempCard
+p -616 2166 100 0 0 SCAN:10 second
+use eais 1160 2248 100 0 rdMntRef
+xform 0 1224 2184
+p 982 2304 100 0 0 DTYP:tempCard
+p -168 1936 100 0 0 SCAN:10 second
+use eais 656 2232 100 0 footRef
+xform 0 712 2160
+p 664 2072 100 1536 1 PREC:3
+p 1344 1608 100 0 0 SCAN:Passive
+use hwin 424 -73 100 0 hwin#176
+xform 0 520 -32
+p 427 -40 100 0 -1 val(in):@C 1
+use hwin 936 -73 100 0 hwin#175
+xform 0 1032 -32
+p 939 -40 100 0 -1 val(in):@C 0
+use hwin 456 375 100 0 hwin#170
+xform 0 552 416
+p 459 408 100 0 -1 val(in):@D 1
+use hwin 968 375 100 0 hwin#169
+xform 0 1064 416
+p 971 408 100 0 -1 val(in):@D 0
+use hwin -504 663 100 0 hwin#135
+xform 0 -408 704
+p -501 696 100 0 -1 val(in):@H 0
+use hwin 968 631 100 0 hwin#134
+xform 0 1064 672
+p 971 664 100 0 -1 val(in):@H 1
+use hwin 608 247 100 0 hwin#130
+xform 0 704 288
+p 611 280 100 0 -1 val(in):@P 1
+use hwin 64 247 100 0 hwin#129
+xform 0 160 288
+p 67 280 100 0 -1 val(in):@I 1
+use hwin -480 247 100 0 hwin#128
+xform 0 -384 288
+p -477 280 100 0 -1 val(in):@I 0
+use hwin 1120 247 100 0 hwin#127
+xform 0 1216 288
+p 1123 280 100 0 -1 val(in):@P 0
+use hwin 1000 1175 100 0 hwin#126
+xform 0 1096 1216
+p 1003 1208 100 0 -1 val(in):@F 1
+use hwin -536 1207 100 0 hwin#125
+xform 0 -440 1248
+p -533 1240 100 0 -1 val(in):@F 0
+use hwin 1016 1599 100 0 hwin#53
+xform 0 1112 1640
+p 1019 1632 100 0 -1 val(in):@L 1
+use hwin -520 1583 100 0 hwin#46
+xform 0 -424 1624
+p -517 1616 100 0 -1 val(in):@L 0
+use hwin -552 2159 100 0 hwin#45
+xform 0 -456 2200
+p -549 2192 100 0 -1 val(in):@R 0
+use hwin 904 2175 100 0 hwin#44
+xform 0 1000 2216
+p 907 2208 100 0 -1 val(in):@R 1
+use esubs 376 840 100 0 footHGainSub
+xform 0 408 624
+p -24 478 100 0 0 INAM:initConvertTemp
+p 440 504 100 1792 1 SNAM:convertTemp
+p 0 800 100 0 1 def(INPB):4
+p 0 768 100 0 1 def(INPC):2048.0
+p 0 736 100 0 1 def(INPD):409.5
+p 0 704 100 0 1 def(INPE):120.
+use esubs 1848 816 100 0 mntHGainSub
+xform 0 1848 616
+p 1416 470 100 0 0 INAM:initConvertTemp
+p 1416 438 100 0 0 SNAM:convertTemp
+p 1480 792 100 0 1 def(INPB):5
+p 1480 760 100 0 1 def(INPC):2048.
+p 1480 728 100 0 1 def(INPD):409.5
+p 1416 566 100 0 1 def(INPE):120.
+use esubs 360 1360 100 0 footHtrFBSub
+xform 0 392 1144
+p -40 998 100 0 0 INAM:initConvertTemp
+p -40 966 100 0 0 SNAM:convertTemp
+p 24 1304 100 0 1 def(INPB):0
+p 24 1272 100 0 1 def(INPC):2048.0
+p 24 1240 100 0 1 def(INPD):409.6
+p 24 1208 100 0 1 def(INPE):3.0
+p 24 1176 100 0 1 def(INPF):1000
+p 24 1144 100 1536 1 def(INPG):120
+use esubs 1864 1336 100 0 mntHtrFBSub
+xform 0 1864 1136
+p 1432 990 100 0 0 INAM:initConvertTemp
+p 1432 958 100 0 0 SNAM:convertTemp
+p 1496 1312 100 0 1 def(INPB):0
+p 1496 1280 100 0 1 def(INPC):2048.0
+p 1496 1248 100 0 1 def(INPD):409.6
+p 1496 1216 100 0 1 def(INPE):3.0
+p 1496 1184 100 0 1 def(INPF):199.0
+p 1504 1160 100 1536 1 def(INPG):24
+use esubs 1896 1896 100 0 mntLGainSub
+xform 0 1928 1672
+p 1496 1526 100 0 0 INAM:initConvertTemp
+p 1496 1494 100 0 0 SNAM:convertTemp
+p 1536 1848 100 0 1 def(INPB):2
+p 1536 1816 100 0 1 def(INPC):2048.0
+p 1536 1784 100 0 1 def(INPD):409.5
+p 1536 1760 100 1536 1 def(INPE):3.0
+use esubs 344 1880 100 0 footLGainSub
+xform 0 352 1656
+p -80 1510 100 0 0 INAM:initConvertTemp
+p -80 1478 100 0 0 SNAM:convertTemp
+p -8 1840 100 0 1 def(INPB):2
+p -24 1808 100 0 1 def(INPC):2048.0
+p -16 1776 100 0 1 def(INPD):409.5
+p -16 1744 100 1536 1 def(INPE):3.0
+use esubs 1752 2392 100 0 mntRefSub
+xform 0 1784 2176
+p 1352 2030 100 0 0 INAM:initConvertTemp
+p 1352 1998 100 0 0 SNAM:convertTemp
+p 1384 2360 100 0 1 def(INPB):2
+p 1384 2328 100 0 1 def(INPC):2048.0
+p 1384 2296 100 0 1 def(INPD):409.5
+p 1384 2272 100 1536 1 def(INPE):3.0
+use esubs 376 2360 100 0 footRefSub
+xform 0 344 2176
+p -88 2030 100 0 0 INAM:initConvertTemp
+p -88 2318 100 0 0 SCAN:Passive
+p -88 1998 100 0 0 SNAM:convertTemp
+p -48 2352 100 0 1 def(INPB):2
+p -48 2320 100 0 1 def(INPC):2048.0
+p -48 2288 100 0 1 def(INPD):409.5
+p -48 2264 100 1536 1 def(INPE):3.0
+use eborderC -680 -25 100 0 eborderC#0
+xform 0 1000 1280
+[comments]

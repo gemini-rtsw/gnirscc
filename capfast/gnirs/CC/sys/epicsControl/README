@@ -1,0 +1,28 @@
+This is where the EPICS CAD support files are located.  All of the files in this
+ directory are compiled and linked into a single object file (epicsControl.o).  
+
+The object file is loaded into vxworks before iocInit. 
+
+After the iocInit is run, initTasks must be run, which starts up all the control 
+tasks. These tasks enter a while loop and then wait for a semaphore to be given
+to them.  A corresponding cad routine releases the semaphore which allows a particular
+control task to continue.  This architecture was used to allow a quick return 
+when a cad record is processed.   The cad routine starts the control task 
+and returns before the task is finished.  If any errors occur in the control task, 
+the error gets reported to the supervising car record which then filters up to
+the applyC car record. 
+ 
+
+Most of the files in this area have a corresponding cad record.  The rest have functions
+useful to all of the routines.  
+
+
+epicsCAInt.c  - Contains functions for using EPICS channel access.
+
+epicsCA.c  -  Functions which use channel access to set SAD database values.
+
+epCommon.c  -  Functions for accessing local database values.
+
+epicsGlobals.c  -  Global variable definitions.
+
+

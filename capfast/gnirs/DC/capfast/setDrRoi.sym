@@ -1,0 +1,29 @@
+[symbol2]
+bbox -64 96 160 352
+port -68 328 100 0 {lowRow} symbol 1 -64 320 0
+port -68 264 100 0 {lowCol} symbol 1 -64 256 0
+port -68 200 100 0 {hiRow} symbol 1 -64 192 0
+port -68 136 100 0 {hiCol} symbol 1 -64 128 0
+uniq 26
+[tools]
+[attributes]
+p 36 84 65 1536 1 set1:top $(top)
+p 36 68 65 1536 1 set2:ROInum 1
+p 36 52 65 1536 1 set3:var 16
+[layers]
+<symbol>
+l 100 0 0 48 324 setDrRoi
+r 0 32 96 160 352
+v 0 -64 128
+32 128
+_
+v 0 -64 192
+32 192
+_
+v 0 -64 256
+32 256
+_
+v 0 -64 320
+32 320
+_
+[comments]

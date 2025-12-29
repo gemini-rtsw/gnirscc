@@ -1,0 +1,65 @@
+#! /bin/sh
+
+# $Id: genTop,v 1.2 2009/05/27 19:34:58 fkraemer Exp $
+
+#
+# This script is used to generate Top level capfast diagrams from
+# a template file.  See templateTop.sch for details.
+#
+
+if [ ! -f .applTop/config.par ]; then
+	1>&2 echo ".applTop/config.par does not exist.  Run niriSetup."
+	exit
+fi
+
+. .applTop/config.par
+
+#
+# subst template.sch NAMETop.sch
+#
+
+subst () {
+	template=$1
+	fileprefix=`echo $2 | sed 's;\(.*\)Set.sch;\1;'`
+	base=`basename $fileprefix`
+	echo "Generating ${fileprefix}Top.sch ($base) from $template."
+
+	/bin/sed \
+		-e "s/dummy/${base}Set/g" \
+		-e "s/file:templateTop.sch/file:${base}Top.sch/" \
+		-e "s/@1@ .*/@1@ This file was automatically generated from/" \
+		-e "s/@2@ .*/@2@ templateTop.sch at setup time.  Do not edit/" \
+		-e "s/@3@ .*/@3@ it by hand.  If you need to change a value,/" \
+		-e "s/@4@ .*/@4@ change the appropriate environment variable,/" \
+		-e "s/@5@ .*/@5@ then rerun niriSetup.  See templateTop.sch/" \
+		-e "s/@6@ .*/@6@ for more details./" \
+		-e "s/@7@ .*/@7@ /" \
+		-e "s/@8@ .*/@8@ /" \
+		-e 's^\(set.*:realtop\)\>.*^\1 '$prefix'^;' \
+		-e 's^\(set.*:name\)\>.*^\1 '$name'^;' \
+		-e 's^\(set.*:top\)\>.*^\1 '$prefix'^;' \
+		-e 's^\(set.*:sadtop\)\>.*^\1 '$sadprefix'^;' \
+		-e 's^\(set.*:dctop\)\>.*^\1 '$dcprefix'^;' \
+		-e 's^\(set.*:dcsadtop\)\>.*^\1 '$dcsadprefix'^;' \
+		-e 's^\(set.*:agtop\)\>.*^\1 '$agprefix'^;' \
+		< $template > ${fileprefix}Top.sch
+}
+
+if [ $# -lt 2 ]; then
+	2>&1 echo "`basename $0`: `basename $0` template.sch FILE1Set.sch [...]"
+	exit 1
+fi
+
+template=$1
+shift
+
+for file in $@; do
+	case $file in
+	*Set.sch)
+		subst $template $file
+		;;
+	*)
+		1>&2 echo "`basename $0`: Invalid name ($file): Ignored"
+		;;
+	esac
+done

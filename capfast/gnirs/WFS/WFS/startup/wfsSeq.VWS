@@ -1,0 +1,13 @@
+# NIRI On Instrument Wavefront Sensor sequences
+seq &compPseudoSt, "name=folSet, top=@(prefix)wfs:, sadtop=@(sadprefix)wfs:, eng=@(prefix)wfs:, sys=sys, mech=folSet"
+seq &compPseudoSt, "name=wfsLockObs, top=@(prefix)wfs:, sadtop=@(sadprefix)wfs:, eng=@(prefix)eng:, sys=sys, mech=lockObs"
+seq &compPseudoSt, "name=wfsLockGen, top=@(prefix)wfs:, sadtop=@(sadprefix)wfs:, eng=@(prefix)eng:, sys=sys, mech=lockGen"
+seq &compPseudoSt, "name=wfsLockCfg, top=@(prefix)wfs:, sadtop=@(sadprefix)wfs:, eng=@(prefix)eng:, sys=sys, mech=lockCfg"
+seq &compPseudoSt, "name=wfsLockTmp, top=@(prefix)wfs:, sadtop=@(sadprefix)wfs:, eng=@(prefix)eng:, sys=sys, mech=lockTmp"
+seq &engSt, "name=wfsFilt, top=@(prefix)wfs:, sadtop=@(sadprefix)wfs:, eng=@(prefix)eng:wfs:, sys=sys, mech=filt"
+seq &engSt, "name=wfsFoc, top=@(prefix)wfs:, sadtop=@(sadprefix)wfs:, eng=@(prefix)eng:wfs:, sys=sys, mech=foc"
+seq &engSt, "name=wfsPrbx, top=@(prefix)wfs:, sadtop=@(sadprefix)wfs:, eng=@(prefix)eng:wfs:, sys=sys, mech=prbx"
+seq &engSt, "name=wfsPrby, top=@(prefix)wfs:, sadtop=@(sadprefix)wfs:, eng=@(prefix)eng:wfs:, sys=sys, mech=prby"
+seq &cicsSysSt, "name=cicsWfs, top=@(prefix)wfs:, sadtop=@(sadprefix)wfs:, sys=sys"
+seq &engModeSt, "name=filtWfsBeamSt, top=@(prefix)wfs:, sadtop=@(sadprefix)wfs:, eng=@(prefix)eng:wfs:, mech=filt, prefix=Beam"
+

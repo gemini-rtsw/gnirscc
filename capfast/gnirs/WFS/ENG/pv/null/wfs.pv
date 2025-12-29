@@ -1,0 +1,8 @@
+# $Id: wfs.pv,v 1.2 2009/05/27 19:34:22 fkraemer Exp $
+
+group {
+	string $(top)eng:wfs:focSubdir = "NOSAVE";
+	string $(top)eng:wfs:filtSubdir = "NOSAVE";
+	string $(top)eng:wfs:prbxSubdir = "NOSAVE";
+	string $(top)eng:wfs:prbySubdir = "NOSAVE";
+};

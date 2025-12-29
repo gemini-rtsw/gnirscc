@@ -1,0 +1,19 @@
+# focusLR-imaging.dat
+#
+# OT Name        fw1            fw2         focus   remaining values ignored for IMAGING LUT
+"H + ND100X"     "ND100X"       "H"         -160000 0       0           0       0       0           0       0       0           0        0        0
+"H2 + ND100X"    "ND100X"       "H2"        -180000 0       0           0       0       0           0       0       0           0        0        0
+"Y-MK: 1.03um"   "Y-MK"         "Open"      -160000 0       0           0       0       0           0       0       0           0        0        0
+"J-MK: 1.25um"   "J-MK"         "Open"      -160000 0       0           0       0       0           0       0       0           0        0        0
+"K-MK: 2.20um"   "K-MK"         "Open"      -180000 0       0           0       0       0           0       0       0           0        0        0
+"PAH: 3.3um"     "Open"         "PAH"       -320000 0       0           0       0       0           0       0       0           0        0        0
+"H2: 2.12um"     "Open"         "H2"        -180000 0       0           0       0       0           0       0       0           0        0        0
+"x-dispersed"    "Open"         "XD"        -160000 0       0           0       0       0           0       0       0           0        0        0
+"order 6 (X)"    "Open"         "X"         -160000 0       0           0       0       0           0       0       0           0        0        0
+"order 5 (J)"    "Open"         "J"         -160000 0       0           0       0       0           0       0       0           0        0        0
+"order 4 (H-MK)" "Open"         "H"         -160000 0       0           0       0       0           0       0       0           0        0        0
+"order 3 (K)"    "Open"         "K"         -180000 0       0           0       0       0           0       0       0           0        0        0
+"order 2 (L)"    "Open"         "L"         -320000 0       0           0       0       0           0       0       0           0        0        0
+"order 1 (M)"    "Open"         "M"         -320000 0       0           0       0       0           0       0       0           0        0        0
+"Pupil Viewer"   "PupilViewer"  "*"         0       0       0           0       0       0           0       0       0           0        0        0
+"Dark"           "Dark"         "*"         0       0       0           0       0       0           0       0       0           0        0        0

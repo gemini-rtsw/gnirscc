@@ -1,0 +1,7 @@
+DIRS += dhs_temp
+DIRS += dqSocket
+DIRS += globals
+DIRS += gnRpcSrc
+DIRS += noaoCoAdder
+DIRS += utilSource
+

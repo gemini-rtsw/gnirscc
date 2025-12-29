@@ -1,0 +1,604 @@
+#+
+# HdrInfo
+#
+# A hdrInfo object manages the sending of DHS header info to the DHS before
+# and after an observation.
+#
+# D Terrett  16 May 2002
+# M Bec      17 Jun 2002
+#
+# Copyright CLRC
+#+
+
+itcl::class dhshdr::HdrInfo {
+   constructor {instrument contribs} {}
+   public {
+      method sendbefore {}
+      method sendafter {}
+      method sendfinal {}
+      variable guideWith none
+      variable observeType ""
+      variable useGpol   0    ;# flag collect gpol headers  
+      variable finalized 1    ;# flag final contribution
+   }
+   protected {
+      method getlabel {}
+   }
+   private {
+      variable contriblist
+      common gpolDPUV    -22.5
+      common gpolDP22    -45.0
+      common gpolZNSEWG  -67.5
+   }
+
+   proc hdrsetval { hsndr keywd args } {
+      switch [hsender -dict get $keywd -type] {
+         DOUBLE {
+            if { [string is double $args] } {
+               $hsndr set $keywd $args
+               }\
+            elseif [string is double [lindex $args 0]] {
+               # this seems to happen for value like 1.23344e-10 
+               $hsndr set $keywd [lindex $args 0]
+               }\
+            else {
+               puts "keyword error $keywd - type [hsender -dict get $keywd -type] - $args"
+               # arbitrary null
+               $hsndr set $keywd { 0.0 }
+               }
+            }
+         INT {
+            if { [string is int $args] } {
+               $hsndr set $keywd $args
+               }\
+            else {
+               puts "keyword error $keywd - type [hsender -dict get $keywd -type] - $args"
+               # arbitrary null
+               $hsndr set $keywd { 0 }
+               }
+            }
+         default {
+            # assume it's okay
+            $hsndr set $keywd $args
+            }
+      }
+   }
+      
+
+}
+
+itcl::body  dhshdr::HdrInfo::constructor {instrument contribs} {
+   
+# Save the contributor list.
+   set contriblist [appData lookup appName]
+   lappend contriblist $contribs
+
+# Create header senders for "before" and "after".
+   hsender headpwfs1 -command ${this}::pwfs1
+   ${this}::pwfs1 init
+   ${this}::pwfs1 add destName -value $dhshdr::destination
+   
+   hsender headpwfs2 -command ${this}::pwfs2
+   ${this}::pwfs2 init
+   ${this}::pwfs2 add destName -value  $dhshdr::destination
+   
+   hsender headoiwfs -command ${this}::oiwfs
+   ${this}::oiwfs init
+   ${this}::oiwfs add destName -value  $dhshdr::destination
+   
+   hsender headbefore -command ${this}::before
+   ${this}::before init
+   ${this}::before add destName -value  $dhshdr::destination
+   
+   hsender headafter -command ${this}::after
+   ${this}::after init
+   ${this}::after add destName -value  $dhshdr::destination
+   
+   hsender headgcal -command ${this}::gcal
+   ${this}::gcal init
+   ${this}::gcal add destName -value  $dhshdr::destination
+   
+   hsender headgpol -command ${this}::gpol
+   ${this}::gpol init
+   ${this}::gpol add destName -value  $dhshdr::destination
+   
+   # only used to finalize dhs contribution if something went wrong
+   hsender headfinal -command ${this}::final
+   ${this}::final init
+   ${this}::final add destName -value  $dhshdr::destination
+
+# Add the parameters.
+   ${this}::before add instrument
+   ${this}::before add OBJECT
+   ${this}::before add OBSTYPE
+   ${this}::before add GEMPRGID
+   ${this}::before add obsid
+   ${this}::before add DATALAB
+   ${this}::before add OBSERVER
+   ${this}::before add OBSERVAT
+   ${this}::before add telescope
+   ${this}::before add PARALLAX
+   ${this}::before add RADVEL
+   ${this}::before add EPOCH
+   ${this}::before add EQUINOX 
+   ${this}::before add TRKEQUIN
+   ${this}::before add SSA
+   ${this}::before add RA
+   ${this}::before add DEC
+   ${this}::before add ELEVATIO
+   ${this}::before add AZIMUTH
+   ${this}::before add CRPA
+   ${this}::before add HA
+   ${this}::before add LT
+   ${this}::before add TRKFRAME
+   ${this}::before add DECTRACK
+   ${this}::before add TRKEPOCH
+   ${this}::before add RATRACK
+   ${this}::before add FRAME
+   ${this}::before add PMDEC
+   ${this}::before add PMRA
+   ${this}::before add WAVELENG
+   ${this}::before add RAWIQ
+   ${this}::before add RAWCC
+   ${this}::before add RAWWV
+   ${this}::before add RAWBG
+   ${this}::before add RAWPIREQ
+   ${this}::before add RAWGEMQA
+   ${this}::before add CGUIDMOD    
+   ${this}::before add UT
+   ${this}::before add DATE
+   ${this}::before add M2BAFFLE
+   ${this}::before add M2CENBAF
+   ${this}::before add ST
+   ${this}::before add XOFFSET
+   ${this}::before add YOFFSET
+   ${this}::before add RAOFFSET
+   ${this}::before add DECOFFSE
+   ${this}::before add PA
+   ${this}::before add SFRT2
+   ${this}::before add SFTILT
+   ${this}::before add SFLINEAR
+   
+   ${this}::gcal add instrument
+   ${this}::gcal add GCALLAMP
+   ${this}::gcal add GCALFILT
+   ${this}::gcal add GCALDIFF
+   ${this}::gcal add GCALSHUT
+
+   ${this}::gpol add instrument
+   ${this}::gpol add GPOLPOS
+   ${this}::gpol add GPOLPL1
+   ${this}::gpol add GPOLPL2
+   ${this}::gpol add GPOLPL3     
+   ${this}::gpol add GPOLANG   
+   ${this}::gpol add GPOLCON
+
+
+   ${this}::after add instrument
+   ${this}::after add AIRMASS
+   ${this}::after add AMSTART
+   ${this}::after add AMEND
+#   ${this}::after add PARANGLE
+
+   ${this}::pwfs1 add instrument
+   ${this}::pwfs1 add P1ARA
+   ${this}::pwfs1 add P1ARV
+   ${this}::pwfs1 add P1AWAVEL
+   ${this}::pwfs1 add P1ADEC
+   ${this}::pwfs1 add P1AEPOCH
+   ${this}::pwfs1 add P1AEQUIN
+   ${this}::pwfs1 add P1AFRAME
+   ${this}::pwfs1 add P1AOBJEC
+   ${this}::pwfs1 add P1APMDEC
+   ${this}::pwfs1 add P1APMRA
+   ${this}::pwfs1 add P1APARAL
+   ${this}::pwfs2 add instrument
+   ${this}::pwfs2 add P2ARA
+   ${this}::pwfs2 add P2ARV
+   ${this}::pwfs2 add P2AWAVEL
+   ${this}::pwfs2 add P2ADEC
+   ${this}::pwfs2 add P2AEPOCH
+   ${this}::pwfs2 add P2AEQUIN
+   ${this}::pwfs2 add P2AFRAME
+   ${this}::pwfs2 add P2AOBJEC
+   ${this}::pwfs2 add P2APMDEC
+   ${this}::pwfs2 add P2APMRA
+   ${this}::pwfs2 add P2APARAL
+   ${this}::oiwfs add instrument
+   ${this}::oiwfs add OIARA
+   ${this}::oiwfs add OIARV
+   ${this}::oiwfs add OIAWAVEL
+   ${this}::oiwfs add OIADEC
+   ${this}::oiwfs add OIAEPOCH
+   ${this}::oiwfs add OIAEQUIN
+   ${this}::oiwfs add OIAFRAME
+   ${this}::oiwfs add OIAOBJEC
+   ${this}::oiwfs add OIAPMDEC
+   ${this}::oiwfs add OIAPMRA
+   ${this}::oiwfs add OIAPARAL
+
+   ${this}::final add instrument
+
+# instrument is an essential component when sending headers
+# because it tells the dhs what data dictionary to use
+   hdrsetval ${this}::before instrument $instrument
+   hdrsetval ${this}::after instrument $instrument
+   hdrsetval ${this}::gcal  instrument $instrument
+   hdrsetval ${this}::gpol  instrument $instrument
+   hdrsetval ${this}::pwfs1 instrument $instrument
+   hdrsetval ${this}::pwfs2 instrument $instrument
+   hdrsetval ${this}::oiwfs instrument $instrument
+   hdrsetval ${this}::final instrument $instrument
+}
+
+itcl::body dhshdr::HdrInfo::sendbefore {} {
+
+# seqexec contribution is started (will need to be finalized)
+   set finalized 0
+
+# Set parameters from the namespace variables set by the user.
+   hdrsetval ${this}::before OBJECT    $dhshdr::object
+   hdrsetval ${this}::before OBSTYPE   $dhshdr::obstype
+   hdrsetval ${this}::before GEMPRGID  $dhshdr::gemprgid
+   hdrsetval ${this}::before obsid     $dhshdr::gemprgid\-$dhshdr::obsid
+   hdrsetval ${this}::before DATALAB   $dhshdr::gemprgid\-$dhshdr::obsid\-$dhshdr::datalabel
+   hdrsetval ${this}::before OBSERVER  $dhshdr::observer
+   hdrsetval ${this}::before SSA       $dhshdr::ssa
+   hdrsetval ${this}::before RAWIQ     $dhshdr::rawiq
+   hdrsetval ${this}::before RAWCC     $dhshdr::rawcc
+   hdrsetval ${this}::before RAWWV     $dhshdr::rawwv
+   hdrsetval ${this}::before RAWBG     $dhshdr::rawbg
+   hdrsetval ${this}::before RAWPIREQ  $dhshdr::rawpireq
+   hdrsetval ${this}::before RAWGEMQA  $dhshdr::rawgemqa
+
+   hdrsetval ${this}::before CGUIDMOD [sa dhshdr::tcs get cguidmod]  
+
+# Set data from the tcs
+   hdrsetval ${this}::before OBSERVAT [sa dhshdr::tcs get name]  
+   hdrsetval ${this}::before telescope [sa dhshdr::tcs get name]  
+   hdrsetval ${this}::before HA [sa dhshdr::tcs get ha]
+   hdrsetval ${this}::before LT [sa dhshdr::tcs get lt]
+   hdrsetval ${this}::before TRKFRAME [sa dhshdr::tcs get trkframe]
+   hdrsetval ${this}::before DECTRACK [sa dhshdr::tcs get dectrack]
+   hdrsetval ${this}::before TRKEPOCH [sa dhshdr::tcs get trkepoch]
+   hdrsetval ${this}::before RATRACK [sa dhshdr::tcs get ratrack]
+   hdrsetval ${this}::before FRAME [sa dhshdr::tcs get frame]
+   hdrsetval ${this}::before PMDEC [sa dhshdr::tcs get pmdec]
+   hdrsetval ${this}::before PMRA [sa dhshdr::tcs get pmra]
+   hdrsetval ${this}::before WAVELENG [sa dhshdr::tcs get waveleng]
+
+   hdrsetval ${this}::before PARALLAX [sa dhshdr::tcs get sourceAParallax]
+   hdrsetval ${this}::before RADVEL [sa dhshdr::tcs get sourceARV]        
+   
+   # drop leading J
+   hdrsetval ${this}::before EPOCH [string range [sa dhshdr::tcs get sourceAEpoch] 1 end]
+   hdrsetval ${this}::before EQUINOX [string range [sa dhshdr::tcs get sourceAEquinox] 1 end]
+   hdrsetval ${this}::before TRKEQUIN [string range [sa dhshdr::tcs get sourceATrackEq] 1 end]
+
+   hdrsetval ${this}::before RA [sa dhshdr::tcs get ra]
+   hdrsetval ${this}::before DEC [sa dhshdr::tcs get dec]
+   # get rid of {}
+   hdrsetval ${this}::before ELEVATIO [sa dhshdr::tcs get elevatio]
+   hdrsetval ${this}::before AZIMUTH [sa dhshdr::tcs get azimuth]
+   hdrsetval ${this}::before CRPA [sa dhshdr::tcs get crpa]
+
+   hdrsetval ${this}::before UT [sa dhshdr::tcs get ut]
+   
+   # Not formated to '2001-05-02T02:48:45' ...
+   hdrsetval ${this}::before DATE [sa dhshdr::tcs get date]
+
+   hdrsetval ${this}::before M2BAFFLE [sa dhshdr::tcs get m2baffle]
+   hdrsetval ${this}::before M2CENBAF [sa dhshdr::tcs get m2cenbaff]
+   hdrsetval ${this}::before ST [sa dhshdr::tcs get st]
+   hdrsetval ${this}::before SFRT2 [sa dhshdr::tcs get sfrt2]
+   hdrsetval ${this}::before SFTILT [sa dhshdr::tcs get sftilt]
+   hdrsetval ${this}::before SFLINEAR [sa dhshdr::tcs get sflinear]
+
+   hdrsetval ${this}::before PA [sa dhshdr::tcs get instrPA]
+#   hdrsetval ${this}::before PARANGLE [sa dhshdr::tcs get parangle]
+
+   set target [sa dhshdr::tcs get targetA]
+   if { [string equal $target "No Value"] } {
+      set target [list 0 0 0 0 0 0 0 0]
+   }
+   
+# Offsets in TCS focal plane X/Y.
+   set xoff [expr {[lindex $target 6] / 0.62056151}]
+   set yoff [expr {[lindex $target 7] / 0.62056151}]
+
+# Rotate into p/q of instrument.
+   set iaa [sa dhshdr::tcs get instrAA]
+   if { ! [string is double $iaa] } {
+      set iaa 0.0
+   } else {
+      set iaa [expr { $iaa / 57.2957795131 }]
+   }
+   set p [expr { $xoff * cos($iaa) - $yoff * sin($iaa) } ]
+   set q [expr { $xoff * sin($iaa) + $yoff * cos($iaa) } ]
+
+   hdrsetval ${this}::before XOFFSET $p
+   hdrsetval ${this}::before YOFFSET $q
+
+# Rotate into RA/Dec
+   set ipa [sa dhshdr::tcs get instrPA]
+   if { ! [string is double $ipa] } {
+      set ipa 0.0
+   } else {
+      set ipa [expr { $ipa / 57.2957795131 }]
+   }
+   set ra [expr { $p * cos($ipa) - $q * sin($ipa) } ]
+   set dec [expr { $p * sin($ipa) + $q * cos($ipa) } ]
+
+   hdrsetval ${this}::before RAOFFSET $ra
+   hdrsetval ${this}::before DECOFFSE $dec
+
+# Generate and configure the dhs label.
+   getlabel
+
+# Post the "before" headers.
+   if { $dhshdr::debug } {
+      foreach par [lindex [${this}::before info] 3] {
+         puts [${this}::before info $par]
+      }
+      puts "${this}::before postWait -label $dhshdr::dhslabel"
+   }
+   ${this}::before postWait -label $dhshdr::dhslabel
+
+# Add headers for GCAL if active
+   if { $observeType == "FLAT" || $observeType == "ARC" } {
+       hdrsetval ${this}::gcal GCALFILT [sa dhshdr::gcal get filt]
+       hdrsetval ${this}::gcal GCALDIFF [sa dhshdr::gcal get diff]
+       switch [sa dhshdr::gcal get shut] {
+         OPEN {hdrsetval ${this}::gcal GCALSHUT OPEN}
+         CLOSE {hdrsetval ${this}::gcal GCALSHUT CLOSED}
+         default {hdrsetval ${this}::gcal GCALSHUT INDEF}
+         }
+       if { [sa dhshdr::gcal get IR] == "OFF" } {
+          hdrsetval ${this}::gcal GCALLAMP "IRlow"
+          foreach lamp {Ar Kr CuAr ThAr QH} {
+             if { [sa dhshdr::gcal get $lamp] == "ON" } {
+                hdrsetval ${this}::gcal GCALLAMP $lamp
+                break
+             }
+          }
+       } else {
+          hdrsetval ${this}::gcal GCALLAMP "IRhigh"
+       }
+   if { $dhshdr::debug } {
+      foreach par [lindex [${this}::gcal info] 3] {
+         puts [${this}::gcal info $par]
+      }
+      puts "${this}::gcal postWait -label $dhshdr::dhslabel"
+   }
+   ${this}::gcal postWait -label $dhshdr::dhslabel
+   }
+   
+   
+# Add headers for GPOL if needed
+   if { $useGpol } {
+         set upperParkSwitch   [sa dhshdr::gpol get upperParkSwitch ]
+         set middleParkSwitch  [sa dhshdr::gpol get middleParkSwitch]
+         set lowerParkSwitch   [sa dhshdr::gpol get lowerParkSwitch ]
+         set upperPlateAngle   [sa dhshdr::gpol get upperPlateAngle ]  
+         set middlePlateAngle  [sa dhshdr::gpol get middlePlateAngle]  
+         set lowerPlateAngle   [sa dhshdr::gpol get lowerPlateAngle ]  
+         set upperPlatePeriod  [sa dhshdr::gpol get upperPlatePeriod ]  
+         set middlePlatePeriod [sa dhshdr::gpol get middlePlatePeriod]  
+         set lowerPlatePeriod  [sa dhshdr::gpol get lowerPlatePeriod ]  
+         
+         # GPOLPOS
+         if { [string equal $upperParkSwitch "CLOSED"] &&\
+              [string equal $middleParkSwitch "CLOSED"] &&\
+              [string equal $lowerParkSwitch "CLOSED"] } {
+            hdrsetval ${this}::gpol GPOLPOS OUT
+         } else {
+            hdrsetval ${this}::gpol GPOLPOS IN
+         }
+         
+         hdrsetval ${this}::gpol GPOLCON INDEF
+         hdrsetval ${this}::gpol GPOLANG -0.0 
+         
+         # GPOLPL1
+         if { [string equal $upperParkSwitch "CLOSED"] } {
+            hdrsetval ${this}::gpol GPOLPL1 OUT
+         } else {
+            if { [expr { $upperPlateAngle == $gpolDPUV}] } {
+               hdrsetval ${this}::gpol GPOLPL1 DPUV
+            } elseif { [expr { $upperPlateAngle == $gpolDP22}] } {
+               hdrsetval ${this}::gpol GPOLPL1 DP22
+            } elseif { [expr { $upperPlateAngle == $gpolZNSEWG}] } {
+               hdrsetval ${this}::gpol GPOLPL1 "ZNSE WG"
+            } else {
+               hdrsetval ${this}::gpol GPOLPL1 $upperPlateAngle
+            }
+         }
+         
+         
+         # GPOLPL2
+         if { [string equal $middleParkSwitch "CLOSED"] } {
+            hdrsetval ${this}::gpol GPOLPL2 OUT
+         } else {
+            hdrsetval ${this}::gpol GPOLPL2 IN
+            if { [expr { $middlePlatePeriod == -1.0 }] } {
+               hdrsetval ${this}::gpol GPOLANG $middlePlateAngle
+               hdrsetval ${this}::gpol GPOLCON DISCREET
+            } else {
+               if [ catch { hdrsetval ${this}::gpol GPOLANG [expr 360.0 / $middlePlatePeriod] }] {
+                  hdrsetval ${this}::gpol GPOLANG -0.0
+                  }
+               hdrsetval ${this}::gpol GPOLCON CONTINUOUS
+            }
+         }
+         
+         # GPOLPL3
+         if { [string equal $lowerParkSwitch "CLOSED"] } {
+            hdrsetval ${this}::gpol GPOLPL3 OUT
+         } else {
+            hdrsetval ${this}::gpol GPOLPL3 IN
+            if { [expr { $lowerPlatePeriod == -1.0 }] } {
+               hdrsetval ${this}::gpol GPOLANG $lowerPlateAngle
+               hdrsetval ${this}::gpol GPOLCON DISCREET
+            } else {
+               if [ catch { hdrsetval ${this}::gpol GPOLANG [expr 360.0 / $lowerPlatePeriod] }] {
+                  hdrsetval ${this}::gpol GPOLANG -0.0
+                  }
+               hdrsetval ${this}::gpol GPOLCON CONTINUOUS
+            }
+         }
+         
+                     
+         # Post the "before" headers.
+            if { $dhshdr::debug } {
+               foreach par [lindex [${this}::gpol info] 3] {
+                  puts [${this}::gpol info $par]
+               }
+               puts "${this}::gpol postWait -label $dhshdr::dhslabel"
+            }
+         ${this}::gpol postWait -label $dhshdr::dhslabel
+      }
+      
+# Add headers for any active wave-front sensors.
+   if { [lsearch -exact $guideWith PWFS1] != -1 } {
+      hdrsetval ${this}::pwfs1 P1ARA [sa dhshdr::tcs get p1ara]
+      hdrsetval ${this}::pwfs1 P1ARV [sa dhshdr::tcs get p1arv]
+      hdrsetval ${this}::pwfs1 P1AWAVEL [sa dhshdr::tcs get p1awavel]
+      hdrsetval ${this}::pwfs1 P1ADEC [sa dhshdr::tcs get p1adec]
+      hdrsetval ${this}::pwfs1 P1AEPOCH [string range [sa dhshdr::tcs get p1aepoch] 1 end]
+      hdrsetval ${this}::pwfs1 P1AEQUIN [string range [sa dhshdr::tcs get p1aequin] 1 end]
+      hdrsetval ${this}::pwfs1 P1AFRAME [sa dhshdr::tcs get p1aframe]
+      hdrsetval ${this}::pwfs1 P1AOBJEC [sa dhshdr::tcs get p1aobjec]
+      hdrsetval ${this}::pwfs1 P1APMDEC [sa dhshdr::tcs get p1apmdec]
+      hdrsetval ${this}::pwfs1 P1APMRA [sa dhshdr::tcs get p1apmra]
+      hdrsetval ${this}::pwfs1 P1APARAL [sa dhshdr::tcs get p1aparal]
+      if { $dhshdr::debug } {
+         foreach par [lindex [${this}::pwfs1 info] 3] {
+            puts [${this}::pwfs1 info $par]
+         }
+         puts "${this}::pwfs1 postWait -label $dhshdr::dhslabel"
+      }
+      ${this}::pwfs1 postWait -label $dhshdr::dhslabel
+   }
+   if { [lsearch -exact $guideWith PWFS2] != -1 } {
+      hdrsetval ${this}::pwfs2 P2ARA [sa dhshdr::tcs get p2ara]
+      hdrsetval ${this}::pwfs2 P2ARV [sa dhshdr::tcs get p2arv]
+      hdrsetval ${this}::pwfs2 P2AWAVEL [sa dhshdr::tcs get p2awavel]
+      hdrsetval ${this}::pwfs2 P2ADEC [sa dhshdr::tcs get p2adec]
+      hdrsetval ${this}::pwfs2 P2AEPOCH [string range [sa dhshdr::tcs get p2aepoch] 1 end]
+      hdrsetval ${this}::pwfs2 P2AEQUIN [string range [sa dhshdr::tcs get p2aequin] 1 end]
+      hdrsetval ${this}::pwfs2 P2AFRAME [sa dhshdr::tcs get p2aframe]
+      hdrsetval ${this}::pwfs2 P2AOBJEC [sa dhshdr::tcs get p2aobjec]
+      hdrsetval ${this}::pwfs2 P2APMDEC [sa dhshdr::tcs get p2apmdec]
+      hdrsetval ${this}::pwfs2 P2APMRA [sa dhshdr::tcs get p2apmra]
+      hdrsetval ${this}::pwfs2 P2APARAL [sa dhshdr::tcs get p2aparal]
+      if { $dhshdr::debug } {
+         foreach par [lindex [${this}::pwfs2 info] 3] {
+            puts [${this}::pwfs2 info $par]
+         }
+         puts "${this}::pwfs2 postWait -label $dhshdr::dhslabel"
+      }
+      ${this}::pwfs2 postWait -label $dhshdr::dhslabel
+   }
+   if { [lsearch -exact $guideWith OIWFS] != -1 } {
+      hdrsetval ${this}::oiwfs OIARA [sa dhshdr::tcs get oiara]
+      hdrsetval ${this}::oiwfs OIARV [sa dhshdr::tcs get oiarv]
+      hdrsetval ${this}::oiwfs OIAWAVEL [sa dhshdr::tcs get oiawavel]
+      hdrsetval ${this}::oiwfs OIADEC [sa dhshdr::tcs get oiadec]
+      hdrsetval ${this}::oiwfs OIAEPOCH [string range [sa dhshdr::tcs get oiaepoch] 1 end]
+      hdrsetval ${this}::oiwfs OIAEQUIN [string range [sa dhshdr::tcs get oiaequin] 1 end]
+      hdrsetval ${this}::oiwfs OIAFRAME [sa dhshdr::tcs get oiaframe]
+      hdrsetval ${this}::oiwfs OIAOBJEC [sa dhshdr::tcs get oiaobjec]
+      hdrsetval ${this}::oiwfs OIAPMDEC [sa dhshdr::tcs get oiapmdec]
+      hdrsetval ${this}::oiwfs OIAPMRA [sa dhshdr::tcs get oiapmra]
+      hdrsetval ${this}::oiwfs OIAPARAL [sa dhshdr::tcs get oiaparal]
+      if { $dhshdr::debug } {
+         foreach par [lindex [${this}::oiwfs info] 3] {
+            puts [${this}::oiwfs info $par]
+         }
+         puts "${this}::oiwfs postWait -label $dhshdr::dhslabel"
+      }
+      ${this}::oiwfs postWait -label $dhshdr::dhslabel
+   }
+}
+
+itcl::body dhshdr::HdrInfo::sendafter {} {
+
+# get the airmass values, note the tcs endObserve must have been called by now
+
+    hdrsetval ${this}::after AIRMASS [sa dhshdr::tcs get airmass]
+    hdrsetval ${this}::after AMSTART [sa dhshdr::tcs get amstart]
+    hdrsetval  ${this}::after AMEND  [sa dhshdr::tcs get amend]
+
+# Post the headers.
+   if { $dhshdr::debug } {
+      foreach par [lindex [${this}::after info] 3] {
+         puts [${this}::after info $par]
+      }
+      puts "${this}::after postWait -label $dhshdr::dhslabel -final"
+   }
+   ${this}::after postWait -label $dhshdr::dhslabel -final
+
+# seqexec contribution is completed
+set finalized 1
+
+}
+
+itcl::body dhshdr::HdrInfo::sendfinal {} {
+if { $finalized == 0 } {
+   $this sendafter
+   }
+}
+
+itcl::body dhshdr::HdrInfo::getlabel {} {
+# Get a new name from the dhs if auto-generation has been specified.
+   if { $dhshdr::autodhslabel } {
+      bd init
+
+# 5 -> DHS_BD_CTL_GETNAME
+      bd add ctl -value 5
+      bd add destName -value $dhshdr::destination
+      if { $dhshdr::debug } {
+         foreach par [lindex [bd info] 3] {
+            puts [bd info $par]
+         }
+         puts "bd postWait -save"
+      }
+      set result [bd postWait -save]
+      set monitor [lindex $result 2]
+      set dhshdr::dhslabel [cm $monitor get dataLabel]
+      cm $monitor release
+   }
+
+# Set the contributors to this label.
+   bd init
+
+# 3 -> DHS_BD_CTL_CONTRIB
+   bd add ctl -value 3
+   bd add destName -value $dhshdr::destination
+   bd add datasetName -value $dhshdr::dhslabel
+   bd add nameArray -value $contriblist
+   if { $dhshdr::debug } {
+      foreach par [lindex [bd info] 3] {
+         puts [bd info $par]
+      }
+      puts "bd postWait"
+   }
+   bd postWait
+
+
+
+# Set the lifetime to PERMANENT
+   bd init
+
+# 2 -> DHS_BD_CTL_LIFETIME
+   bd add ctl -value 2
+   bd add destName -value $dhshdr::destination
+   bd add datasetName -value $dhshdr::dhslabel
+   bd add lifeTime -value 0
+   if { $dhshdr::debug } {
+      foreach par [lindex [bd info] 3] {
+         puts [bd info $par]
+      }
+      puts "bd postWait"
+   }
+   bd postWait
+}

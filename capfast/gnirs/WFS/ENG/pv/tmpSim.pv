@@ -1,0 +1,5 @@
+# $Id: tmpSim.pv,v 1.2 2009/05/27 19:34:10 fkraemer Exp $
+
+group {
+	long $(top)eng:tmpNormal.VAL = 1;
+};

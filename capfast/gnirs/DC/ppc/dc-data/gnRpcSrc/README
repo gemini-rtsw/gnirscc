@@ -1,0 +1,42 @@
+EPICS/DATACUBE RPC COMMUNICATION FUNCTIONS
+------------------------------------------
+
+Needed in DataCube machine startup [i.e. hamster]:
+
+ld < dqrpc.o
+sp epdq_server
+
+
+Needed in EPICS machine startup [i.e. gerbil]:
+
+ld < eprpc.o
+hostAdd "machine","IP address"
+  i.e. hostAdd "hamster","140.252.31.231"
+dqRpcInit "machine"
+  i.e. dqRpcInit "hamster"
+
+
+Commands on EPICS machine:
+
+dqObserve
+dqObsSetup
+dqObsStatus
+dqObsAbort
+dqObsStop
+dqDoRdd
+dqDoRd
+
+Files:
+
+Makefile.rpc - makefile to generate & compile RPC code on Sun4 [editable]
+epdq.x       - RPC function definitions [editable]
+epdq.h       - header file [generated]
+gnRpcClient.c  - EPICS machine functions to implement calls [editable]
+epdq_clnt.c  - EPICS machine support functions [generated]
+gnRpcServer.c  - DQ machine functions to implement calls [editable]
+epdq_svc.c   - DQ machine support functions [generated]
+
+
+Make:
+
+make -f Makefile.rpc

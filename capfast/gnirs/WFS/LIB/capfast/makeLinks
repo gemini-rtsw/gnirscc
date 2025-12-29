@@ -1,0 +1,12 @@
+#! /bin/sh
+
+#
+# This script adds all the necessary links to the "capfast" subdirectory.
+# It should be executed with the capfast subdirectory as the
+# current directory.
+#
+# DUMMY SCRIPT FOR LIB DIRECTORY, WHICH CONTAINS THE ORIGINAL FILES
+# TO WHICH ALL THE LINKS POINT TO.
+#
+
+echo "There are no links to be made in the LIB capfast directory."

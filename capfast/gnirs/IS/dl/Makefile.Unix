@@ -1,0 +1,15 @@
+
+include Target.include
+include .applTop/config/CONFIG
+ADL2DL = $(EPICS)/extensions/bin/solaris/adl2dl2.4
+
+SCRIPTS =  gmEditFile gmEditFileField gmSeqDoCommand gmSeqCcCommand 
+#gmCcDoCommand
+#gmSeqStart gmSeqStartMKRR gmSeqDoCommand gmSeqCcCommand \
+ #         gmosStartMKRR gmosStartMKSS gmosStartMKSS2 gmosStartCP
+
+# List of display (*.dl) files
+DATA    =  gmColors.dl $(wildcard ../*.dl)  \
+          $(patsubst ../%.adl, %.dl, $(wildcard ../*.adl ../*.bit ../*.tk ../*.test))
+
+include .applTop/config/RULES.Build

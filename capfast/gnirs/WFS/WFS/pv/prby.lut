@@ -1,0 +1,31 @@
+# $Id: prby.lut,v 1.2 2009/05/27 19:35:01 fkraemer Exp $
+
+#
+# Names for NIRI gimbal mirror single axis positions.
+#
+# List the most common name for a position first, followed by alternate
+# names.
+#
+
+# name     nval    ster1    lowtol    hightol
+
+Neutral    1       pos00    0         0
+Minimum    1       pos01    0         0
+Maximum    1       pos02    0         0
+
+# Don't touch these
+
+pos00      1       pos00    0         0
+pos01      1       pos01    0         0
+pos02      1       pos02    0         0
+
+datum      1       home     0         0
+home       1       home     0         0
+
+park       1       park     0         0
+
+#
+# For this mechanism, an INVALID position is not a problem.
+#
+
+Undefined  1       INVALID  0         0

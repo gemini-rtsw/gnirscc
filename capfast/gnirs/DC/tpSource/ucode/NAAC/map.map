@@ -1,0 +1,72 @@
+TLNK Linker, Version 91.1, Copyright (c) 1986-1991 by Logical Systems
+
+Reading input file: gnAII_1024xFFT_RR.trl
+v1Sync	v2Sync	rows2skip	cols2skip	fdelay	simulon
+tServoOn	vSync0	row_sr_init	ACB	simuloff	tServoOff
+one_second	rows	copy_to_acb	lastpx1	lastpx2	rd32x4_10us
+settlePxl	main	rsarray	ResetArray	access_array	start
+ar_start	integrate	InjctBit	Do_row	rd32x4_2us	firstpx
+rowEE	rowEO	Clamp_and_Reset_setup	rd32x4_4us	rowOE	rowOO
+onems	ar_end	rd32x4_5us	skip64Pxls	rd32x4_2hus	*ProcToHigh
+
+Reading file 'nsstart.trl' from library: /dlirim0/gn.2/tptools/lib/t8lib.tll
+*ChanIn	*_boot_chan_in	*_host_chan_in	*_boot_chan_out	*ChanOut	*_host_chan_out
+*_HostOut	*main	_ns_main	*_node_number	*_HostIn	*_ns_exit
+
+Reading file 'comm.trl' from library: /dlirim0/gn.2/tptools/lib/t8lib.tll
+ChanInInt	ChanOutInt	ChanIn	ChanOut	ChanReset	ChanInChar
+ChanOutChar	
+
+Reading file 'nsio.trl' from library: /dlirim0/gn.2/tptools/lib/t8lib.tll
+_ns_printf	*_host_chan_out	_ns_exit	
+
+Reading file 'env.trl' from library: /dlirim0/gn.2/tptools/lib/t8lib.tll
+_freelist	_boot_chan_in	_host_chan_in	_boot_chan_out	_host_chan_out	_HostOut
+_heapstart	_node_number	_HostIn	_heapend	
+
+Reading file 'switchp.trl' from library: /dlirim0/gn.2/tptools/lib/t8lib.tll
+ProcToLow	ProcToHigh	
+TLNK Linker, Version 91.1, Copyright (c) 1986-1991 by Logical Systems
+
+Module load map:
+
+Module #0:
+	Start:	0x80001000	End:	0x800030CF	Size:	0x20D0
+Module #0 contained 0x20D0 (8400) bytes
+
+Module #254:
+	Start:	0x800030D0	End:	0x800030D3	Size:	0x4
+Module #254 contained 0x4 (4) bytes
+TLNK Linker, Version 91.1, Copyright (c) 1986-1991 by Logical Systems
+
+Symbol table:
+
+ACB	0x80001058	ChanIn	0x80002EA8	ChanInChar	0x80002EAE
+ChanInInt	0x80002EB9	ChanOut	0x80002EC3	ChanOutChar	0x80002EC9
+ChanOutInt	0x80002ECF	ChanReset	0x80002ED5	Clamp_and_Reset_setup	0x800015A8
+Do_row	0x80002946	InjctBit	0x800018D8	ProcToHigh	0x800030B4
+ProcToLow	0x80003098	ResetArray	0x800015F0	_HostIn	0x80003074
+_HostOut	0x80003078	_boot_chan_in	0x80003064	_boot_chan_out	0x80003068
+_freelist	0x80003080	_heapend	0x80003088	_heapstart	0x80003084
+_host_chan_in	0x8000306C	_host_chan_out	0x80003070	_node_number	0x8000307C
+_ns_exit	0x80002F7E	_ns_main	0x80002E4C	_ns_printf	0x80002F82
+access_array	0x80002782	ar_end	0x80001780	ar_start	0x800016A8
+cols2skip	0x80002304	copy_to_acb	0x80001077	fdelay	0x80002D99
+firstpx	0x800022F8	integrate	0x80002C6A	lastpx1	0x80001730
+lastpx2	0x80001758	main	0x8000100C	one_second	0x80002D3E
+onems	0x80001FD8	rd32x4_10us	0x80001EA8	rd32x4_2hus	0x80001B18
+rd32x4_2us	0x800019E8	rd32x4_4us	0x80001C48	rd32x4_5us	0x80001D78
+rowEE	0x80001890	rowEO	0x80001848	rowOE	0x80001800
+rowOO	0x800017B8	row_sr_init	0x80001280	rows	0x800022FC
+rows2skip	0x80002300	rsarray	0x800015D0	settlePxl	0x80001998
+simuloff	0x800013E0	simulon	0x80001300	skip64Pxls	0x80001938
+start	0x80002308	tServoOff	0x80001588	tServoOn	0x800012D8
+v1Sync	0x80001648	v2Sync	0x80001688	vSync0	0x80001668
+
+Load address:	0x80001000	Stack address:	0x80001000
+Entry point [_ns_main]:	0x80002E4C
+
+External symbols: 63	External symbol table usage: 3%
+Total symbols:    167	Total symbol table usage:    3%
+
+No errors detected

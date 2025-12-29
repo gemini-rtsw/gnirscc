@@ -1,0 +1,44 @@
+!
+! devSup.ascii
+! Custom device support definitions for both standard GEMINI and custom GMOS
+! records.
+!
+
+! Ascii SIO (comms with remote device on serial link via ascii commands/data
+"ai"           INST_IO         "devAiAscii"         "Ascii SIO"
+"ao"           INST_IO         "devAoAscii"         "Ascii SIO"
+"bi"           INST_IO         "devBiAscii"         "Ascii SIO"
+"bo"           INST_IO         "devBoAscii"         "Ascii SIO"
+"mbbi"         INST_IO         "devMbbiAscii"       "Ascii SIO"
+"mbbiDirect"   INST_IO         "devMbbiDirectAscii" "Ascii SIO"
+"mbbo"         INST_IO         "devMbboAscii"       "Ascii SIO"
+"mbboDirect"   INST_IO         "devMbboDirectAscii" "Ascii SIO"
+"stringin"     INST_IO         "devSiAscii"         "Ascii SIO"
+"stringout"    INST_IO         "devSoAscii"         "Ascii SIO"
+"longin"       INST_IO         "devLiAscii"         "Ascii SIO"
+"longout"      INST_IO         "devLoAscii"         "Ascii SIO"
+"waveform"     INST_IO         "devWfAscii"         "Ascii SIO"
+
+!
+! DeviceControl record device support for DAO OMS 8/44 driver
+!
+!!"deviceControl"       VME_IO         "devDeviceControlOMS"     "DEV CTL OMS 8/44"
+
+!
+! Binary output record device support for power control via DAO OMS 8/44 driver
+!
+!!"bo"                  VME_IO         "devDeviceBoOmsDao"       "DEV OMS POWER"
+
+!
+! String input record device support for barcode reader  
+!
+!!"stringin"            INST_IO        "devBarcode"              "barcodeScanner"
+
+!
+! TEMPORARY ADDITION
+! Device support for new version of apply record
+!
+"apply"               CONSTANT       "devApplyLocal"           "Local"
+"apply"               CONSTANT       "devApplyRemote"          "Remote"
+
+! dc device support"ai"		INST_IO	"devAiWFireVarMsg"		"wFireVarMsg"

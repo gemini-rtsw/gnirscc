@@ -1,0 +1,65 @@
+
+There are four individual test databases (integerIn, integerOut,
+analogIn, analogOut, and strings). All of them have a link specified
+which assumes a connection through the tnet system. If this is not
+what you need then you will have to go into the databases and change
+all the link specifications.
+
+I performed the tests via two terminal server ports.
+One of the ports is connected, via tnet, to the epics system. The
+serial side of the terminal server ports must be connected to each
+other with a null modem cable (simply switch tx and rx). I then telnet
+to the second terminal server port so that I can type responses by
+hand. It is possible to create a task which connects to the port
+and generates the responses for you, but bear in mind that there is
+no systematic format to the required responses (the record's response
+strings were created to either test various formats and/or to demonstrate
+those formats). 
+
+If your EPICS system is running on top of Vxworks then you will need
+the following line added to your EPICS startup script, substituting
+the IP address of your terminal server for all the n's.
+
+	hostAdd ("tserv", "nnn.nnn.nn.nnn");
+
+Then you need to launch tnet
+	tnetDevCreate ("/pty/tserv.", "tserv",  port#-here)
+
+If you look in one of the test databases you will see that the link
+specification is '/pty/tserv.M' as is required by tnet.
+
+
+
+If you want drvAscii to dump information during record init then you
+should set drvAsciiDebugLevel, as per the discussion in devAscii.c
+header, prior to iocInit. It is worth setting the debug level to 1
+and/or 9 at least once, so as to get a feel for the information that
+one day you may need to use in order to debug a faulty record.
+
+Once iocInit completes you need to set the 'timeout' record to 7 or
+greater. This is the length of time, in seconds, that you will have 
+to type in responses when records process. I typically manipulated
+records with caput but you could also do so with dbpf.
+
+If you want to see a trace of all the devAscii calls that occur when
+a record processes then set the debug level to 32. Setting to 64 will
+give a trace of all the drvAscii calls and 96 for both (ie. it is a
+bit mask).
+
+I typically set the 'debug' record to 1 so that all transmitted and
+received data is displayed. If you set debug to 9 you will also get
+a display of all the formatting information that drvAscii is using
+for a given record (helps determine if the parm field was parsed as
+expected).
+
+
+It is possible for you to construct your own test database using
+whatever link spec you require (for instance /tyCo/1 for a processors
+front panel serial port). I often create one for a link such that
+the responses are simply echoes of the prompts. This allows electronic 
+techs to loopback a serial link at various points to isolate faults.
+
+aloha,
+
+	ahoney@keck.hawaii.edu
+

@@ -1,0 +1,24 @@
+[symbol2]
+bbox -320 32 96 352
+uniq 0
+[tools]
+[attributes]
+p -288 192 100 768 -1 set0:WR_TERM \r\n
+p -96 192 100 768 -1 set1:WR_TERM_PINI NO
+p -288 160 100 768 -1 set2:RD_TERM \r\n
+p -96 160 100 768 -1 set3:RD_TERM_PINI NO
+p -288 128 100 768 -1 set4:SLOPE 1
+p -96 128 100 768 -1 set5:SLOPE_PINI NO
+p -288 96 100 768 -1 set6:TIMEOUT 3
+p -96 96 100 768 -1 set7:TIMEOUT_PINI NO
+p -288 64 100 768 -1 set8:CONNECT 1
+p -96 64 100 768 -1 set9:CONNECT_PINI NO
+p -192 256 100 768 -1 setA:DEVICE /tyCo/1
+[layers]
+<symbol>
+l 100 7 0 -112 336 Ascii SIO serial line control
+r 0 -320 32 96 352
+v 0 -320 320
+96 320
+_
+[comments]

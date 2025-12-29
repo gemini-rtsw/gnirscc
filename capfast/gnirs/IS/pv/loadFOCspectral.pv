@@ -1,0 +1,4 @@
+#
+string nirs:focus:loadFocusConf.A = "ALL-spectral";
+string nirs:focus:loadFocusConf.DIR = "START";
+

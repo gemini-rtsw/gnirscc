@@ -1,0 +1,16 @@
+#!/bin/csh -f
+setenv NIRI_ENGDIR /mpgf/gemini/gnirs/control/WFS/ENG
+setenv NIRI_PREFIX nirs:
+setenv nirsDIR /mpgf/gemini/gnirs/control
+setenv niriDIR /mpgf/gemini/gnirs/control/WFS
+#setenv TCL_LIBRARY /mpgt/local/lib/tcl8.3
+setenv TCL_LIBRARY /mpgf/gemini/epics/epics3.12.2GEM5/extensions/src/tcllib/lib/tcl
+setenv TK_LIBRARY /mpgf/gemini/epics/epics3.12.2GEM5/extensions/src/tcllib/lib/tk
+setenv PATH ${PATH}:${niriDIR}/ENG/bin/${HOST_ARCH}:/mpgf/gemini/epics/epics3.12.2GEM5/extensions/bin/solaris:${nirsDIR}/bin/${HOST_ARCH}
+setenv EPICS_DISPLAY_PATH ${nirsDIR}/data:${nirsDIR}/DC/data:${niriDIR}/ENG/data:${niriDIR}/WFS/data:${niriDIR}/LIB/data
+echo EPICS_DISPLAY_PATH
+dm2.4 nirsSeqTop.dl "T=nirs:, S=nirs:sad:, C1=cc:, C2=cc:, CC=cc:, DC=dc:" &
+xterm -sb -sl 500 -title "DC epics" -n "DC epics" -e telnet bacon2 5005 &
+xterm -sb -sl 500 -title "DC Coadder" -n "DC Coadder" -e telnet bacon2 5006 &
+xterm -sb -sl 500 -title "CC" -n "CC" -e telnet bacon2 5003 &
+xterm -sb -sl 500 -title "WFS" -n "WFS" -e telnet bacon2 5002 &

@@ -1,0 +1,25 @@
+[symbol2]
+bbox -256 192 96 384
+port -240 288 100 1536 OSLNK symbol 1 -256 288 0
+uniq 15
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 75 4 0 -80 256 Follow Support Records
+l 100 4 0 -80 288 folRecords
+v 0 -256 384
+-256 192
+-160 192
+-160 224
+0 224
+0 192
+96 192
+96 384
+0 384
+0 352
+-160 352
+-160 384
+-256 384
+_
+[comments]

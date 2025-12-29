@@ -1,0 +1,14 @@
+DIRS += ENG
+DIRS += LIB
+#DIRS += WCS
+DIRS += DC
+DIRS += CC
+DIRS += IS
+DIRS += WFS
+DIRS += startup
+DIRS += scripts
+DIRS += dl
+DIRS += testing
+DIRS += testing
+DIRS += ascii
+DIRS += capfast

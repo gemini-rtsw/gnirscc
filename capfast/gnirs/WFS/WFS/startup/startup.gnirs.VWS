@@ -1,0 +1,152 @@
+#+
+# FILENAME
+# --------
+# startupWfs.vws
+#
+# PURPOSE
+# -------
+# VxWorks startup script to load and execute system (iocCore) software.
+# This version of the startup loads the Instrument Sequencer,
+# Components Controller and Detector Controller components of the
+# Gemini Near Infared Imager (NIRI) system together one one IOC.
+#
+# P R O T O T Y P E   W F S   H A R D W A R E
+#
+# REQUIREMENTS
+# ------------
+# Assumes that the VxWorks boot parameters are set to execute this file.
+# Assumes EPICS 3.12.2Gem4 is available.
+#
+# INVOCATION
+# ----------
+# Executed automatically when IOC rebooted.
+#
+# AUTHORS
+# -------
+# Steven Beard  (smb@roe.ac.uk) -- Original version
+# Hubert Yamada (yamada@newton.ifa.hawaii.edu) -- NIRI version
+#-
+
+# cd to application install directory (beware automounter problems)
+#cd "$(install)"
+cd "$(iocpath)/.."
+pwd
+
+# Execute the file containing site-specific information such as the default
+# router and local vxWorks security password file.
+
+< $(version)/bin/$(arch)/local
+
+# Make delete key work for backspace
+tyBackspaceSet 0177
+
+# Load EPICS core and record stuff
+ld < /gemini/external/GEM5/base/bin/$(arch)/iocCore
+ld < /gemini/external/GEM5/base/bin/$(arch)/drvSup
+ld < /gemini/external/GEM5/base/bin/$(arch)/recSup
+ld < /gemini/external/GEM5/base/bin/$(arch)/devSup
+
+# Load EPICS extensions
+ld < /gemini/external/GEM5/extensions/bin/$(arch)/pvload
+
+# If using state programs, load the sequencer
+ld < /gemini/external/GEM5/base/bin/$(arch)/seq
+
+# Load any application records, device support or drivers here,
+# or code for subroutine records
+
+# Load other Gemini libraries (SLALIB, TIMELIB, ASTLIB) here.
+
+ld < /gemini/slalib/bin/$(arch)/slalib
+ld < /gemini/timelib/bin/$(arch)/timelib
+ld < /gemini/astlib/bin/$(arch)/astlib
+
+# NIRI/OIWFS driver, device and record support
+ld < ENG/bin/$(arch)/eng.o
+
+# CICS utility libraries
+ld < LIB/bin/$(arch)/cics.o
+ld < LIB/bin/$(arch)/sys.o
+ld < LIB/bin/$(arch)/comp.o
+ld < LIB/bin/$(arch)/eng.o
+
+# WFS-specific software
+ld < WFS/bin/$(arch)/wfs.o
+
+# Configure software
+#< @(engdir)/bin/$(arch)/drvConf
+< ENG/bin/$(arch)/drvAltConf
+#< @(engdir)/bin/$(arch)/drvSimConf
+
+# Configure the Bancom driver (read documentation)
+# BCconfigure 1, 0, 200, 2, 25
+
+# Configure the Timestamp system, 1=Master IOC
+TSconfigure 1, 0, 0, 0, 0, 0
+
+#
+# Use VxWorks time (same as Unix time) instead of Bancom / timebus?
+# (0 = Yes, 1 = No )
+#
+
+compUseVxTime=1
+
+# Load one or more ASCII databases here
+dbLoad "ENG/data/$(dctsdr).dctsdr"
+
+# Low-level databases
+dbLoadRecords "ENG/data/engTop.db"
+dbLoadRecords "ENG/data/tmpTop.db"
+dbLoadRecords "ENG/data/altwfsTop.db"
+#dbLoadRecords "@(engdir)/data/wfsTop.db"
+#dbLoadRecords "@(engdir)/data/wfsSimTop.db"
+
+# NIRI/CICS On Instrument Wavefront Sensor database
+dbLoadRecords "WFS/data/niriWfsTop.db"
+dbLoadRecords "WFS/data/niriWfsSadTop.db"
+dbLoadRecords "ENG/data/atodTop.db"
+
+# This turns off logging
+# iocLogDisable=1
+
+iocInit "$(version)/data/resource.def"
+
+# Initialise the databases
+
+< $(version)/WFS/bin/$(arch)/wfsParm
+
+< ENG/bin/$(arch)/engParm
+< ENG/bin/$(arch)/wfsParm
+
+#< @(engdir)/bin/$(arch)/engSimParm
+#< @(engdir)/bin/$(arch)/wfsSimParm
+
+# Initialize the interlock handler.
+
+< ENG/bin/$(arch)/lockBusy
+< ENG/bin/$(arch)/lockWfs
+< ENG/bin/$(arch)/lockIdle
+
+# Start sequences
+
+< ENG/bin/$(arch)/engSeq
+< ENG/bin/$(arch)/wfsSeq
+< WFS/bin/$(arch)/wfsSeq
+
+# Make the CICS logging functions use a semaphore
+cicsInitLogging
+
+# Final engineering parameters
+
+< ENG/bin/$(arch)/done
+
+# Enable extra debugging output
+cicsSetDebug(10)
+
+# fkraemer - add this only for now, for triggering switching off the
+# temp interlock
+#dbpf "nirs:eng:lockTmpRd","2"
+
+shellPromptSet "@(name)/OIWFS/CICS> "
+
+# End of startupWfs.vws

@@ -1,0 +1,18 @@
+# $Id: lock.pv,v 1.2 2009/05/27 19:34:08 fkraemer Exp $
+
+#
+# How many motors can be run simultaneously?
+#
+# Note that this count does not include the gimbal mirrors,
+# which are permitted to run at any time, but which draw very little
+# current.
+#
+# The hardware is designed to be able to power 7 motors, continuously,
+# at full current.  Since all mechanisms draw less than full current,
+# (actually most draw much less than full current), it is safe to run
+# more.
+#
+
+group {
+	int $(top)eng:lockMaxMoveSet.VAL = 5;
+};

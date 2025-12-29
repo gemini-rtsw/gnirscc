@@ -1,0 +1,190 @@
+#+
+# SequenceWidget <- itk::Widget
+#
+# A SequenceWidget gives a visual representation of a Sequence object.
+#
+# Methods:
+#
+#+
+
+itcl::class SequenceWidget {
+   inherit itk::Widget
+   constructor {args} {}
+   itk_option define -selectcommand selectCommand Command ""
+   public {
+      method highlight {{index ""}}
+      method clear {}
+      variable sequence
+      variable viewpopup 0
+      variable viewtree 0
+      variable prev_viewpopup 0
+      variable prev_viewtree 0
+      
+   }
+   private {
+      method selectcommand {uid}
+      method show {uid}
+      variable idx 0
+   }
+}
+
+namespace eval SequenceWidget {
+   # pixmap requires Tix/Img
+   # create transparent gif from file instead
+   global ROOT
+   image create photo icon_open -file $ROOT/lib/openedIcon.gif
+   image create photo icon_closed -file $ROOT/lib/closedIcon.gif
+   image create photo icon_node -file $ROOT/lib/nodeIcon.gif
+   }
+
+
+
+itk::usual SequenceWidget {
+   keep -selectbackground
+}
+
+itcl::body SequenceWidget::constructor {args} {
+   itk_component add hierarchy {
+      iwidgets::hierarchy $itk_interior.hierarchy\
+         -querycommand [itcl::code $this show %n]\
+         -visibleitems 30x15 -selectcommand [itcl::code $this selectcommand %n]\
+         -closedicon icon_closed -openicon icon_open -nodeicon icon_node\
+         -hscrollmode static -vscrollmode dynamic\
+         -markbackground grey95 -sbwidth 11
+         # -alwaysquery 1
+   } {
+      usual
+      keep -width -height
+   }
+   pack $itk_component(hierarchy) -fill both -expand yes
+   $itk_component(hierarchy) configure -selectbackground yellow
+
+   [$itk_component(hierarchy) component list] \
+      configure -tabs {0.3c 0.6c 6c}
+
+      eval itk_initialize $args
+}
+
+itcl::body SequenceWidget::highlight {{index ""}} {
+   
+   $itk_component(hierarchy) mark clear
+   $itk_component(hierarchy) selection clear
+   if { ! [ string is space $index] && ! [ string is space $sequence] } {
+      if { ! [ string is space [lindex [$sequence cget -steplist] $index]] } {
+         $itk_component(hierarchy) selection add $index-::Sequence::StepNames::[lindex [$sequence cget -steplist] $index]
+         catch { $itk_component(hierarchy) see hilite.first }
+         }
+      }
+
+}
+
+itcl::body SequenceWidget::clear {} {
+   $itk_component(hierarchy) clear
+}
+
+itcl::body SequenceWidget::selectcommand { uid } {
+
+      eval set uid $uid      
+      regexp -- {^(\d+)-(.*)$} $uid stuff index object
+      
+      if { [catch {$object info class}] } {
+         # not an object
+      } elseif { [$object isa Step] } {
+         $itk_component(hierarchy) mark clear
+         $itk_component(hierarchy) mark add $uid
+         if { $viewpopup } {
+            SystemWidget::popWindow $object
+         }
+         if { ! [string is space $itk_option(-selectcommand)] } {
+            uplevel #0 $itk_option(-selectcommand) $index
+         }
+      } else {
+         if { $viewpopup } {
+            SystemWidget::popWindow $object
+         }  
+      }
+}
+
+itcl::body SequenceWidget::show {uid} {
+   if { [string is space $sequence] } {
+      set rlist {}
+   } elseif { [string is space $uid ] } {
+      set idx 0
+      foreach step [$sequence cget -steplist] {
+         lappend rlist [list $idx-::Sequence::StepNames::$step [format "%-80s" [$sequence description $idx]] ]
+         incr idx
+         }
+   } else {
+      set index ""
+      set stuff ""
+      set object ""
+      regexp -- {^(\d+)-(.*)$} $uid stuff index object
+      if { [catch {$object info class}] } {
+         # not an object
+         return {}
+      }  elseif { ! $viewtree } {
+         return {}
+      }  elseif { [$object isa Step] } {
+         set instobj [$object cget -instobj]
+         set tcsobj  [$object cget -tcsobj]
+         set gcalobj [$object cget -gcalobj]
+         set gpolobj [$object cget -gpolobj]
+         set rlist {}
+         if { ![string is space $tcsobj] } {lappend rlist [list $idx-$tcsobj TCS ]; incr idx}
+         if { ![string is space $instobj] } {lappend rlist [list $idx-$instobj INST ]; incr idx}
+         if { ![string is space $gcalobj] } {lappend rlist [list $idx-$gcalobj GCAL ]; incr idx}
+         if { ![string is space $gpolobj] } {lappend rlist [list $idx-$gpolobj GPOL ]; incr idx}
+      }  else {
+         if { [$object isa GenericInst] } {
+            set object [$object cget -instobj]
+         }
+         set params [lsort [$object configure]]
+         set rlist {}
+         foreach p $params {
+            set name [lindex $p 0]
+            set value [lindex $p 2]
+            ###
+            if { ![string is space $value] } {
+               lappend rlist [list $idx-[string range $name 1 end] "[string range $name 1 end]\t$value"]
+               incr idx
+            }
+            ###
+         }
+      }
+   }
+   return $rlist
+}
+
+itcl::configbody SequenceWidget::sequence {
+   
+   if [string is space $sequence] {
+      return
+      }
+   
+   $itk_component(hierarchy) selection clear
+   # refresh
+   $itk_component(hierarchy) configure -querycommand [itcl::code $this show %n]
+
+$itk_component(hierarchy) configure -selectbackground yellow
+
+# Highlight the first step.
+   $itk_component(hierarchy) selection add [$sequence description 0]
+
+}
+
+itcl::configbody SequenceWidget::viewtree {
+   if { $viewtree != $prev_viewtree } {
+      set prev_viewtree $viewtree
+      # refresh
+      $itk_component(hierarchy) configure -querycommand [itcl::code $this show %n]
+   }
+}
+   
+itcl::configbody SequenceWidget::viewpopup {
+   if { $viewpopup != $prev_viewpopup } {
+      set prev_viewpopup $viewpopup
+      if { ! $viewpopup } {
+         SystemWidget::withdrawWindow
+      }
+   }
+}

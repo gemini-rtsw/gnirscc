@@ -1,0 +1,28 @@
+This is the common library directory.  For a description of the library,
+see common.tex.
+
+Makefile
+README.nodes
+README.short_list
+common.tex
+
+common.h		library header file
+config.c		template library config file.  this is needed
+			for every node.
+control.c		control process.  should be called as last thing
+			in main().
+debug.c			debugging support routines.
+header.h		a description of the message format
+mem.c			memory allocation routines.  these allocate from
+			a fixed pool of memory.
+message.c		stubs.
+monitor.c		not used.  never tested.
+proc.c			downloadable process support.
+protocol.h		declarations for the message protocol.
+queue.c			queue routines.
+shared.h		shared memory file.  included in a few places
+			for devious (but necessary) debugging on the b016.
+talk.c			reader/writer/router.  this is the message passing
+			module.
+var.c			this handles set/read vars messages.
+var_sr.c		the standard set/read var routines.

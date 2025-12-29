@@ -1,0 +1,57 @@
+#+
+#  Gmos <- CC, DC
+#
+#  A Gmos object configures GMOS.
+#
+#  Options:
+#           none in addition to those inherited from DC and CC
+#
+#  Methods:
+#           apply controller    Applies the configuration to the specified
+#                               controller (detector or components) or both
+#                               controllers.
+#
+#           init                Sets the object to its initial state.
+#
+#           save chan           Writes the object definition to the specified
+#                               I/O channel.
+#
+#  D Terrett 24 July 2001
+#
+#  Copyright CCLRC
+#+
+
+itcl::class Gmos::Gmos {
+   inherit Gmos::CC Gmos::DC
+   public {
+      constructor {args} {eval configure $args}
+      method apply {{controller ""}}
+      method init {}
+      method save {chan}
+   }
+}
+
+itcl::body Gmos::Gmos::apply {{controller ""}} {
+   switch $controller {
+      detector {
+         Gmos::DC::apply
+      }
+      components {
+         Gmos::CC::apply
+      }
+      default {
+         Gmos::CC::apply
+         Gmos::DC::apply
+      }
+   }
+}
+
+itcl::body Gmos::Gmos::init {} {
+   Gmos::CC::init
+   Gmos::DC::init
+}
+
+itcl::body Gmos::Gmos::save {chan} {
+   Gmos::CC::save $chan
+   Gmos::DC::save $chan
+}

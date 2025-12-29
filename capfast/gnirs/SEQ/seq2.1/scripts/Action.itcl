@@ -1,0 +1,164 @@
+#+
+#  Action.itcl
+#
+#  Implements the seq::Action class.
+#
+#  seq::Action
+#
+#     Parameters:
+#
+#        psys   The principle system object associated with the system
+#               that implements the command.
+#
+#     Methods:
+#
+#        set {cs par val}
+#
+#           Sets a parameter value for a command sender.
+#
+#        start
+#
+#           Starts the execution of the action.
+#
+#        unset {cs par}
+#
+#           Removes a command sender parameter so that its value will
+#           not be set the next time start is executed.
+#
+#     Options:
+#
+#           -oktest
+#
+#              The tcl script to execute to determine if the action is
+#              complete.
+#
+#           -onok
+#
+#              The tcl script to execute when the action completes succesfully.
+#
+#           -onerror
+#
+#              The tcl script to execute when the action completes 
+#              unsuccesfully.
+#
+#           -onstart
+#
+#              The tcl script to execute before starting the action.
+#
+#           -ontimeout
+#
+#              The tcl script to execute if the action has not completed
+#              within the timeout period.
+#
+#           -timeout
+#
+#              The timeout period in seconds.
+#
+#           -waitvar
+#
+#              The variable to wait on while waiting for the action to
+#              complete.
+#
+#
+#  D Terrett 29 January 2002
+#
+#  Copyright CCLRC
+#+
+
+itcl::class seq::Action {
+   constructor {psys args} {}
+   destructor {}
+   public {
+      method set {cs {par dummy} {val mark}}
+      method connect { cs }
+      method start {}
+      method unset {cs {par dummy}}
+      variable oktest {}
+      variable waitvar {}
+      variable onok {}
+      variable onerror {}
+      variable ontimeout {}
+      variable onstart {}
+      variable timeout 60
+   }
+   private {
+      variable Psys
+      variable ParList
+   }
+}
+
+itcl::body seq::Action::constructor {psys args} {
+
+# Save the name of the principal system.
+   ::set Psys $psys
+
+   eval configure $args
+}
+
+itcl::body seq::Action::destructor {} {
+   $Psys cancel $this
+}
+
+itcl::body seq::Action::connect {cs} {
+# Make sure that the command sender exists
+   if { [catch {cs $cs info}] } {
+      epics cs $cs
+   }
+}
+
+itcl::body seq::Action::set {cs {par dummy} {val mark}} {
+
+# Make sure that the command sender exists and that it has the specified
+# parameter.
+   $this connect $cs
+   if { [catch {cs $cs info $par}] } {
+      error "Command sender $cs does not have a parameter called $par"
+   }
+
+# Add the parameter settings to the list.
+   ::set ParList($cs,$par) $val
+
+   return
+}
+
+itcl::body seq::Action::unset {cs {par dummy}} {
+
+# Remove the parameter from the list.
+   if { [info exists ParList($cs,$par)] } {
+      ::unset ParList($cs,$par)
+   }
+
+   return
+}
+
+itcl::body seq::Action::start {} {
+
+# Execute the onstart action (if any).
+   if { ![string is space $onstart] } {
+      uplevel #0 $onstart
+   }
+
+# Set the command parameters.
+   if { [array exists ParList] } {
+      foreach name [array names ParList] {
+         foreach {cs par} [split $name ,] {}
+         if  { [$Psys cget -simulate] } {
+            if { [$Psys cget -debug] } {
+               puts "simulate:cs $cs set $par value \"$ParList($name)\""
+            }
+         } else {
+            if { [$Psys cget -debug] } {
+               puts "trace: cs $cs set $par value \"$ParList($name)\""
+            }
+            cs $cs set $par value \"$ParList($name)\"
+         }
+      }
+   }
+
+# Post the command to the principal system after giving the EPICS thread
+# a chance to run.
+   after 1
+   $Psys post $this
+
+   return
+}

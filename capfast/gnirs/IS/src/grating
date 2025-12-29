@@ -1,0 +1,445 @@
+/*+
+ *   Function name:
+ *   seqCadGrating 
+ *
+ *   Purpose:
+ *   Implements the grSelect command
+ *
+ *   Description:
+ *   This routine is the process subroutine for the grSelect CAD.
+ *   It translates the input grating name by looking up the name in
+ *   the grating look-up table. The resuting barcode ID is written to the
+ *   NIRS Components Controller grAssembly record. The specified 
+ *   central wavelength and order is converted into a grating tilt angle.
+ *
+ *   Invocation:
+ *   seqCadGrating (pcad)
+ *
+ *   Parameters: (">" input, "!" modified, "<" output)  
+ *      (!)   pcad   (struct cadRecord*)  Pointer to CAD record structure
+ *
+ *   EPICS input parameters:
+ *      b => Grating positioning mode as a string :
+ *            tilt
+ *            wavelentgh/order
+ *            wavelength
+ *      a => Grating name as a string
+ *      c => Central wavelength (nanometres) (double)
+ *      d => Grating order (integer)
+ *      e => Effective wavelength for focus offset (nanometres) (double)
+ *
+ *   EPICS output parameters:
+ *      vala => Selection mode (long) :
+ *               0 = angle
+ *               1 = Select grating only
+ *      valb => Name of grating (string
+ *      valc => Desired central wavelength in nanometres (double)
+ *      vald => Requested grating order (long)
+ *      vale => Grating tilt angle in rads.  (double)
+ *      
+ *      valg => Grating ruling density (long)
+ *      valh => Grating blaze orientation (long)
+ *      vali => Focus offset corresponding to wavelength in microns (double)
+ *      valj => Focus offset due to grating surface curvature in microns (double)
+ *      valk => Desired effective wavelength in nanometres (double)
+ *
+ *
+ *   Function value:
+ *   (<)  status  (long) Return status, 0 = OK
+ * 
+ *   External functions:
+ *
+ *   Deficiencies:
+ *   The "select only" mode will not necessarily get the grating focus offset right,
+ *   since the wavelength that the grating was originally selected with is not known
+ *   to the instrument sequencer. Instead the user can supply an effective wavelength.
+ *-
+ */
+#define MODE a
+#define NAME b
+#define WAVELENGTH c
+#define ORDER d
+#define ANGLE e
+
+long seqCadGrating(struct cadRecord *pcad)
+{ 
+ 
+    long status;                   /* Return status */
+    NIRSLUT *p;
+    char buff[STRING_BUF_SZ];
+    static char selectModeIn[MAX_STRING_SIZE];
+    static char gratingName[MAX_STRING_SIZE] = "unknown";
+    static double cenWavelength;  /* Central wavelength for grating tilt   */
+    static double effWavelength;  /* Effective wavelength for focus offset */
+    static double lambdaOffset;   /* Focus offset interpolated from LUT    */
+    static double focusOffset;    /* Focus offset for this grating         */
+    static long gratingOrder;     /* Grating order required                */
+    char wavelengthString[MAX_STRING_SIZE];
+    char gratingOrderString[MAX_STRING_SIZE];    
+    static long selectModeOut;
+    static char barcodeId[ MAX_STRING_SIZE];
+    static double tiltAngle;
+    static long linesPerMm;
+    static long blazeDir;
+    static long isMirror = FALSE;
+
+    status = CAD_REJECT ;
+        
+    DBGMSGINT(DBG_MIN,"CAD grSelect. Directive = ", DIRECTIVE);
+
+    switch (DIRECTIVE) 
+    {
+
+	  case CAD_PRESET:
+
+		DBGMSG(DBG_FULL,"gmSeqCadGrating PRESET ");
+		if (!gratingInitOK) 
+		{
+			strncpy(CADMESS, "Grating name translation not initialised",
+					MAX_STRING_SIZE-1);
+			return CAD_REJECT;
+		}
+
+		/* Set the appropriate global test conditions for this CAD */
+
+		gmSeqSetCADTest(OBSERVING+MASTER_ENABLE);
+
+		/* Read in the grating selection mode, upper case then convert to integer */
+
+		strncpy(selectModeIn,cadInput(MODE), MAX_STRING_SIZE-1);
+		gmSeqUc(selectModeIn, strlen(selectModeIn) + 1, selectModeIn);
+         
+		if (strncmp(selectModeIn, "SEL", 3) == 0)
+		{
+			selectModeOut = 1;
+		}
+		else if (strncmp(selectModeIn, "WLEN", 4) == 0)
+		{
+			selectModeOut = 0;
+		}
+		else
+		{
+			strncpy(CADMESS,"grSelect mode not SEL or WLEN", MAX_STRING_SIZE-1);
+			return CAD_REJECT;
+		} 
+    
+		strncpy(gratingName, cadInput(NAME), MAX_STRING_SIZE-1);
+
+		if (gratingName[0])
+		{
+			/*
+			 * Try to translate the 1st input grating name. Read through all 
+			 * grating lookup table entries, searching for specified name. 
+			 * The search will stop immediately if gmSeqGratLutPtr is NULL.
+			 */
+
+			for (p = (NIRSLUT *) lstFirst ((LIST *)gmSeqGratLutPtr); p != NULL;
+				 p = (NIRSLUT *) lstNext ((NODE *) p))
+			{
+
+                if (strncmp (p->tag, gratingName, LUT_TAG_SZ) == 0)
+                {
+					sprintf(barcodeId, "%10d%1c", p->barcodeId,'\0');
+					linesPerMm = p->linesPerMm;
+					blazeDir = p->blazeDir;
+					focusOffset = p->focusOffset;
+					status = CAD_ACCEPT;
+					break;     /* Breaks out of "for" statement, not "case".*/
+                }
+			}
+		}
+		else
+		{
+            strncpy(CADMESS,"Grating name not specified", MAX_STRING_SIZE-1);
+            return CAD_REJECT;
+		}
+    
+		if (status == CAD_REJECT)
+		{
+			strncpy(buff, "Unknown grating name: ", MAX_STRING_SIZE-1);
+			strncat(buff, gratingName, MAX_STRING_SIZE - strlen(buff));
+			strncpy(CADMESS, buff, MAX_STRING_SIZE-1);
+			return(status);
+		}
+
+		/*
+		 * The named grating is assumed to be a mirror if it is named "MIRROR",
+		 * "mirror" or its ruling density is zero.
+		 */
+
+		gmSeqUc(gratingName, strlen(gratingName) + 1, gratingName);
+		isMirror = ((strncmp(gratingName,"MIRROR",6) == 0) || (linesPerMm == 0));
+
+		if (isMirror)
+		{
+			status = CAD_ACCEPT;
+
+			/* Set the wavelength related grating data to zero for mirror and specify order zero */
+
+			gratingOrder  = 0;
+			cenWavelength = 0.0;
+			effWavelength = 0.0;
+			lambdaOffset  = 0.0;
+			linesPerMm    = 0;
+			blazeDir      = 0;
+#if 0
+			/* Calculate the grating angle required for zero order reflection. */
+
+			if ((gratingSci2Tilt(cenWavelength, gratingOrder, (double)linesPerMm, 
+								 &tiltAngle)) != 0)
+			{
+                strncpy(CADMESS, "Failed to calculate grating angle",
+                        MAX_STRING_SIZE-1);
+                return CAD_REJECT; 
+			}
+#endif
+		}
+		else
+		{
+			status = CAD_ACCEPT;
+
+			/* Check for WLEN (select grating, wavelength and order) or SEL (select grating only) mode */
+
+			if (selectModeOut == 0)
+			{
+
+				/* WLEN mode - get central wavelength and order and calculate angle */
+
+				/* Check that the grating order is a valid integer, and positive */
+
+                strncpy(gratingOrderString, cadInput(ORDER), MAX_STRING_SIZE-1);
+                if (sscanf(gratingOrderString, "%ld", &gratingOrder) != 1)
+                {
+					strncpy(CADMESS, "Illegal value for grating order ",
+							MAX_STRING_SIZE-1);
+					return CAD_REJECT; 
+                }
+                else if (gratingOrder < 0 || gratingOrder > 10)
+                {
+					strncpy(CADMESS, "Illegal value for grating order ",
+							MAX_STRING_SIZE-1);
+					return CAD_REJECT; 
+                }
+
+				/*
+				 * If the grating order is greater than zero, check that specified central wavelength
+				 * is a valid number and in-range. If the grating order is zero the central wavelength
+				 * is ignored.
+				 */
+
+                if ( gratingOrder > 0 )
+                {
+					strncpy(wavelengthString, cadInput(WAVELENGTH), MAX_STRING_SIZE-1);
+
+					if (sscanf(wavelengthString, "%lf", &cenWavelength) != 1)
+					{
+						strncpy(CADMESS, "Illegal value for wavelength ",
+								MAX_STRING_SIZE-1);
+						return CAD_REJECT; 
+					}
+					else if (cenWavelength < MIN_WAVELENGTH ||
+							 cenWavelength > MAX_WAVELENGTH)
+					{
+						strncpy(CADMESS, "Wavelength value out-of-range",
+								MAX_STRING_SIZE-1);
+						return CAD_REJECT; 
+					}
+					/*
+					 * Get the effective wavelength for the focus offset. If not specified,
+					 * this is assumed to be the same as the central wavelength.
+					 */       
+
+					strncpy(wavelengthString, (char *)pcad->e, MAX_STRING_SIZE-1);
+					if (sscanf(wavelengthString, "%lf", &effWavelength) != 1)
+					{
+						effWavelength = cenWavelength;
+					}
+					else if (effWavelength < MIN_WAVELENGTH ||
+							 effWavelength > MAX_WAVELENGTH)
+					{
+						effWavelength = cenWavelength;
+					}
+                }
+                else
+                {
+					/*
+					 * Zero order - central and effective wavelengths have no meaning.
+					 */
+
+					cenWavelength = 0.0;
+					effWavelength = 0.0;
+                }
+
+#ifdef VERBOSE
+                printf ("Central and effective wavelengths: %f %f\n", cenWavelength, effWavelength);
+#endif
+
+				/*
+				 * Get the interpolated value for the focus offset at this effective
+				 * wavelength. (If the call to nirsLutApply fails, don't exit, just
+				 * set offset focus value to zero.)
+				 */
+
+                if ( effWavelength >= MIN_WAVELENGTH )
+                {
+#if 0
+					ret = nirsLutApply(effWavelength, &lambdaFocusLut, &lambdaOffset);
+					if (ret != NIRSLUT_S_OK)
+					{
+						nirsLutMessage(ret, STRING_BUF_SZ, buff);
+						lambdaOffset = 0.0;
+					}
+#endif
+                }
+                else
+                {
+					lambdaOffset = 0.0;
+                }
+
+				/*
+				 * Calculate grating tilt angle required to achieve the specified central
+				 * wavelength and order. Flip the order if the blaze direction is negative.
+				 */
+
+                if ( blazeDir >= 0 )
+                {
+#if 0
+					if ((gratingSci2Tilt(cenWavelength, gratingOrder, (double)linesPerMm, 
+										 &tiltAngle)) != 0)
+					{
+						strncpy(CADMESS, "Failed to calculate grating angle",
+								MAX_STRING_SIZE-1);
+						return CAD_REJECT; 
+					}
+#endif
+                }
+                else
+                {
+#if 0
+					if ((gratingSci2Tilt(cenWavelength, -gratingOrder, (double)linesPerMm, 
+										 &tiltAngle)) != 0)
+					{
+						strncpy(CADMESS, "Failed to calculate grating angle",
+								MAX_STRING_SIZE-1);
+						return CAD_REJECT; 
+					}
+#endif
+                }
+			}
+			else
+			{
+
+				/*
+				 * SEL mode - get effective wavelength only and set angle to zero.
+				 */
+
+                tiltAngle = 0.0;
+
+				/*
+				 * Get the effective wavelength for the focus offset from fields E or C.
+				 * Set order to 1 (spectroscopy mode) if valid wavelength specified or 0 if not specified.
+				 */       
+
+                strncpy(wavelengthString, (char *)pcad->e, MAX_STRING_SIZE-1);
+                if (sscanf(wavelengthString, "%lf", &effWavelength) != 1)
+                {
+					strncpy(wavelengthString, (char *)pcad->c, MAX_STRING_SIZE-1);
+					if (sscanf(wavelengthString, "%lf", &effWavelength) != 1)
+					{
+						gratingOrder = 0;
+						effWavelength = 0.0;
+					}
+                }
+
+                if (effWavelength >= MIN_WAVELENGTH &&
+                    effWavelength <= MAX_WAVELENGTH)
+                {
+					gratingOrder = 1;
+
+					/*
+					 * Get the interpolated value for the focus offset at this effective
+					 * wavelength. (If the call to nirsLutApply fails, don't exit, just
+					 * set offset focus value to zero.)
+					 */
+
+					if ( effWavelength >= MIN_WAVELENGTH )
+					{
+#if 0
+						ret = nirsLutApply(effWavelength, &lambdaFocusLut, &lambdaOffset);
+						if (ret != NIRSLUT_S_OK)
+						{
+							nirsLutMessage(ret, STRING_BUF_SZ, buff);
+							lambdaOffset = 0.0;
+						}
+#endif
+					}
+					else
+					{
+						lambdaOffset = 0.0;
+					}
+
+                }
+                else
+                {
+					gratingOrder = 0;
+					effWavelength = 0.0;
+					lambdaOffset = 0.0;
+                }
+			}
+		}
+
+		if (status == CAD_ACCEPT)
+		{
+
+			/*   Output the mode, barcode & tilt angle for checking by CC */
+
+			*(long *)cadOutput(MODE) = selectModeOut;
+			strncpy((char *)cadOutput(NAME), barcodeId, MAX_STRING_SIZE-1);
+			if (selectModeOut == 0) *(double *) cadOutput(ANGLE) = tiltAngle;
+		}
+		break ;
+
+	  case CAD_START:
+
+		DBGMSG(DBG_FULL,"gmSeqCadGrating START ");
+		/* Copy out the input parameters for storing in the SAD etc.*/
+
+		strncpy((char *)cadOutput(ORDER), gratingName, MAX_STRING_SIZE-1);
+		*(double *) pcad->vale = cenWavelength;
+		*(long *)pcad->valf = gratingOrder;
+		*(long *)pcad->valg = linesPerMm;
+		*(long *)pcad->valh = blazeDir;
+		*(double *)pcad->vali = lambdaOffset;
+		*(double *)pcad->valj = focusOffset;
+		*(double *) pcad->valk = effWavelength;
+
+		DBGMSG(DBG_FULL,"CAD grSelect. Output values A..K: ");
+		DBGMSGINT(DBG_FULL,"A: ",*(long *)pcad->vala);
+		DBGMSGREAL(DBG_FULL,"C: ",*(double *)pcad->valc);
+		DBGMSGSTRING(DBG_FULL,"D: ", (char *)pcad->vald); 
+		DBGMSGREAL(DBG_FULL,"E: ",*(double *)pcad->vale);
+		DBGMSGINT(DBG_FULL,"F: ",*(long *)pcad->valf);
+		DBGMSGINT(DBG_FULL,"G: ",*(long *)pcad->valg);
+		DBGMSGINT(DBG_FULL,"H: ",*(long *)pcad->valh);
+		DBGMSGREAL(DBG_FULL,"I: ",*(double *)pcad->vali);
+		DBGMSGREAL(DBG_FULL,"J: ",*(double *)pcad->valj);
+		DBGMSGREAL(DBG_FULL,"K: ",*(double *)pcad->valk);
+
+		status = CAD_ACCEPT;
+		break;
+
+	  case CAD_MARK :
+		status = CAD_ACCEPT;
+		break ;
+
+	  case CAD_STOP :
+		status = CAD_REJECT;
+		strncpy(CADMESS, "STOP directive not implemented", MAX_STRING_SIZE-1);
+		break ;
+
+	  case CAD_CLEAR :
+		status = CAD_ACCEPT;
+		break ;
+    }
+    return(status);
+}

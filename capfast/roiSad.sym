@@ -1,0 +1,15 @@
+[symbol2]
+bbox -448 160 -224 320
+uniq 1
+[tools]
+[attributes]
+p -448 128 100 0 1 set1:grp GRPNUM
+[layers]
+<symbol>
+l 75 0 0 -432 224 status/alarm
+l 75 0 0 -432 240 (Region of interest
+l 100 7 0 -384 176 roiSad
+l 75 0 0 -432 208 database)
+l 200 1 0 -336 272 ROI
+r 0 -448 160 -224 320
+[comments]

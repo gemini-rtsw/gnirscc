@@ -1,0 +1,9 @@
+# $Id: follow.lut,v 1.2 2009/05/27 19:34:08 fkraemer Exp $
+
+#
+# Named positions for the follow command
+#
+
+# name	nval	steps	lowtol	hightol
+disable	1	0	0	0
+enable	1	1	0	0

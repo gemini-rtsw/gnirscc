@@ -1,0 +1,96 @@
+#! /bin/sh
+
+########################################################################
+# Sets up the NIRS/CICS DC EPICS UAE application directory after
+# unpacking.
+#
+# Invocation:
+#   source nirsSetup
+#
+# Steven M Beard, Hubert Yamada
+# 28 May 1997: NIRS version.
+########################################################################
+
+########################################################################
+# Begin with a few sanity checks.
+########################################################################
+
+#
+# Check that the EPICS startup script has been sourced.
+#
+
+if [ ${EPICS-undefined} = undefined ]; then
+   echo "EPICS environment variables have not been defined. Please source" 
+   echo "your local EPICS setup script (see \"nirsLogin_SAMPLE\" for an"
+   echo "example)."
+   exit 1
+fi
+#
+# Check that the local nirsLogin script has been sourced.
+#
+
+if [ ${NIRS_DCDIR-undefined} = undefined ]; then
+    echo "*** ERROR: NIRS_DCDIR environment variable not defined."
+    echo "*** Please set up NIRS from the top level 'nirsSetup' script."
+	exit 1
+fi
+########################################################################
+# Make a few links.
+########################################################################
+
+#
+# Make links to other package directories.
+#
+
+echo "cd into $NIRS_DCDIR ..."
+cd $NIRS_DCDIR
+
+rm -f LIB
+ln -s $NIRS_LIBDIR LIB
+
+########################################################################
+# From this point on, assume that we are working in $NIRS_DCDIR
+########################################################################
+
+cd $NIRS_DCDIR
+
+########################################################################
+# Now set up the directory
+########################################################################
+
+#
+# If this file exists, then it is not overwritten.  Delete it to be
+# safe.
+#
+
+if [ -f config/CONFIG.Defs ]; then
+	echo "* Removing old CONFIG.Defs"
+	rm config/CONFIG.Defs
+fi
+#
+# Now set up the directory.
+#
+
+applSetup -install ${NIRS_DCDIR}  -targets mv162 -P ${NIRS_DCINSTPATH} \
+	 -subdir_file Makefile.subdirs -I omega -I pv -I annex  -I src -I ascii -I dl -I capfast \
+	 -I dl -I dqSocket -I epicsCntrlSrc -I globals -I gnRpcSrc -I startup \
+	 -I tempCard -I utilSource \
+	-depends ${NIRS_SLALIBDIR} -depends ${NIRS_TIMELIBDIR} \
+	-depends ${NIRS_ASTLIBDIR} -depends ${DHS_DIR}
+
+#ed startup/UAE.dist << eof >/dev/null
+#,s/\${T_A}/mv162/g
+#/^FILES5
+#a
+#FILES6 = ( \${APPLIC_INSTALL}/bin/mv167 )
+#.
+#w
+#$
+#a
+#
+#(\${FILES6}) -> (\${HOSTS})
+#	install -R \${DIST_PATH}/bin/mv167;
+#.
+#w
+#q
+#eof

@@ -1,0 +1,175 @@
+file {
+	name="dqHealth.dl"
+}
+display {
+	magic="305419896"
+	majv="2"
+	mnrv="4"
+	ndyng="0"
+	npc="1"
+	nstr="55"
+	ndynamic="0"
+	nplot="0"
+	nrd="1"
+	nes="0"
+	nkd="1"
+	object {
+		x="0"
+		y="0"
+		width="637"
+		height="367"
+	}
+	clr="1"
+	bclr="13"
+	nwords_dspy="672"
+	nwords_sta="48"
+	nwords_cmap="0"
+	nwords_crules="0"
+	odyng="598"
+	osta="550"
+	odynamic="598"
+	oplot="598"
+	ord="598"
+	oes="660"
+	okd="660"
+	opc="58"
+	ostr="62"
+	ocmap="550"
+	ocrules="550"
+	style="solid"
+	fill="outline"
+	width="0"
+	clrmod="static"
+	vismod="static"
+	clrrule="alarm"
+	pv=""
+	cmap="gmColors.dl"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="-1"
+		y="-1"
+		width="413"
+		height="30"
+		groupid="0"
+	}
+	textix="GNAAC Engineering Display"
+	align="horiz. centered"
+	RISC_pad="0"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="10"
+	}
+}
+"text" {
+	object {
+		x="64"
+		y="32"
+		width="283"
+		height="23"
+		groupid="0"
+	}
+	textix="DataCube Health Display"
+	align="horiz. centered"
+	RISC_pad="0"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="23"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="11"
+		y="115"
+		width="625"
+		height="30"
+		groupid="0"
+	}
+	textix="No User Servicable parts in this section."
+	align="horiz. centered"
+	RISC_pad="0"
+}
+"related display" {
+	object {
+		x="408"
+		y="5"
+		width="150"
+		height="34"
+		groupid="0"
+	}
+	selfkill="off"
+	display[0] {
+		label="Overall Control"
+		name="gnaacEngDisp.dl"
+		args=""
+	}
+	display[1] {
+		label="Observation Setup"
+		name="obsrvCntrl.dl"
+		args=""
+	}
+	display[2] {
+		label="Array Setup"
+		name="arrayCntrl.dl"
+		args=""
+	}
+	display[3] {
+		label="WFire Control"
+		name="wFireCntrl.dl"
+		args=""
+	}
+	display[4] {
+		label="DataCube Setup"
+		name="dataCube.dl"
+		args=""
+	}
+	display[5] {
+		label="Temp. Control"
+		name="tempCntrl.dl"
+		args=""
+	}
+	display[6] {
+		label="Health"
+		name="health.dl"
+		args=""
+	}
+	display[7] {
+		label="Diagnostics"
+		name="diagCntrl.dl"
+		args=""
+	}
+	clr="0"
+	bclr="6"
+	menu_title="Additional Screens"
+	decorate="outward"
+}
+"kill display" {
+	object {
+		x="563"
+		y="6"
+		width="65"
+		height="34"
+		groupid="0"
+	}
+	RISCpad="0"
+	label="EXIT"
+	clr="1"
+	bclr="23"
+	decorate="outward"
+}

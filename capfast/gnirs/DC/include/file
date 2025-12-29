@@ -1,0 +1,27 @@
+#define ABORT_MSG       5
+#define REMOTE_PRESENT  5  "abort_msg"
+#define SQIID_PRESENT   5               /* int */
+#define HKBUF           5		/* float [][]  */
+#define INT_S		5		/* int */
+#define VAR_READ        10
+#define SIGNAL		10		/* int */
+#define IMAGE_MASK	10		/* int */
+#define FILTERS		10		/* int [][] place holder */
+#define AKK             13
+#define HEADER_NAMES	13		/* str */
+#define AKK_FAIL        14
+#define HEADER_TYPES	14		/* int */
+ 
+    { "lnr"         5}
+    { "hkbuf"       5}
+    { "dbias"       5}
+    { "hk_data"     10}
+    { "servo"       10}
+    { "ucode_gvars" 10}
+    { "seq"         10}
+    { "seql0"       10}
+    { "p_hk"        13}
+    { "spad_mode"   13}
+    { "hk_save"     14}
+    { "wheel_pos"   14}
+

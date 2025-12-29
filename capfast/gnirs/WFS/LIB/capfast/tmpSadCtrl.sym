@@ -1,0 +1,21 @@
+[symbol2]
+bbox 64 128 352 320
+port 336 224 100 2048 HLNK symbol 2 352 224 0
+port 288 160 100 1536 HMSS symbol 3 352 160 0
+port 288 192 100 1536 OHLT symbol 3 352 192 0
+port 336 288 100 2048 TMP symbol 3 352 288 0
+uniq 514
+[tools]
+[attributes]
+p 64 96 100 768 1 set0:mech $(mech)CtrlC1
+p 64 64 100 768 1 set1:name TC1 - Temperature Controller 1
+[layers]
+<symbol>
+l 100 4 0 208 256 tmpSadCtrl
+v 0 64 320
+352 320
+352 128
+64 128
+64 320
+_
+[comments]

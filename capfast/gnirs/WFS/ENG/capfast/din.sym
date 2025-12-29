@@ -1,0 +1,12 @@
+[symbol2]
+bbox 256 160 384 224
+uniq 22
+[tools]
+[attributes]
+p 256 128 100 768 1 set1:inp0
+p 256 96 100 768 1 set2:mech
+[layers]
+<symbol>
+l 100 0 0 304 192 din
+r 0 256 160 384 224
+[comments]

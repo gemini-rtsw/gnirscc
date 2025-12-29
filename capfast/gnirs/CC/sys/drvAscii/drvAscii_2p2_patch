@@ -1,0 +1,18 @@
+--- /home/mrippa/root/src/test/drvAscii/v2.2/drvAscii.c	Thu Mar 20 13:40:35 2003
++++ drvAscii.c	Wed Jul  9 14:59:19 2003
+@@ -4542,6 +4542,15 @@
+        */
+       if ( (char)chr == '\0' ) continue;
+       
++
++      /* 
++       * strip blank spaces as these also cause succeeding 
++       * scanf calls to fail
++       */
++      if ( chr == 32 ) { 
++	continue;
++      }
++      
+       /*
+        *  If a command terminator exists then continue getting  
+        *  characters until the entire terminator is received, 

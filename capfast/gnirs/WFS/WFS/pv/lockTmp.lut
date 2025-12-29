@@ -1,0 +1,10 @@
+# $Id: lockTmp.lut,v 1.2 2009/05/27 19:35:01 fkraemer Exp $
+
+#
+# Name translation for the interlocks.
+#
+
+# name	nval	steps	lowtol	hightol
+changing  1 CHANGING	0	0
+warm      1 WARM    	0	0
+cold      1 COLD	    0	0

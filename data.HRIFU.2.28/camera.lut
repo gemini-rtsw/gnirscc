@@ -1,0 +1,13 @@
+# $Id: camera.lut,v 1.1 2008/04/24 16:16:47 gemvx Exp $
+
+#
+# Filters loaded on NIRI filter wheel 1.
+#
+# List the most common name for a position first, followed by alternate
+#Filter Wheel 1
+
+#number name		pos		lowtol	hightol
+1	Short_Red				a1		0		0
+2	Long_Red				b1		0		0
+3	Short_Blue				c1		0		0
+4	Long_Blue				d1		0		0

@@ -1,0 +1,163 @@
+############### -----GNIRS NORTH----- ####################
+#	    			   Build Instructions                     #
+#																			#
+#																			#
+#  The following instuction should be followed to setup  #
+#  and build GNIRS at Gemini North 		                  #
+##########################################################
+
+1. This current directory is GNIRS_TOP. It contains the
+   GNIRS_TOP version of nirs.env and should be modified
+	to reflect key environment variables for the build.
+
+   !!!!However!!!! Please note that subsystems (when built)
+	will NOT put install files into this level of the GNIRS
+	tree.
+
+2. Scripts are never executed from the GNIRS_TOP directory.
+
+3. Subsystem dircectories such as CC, DC, IS also include files
+	called nirs.env. These 'sub' versions of nirs.env only
+	call the GNIRS_TOP level of nirs.env with the specific
+	subsystem name such as CC, DC, IS, passed as an argument to
+	the local nirsSetup script.
+
+4. -------OK. Get on with the build!--------
+   a. Edit $GNIRS_TOP/nirs.env to change the NIRS_DIR line
+	to equal the full path of your current GNIRS_TOP directory.
+	Using ${PWD} may get you into trouble.
+
+5. Build CC
+   a. cd to CC
+
+   a.1. check nirs.env for anything odd.
+
+   a.2. Run 'nirs.env'
+
+   b. Watch if applSetup ran correctly
+
+   c. Check that config/CONFIG.Defs contains the proper setting
+      for APPLIC_IOCPATH. It should be set to
+      pisces:/gemini/GEM5/gnirs/CC/<NIRS_CVSRELEASE>. Be carefull
+      because this is the path that gets installed and can wipe out
+      your existing deployed build.
+
+   c.1. Run gmake.
+
+   d. Check for presence of Distfile. Remember you're still
+      in the CC dir. If Distfile does not exist run gmake Distfile.
+      This will create your local CC Distfile. Check that it looks OK
+      and will ******NOT****** over write something in /gemini/GEM5 or
+      otherwise do something you don't expect!
+
+   d.1. Solaris directory not automatically made. Do a,
+        "mkdir bin/solaris".
+
+   e. gmake rdist installs CC into correct location
+
+6. Build IS
+
+   a. cd to IS
+
+   a.1. edit nirs.env and change (or add) NIRS_CVSRELEASE to the IS
+        specific CVS release tag. NIRS_CVSRELEASE is used to create
+        the path to install in, so something like, "V1-2TEST" is
+        a good idea for your initial run.
+
+   a.2. Run 'nirs.env'
+
+   b. Watch if applSetup ran correctly
+
+   c. Check that config/CONFIG.DEF contains the proper setting
+      for APPLIC_IOCPATH. It should be set to
+      pisces:/gemini/GEM5/gnirs/IS/<NIRS_CVSRELEASE>. If there is
+      a problem try, "rm -rf config" and re-run nirs.env.
+ 
+   c.1. Run gmake.
+
+   d. Check for presence of Distfile. Remember you're still
+      in the IS dir. If Distfile does not exist run "gmake Distfile".
+      This will create your local IS Distfile.  Check that it looks OK
+      and will ** NOT ** over write something in /gemini/GEM5 or
+      otherwise do something you don't expect!
+
+   e. gmake rdist installs IS into correct location
+
+****************** Don't bother with WFS  - not commisioned! *****************
+7. Build WFS (This one has 3 TOP levels!)
+	a. cd to WFS dir and edit 'nirsLogin' to reflect your local build environment.
+		This is the WFS_TOP directory setup file. Adjust the CVS_RELEASE keyword to
+		a tag that's convenient for you.
+	
+	b. cd to ENG and type ./nirsSetup. This is the ENG TOP build.
+
+   c. Check that applSetup ran correctly.
+
+   d. Check that config/CONFIG.DEF contains the proper setting
+		for APPLIC_IOCPATH. It should be set to 
+		pisces:/gemini/GEM5/gnirs/WFS/WFS/ENG/<CVS_RELEASE>
+
+   d. Check for presence of Distfile. Remember you're still
+		in the WFS/ENG dir. If Distfile does not exist run gmake Distfile.
+		This will create your local IS Distfile. Check that it
+		looks OK and will ******NOT****** over write something
+		in /gemini/GEM5 or otherwise do something you don't expect!
+
+	e. Change to WFS/LIB and WFS/WFS (yes 2 deep) and repeat the above 
+		steps to procuce all binaries in the three directories.
+
+	f. As an example of a correct looking install see: /gemini/GEM5/gnirs/WFS/...
+
+****************** NOW DC1 ***************
+
+8. Build DC (THis has the DHS client ppc(GEM7) directory embedded in the
+	EPICS DC_TOP(GEM5) directory).
+
+	a. cd to DC/ppc and check the environment variable are set in epicsGEM7.cshrc, 
+		including NIRS_CVSRELEASE tag name.
+
+	b. source $GEM7 environment
+
+	c. run nirs.env and check that applSetup executed correcly
+
+	d. Again check that APPLIC_IOCPATH looks good. Something like 
+		pisces:/gemini/epics3.13.4/gnirs/DC/<NIRS_CVSRELEASE>/ppc 
+
+	e. Check that Distfile looks correct.
+
+	g. gmake rdist as gemvx
+
+9. Jump up one level now to the DC_TOP for the DC2 EPICS build.
+	
+	a. Checking that the GNIRS_TOP/nirs.env has all the correct environment vars,
+		proceed to 'source $GEM5', and run the local nirs.env.
+
+	b. Check that config/CONFIG.DEF contains the proper setting
+		for APPLIC_IOCPATH. It should be set to something like 
+		pisces:/gemini/GEM5/gnirs/DC/<CVS_RELEASE>. 
+		NOTE that the current configuration puts both DC builds (EPICS and DHS )
+		into /gemini/epics3.13.4/gnirs/gnirs.fkraemer.test/DC/ and .../DC/ppc
+		respectively.
+
+	c. Check that Distfile looks correct.
+
+        c.1 Make the following directries b/c they are not created automatically:
+           mkdir bin/solaris
+           mkdir lib
+           mkdir include
+           mkdir dbd
+
+	d. gmake rdist
+
+
+# 10. Now there should be quite a few symbolic links in the install trees to change.
+
+ 
+
+IF one of [CC DC IS WFS] is sent as a parameter to nirs.env just that area will
+setup.  
+
+
+To start the dm screens run "nirsSeqStart".  This sets some environment 
+variables and runs dm with the correct parameters.  
+

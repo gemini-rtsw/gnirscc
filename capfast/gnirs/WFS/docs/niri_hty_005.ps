@@ -1,0 +1,5232 @@
+%!PS-Adobe-3.0
+%%BoundingBox: (atend)
+%%Pages: (atend)
+%%PageOrder: (atend)
+%%DocumentFonts: (atend)
+%%Creator: Frame 5.0
+%%DocumentData: Clean7Bit
+%%EndComments
+%%BeginProlog
+%
+% Frame ps_prolog 5.0, for use with Frame 5.0 products
+% This ps_prolog file is Copyright (c) 1986-1995 Frame Technology
+% Corporation.  All rights reserved.  This ps_prolog file may be
+% freely copied and distributed in conjunction with documents created
+% using FrameMaker, FrameMaker/SGML and FrameViewer as long as this 
+% copyright notice is preserved.
+%
+% FrameMaker users specify the proper paper size for each print job in the
+% "Print" dialog's "Printer Paper Size" "Width" and "Height~ fields.  If the
+% printer that the PS file is sent to does not support the requested paper
+% size, or if there is no paper tray of the proper size currently installed, 
+% then the job will not be printed.  The following flag, if set to true, will
+% cause the job to print on the default paper in such cases.
+/FMAllowPaperSizeMismatch            false def
+%
+% Frame products normally print colors as their true color on a color printer
+% or as shades of gray, based on luminance, on a black-and white printer. The
+% following flag, if set to true, forces all non-white colors to print as pure
+% black. This has no effect on bitmap images.
+/FMPrintAllColorsAsBlack             false def
+%
+% Frame products can either set their own line screens or use a printer's 
+% default settings. Three flags below control this separately for no 
+% separations, spot separations and process separations. If a flag
+% is true, then the default printer settings will not be changed. If it is
+% false, Frame products will use their own settings from a table based on
+% the printer's resolution.
+/FMUseDefaultNoSeparationScreen      true  def
+/FMUseDefaultSpotSeparationScreen    true  def
+/FMUseDefaultProcessSeparationScreen false def
+%
+% For any given PostScript printer resolution, Frame products have two sets of 
+% screen angles and frequencies for printing process separations, which are 
+% recomended by Adobe. The following variable chooses the higher frequencies
+% when set to true or the lower frequencies when set to false. This is only
+% effective if the appropriate FMUseDefault...SeparationScreen flag is false.
+/FMUseHighFrequencyScreens true def
+%
+% The following is a set of predefined optimal frequencies and angles for various
+% common dpi settings. This is taken from "Advances in Color Separation Using
+% PostScript Software Technology," from Adobe Systems (3/13/89 P.N. LPS 0043)
+% and corrolated with information which is in various PPD (4.0) files.
+%
+% The "dpiranges" figure is the minimum dots per inch device resolution which
+% can support this setting. The "low" and "high" values are controlled by the
+% setting of the FMUseHighFrequencyScreens flag above. The "TDot" flags control
+% the use of the "Yellow Triple Dot" feature whereby the frequency id divided by
+% three, but the dot function is "trippled" giving a block of 3x3 dots per cell.
+%
+% PatFreq is a compromise pattern frequency for ps Level 2 printers which is close
+% to the ideal WYSIWYG pattern frequency of 9 repetitions/inch but does not beat
+% (too badly) against the screen frequencies of any separations for that DPI.
+/dpiranges   [  2540    2400    1693     1270    1200     635      600      0      ] def
+/CMLowFreqs  [ 100.402  94.8683 89.2289 100.402  94.8683  66.9349  63.2456 47.4342 ] def
+/YLowFreqs   [  95.25   90.0    84.65    95.25   90.0     70.5556  66.6667 50.0    ] def
+/KLowFreqs   [  89.8026 84.8528 79.8088  89.8026 84.8528  74.8355  70.7107 53.033  ] def
+/CLowAngles  [  71.5651 71.5651 71.5651 71.5651  71.5651  71.5651  71.5651 71.5651 ] def
+/MLowAngles  [  18.4349 18.4349 18.4349 18.4349  18.4349  18.4349  18.4349 18.4349 ] def
+/YLowTDot    [  true    true    false    true    true     false    false   false   ] def
+/CMHighFreqs [ 133.87  126.491 133.843  108.503 102.523  100.402   94.8683 63.2456 ] def
+/YHighFreqs  [ 127.0   120.0   126.975  115.455 109.091   95.25    90.0    60.0    ] def
+/KHighFreqs  [ 119.737 113.137 119.713  128.289 121.218   89.8026  84.8528 63.6395 ] def
+/CHighAngles [  71.5651 71.5651 71.5651  70.0169 70.0169  71.5651  71.5651 71.5651 ] def
+/MHighAngles [  18.4349 18.4349 18.4349  19.9831 19.9831  18.4349  18.4349 18.4349 ] def
+/YHighTDot   [  false   false   true     false   false    true     true    false   ] def
+/PatFreq     [	10.5833 10.0     9.4055  10.5833 10.0	  10.5833  10.0	   9.375   ] def
+%
+% PostScript Level 2 printers contain an "Accurate Screens" feature which can
+% improve process separation rendering at the expense of compute time. This 
+% flag is ignored by PostScript Level 1 printers.
+/FMUseAcccurateScreens true def
+%
+% The following PostScript procedure defines the spot function that Frame
+% products will use for process separations. You may un-comment-out one of
+% the alternative functions below, or use your own.
+%
+% Dot function
+/FMSpotFunction {abs exch abs 2 copy add 1 gt 
+		{1 sub dup mul exch 1 sub dup mul add 1 sub }
+		{dup mul exch dup mul add 1 exch sub }ifelse } def
+%
+% Line function
+% /FMSpotFunction { pop } def
+%
+% Elipse function
+% /FMSpotFunction { dup 5 mul 8 div mul exch dup mul exch add 
+%		sqrt 1 exch sub } def
+%
+%
+/FMversion (5.0) def 
+/fMLevel1 /languagelevel where {pop languagelevel} {1} ifelse 2 lt def
+/FMPColor
+	fMLevel1 {
+		false
+		/colorimage where {pop pop true} if
+	} {
+		true
+	} ifelse
+def
+/FrameDict 400 dict def 
+systemdict /errordict known not {/errordict 10 dict def
+		errordict /rangecheck {stop} put} if
+% The readline in PS 23.0 doesn't recognize cr's as nl's on AppleTalk
+FrameDict /tmprangecheck errordict /rangecheck get put 
+errordict /rangecheck {FrameDict /bug true put} put 
+FrameDict /bug false put 
+mark 
+% Some PS machines read past the CR, so keep the following 3 lines together!
+currentfile 5 string readline
+00
+0000000000
+cleartomark 
+errordict /rangecheck FrameDict /tmprangecheck get put 
+FrameDict /bug get { 
+	/readline {
+		/gstring exch def
+		/gfile exch def
+		/gindex 0 def
+		{
+			gfile read pop 
+			dup 10 eq {exit} if 
+			dup 13 eq {exit} if 
+			gstring exch gindex exch put 
+			/gindex gindex 1 add def 
+		} loop
+		pop 
+		gstring 0 gindex getinterval true 
+		} bind def
+	} if
+/FMshowpage /showpage load def
+/FMquit /quit load def
+/FMFAILURE { 
+	dup = flush 
+	FMshowpage 
+	/Helvetica findfont 12 scalefont setfont
+	72 200 moveto show
+	72 220 moveto show
+	FMshowpage 
+	FMquit 
+	} def 
+/FMVERSION {
+	FMversion ne {
+		(Frame product version does not match ps_prolog!  Check installation;)
+		(also check ~/fminit and ./fminit for old versions) FMFAILURE
+		} if
+	} def 
+/FMBADEPSF { 
+	(Adobe's PostScript Language Reference Manual, 2nd Edition, section H.2.4)
+	(says your EPS file is not valid, as it calls X              )
+	dup dup (X) search pop exch pop exch pop length 
+	5 -1 roll 
+	putinterval 
+	FMFAILURE
+	} def
+/fmConcatProcs
+	{
+	/proc2 exch cvlit def/proc1 exch cvlit def/newproc proc1 length proc2 length add array def
+	newproc 0 proc1 putinterval newproc proc1 length proc2 putinterval newproc cvx
+}def
+FrameDict begin [
+	/ALDsave
+	/FMdicttop
+	/FMoptop
+	/FMpointsize
+	/FMsaveobject
+	/b
+	/bitmapsave
+	/blut
+	/bpside
+	/bs
+	/bstring
+	/bwidth
+	/c
+	/cf
+	/cs
+	/cynu
+	/depth
+	/edown
+	/fh
+	/fillvals
+	/fw
+	/fx
+	/fy
+	/g
+	/gfile
+	/gindex
+	/grnt
+	/gryt
+	/gstring
+	/height
+	/hh
+	/i
+	/im
+	/indx
+	/is
+	/k
+	/kk
+	/landscape
+	/lb
+	/len
+	/llx
+	/lly
+	/m
+	/magu
+	/manualfeed
+	/n
+	/offbits
+	/onbits
+	/organgle
+	/orgbangle
+	/orgbfreq
+	/orgbproc
+	/orgbxfer
+	/orgfreq
+	/orggangle
+	/orggfreq
+	/orggproc
+	/orggxfer
+	/orgmatrix
+	/orgproc
+	/orgrangle
+	/orgrfreq
+	/orgrproc
+	/orgrxfer
+	/orgxfer
+	/pagesave
+	/paperheight
+	/papersizedict
+	/paperwidth
+	/pos
+	/pwid
+	/r
+	/rad
+	/redt
+	/sl
+	/str
+	/tran
+	/u
+	/urx
+	/ury
+	/val
+	/width
+	/width
+	/ws
+	/ww
+	/x
+	/x1
+	/x2
+	/xindex
+	/xpoint
+	/xscale
+	/xx
+	/y
+	/y1
+	/y2
+	/yelu
+	/yindex
+	/ypoint
+	/yscale
+	/yy
+] { 0 def } forall
+/FmBD {bind def} bind def
+systemdict /pdfmark known {
+	/fMAcrobat true def
+	
+	/FmPD /pdfmark load def
+	
+	
+	/FmPT /show load def
+	
+	
+	currentdistillerparams /CoreDistVersion get 2000 ge {
+	
+		
+		/FmPD2 /pdfmark load def
+		
+		
+		
+		
+		
+		/FmPA { mark exch /Dest exch 5 3 roll 
+				/View [ /XYZ null 6 -2 roll FmDC exch pop null] /DEST FmPD 
+		}FmBD
+	} {
+		
+		/FmPD2 /cleartomark load def
+		/FmPA {pop pop pop}FmBD
+	} ifelse
+} {
+	
+	/fMAcrobat false def
+	/FmPD /cleartomark load def
+	/FmPD2 /cleartomark load def
+	/FmPT /pop load def
+	/FmPA {pop pop pop}FmBD
+} ifelse
+/FmDC {
+	transform fMDefaultMatrix itransform cvi exch cvi exch
+}FmBD
+/FmBx {
+	dup 3 index lt {3 1 roll exch} if 
+	1 index 4 index lt {4 -1 roll 3 1 roll exch 4 1 roll} if
+}FmBD
+/FMnone 0 def
+/FMcyan 1 def
+/FMmagenta 2 def
+/FMyellow 3 def
+/FMblack 4 def
+/FMcustom 5 def
+/fMNegative false def 
+/FrameSepIs FMnone def 
+/FrameSepBlack 0 def
+/FrameSepYellow 0 def
+/FrameSepMagenta 0 def
+/FrameSepCyan 0 def
+/FrameSepRed 1 def
+/FrameSepGreen 1 def
+/FrameSepBlue 1 def
+/FrameCurGray 1 def
+/FrameCurPat null def
+/FrameCurColors [ 0 0 0 1 0 0 0 ] def 
+/FrameColorEpsilon .001 def	
+/eqepsilon {		
+	sub dup 0 lt {neg} if
+	FrameColorEpsilon le
+} bind def
+/FrameCmpColorsCMYK { 
+	2 copy 0 get exch 0 get eqepsilon {
+		2 copy 1 get exch 1 get eqepsilon {
+			2 copy 2 get exch 2 get eqepsilon {
+				3 get exch 3 get eqepsilon
+			} {pop pop false} ifelse
+		}{pop pop false} ifelse
+	} {pop pop false} ifelse
+} bind def
+/FrameCmpColorsRGB { 
+	2 copy 4 get exch 0 get eqepsilon {
+		2 copy 5 get exch 1 get eqepsilon {
+			6 get exch 2 get eqepsilon
+		}{pop pop false} ifelse
+	} {pop pop false} ifelse
+} bind def
+/RGBtoCMYK { 
+	1 exch sub 
+	3 1 roll 
+	1 exch sub 
+	3 1 roll 
+	1 exch sub 
+	3 1 roll 
+	3 copy 
+	2 copy 
+	le { pop } { exch pop } ifelse 
+	2 copy 
+	le { pop } { exch pop } ifelse 
+	dup dup dup 
+	6 1 roll 
+	4 1 roll 
+	7 1 roll 
+	sub 
+	6 1 roll 
+	sub 
+	5 1 roll 
+	sub 
+	4 1 roll 
+} bind def
+/CMYKtoRGB { 
+	dup dup 4 -1 roll add 						  
+	5 1 roll 3 -1 roll add 						  
+	4 1 roll add 								  
+	1 exch sub dup 0 lt {pop 0} if 3 1 roll 	  
+	1 exch sub dup 0 lt {pop 0} if exch 	      
+	1 exch sub dup 0 lt {pop 0} if exch	  		  
+} bind def
+/FrameSepInit {
+	1.0 RealSetgray
+} bind def
+/FrameSetSepColor { 
+	/FrameSepBlue exch def
+	/FrameSepGreen exch def
+	/FrameSepRed exch def
+	/FrameSepBlack exch def
+	/FrameSepYellow exch def
+	/FrameSepMagenta exch def
+	/FrameSepCyan exch def
+	/FrameSepIs FMcustom def
+	setCurrentScreen	
+} bind def
+/FrameSetCyan {
+	/FrameSepBlue 1.0 def
+	/FrameSepGreen 1.0 def
+	/FrameSepRed 0.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 1.0 def
+	/FrameSepIs FMcyan def
+	setCurrentScreen	
+} bind def
+ 
+/FrameSetMagenta {
+	/FrameSepBlue 1.0 def
+	/FrameSepGreen 0.0 def
+	/FrameSepRed 1.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 1.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMmagenta def
+	setCurrentScreen
+} bind def
+ 
+/FrameSetYellow {
+	/FrameSepBlue 0.0 def
+	/FrameSepGreen 1.0 def
+	/FrameSepRed 1.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 1.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMyellow def
+	setCurrentScreen
+} bind def
+ 
+/FrameSetBlack {
+	/FrameSepBlue 0.0 def
+	/FrameSepGreen 0.0 def
+	/FrameSepRed 0.0 def
+	/FrameSepBlack 1.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMblack def
+	setCurrentScreen
+} bind def
+ 
+/FrameNoSep { 
+	/FrameSepIs FMnone def
+	setCurrentScreen
+} bind def
+/FrameSetSepColors { 
+	FrameDict begin
+	[ exch 1 add 1 roll ]
+	/FrameSepColors  
+	exch def end
+	} bind def
+/FrameColorInSepListCMYK { 
+	FrameSepColors {  
+       		exch dup 3 -1 roll 
+       		FrameCmpColorsCMYK 
+       		{ pop true exit } if
+    	} forall 
+	dup true ne {pop false} if
+	} bind def
+/FrameColorInSepListRGB { 
+	FrameSepColors {  
+       		exch dup 3 -1 roll 
+       		FrameCmpColorsRGB 
+       		{ pop true exit } if
+    	} forall 
+	dup true ne {pop false} if
+	} bind def
+/RealSetgray /setgray load def
+/RealSetrgbcolor /setrgbcolor load def
+/RealSethsbcolor /sethsbcolor load def
+end 
+/setgray { 
+	FrameDict begin
+	FrameSepIs FMnone eq
+		{ RealSetgray } 
+		{ 
+		FrameSepIs FMblack eq 
+			{ RealSetgray } 
+			{ FrameSepIs FMcustom eq 
+			  FrameSepRed 0 eq and
+			  FrameSepGreen 0 eq and
+			  FrameSepBlue 0 eq and {
+			  	RealSetgray
+			  } {
+				1 RealSetgray pop 
+			  } ifelse
+			} ifelse
+		} ifelse
+	end
+} bind def
+/setrgbcolor { 
+	FrameDict begin
+	FrameSepIs FMnone eq
+	{  RealSetrgbcolor }
+	{
+		3 copy [ 4 1 roll ] 
+		FrameColorInSepListRGB
+		{
+				FrameSepBlue eq exch 
+			 	FrameSepGreen eq and exch 
+			 	FrameSepRed eq and
+			 	{ 0 } { 1 } ifelse
+		}
+		{
+			FMPColor {
+				RealSetrgbcolor
+				currentcmykcolor
+			} {
+				RGBtoCMYK
+			} ifelse
+			FrameSepIs FMblack eq
+			{1.0 exch sub 4 1 roll pop pop pop} {
+			FrameSepIs FMyellow eq
+			{pop 1.0 exch sub 3 1 roll pop pop} {
+			FrameSepIs FMmagenta eq
+			{pop pop 1.0 exch sub exch pop } {
+			FrameSepIs FMcyan eq
+			{pop pop pop 1.0 exch sub } 
+			{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+		} ifelse
+		RealSetgray
+	} 
+	ifelse
+	end
+} bind def
+/sethsbcolor {
+	FrameDict begin
+	FrameSepIs FMnone eq 
+	{ RealSethsbcolor } 
+	{
+		RealSethsbcolor 
+		currentrgbcolor  
+		setrgbcolor 
+	} 
+	ifelse
+	end
+} bind def
+FrameDict begin
+/setcmykcolor where {
+	pop /RealSetcmykcolor /setcmykcolor load def
+} {
+	/RealSetcmykcolor {
+		4 1 roll
+		3 { 3 index add 0 max 1 min 1 exch sub 3 1 roll} repeat 
+		RealSetrgbcolor pop
+	} bind def
+} ifelse
+userdict /setcmykcolor { 
+		FrameDict begin
+		FrameSepIs FMnone eq
+		{ RealSetcmykcolor } 
+		{
+			4 copy [ 5 1 roll ]
+			FrameColorInSepListCMYK
+			{
+				FrameSepBlack eq exch 
+				FrameSepYellow eq and exch 
+				FrameSepMagenta eq and exch 
+				FrameSepCyan eq and 
+				{ 0 } { 1 } ifelse
+			}
+			{
+				FrameSepIs FMblack eq
+				{1.0 exch sub 4 1 roll pop pop pop} {
+				FrameSepIs FMyellow eq
+				{pop 1.0 exch sub 3 1 roll pop pop} {
+				FrameSepIs FMmagenta eq
+				{pop pop 1.0 exch sub exch pop } {
+				FrameSepIs FMcyan eq
+				{pop pop pop 1.0 exch sub } 
+				{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+			} ifelse
+			RealSetgray
+		}
+		ifelse
+		end
+	} bind put
+fMLevel1 { 
+	
+	
+	
+	/patScreenDict 7 dict dup begin
+		<0f1e3c78f0e1c387> [ 45  { pop } {exch pop} 		.5   2 sqrt] FmBD
+		<0f87c3e1f0783c1e> [ 135 { pop } {exch pop}			.5   2 sqrt] FmBD
+		<cccccccccccccccc> [ 0   { pop } dup				.5   2	   ] FmBD
+		<ffff0000ffff0000> [ 90  { pop } dup				.5   2	   ] FmBD
+		<8142241818244281> [ 45  { 2 copy lt {exch} if pop}	dup .75  2 sqrt] FmBD
+		<03060c183060c081> [ 45  { pop } {exch pop}			.875 2 sqrt] FmBD
+		<8040201008040201> [ 135 { pop } {exch pop}			.875 2 sqrt] FmBD
+	end def
+} { 
+	
+	/patProcDict 5 dict dup begin
+		<0f1e3c78f0e1c387> { 3 setlinewidth -1 -1 moveto 9 9 lineto stroke 
+											4 -4 moveto 12 4 lineto stroke
+											-4 4 moveto 4 12 lineto stroke} bind def
+		<0f87c3e1f0783c1e> { 3 setlinewidth -1 9 moveto 9 -1 lineto stroke 
+											-4 4 moveto 4 -4 lineto stroke
+											4 12 moveto 12 4 lineto stroke} bind def
+		<8142241818244281> { 1 setlinewidth -1 9 moveto 9 -1 lineto stroke
+											-1 -1 moveto 9 9 lineto stroke } bind def
+		<03060c183060c081> { 1 setlinewidth -1 -1 moveto 9 9 lineto stroke 
+											4 -4 moveto 12 4 lineto stroke
+											-4 4 moveto 4 12 lineto stroke} bind def
+		<8040201008040201> { 1 setlinewidth -1 9 moveto 9 -1 lineto stroke 
+											-4 4 moveto 4 -4 lineto stroke
+											4 12 moveto 12 4 lineto stroke} bind def
+	end def
+	/patDict 15 dict dup begin
+		/PatternType 1 def		
+		/PaintType 2 def		
+		/TilingType 3 def		
+		/BBox [ 0 0 8 8 ] def 	
+		/XStep 8 def			
+		/YStep 8 def			
+		/PaintProc {
+			begin
+			patProcDict bstring known {
+				patProcDict bstring get exec
+			} {
+				8 8 true [1 0 0 -1 0 8] bstring imagemask
+			} ifelse
+			end
+		} bind def
+	end def
+} ifelse
+/combineColor {
+    FrameSepIs FMnone eq
+	{
+		graymode fMLevel1 or not {
+			
+			[/Pattern [/DeviceCMYK]] setcolorspace
+			FrameCurColors 0 4 getinterval aload pop FrameCurPat setcolor
+		} {
+			FrameCurColors 3 get 1.0 ge {
+				FrameCurGray RealSetgray
+			} {
+				fMAcrobat not FMPColor graymode and and {
+					0 1 3 { 
+						FrameCurColors exch get
+						1 FrameCurGray sub mul
+					} for
+					RealSetcmykcolor
+				} {
+					4 1 6 {
+						FrameCurColors exch get
+						graymode {
+							1 exch sub 1 FrameCurGray sub mul 1 exch sub
+						} {
+							1.0 lt {FrameCurGray} {1} ifelse
+						} ifelse
+					} for
+					RealSetrgbcolor
+				} ifelse
+			} ifelse
+		} ifelse
+	} { 
+		FrameCurColors 0 4 getinterval aload
+		FrameColorInSepListCMYK {
+			FrameSepBlack eq exch 
+			FrameSepYellow eq and exch 
+			FrameSepMagenta eq and exch 
+			FrameSepCyan eq and
+			FrameSepIs FMcustom eq and
+			{ FrameCurGray } { 1 } ifelse
+		} {
+			FrameSepIs FMblack eq
+			{FrameCurGray 1.0 exch sub mul 1.0 exch sub 4 1 roll pop pop pop} {
+			FrameSepIs FMyellow eq
+			{pop FrameCurGray 1.0 exch sub mul 1.0 exch sub 3 1 roll pop pop} {
+			FrameSepIs FMmagenta eq
+			{pop pop FrameCurGray 1.0 exch sub mul 1.0 exch sub exch pop } {
+			FrameSepIs FMcyan eq
+			{pop pop pop FrameCurGray 1.0 exch sub mul 1.0 exch sub } 
+			{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+		} ifelse
+		graymode fMLevel1 or not {
+			
+			[/Pattern [/DeviceGray]] setcolorspace
+			FrameCurPat setcolor
+		} { 
+			graymode not fMLevel1 and {
+				
+				dup 1 lt {pop FrameCurGray} if
+			} if
+			RealSetgray
+		} ifelse
+	} ifelse
+} bind def
+/savematrix {
+	orgmatrix currentmatrix pop
+	} bind def
+/restorematrix {
+	orgmatrix setmatrix
+	} bind def
+/fMDefaultMatrix matrix defaultmatrix def
+/fMatrix2 matrix def
+/dpi    72 0 fMDefaultMatrix dtransform
+    dup mul exch   dup mul add   sqrt def
+	
+/freq dpi dup 72 div round dup 0 eq {pop 1} if 8 mul div def
+/sangle 1 0 fMDefaultMatrix dtransform exch atan def
+	sangle fMatrix2 rotate 
+	fMDefaultMatrix fMatrix2 concatmatrix 
+	dup 0 get /sflipx exch def
+	    3 get /sflipy exch def
+/screenIndex {
+	0 1 dpiranges length 1 sub { dup dpiranges exch get 1 sub dpi le {exit} {pop} ifelse } for
+} bind def
+/getCyanScreen {
+	FMUseHighFrequencyScreens { CHighAngles CMHighFreqs} {CLowAngles CMLowFreqs} ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get /FMSpotFunction load
+} bind def
+/getMagentaScreen {
+	FMUseHighFrequencyScreens { MHighAngles CMHighFreqs } {MLowAngles CMLowFreqs} ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get /FMSpotFunction load
+} bind def
+/getYellowScreen {
+	FMUseHighFrequencyScreens { YHighTDot YHighFreqs} { YLowTDot YLowFreqs } ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get { 3 div
+			{2 { 1 add 2 div 3 mul dup floor sub 2 mul 1 sub exch} repeat
+			FMSpotFunction } } {/FMSpotFunction load } ifelse
+			0.0 exch
+} bind def
+/getBlackScreen  {
+	FMUseHighFrequencyScreens { KHighFreqs } { KLowFreqs } ifelse
+		screenIndex get 45.0 /FMSpotFunction load 
+} bind def
+/getSpotScreen {
+	getBlackScreen
+} bind def
+/getCompositeScreen {
+	getBlackScreen
+} bind def
+/FMSetScreen 
+	fMLevel1 { /setscreen load 
+	}{ {
+		8 dict begin
+		/HalftoneType 1 def
+		/SpotFunction exch def
+		/Angle exch def
+		/Frequency exch def
+		/AccurateScreens FMUseAcccurateScreens def
+		currentdict end sethalftone
+	} bind } ifelse
+def
+/setDefaultScreen {
+	FMPColor {
+		orgrxfer cvx orggxfer cvx orgbxfer cvx orgxfer cvx setcolortransfer
+	}
+	{
+		orgxfer cvx settransfer
+	} ifelse
+	orgfreq organgle orgproc cvx setscreen
+} bind def
+/setCurrentScreen {
+	FrameSepIs FMnone eq {
+		FMUseDefaultNoSeparationScreen {
+			setDefaultScreen
+		} {
+			getCompositeScreen FMSetScreen
+		} ifelse
+	} {
+		FrameSepIs FMcustom eq {
+			FMUseDefaultSpotSeparationScreen {
+				setDefaultScreen
+			} {
+				getSpotScreen FMSetScreen
+			} ifelse
+		} {
+			FMUseDefaultProcessSeparationScreen {
+				setDefaultScreen
+			} {
+				FrameSepIs FMcyan eq {
+					getCyanScreen FMSetScreen
+				} {
+					FrameSepIs FMmagenta eq {
+						getMagentaScreen FMSetScreen
+					} {
+						FrameSepIs FMyellow eq {
+							getYellowScreen FMSetScreen
+						} {
+							getBlackScreen FMSetScreen
+						} ifelse
+					} ifelse
+				} ifelse
+			} ifelse
+		} ifelse
+	} ifelse 
+} bind def
+end
+	
+/FMDOCUMENT { 
+	array /FMfonts exch def 
+	/#copies exch def
+	FrameDict begin
+	0 ne /manualfeed exch def
+	/paperheight exch def
+	/paperwidth exch def
+	0 ne /fMNegative exch def 
+	0 ne /edown exch def 
+	/yscale exch def
+	/xscale exch def
+	fMLevel1 {
+		manualfeed {setmanualfeed} if
+		/FMdicttop countdictstack 1 add def 
+		/FMoptop count def 
+		setpapername 
+		manualfeed {true} {papersize} ifelse 
+		{manualpapersize} {false} ifelse 
+		{desperatepapersize} {false} ifelse 
+		{papersizefailure} if
+		count -1 FMoptop {pop pop} for
+		countdictstack -1 FMdicttop {pop end} for 
+		}
+		{2 dict
+		 dup /PageSize [paperwidth paperheight] put
+		 manualfeed {dup /ManualFeed manualfeed put} if
+		 {setpagedevice} stopped {papersizefailure} if
+		}
+	ifelse 
+	
+	FMPColor {
+		currentcolorscreen
+			cvlit /orgproc exch def
+				  /organgle exch def 
+				  /orgfreq exch def
+			cvlit /orgbproc exch def
+				  /orgbangle exch def 
+				  /orgbfreq exch def
+			cvlit /orggproc exch def
+				  /orggangle exch def 
+				  /orggfreq exch def
+			cvlit /orgrproc exch def
+				  /orgrangle exch def 
+				  /orgrfreq exch def
+			currentcolortransfer 
+			fMNegative {
+				1 1 4 { 
+					pop { 1 exch sub } fmConcatProcs 4 1 roll
+				} for
+				4 copy
+				setcolortransfer
+			} if
+			cvlit /orgxfer exch def
+			cvlit /orgbxfer exch def
+			cvlit /orggxfer exch def
+			cvlit /orgrxfer exch def
+	} {
+		currentscreen 
+			cvlit /orgproc exch def
+				  /organgle exch def 
+				  /orgfreq exch def
+				  
+		currenttransfer 
+		fMNegative {
+			{ 1 exch sub } fmConcatProcs
+			dup settransfer
+		} if 
+		cvlit /orgxfer exch def
+	} ifelse
+	end 
+} def 
+/FMBEGINPAGE { 
+	FrameDict begin 
+	/pagesave save def
+	3.86 setmiterlimit
+	/landscape exch 0 ne def
+	landscape { 
+		90 rotate 0 exch dup /pwid exch def neg translate pop 
+	}{
+		pop /pwid exch def
+	} ifelse
+	edown { [-1 0 0 1 pwid 0] concat } if
+	0 0 moveto paperwidth 0 lineto paperwidth paperheight lineto 
+	0 paperheight lineto 0 0 lineto 1 setgray fill
+	xscale yscale scale
+	/orgmatrix matrix def
+	gsave 
+} def 
+/FMENDPAGE {
+	grestore 
+	pagesave restore
+	end 
+	showpage
+	} def 
+/FMFONTDEFINE { 
+	FrameDict begin
+	findfont 
+	ReEncode 
+	1 index exch 
+	definefont 
+	FMfonts 3 1 roll 
+	put
+	end 
+	} def 
+/FMFILLS {
+	FrameDict begin dup
+	array /fillvals exch def
+	dict /patCache exch def
+	end 
+	} def 
+/FMFILL {
+	FrameDict begin
+	 fillvals 3 1 roll put
+	end 
+	} def 
+/FMNORMALIZEGRAPHICS { 
+	newpath
+	1 setlinewidth
+	0 setlinecap
+	0 0 0 sethsbcolor
+	0 setgray 
+	} bind def
+/FMBEGINEPSF { 
+	end 
+	/FMEPSF save def 
+	/showpage {} def 
+% See Adobe's "PostScript Language Reference Manual, 2nd Edition", page 714.
+% "...the following operators MUST NOT be used in an EPS file:" (emphasis ours)
+	/banddevice {(banddevice) FMBADEPSF} def
+	/clear {(clear) FMBADEPSF} def
+	/cleardictstack {(cleardictstack) FMBADEPSF} def 
+	/copypage {(copypage) FMBADEPSF} def
+	/erasepage {(erasepage) FMBADEPSF} def
+	/exitserver {(exitserver) FMBADEPSF} def
+	/framedevice {(framedevice) FMBADEPSF} def
+	/grestoreall {(grestoreall) FMBADEPSF} def
+	/initclip {(initclip) FMBADEPSF} def
+	/initgraphics {(initgraphics) FMBADEPSF} def
+	/quit {(quit) FMBADEPSF} def
+	/renderbands {(renderbands) FMBADEPSF} def
+	/setglobal {(setglobal) FMBADEPSF} def
+	/setpagedevice {(setpagedevice) FMBADEPSF} def
+	/setshared {(setshared) FMBADEPSF} def
+	/startjob {(startjob) FMBADEPSF} def
+	/lettertray {(lettertray) FMBADEPSF} def
+	/letter {(letter) FMBADEPSF} def
+	/lettersmall {(lettersmall) FMBADEPSF} def
+	/11x17tray {(11x17tray) FMBADEPSF} def
+	/11x17 {(11x17) FMBADEPSF} def
+	/ledgertray {(ledgertray) FMBADEPSF} def
+	/ledger {(ledger) FMBADEPSF} def
+	/legaltray {(legaltray) FMBADEPSF} def
+	/legal {(legal) FMBADEPSF} def
+	/statementtray {(statementtray) FMBADEPSF} def
+	/statement {(statement) FMBADEPSF} def
+	/executivetray {(executivetray) FMBADEPSF} def
+	/executive {(executive) FMBADEPSF} def
+	/a3tray {(a3tray) FMBADEPSF} def
+	/a3 {(a3) FMBADEPSF} def
+	/a4tray {(a4tray) FMBADEPSF} def
+	/a4 {(a4) FMBADEPSF} def
+	/a4small {(a4small) FMBADEPSF} def
+	/b4tray {(b4tray) FMBADEPSF} def
+	/b4 {(b4) FMBADEPSF} def
+	/b5tray {(b5tray) FMBADEPSF} def
+	/b5 {(b5) FMBADEPSF} def
+	FMNORMALIZEGRAPHICS 
+	[/fy /fx /fh /fw /ury /urx /lly /llx] {exch def} forall 
+	fx fw 2 div add fy fh 2 div add  translate
+	rotate
+	fw 2 div neg fh 2 div neg translate
+	fw urx llx sub div fh ury lly sub div scale 
+	llx neg lly neg translate 
+	/FMdicttop countdictstack 1 add def 
+	/FMoptop count def 
+	} bind def
+/FMENDEPSF {
+	count -1 FMoptop {pop pop} for 
+	countdictstack -1 FMdicttop {pop end} for 
+	FMEPSF restore
+	FrameDict begin 
+	} bind def
+FrameDict begin 
+/setmanualfeed {
+%%BeginFeature *ManualFeed True
+	 statusdict /manualfeed true put
+%%EndFeature
+	} bind def
+/max {2 copy lt {exch} if pop} bind def
+/min {2 copy gt {exch} if pop} bind def
+/inch {72 mul} def
+/pagedimen { 
+	paperheight sub abs 16 lt exch 
+	paperwidth sub abs 16 lt and
+	{/papername exch def} {pop} ifelse
+	} bind def
+/setpapername { 
+	/papersizedict 14 dict def 
+	papersizedict begin
+	/papername /unknown def 
+		/Letter 8.5 inch 11.0 inch pagedimen
+		/LetterSmall 7.68 inch 10.16 inch pagedimen
+		/Tabloid 11.0 inch 17.0 inch pagedimen
+		/Ledger 17.0 inch 11.0 inch pagedimen
+		/Legal 8.5 inch 14.0 inch pagedimen
+		/Statement 5.5 inch 8.5 inch pagedimen
+		/Executive 7.5 inch 10.0 inch pagedimen
+		/A3 11.69 inch 16.5 inch pagedimen
+		/A4 8.26 inch 11.69 inch pagedimen
+		/A4Small 7.47 inch 10.85 inch pagedimen
+		/B4 10.125 inch 14.33 inch pagedimen
+		/B5 7.16 inch 10.125 inch pagedimen
+	end
+	} bind def
+/papersize {
+	papersizedict begin
+		/Letter {lettertray letter} def
+		/LetterSmall {lettertray lettersmall} def
+		/Tabloid {11x17tray 11x17} def
+		/Ledger {ledgertray ledger} def
+		/Legal {legaltray legal} def
+		/Statement {statementtray statement} def
+		/Executive {executivetray executive} def
+		/A3 {a3tray a3} def
+		/A4 {a4tray a4} def
+		/A4Small {a4tray a4small} def
+		/B4 {b4tray b4} def
+		/B5 {b5tray b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	statusdict begin stopped end 
+	} bind def
+/manualpapersize {
+	papersizedict begin
+		/Letter {letter} def
+		/LetterSmall {lettersmall} def
+		/Tabloid {11x17} def
+		/Ledger {ledger} def
+		/Legal {legal} def
+		/Statement {statement} def
+		/Executive {executive} def
+		/A3 {a3} def
+		/A4 {a4} def
+		/A4Small {a4small} def
+		/B4 {b4} def
+		/B5 {b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	stopped 
+	} bind def
+/desperatepapersize {
+	statusdict /setpageparams known
+		{
+		paperwidth paperheight 0 1 
+		statusdict begin
+		{setpageparams} stopped 
+		end
+		} {true} ifelse 
+	} bind def
+/papersizefailure {
+	FMAllowPaperSizeMismatch not
+		{
+(The requested paper size is not available in any currently-installed tray)
+(Edit the PS file to "FMAllowPaperSizeMismatch true" to use default tray)
+		 FMFAILURE } if
+	} def
+/DiacriticEncoding [
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /space /exclam /quotedbl
+/numbersign /dollar /percent /ampersand /quotesingle /parenleft
+/parenright /asterisk /plus /comma /hyphen /period /slash /zero /one
+/two /three /four /five /six /seven /eight /nine /colon /semicolon
+/less /equal /greater /question /at /A /B /C /D /E /F /G /H /I /J /K
+/L /M /N /O /P /Q /R /S /T /U /V /W /X /Y /Z /bracketleft /backslash
+/bracketright /asciicircum /underscore /grave /a /b /c /d /e /f /g /h
+/i /j /k /l /m /n /o /p /q /r /s /t /u /v /w /x /y /z /braceleft /bar
+/braceright /asciitilde /.notdef /Adieresis /Aring /Ccedilla /Eacute
+/Ntilde /Odieresis /Udieresis /aacute /agrave /acircumflex /adieresis
+/atilde /aring /ccedilla /eacute /egrave /ecircumflex /edieresis
+/iacute /igrave /icircumflex /idieresis /ntilde /oacute /ograve
+/ocircumflex /odieresis /otilde /uacute /ugrave /ucircumflex
+/udieresis /dagger /.notdef /cent /sterling /section /bullet
+/paragraph /germandbls /registered /copyright /trademark /acute
+/dieresis /.notdef /AE /Oslash /.notdef /.notdef /.notdef /.notdef
+/yen /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/ordfeminine /ordmasculine /.notdef /ae /oslash /questiondown
+/exclamdown /logicalnot /.notdef /florin /.notdef /.notdef
+/guillemotleft /guillemotright /ellipsis /.notdef /Agrave /Atilde
+/Otilde /OE /oe /endash /emdash /quotedblleft /quotedblright
+/quoteleft /quoteright /.notdef /.notdef /ydieresis /Ydieresis
+/fraction /currency /guilsinglleft /guilsinglright /fi /fl /daggerdbl
+/periodcentered /quotesinglbase /quotedblbase /perthousand
+/Acircumflex /Ecircumflex /Aacute /Edieresis /Egrave /Iacute
+/Icircumflex /Idieresis /Igrave /Oacute /Ocircumflex /.notdef /Ograve
+/Uacute /Ucircumflex /Ugrave /dotlessi /circumflex /tilde /macron
+/breve /dotaccent /ring /cedilla /hungarumlaut /ogonek /caron
+] def
+/ReEncode { 
+	dup 
+	length 
+	dict begin 
+	{
+	1 index /FID ne 
+		{def} 
+		{pop pop} ifelse 
+	} forall 
+	0 eq {/Encoding DiacriticEncoding def} if 
+	currentdict 
+	end 
+	} bind def
+FMPColor 
+	
+	{
+	/BEGINBITMAPCOLOR { 
+		BITMAPCOLOR} def
+	/BEGINBITMAPCOLORc { 
+		BITMAPCOLORc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUECOLOR } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUECOLORc } def
+	/BEGINBITMAPCMYK { 
+		BITMAPCMYK } def
+	/BEGINBITMAPCMYKc { 
+		BITMAPCMYKc } def
+	}
+	
+	{
+	/BEGINBITMAPCOLOR { 
+		BITMAPGRAY} def
+	/BEGINBITMAPCOLORc { 
+		BITMAPGRAYc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUEGRAY } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUEGRAYc } def
+	/BEGINBITMAPCMYK { 
+		BITMAPCMYKGRAY } def
+	/BEGINBITMAPCMYKc { 
+		BITMAPCMYKGRAYc } def
+	}
+ifelse
+/K { 
+	FMPrintAllColorsAsBlack {
+		dup 1 eq 2 index 1 eq and 3 index 1 eq and not
+			{7 {pop} repeat 0 0 0 1 0 0 0} if
+	} if 
+	FrameCurColors astore 
+	pop combineColor
+} bind def
+/graymode true def
+fMLevel1 {
+	/fmGetFlip {
+		fMatrix2 exch get mul 0 lt { -1 } { 1 } ifelse
+	} FmBD
+} if
+/setPatternMode {
+	fMLevel1 {
+		2 index patScreenDict exch known {
+			pop pop
+			patScreenDict exch get aload pop 
+			freq 								
+			mul									
+			5 2 roll							
+			fMatrix2 currentmatrix 1 get 0 ne {
+				3 -1 roll 90 add 3 1 roll 		
+				sflipx 1 fmGetFlip sflipy 2 fmGetFlip neg mul
+			} {  								
+				sflipx 0 fmGetFlip sflipy 3 fmGetFlip mul 
+			} ifelse
+			0 lt {exch pop} {pop} ifelse 		
+			fMNegative { 
+				{neg} fmConcatProcs 			
+			} if
+			bind
+			
+			
+			
+			systemdict /setscreen get exec		
+			/FrameCurGray exch def
+		} {
+			/bwidth  exch def
+			/bpside  exch def
+			/bstring exch def
+			/onbits 0 def  /offbits 0 def
+			freq sangle landscape {90 add} if 
+				{/ypoint exch def
+				 /xpoint exch def
+				 /xindex xpoint 1 add 2 div bpside mul cvi def
+				 /yindex ypoint 1 add 2 div bpside mul cvi def
+				 bstring yindex bwidth mul xindex 8 idiv add get
+				 1 7 xindex 8 mod sub bitshift and 0 ne fMNegative {not} if
+				 {/onbits  onbits  1 add def 1}
+				 {/offbits offbits 1 add def 0}
+				 ifelse
+				}
+				setscreen
+			offbits offbits onbits add div fMNegative {1.0 exch sub} if
+			/FrameCurGray exch def
+		} ifelse
+	} { 
+		pop pop
+		dup patCache exch known {
+			patCache exch get
+		} { 
+			dup
+			patDict /bstring 3 -1 roll put
+			patDict 
+			9 PatFreq screenIndex get div dup matrix scale
+			makepattern
+			dup 
+			patCache 4 -1 roll 3 -1 roll put
+		} ifelse
+		/FrameCurGray 0 def
+		/FrameCurPat exch def
+	} ifelse
+	/graymode false def
+	combineColor
+} bind def
+/setGrayScaleMode {
+	graymode not {
+		/graymode true def
+		fMLevel1 {
+			setCurrentScreen
+		} if
+	} if
+	/FrameCurGray exch def
+	combineColor
+} bind def
+/normalize {
+	transform round exch round exch itransform
+	} bind def
+/dnormalize {
+	dtransform round exch round exch idtransform
+	} bind def
+/lnormalize { 
+	0 dtransform exch cvi 2 idiv 2 mul 1 add exch idtransform pop
+	} bind def
+/H { 
+	lnormalize setlinewidth
+	} bind def
+/Z {
+	setlinecap
+	} bind def
+	
+/PFill {
+	graymode fMLevel1 or not {
+		gsave 1 setgray eofill grestore
+	} if
+} bind def
+/PStroke {
+	graymode fMLevel1 or not {
+		gsave 1 setgray stroke grestore
+	} if
+	stroke
+} bind def
+/X { 
+	fillvals exch get
+	dup type /stringtype eq
+	{8 1 setPatternMode} 
+	{setGrayScaleMode}
+	ifelse
+	} bind def
+/V { 
+	PFill gsave eofill grestore
+	} bind def
+/Vclip {
+	clip
+	} bind def
+/Vstrk {
+	currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/N { 
+	PStroke
+	} bind def
+/Nclip {
+	strokepath clip newpath
+	} bind def
+/Nstrk {
+	currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/M {newpath moveto} bind def
+/E {lineto} bind def
+/D {curveto} bind def
+/O {closepath} bind def
+/L { 
+ 	/n exch def
+	newpath
+	normalize
+	moveto 
+	2 1 n {pop normalize lineto} for
+	} bind def
+/Y { 
+	L 
+	closepath
+	} bind def
+/R { 
+	/y2 exch def
+	/x2 exch def
+	/y1 exch def
+	/x1 exch def
+	x1 y1
+	x2 y1
+	x2 y2
+	x1 y2
+	4 Y 
+	} bind def
+/rarc 
+	{rad 
+	 arcto
+	} bind def
+/RR { 
+	/rad exch def
+	normalize
+	/y2 exch def
+	/x2 exch def
+	normalize
+	/y1 exch def
+	/x1 exch def
+	mark
+	newpath
+	{
+	x1 y1 rad add moveto
+	x1 y2 x2 y2 rarc
+	x2 y2 x2 y1 rarc
+	x2 y1 x1 y1 rarc
+	x1 y1 x1 y2 rarc
+	closepath
+	} stopped {x1 y1 x2 y2 R} if 
+	cleartomark
+	} bind def
+/RRR { 
+	/rad exch def
+	normalize /y4 exch def /x4 exch def
+	normalize /y3 exch def /x3 exch def
+	normalize /y2 exch def /x2 exch def
+	normalize /y1 exch def /x1 exch def
+	newpath
+	normalize moveto 
+	mark
+	{
+	x2 y2 x3 y3 rarc
+	x3 y3 x4 y4 rarc
+	x4 y4 x1 y1 rarc
+	x1 y1 x2 y2 rarc
+	closepath
+	} stopped
+	 {x1 y1 x2 y2 x3 y3 x4 y4 newpath moveto lineto lineto lineto closepath} if
+	cleartomark
+	} bind def
+/C { 
+	grestore
+	gsave
+	R 
+	clip
+	setCurrentScreen
+} bind def
+/CP { 
+	grestore
+	gsave
+	Y 
+	clip
+	setCurrentScreen
+} bind def
+/F { 
+	FMfonts exch get
+	FMpointsize scalefont
+	setfont
+	} bind def
+/Q { 
+	/FMpointsize exch def
+	F 
+	} bind def
+/T { 
+	moveto show
+	} bind def
+/RF { 
+	rotate
+	0 ne {-1 1 scale} if
+	} bind def
+/TF { 
+	gsave
+	moveto 
+	RF
+	show
+	grestore
+	} bind def
+/P { 
+	moveto
+	0 32 3 2 roll widthshow
+	} bind def
+/PF { 
+	gsave
+	moveto 
+	RF
+	0 32 3 2 roll widthshow
+	grestore
+	} bind def
+/S { 
+	moveto
+	0 exch ashow
+	} bind def
+/SF { 
+	gsave
+	moveto
+	RF
+	0 exch ashow
+	grestore
+	} bind def
+/B { 
+	moveto
+	0 32 4 2 roll 0 exch awidthshow
+	} bind def
+/BF { 
+	gsave
+	moveto
+	RF
+	0 32 4 2 roll 0 exch awidthshow
+	grestore
+	} bind def
+/G { 
+	gsave
+	newpath
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	PFill fill
+	grestore
+	} bind def
+/Gstrk {
+	savematrix
+    newpath
+    2 index 2 div add exch 3 index 2 div sub exch 
+    normalize 2 index 2 div sub exch 3 index 2 div add exch 
+    translate
+    scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    restorematrix
+    currentlinewidth exch setlinewidth PStroke setlinewidth
+    } bind def
+/Gclip { 
+	newpath
+	savematrix
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	clip newpath
+	restorematrix
+	} bind def
+/GG { 
+	gsave
+	newpath
+	normalize translate 0.0 0.0 moveto 
+	rotate 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath
+	PFill
+	fill
+	grestore
+	} bind def
+/GGclip { 
+	savematrix
+	newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath
+	clip newpath
+	restorematrix
+	} bind def
+/GGstrk { 
+	savematrix
+    newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath 
+	restorematrix
+    currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/A { 
+	gsave
+	savematrix
+	newpath
+	2 index 2 div add exch 3 index 2 div sub exch 
+	normalize 2 index 2 div sub exch 3 index 2 div add exch 
+	translate 
+	scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	restorematrix
+	PStroke
+	grestore
+	} bind def
+/Aclip {
+	newpath
+	savematrix
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	strokepath clip newpath
+	restorematrix
+} bind def
+/Astrk {
+	Gstrk
+} bind def
+/AA { 
+	gsave
+	savematrix
+	newpath
+	
+	3 index 2 div add exch 4 index 2 div sub exch 
+	
+	normalize 3 index 2 div sub exch 4 index 2 div add exch
+	translate 
+	rotate 
+	scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	restorematrix
+	PStroke
+	grestore
+	} bind def
+/AAclip {
+	savematrix
+	newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath
+	strokepath clip newpath
+	restorematrix
+} bind def
+/AAstrk {
+	GGstrk
+} bind def
+/BEGINPRINTCODE { 
+	/FMdicttop countdictstack 1 add def 
+	/FMoptop count 7 sub def 
+	/FMsaveobject save def
+	userdict begin 
+	/showpage {} def 
+	FMNORMALIZEGRAPHICS 
+	3 index neg 3 index neg translate
+	} bind def
+/ENDPRINTCODE {
+	count -1 FMoptop {pop pop} for 
+	countdictstack -1 FMdicttop {pop end} for 
+	FMsaveobject restore 
+	} bind def
+/gn { 
+	0 
+	{	46 mul 
+		cf read pop 
+		32 sub 
+		dup 46 lt {exit} if 
+		46 sub add 
+		} loop
+	add 
+	} bind def
+/cfs { 
+	/str sl string def 
+	0 1 sl 1 sub {str exch val put} for 
+	str def 
+	} bind def
+/ic [ 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0
+	{0 hx} {1 hx} {2 hx} {3 hx} {4 hx} {5 hx} {6 hx} {7 hx} {8 hx} {9 hx}
+	{10 hx} {11 hx} {12 hx} {13 hx} {14 hx} {15 hx} {16 hx} {17 hx} {18 hx}
+	{19 hx} {gn hx} {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12}
+	{13} {14} {15} {16} {17} {18} {19} {gn} {0 wh} {1 wh} {2 wh} {3 wh}
+	{4 wh} {5 wh} {6 wh} {7 wh} {8 wh} {9 wh} {10 wh} {11 wh} {12 wh}
+	{13 wh} {14 wh} {gn wh} {0 bl} {1 bl} {2 bl} {3 bl} {4 bl} {5 bl} {6 bl}
+	{7 bl} {8 bl} {9 bl} {10 bl} {11 bl} {12 bl} {13 bl} {14 bl} {gn bl}
+	{0 fl} {1 fl} {2 fl} {3 fl} {4 fl} {5 fl} {6 fl} {7 fl} {8 fl} {9 fl}
+	{10 fl} {11 fl} {12 fl} {13 fl} {14 fl} {gn fl}
+	] def
+/ms { 
+	/sl exch def 
+	/val 255 def 
+	/ws cfs 
+	/im cfs 
+	/val 0 def 
+	/bs cfs 
+	/cs cfs 
+	} bind def
+400 ms 
+/ip { 
+	is 
+	0 
+	cf cs readline pop 
+	{	ic exch get exec 
+		add 
+		} forall 
+	pop 
+	
+	} bind def
+/rip { 
+	   
+	  
+	  bis ris copy pop 
+      is
+      0
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop 
+	  ris gis copy pop 
+	  dup is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  gis bis copy pop 
+	  dup add is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+      pop 
+      
+      } bind def
+/rip4 { 
+	   
+	  
+	  kis cis copy pop 
+      is
+      0
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop 
+	  cis mis copy pop 
+	  dup is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  mis yis copy pop 
+	  dup dup add is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  yis kis copy pop 
+	  3 mul is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+      pop 
+      
+      } bind def
+/wh { 
+	/len exch def 
+	/pos exch def 
+	ws 0 len getinterval im pos len getinterval copy pop
+	pos len 
+	} bind def
+/bl { 
+	/len exch def 
+	/pos exch def 
+	bs 0 len getinterval im pos len getinterval copy pop
+	pos len 
+	} bind def
+/s1 1 string def
+/fl { 
+	/len exch def 
+	/pos exch def 
+	/val cf s1 readhexstring pop 0 get def
+	pos 1 pos len add 1 sub {im exch val put} for
+	pos len 
+	} bind def
+/hx { 
+	3 copy getinterval 
+	cf exch readhexstring pop pop 
+	} bind def
+/wbytes { 
+      dup dup
+      8 gt { pop 8 idiv mul }
+      { 8 eq {pop} {1 eq {7 add 8 idiv} {3 add 4 idiv} ifelse} ifelse } ifelse
+	} bind def
+/BEGINBITMAPBWc { 
+	1 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAPGRAYc { 
+	8 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAP2BITc { 
+	2 {} COMMONBITMAPc
+	} bind def
+/COMMONBITMAPc { 
+		 
+	/cvtProc exch def
+	/depth exch def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+	cvtProc                
+	/is im 0 lb getinterval def 
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height depth [width 0 0 height neg 0 height] 
+	{ip} image 
+	bitmapsave restore 
+	grestore
+	} bind def
+/BEGINBITMAPBW { 
+	1 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAPGRAY { 
+	8 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAP2BIT { 
+	2 {} COMMONBITMAP
+	} bind def
+/COMMONBITMAP { 
+	/cvtProc exch def
+	/depth exch def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/bitmapsave save def 
+	cvtProc              
+	/is width depth wbytes string def
+	/cf currentfile def 
+	width height depth [width 0 0 height neg 0 height] 
+	{cf is readhexstring pop} image
+	bitmapsave restore 
+	grestore
+	} bind def
+/ngrayt 256 array def
+/nredt 256 array def
+/nbluet 256 array def
+/ngreent 256 array def
+fMLevel1 {
+/colorsetup {
+	currentcolortransfer
+	/gryt exch def
+	/blut exch def
+	/grnt exch def
+	/redt exch def
+	0 1 255 {
+		/indx exch def
+		/cynu 1 red indx get 255 div sub def
+		/magu 1 green indx get 255 div sub def
+		/yelu 1 blue indx get 255 div sub def
+		/kk cynu magu min yelu min def
+		/u kk currentundercolorremoval exec def
+%		/u 0 def
+		nredt indx 1 0 cynu u sub max sub redt exec put
+		ngreent indx 1 0 magu u sub max sub grnt exec put
+		nbluet indx 1 0 yelu u sub max sub blut exec put
+		ngrayt indx 1 kk currentblackgeneration exec sub gryt exec put
+	} for
+	{255 mul cvi nredt exch get}
+	{255 mul cvi ngreent exch get}
+	{255 mul cvi nbluet exch get}
+	{255 mul cvi ngrayt exch get}
+	setcolortransfer
+	{pop 0} setundercolorremoval
+	{} setblackgeneration
+	} bind def
+}
+{
+/colorSetup2 {
+	[ /Indexed /DeviceRGB 255 
+		{dup red exch get 255 div 
+		 exch dup green exch get 255 div 
+		 exch blue exch get 255 div}
+	] setcolorspace
+} bind def
+} ifelse
+/fakecolorsetup {
+	/tran 256 string def
+	0 1 255 {/indx exch def 
+		tran indx
+		red indx get 77 mul
+		green indx get 151 mul
+		blue indx get 28 mul
+		add add 256 idiv put} for
+	currenttransfer
+	{255 mul cvi tran exch get 255.0 div}
+	exch fmConcatProcs settransfer
+} bind def
+/BITMAPCOLOR { 
+	/depth 8 def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/bitmapsave save def
+	fMLevel1 {	
+		colorsetup
+		/is width depth wbytes string def
+		/cf currentfile def 
+		width height depth [width 0 0 height neg 0 height] 
+		{cf is readhexstring pop} {is} {is} true 3 colorimage 
+	} {
+		colorSetup2
+		/is width depth wbytes string def
+		/cf currentfile def 
+		7 dict dup begin
+			/ImageType 1 def
+			/Width width def
+			/Height height def
+			/ImageMatrix [width 0 0 height neg 0 height] def
+			/DataSource {cf is readhexstring pop} bind def
+			/BitsPerComponent depth def
+			/Decode [0 255] def
+		end image	
+	} ifelse
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPCOLORc { 
+	/depth 8 def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+	fMLevel1 {	
+		colorsetup
+		/is im 0 lb getinterval def 
+		ws 0 lb getinterval is copy pop 
+		/cf currentfile def 
+		width height depth [width 0 0 height neg 0 height] 
+		{ip} {is} {is} true 3 colorimage
+	} {
+		colorSetup2
+		/is im 0 lb getinterval def 
+		ws 0 lb getinterval is copy pop 
+		/cf currentfile def 
+		7 dict dup begin
+			/ImageType 1 def
+			/Width width def
+			/Height height def
+			/ImageMatrix [width 0 0 height neg 0 height] def
+			/DataSource {ip} bind def
+			/BitsPerComponent depth def
+			/Decode [0 255] def
+		end image	
+	} ifelse
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPTRUECOLORc { 
+	/depth 24 def
+        gsave
+ 	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/ris im 0 width getinterval def	
+	/gis im width width getinterval def	
+	/bis im width 2 mul width getinterval def 
+        
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height 8 [width 0 0 height neg 0 height] 
+	{width rip pop ris} {gis} {bis} true 3 colorimage
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPCMYKc { 
+	/depth 32 def
+        gsave
+ 	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/cis im 0 width getinterval def	
+	/mis im width width getinterval def	
+	/yis im width 2 mul width getinterval def 
+	/kis im width 3 mul width getinterval def 
+        
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height 8 [width 0 0 height neg 0 height] 
+	{width rip4 pop cis} {mis} {yis} {kis} true 4 colorimage
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPTRUECOLOR { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /gis width string def
+        /bis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop } 
+        { cf gis readhexstring pop } 
+        { cf bis readhexstring pop } 
+        true 3 colorimage 
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYK { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /mis width string def
+        /yis width string def
+        /kis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop } 
+        { cf mis readhexstring pop } 
+        { cf yis readhexstring pop } 
+        { cf kis readhexstring pop } 
+        true 4 colorimage 
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPTRUEGRAYc { 
+	/depth 24 def
+        gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+        /bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/ris im 0 width getinterval def	
+	/gis im width width getinterval def	
+	/bis im width 2 mul width getinterval def 
+        ws 0 lb getinterval is copy pop 
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        {width rip pop ris gis bis width gray} image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYKGRAYc { 
+	/depth 32 def
+        gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+        /bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/cis im 0 width getinterval def	
+	/mis im width width getinterval def	
+	/yis im width 2 mul width getinterval def 
+	/kis im width 3 mul width getinterval def 
+        ws 0 lb getinterval is copy pop 
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        {width rip pop cis mis yis kis width cgray} image
+        bitmapsave restore 
+        grestore
+        } bind def
+/cgray { 
+        /ww exch def
+        /k exch def
+        /y exch def
+        /m exch def
+        /c exch def
+        0 1 ww 1 sub { /i exch def c i get m i get y i get k i get CMYKtoRGB
+				.144 mul 3 1 roll .587 mul 3 1 roll .299 mul add add
+				c i 3 -1 roll floor cvi put } for
+        c
+ 		} bind def
+/gray { 
+        /ww exch def
+        /b exch def
+        /g exch def
+        /r exch def
+        0 1 ww 1 sub { /i exch def r i get .299 mul g i get .587 mul
+			b i get .114 mul add add r i 3 -1 roll floor cvi put } for
+        r
+        } bind def
+/BITMAPTRUEGRAY { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /gis width string def
+        /bis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop 
+          cf gis readhexstring pop 
+          cf bis readhexstring pop width gray}  image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYKGRAY { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /yis width string def
+        /mis width string def
+        /kis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop 
+          cf mis readhexstring pop 
+          cf yis readhexstring pop 
+          cf kis readhexstring pop width cgray}  image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPGRAY { 
+	8 {fakecolorsetup} COMMONBITMAP
+	} bind def
+/BITMAPGRAYc { 
+	8 {fakecolorsetup} COMMONBITMAPc
+	} bind def
+/ENDBITMAP {
+	} bind def
+end 
+	/ALDmatrix matrix def ALDmatrix currentmatrix pop
+/StartALD {
+	/ALDsave save def
+	 savematrix
+	 ALDmatrix setmatrix
+	} bind def
+/InALD {
+	 restorematrix
+	} bind def
+/DoneALD {
+	 ALDsave restore
+	} bind def
+/I { setdash } bind def
+/J { [] 0 setdash } bind def
+%%EndProlog
+%%BeginSetup
+(5.0) FMVERSION
+1 1 0 0 612 792 0 1 21 FMDOCUMENT
+0 0 /Times-Italic FMFONTDEFINE
+1 0 /Helvetica FMFONTDEFINE
+2 0 /Times-Bold FMFONTDEFINE
+3 0 /Times-Roman FMFONTDEFINE
+4 0 /Courier-Bold FMFONTDEFINE
+5 0 /Helvetica-Bold FMFONTDEFINE
+32 FMFILLS
+0 0 FMFILL
+1 0.1 FMFILL
+2 0.3 FMFILL
+3 0.5 FMFILL
+4 0.7 FMFILL
+5 0.9 FMFILL
+6 0.97 FMFILL
+7 1 FMFILL
+8 <0f1e3c78f0e1c387> FMFILL
+9 <0f87c3e1f0783c1e> FMFILL
+10 <cccccccccccccccc> FMFILL
+11 <ffff0000ffff0000> FMFILL
+12 <8142241818244281> FMFILL
+13 <03060c183060c081> FMFILL
+14 <8040201008040201> FMFILL
+16 1 FMFILL
+17 0.9 FMFILL
+18 0.7 FMFILL
+19 0.5 FMFILL
+20 0.3 FMFILL
+21 0.1 FMFILL
+22 0.03 FMFILL
+23 0 FMFILL
+24 <f0e1c3870f1e3c78> FMFILL
+25 <f0783c1e0f87c3e1> FMFILL
+26 <3333333333333333> FMFILL
+27 <0000ffff0000ffff> FMFILL
+28 <7ebddbe7e7dbbd7e> FMFILL
+29 <fcf9f3e7cf9f3f7e> FMFILL
+30 <7fbfdfeff7fbfdfe> FMFILL
+%%EndSetup
+%%Page: "1" 1
+%%BeginPaperSize: Letter
+%%EndPaperSize
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 0.5 0.5 0 0.5 0 0 0.5]
+[ 0.5 0 0 0.5 0 0.5 0.5]
+[ 0.5 0 0.5 0.5 0 0.5 0]
+[ 0 0.5 0 0.5 0.5 0 0.5]
+[ 0 0.5 0.5 0.5 0.5 0 0]
+[ 0 0 0.5 0.5 0.5 0.5 0]
+[ 0 0 0 0.5 0.5 0.5 0.5]
+[ 0 0 0 0.25 0.75 0.75 0.75]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 18 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+J
+0 0 0 1 0 0 0 K
+0 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2001-06-27) 484.01 748 T
+72 892/G1013680 FmPA
+72 878/G1013681 FmPA
+72 36 540 50 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 46.4 540 46.4 2 L
+1.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+0 11 Q
+0 X
+0 0 0 1 0 0 0 K
+(\322NIRI/GNIRS Science Instrument to On Instrument Wavefront Sensor\323) 72 28.67 T
+-1.38 (ICD 1.9/1.10[ab]) 385.77 28.67 P
+(Page) 484.09 28.67 T
+(1) 509.44 28.67 T
+( of 12) 514.94 28.67 T
+72 173/G1013694 FmPA
+0 0 0 1 0 0 0 K
+1 0 0 0 0 1 1 K
+117 324.55 368.45 576 486 458.45 234.55 207 4 Y
+0 0 0 0.25 0.75 0.75 0.75 K
+1 72 Q
+0 0 0 0.25 0.75 0.75 0.75 K
+(Draft) 0 -315 221.51 361.17 TF
+1 0 0 0 0 1 1 K
+151 435/G1015650 FmPA
+0 0 0 0.25 0.75 0.75 0.75 K
+1 36 Q
+(Not For Construction) 0 -315 203.09 255.08 TF
+1 0 0 0 0 1 1 K
+195 391/G1015651 FmPA
+117 324.55 368.45 576 486 458.45 234.55 207 4 Y
+0 1 1 0 1 0 0 K
+1 0 0 0 0 1 1 K
+0 0 0 1 0 0 0 K
+2 24 Q
+0 0 0 1 0 0 0 K
+(ICD 1.9/1.10[ab]) 221 704 T
+72 848/G1021150 FmPA
+72 822/G1021151 FmPA
+3 22 Q
+-0.06 (\322NIRI/GNIRS Science Instrument to On Instrument) 77.17 652.33 P
+72 796/G1021154 FmPA
+(Wavefront Sensor\323) 221.39 626.33 T
+72 748/G1021156 FmPA
+3 14 Q
+(niri_hty_005) 269.83 586.67 T
+72 731/G1021157 FmPA
+(Hubert Yamada) 261.49 552.67 T
+(2001-06-27) 273.34 535.67 T
+72 680/G1021164 FmPA
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 664/G1021165 FmPA
+72 650/G1021166 FmPA
+72 636/G1021167 FmPA
+72 622/G1021168 FmPA
+72 608/G1021169 FmPA
+3 12 Q
+(Version:) 72 450 T
+0 0 0 1 0 0 0 K
+(1.0) 138.6 450 T
+0 0 0 1 0 0 0 K
+72 594/G1021173 FmPA
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 580/G1021174 FmPA
+(Issued By:) 72 422 T
+(Hubert Yamada) 138.6 422 T
+72 566/G1021178 FmPA
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 552/G1021179 FmPA
+(Date:) 414 394 T
+72 538/G1021180 FmPA
+(Approved By:) 72 380 T
+(__________________________) 140.33 380 T
+(Group Manager) 298.8 380 T
+(_________) 414 380 T
+72 524/G1021181 FmPA
+72 510/G1021182 FmPA
+(__________________________) 138.6 352 T
+(Group Manager  \050if req\051) 298.8 352 T
+(_________) 414.76 352 T
+72 496/G1021183 FmPA
+72 482/G1021184 FmPA
+(__________________________) 138.6 324 T
+(Systems Engineering) 298.8 324 T
+(_________) 414 324 T
+72 468/G1021185 FmPA
+72 454/G1021186 FmPA
+0 1 1 0 1 0 0 K
+60 531 63 545 R
+0 1 1 0 1 0 0 K
+V
+60 446 63 458 R
+V
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/Creator(FrameMaker xm5.0.1P1j)/DOCINFO FmPD2
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.1/DEST FmPD2
+[/Title(A)/Rect[63 63 549 729]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "1" 1
+%%Page: "2" 2
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 0.5 0.5 0 0.5 0 0 0.5]
+[ 0.5 0 0 0.5 0 0.5 0.5]
+[ 0.5 0 0.5 0.5 0 0.5 0]
+[ 0 0.5 0 0.5 0.5 0 0.5]
+[ 0 0.5 0.5 0.5 0.5 0 0]
+[ 0 0 0.5 0.5 0.5 0.5 0]
+[ 0 0 0 0.5 0.5 0.5 0.5]
+[ 0 0 0 0.25 0.75 0.75 0.75]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 18 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2001-06-27) 484.01 748 T
+72 892/G1013680 FmPA
+72 878/G1013681 FmPA
+72 36 540 50 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 46.4 540 46.4 2 L
+1.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+0 11 Q
+0 X
+0 0 0 1 0 0 0 K
+(\322NIRI/GNIRS Science Instrument to On Instrument Wavefront Sensor\323) 72 28.67 T
+-1.38 (ICD 1.9/1.10[ab]) 385.77 28.67 P
+(Page) 484.09 28.67 T
+(2) 509.44 28.67 T
+( of 12) 514.94 28.67 T
+72 173/G1013694 FmPA
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 856/G1021187 FmPA
+2 20 Q
+(Revision Control) 233.5 692.67 T
+72 837/G1021188 FmPA
+72 818/G1021189 FmPA
+72 804/G1021190 FmPA
+3 12 Q
+(1.  Revision Version #) 72 646 T
+0 0 0 1 0 0 0 K
+(1.00alpha) 298.8 646 T
+0 0 0 1 0 0 0 K
+72 790/G1021191 FmPA
+(Date:) 138.6 632 T
+0 0 0 1 0 0 0 K
+(1997-04-02) 298.8 632 T
+0 0 0 1 0 0 0 K
+72 776/G1021192 FmPA
+(Revised by:) 138.6 618 T
+(Hubert Yamada) 298.8 618 T
+72 762/G1026448 FmPA
+(Reason for / items changed:) 138.6 604 T
+0 0 0 1 0 0 0 K
+(Draft for 1.00 release.) 298.8 604 T
+0 0 0 1 0 0 0 K
+72 748/G1026449 FmPA
+0 0 0 1 0 0 0 K
+(2. Revision Version #) 72 590 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(1.00) 298.8 590 T
+0 0 0 1 0 0 0 K
+72 734/G1034940 FmPA
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(Date:) 138.6 576 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(2000-06-27) 298.8 576 T
+0 0 0 1 0 0 0 K
+72 720/G1035144 FmPA
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(Revised by:) 138.6 562 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(Hubert Yamada) 298.8 562 T
+0 0 0 1 0 0 0 K
+72 706/G1035145 FmPA
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(Reason for / items changed:) 138.6 548 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+6.72 (Minor clarifications in preparation for final) 298.8 548 P
+0 0 0 1 0 0 0 K
+72 692/G1035146 FmPA
+0 0 0 1 0 0 0 K
+(release.) 72 534 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(Last Modified:) 72 520 T
+(Wednesday, June 27, 2001 4:20 pm) 146.66 520 T
+0 0 0 1 0 0 0 K
+72 664/G1034941 FmPA
+0 1 1 0 1 0 0 K
+60 516 63 598 R
+0 1 1 0 1 0 0 K
+V
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.2/DEST FmPD2
+[/Title(A)/Rect[63 63 549 729]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "2" 2
+%%Page: "3" 3
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 0.5 0.5 0 0.5 0 0 0.5]
+[ 0.5 0 0 0.5 0 0.5 0.5]
+[ 0.5 0 0.5 0.5 0 0.5 0]
+[ 0 0.5 0 0.5 0.5 0 0.5]
+[ 0 0.5 0.5 0.5 0.5 0 0]
+[ 0 0 0.5 0.5 0.5 0.5 0]
+[ 0 0 0 0.5 0.5 0.5 0.5]
+[ 0 0 0 0.25 0.75 0.75 0.75]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 18 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2001-06-27) 484.01 748 T
+72 892/G1013680 FmPA
+72 878/G1013681 FmPA
+72 36 540 50 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 46.4 540 46.4 2 L
+1.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+0 11 Q
+0 X
+0 0 0 1 0 0 0 K
+(\322NIRI/GNIRS Science Instrument to On Instrument Wavefront Sensor\323) 72 28.67 T
+-1.38 (ICD 1.9/1.10[ab]) 385.77 28.67 P
+(Page) 484.09 28.67 T
+(3) 509.44 28.67 T
+( of 12) 514.94 28.67 T
+72 173/G1013694 FmPA
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 687.6 540 702 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 694.8 540 694.8 2 L
+1.5 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+2 18 Q
+0 X
+0 0 0 1 0 0 0 K
+(Chapter 1) 79.55 708 T
+(Intr) 171.21 708 T
+(oduction) 201.88 708 T
+72 852/G997510 FmPA
+72 626.6 540 635.6 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171 635.6 549 635.6 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 635.6 162 635.6 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(1\3201.0) 135 639.6 T
+(Description) 171 639.6 T
+72 784/G998401 FmPA
+3 10 Q
+-0.06 (This document describes the NIRI and GNIRS instrument-to-w) 171.21 609.93 P
+-0.06 (a) 424.25 609.93 P
+-0.06 (v) 428.49 609.93 P
+-0.06 (efront-sensor) 433.34 609.93 P
+-0.06 (-components) 485.9 609.93 P
+72 754/G1033591 FmPA
+(interlock system \050not to be confused with the Gemini Interlock Bus\051. These interlocks pro-) 171.21 597.93 T
+-0.2 (vide a w) 171.21 585.93 P
+-0.2 (ay for the instrument to inform the w) 204.6 585.93 P
+-0.2 (a) 351.14 585.93 P
+-0.2 (v) 355.38 585.93 P
+-0.2 (efront sensor that it should not mo) 360.23 585.93 P
+-0.2 (v) 496.11 585.93 P
+-0.2 (e its com-) 500.96 585.93 P
+(ponents at this time.) 171.21 573.93 T
+2 F
+(1\3201.1) 139.5 543.93 T
+(Pur) 171 543.93 T
+(pose) 187.01 543.93 T
+72 688/G997558 FmPA
+3 F
+(This Interf) 171.21 527.93 T
+(ace Control Document \050ICD\051 serv) 213.6 527.93 T
+(es the follo) 349.53 527.93 T
+(wing purposes:) 393.72 527.93 T
+72 672/G998779 FmPA
+4 11 Q
+(\245) 171.21 509.27 T
+3 10 Q
+(T) 185.39 509.27 T
+(o describe the commands and parameters that will pass between the Near Infra-Red) 190.7 509.27 T
+72 653/G999065 FmPA
+-0.27 (Imager \050NIRI\051 and its on instrument w) 185.39 496.93 P
+-0.27 (a) 338.1 496.93 P
+-0.27 (v) 342.34 496.93 P
+-0.27 (efront sensor \050OIWFS\051 and between the Gemini) 347.19 496.93 P
+(Near Infra-Red Spectrograph \050GNIRS\051 and its OIWFS.) 185.39 484.93 T
+(The intended audience for this document is:) 171.21 460.93 T
+72 605/G999107 FmPA
+4 11 Q
+(\245) 171.21 442.27 T
+3 10 Q
+(the NIRI re) 185.39 442.27 T
+(vie) 230.68 442.27 T
+(wers;) 242.65 442.27 T
+72 586/G999108 FmPA
+4 11 Q
+(\245) 171.21 426.27 T
+3 10 Q
+(the GNIRS re) 185.39 426.27 T
+(vie) 240.13 426.27 T
+(wers and de) 252.1 426.27 T
+(v) 299.61 426.27 T
+(elopers.) 304.46 426.27 T
+72 570/G1032404 FmPA
+2 F
+(1\3201.2) 139.5 395.93 T
+(Scope) 171 395.93 T
+72 540/G998437 FmPA
+3 F
+(This document describes commands which pass between NIRI/GNIRS and their respecti) 171.21 379.93 T
+(v) 525.9 379.93 T
+(e) 530.75 379.93 T
+72 524/G998811 FmPA
+(OIWFS\325) 171.21 367.93 T
+(s.) 205.1 367.93 T
+(This document does) 171.21 343.93 T
+0 F
+(not) 254.26 343.93 T
+3 F
+( describe the follo) 267.04 343.93 T
+(wing topics:) 338.72 343.93 T
+72 488/G1022820 FmPA
+4 11 Q
+(\245) 171.21 325.27 T
+3 10 Q
+(the NIRI detector and components, \050see [18], [11], and [12], summarized in [3]\051;) 185.39 325.27 T
+72 469/G1032318 FmPA
+4 11 Q
+(\245) 171.21 309.27 T
+3 10 Q
+(the GNIRS hardw) 185.39 309.27 T
+(are and electronics, \050see [18] and \050???\051\051) 257.5 309.27 T
+72 453/G1032431 FmPA
+4 11 Q
+(\245) 171.21 293.27 T
+3 10 Q
+(the OIWFS hardw) 185.39 293.27 T
+(are and electronics, \050see [11] and [12], summarized in [3]\051;) 258.61 293.27 T
+72 437/G1032414 FmPA
+4 11 Q
+(\245) 171.21 277.27 T
+3 10 Q
+-0.33 (the NIRI/GNIRS OIWFS detector and components \050see [11], [12], and [13], summarized) 185.39 277.27 P
+72 421/G1032319 FmPA
+(in [3]\051;) 185.39 264.93 T
+-0.39 (The softw) 171.21 240.93 P
+-0.39 (are design is not described here. F) 210.99 240.93 P
+-0.39 (or that, see [2] \050currently under preparation\051, and) 344.86 240.93 P
+72 385/G1026488 FmPA
+([3] \050currently under preparation\051.) 171.21 228.93 T
+2 F
+(1\3201.3) 139.5 198.93 T
+(Differ) 171 198.93 T
+(ences between NIRI and GNIRS) 196.36 198.93 T
+72 343/G1034702 FmPA
+3 F
+-0.06 (F) 171.21 182.93 P
+-0.06 (or GNIRS, the commands here af) 176.62 182.93 P
+-0.06 (fect only the OIWFS. F) 309.93 182.93 P
+-0.06 (or NIRI, the commands af) 403.7 182.93 P
+-0.06 (fect the) 507.91 182.93 P
+72 327/G1034703 FmPA
+(entire instrument.) 171.21 170.93 T
+72 121.6 540 130.6 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171 130.6 549 130.6 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 130.6 162 130.6 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(1\3202.0) 135 134.6 T
+(Related Documents and Drawings) 171 134.6 T
+72 279/G1026493 FmPA
+2 10 Q
+(1\3202.1) 139.5 94.93 T
+(Refer) 171 94.93 T
+(ences) 194.69 94.93 T
+72 239/G1033199 FmPA
+3 F
+(See \322Near IR Imager \050NIRI\051\321De\336nitions, Abbre) 171.21 78.93 T
+(viations, and References\323.) 369.24 78.93 T
+72 223/G1033200 FmPA
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.3/DEST FmPD2
+171 864/M9.35724.Chapter.Chapter.1.Introduction FmPA
+171 864/I1.999080 FmPA
+171 246/M9.25122.Heading2.121.References FmPA
+171 246/I1.1033198 FmPA
+[/Rect[357 289 374 300]/Border[0 0 0]/Dest/M9.32449.Doclist.7.NIRI.Hardwarespecification.documents.under.preparation.Tony.Young/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Rect[393 289 410 300]/Border[0 0 0]/Dest/M9.31164.Doclist.8.NIRI.Electronicsspecification.documents.under.preparation.Ev.Irwin/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Rect[477 289 488 300]/Border[0 0 0]/Dest/M9.40087.Doclist.3.nirihty002fm.under.preparation.Near.IR.Imager.NIRIDetailed.Design/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Rect[390 237 401 248]/Border[0 0 0]/Dest/M9.31363.Doclist.24.icdhty001fm.under.preparation.Near.IR.Imager.NIRIArchitectural.Design/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Rect[72 225 183 236]/Border[0 0 0]/Dest/M9.40087.Doclist.3.nirihty002fm.under.preparation.Near.IR.Imager.NIRIDetailed.Design/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Rect[347 321 363 332]/Border[0 0 0]/Dest/M9.10059.Doclist.11.GNAACICD193195abfm.ICD.193abDetector.Controller.to.NIRINIRS.ICS/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Rect[468 273 484 284]/Border[0 0 0]/Dest/M9.14118.Doclist.11.NIRI.Wavefrontsensor.detector.documents.under.preparation.Ev.Irwin/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Rect[356 305 373 316]/Border[0 0 0]/Dest/M9.10059.Doclist.11.GNAACICD193195abfm.ICD.193abDetector.Controller.to.NIRINIRS.ICS/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Rect[368 321 385 332]/Border[0 0 0]/Dest/M9.32449.Doclist.7.NIRI.Hardwarespecification.documents.under.preparation.Tony.Young/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Rect[407 321 424 332]/Border[0 0 0]/Dest/M9.31164.Doclist.8.NIRI.Electronicsspecification.documents.under.preparation.Ev.Irwin/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Rect[408 273 425 284]/Border[0 0 0]/Dest/M9.32449.Doclist.7.NIRI.Hardwarespecification.documents.under.preparation.Tony.Young/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Rect[430 273 446 284]/Border[0 0 0]/Dest/M9.31164.Doclist.8.NIRI.Electronicsspecification.documents.under.preparation.Ev.Irwin/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Rect[490 321 502 332]/Border[0 0 0]/Dest/M9.40087.Doclist.3.nirihty002fm.under.preparation.Near.IR.Imager.NIRIDetailed.Design/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Rect[196 261 207 272]/Border[0 0 0]/Dest/M9.40087.Doclist.3.nirihty002fm.under.preparation.Near.IR.Imager.NIRIDetailed.Design/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Title(A)/Rect[63 63 549 729]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "3" 3
+%%Page: "4" 4
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 0.5 0.5 0 0.5 0 0 0.5]
+[ 0.5 0 0 0.5 0 0.5 0.5]
+[ 0.5 0 0.5 0.5 0 0.5 0]
+[ 0 0.5 0 0.5 0.5 0 0.5]
+[ 0 0.5 0.5 0.5 0.5 0 0]
+[ 0 0 0.5 0.5 0.5 0.5 0]
+[ 0 0 0 0.5 0.5 0.5 0.5]
+[ 0 0 0 0.25 0.75 0.75 0.75]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 18 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2001-06-27) 484.01 748 T
+72 892/G1013680 FmPA
+72 878/G1013681 FmPA
+72 36 540 50 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 46.4 540 46.4 2 L
+1.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+0 11 Q
+0 X
+0 0 0 1 0 0 0 K
+(\322NIRI/GNIRS Science Instrument to On Instrument Wavefront Sensor\323) 72 28.67 T
+-1.38 (ICD 1.9/1.10[ab]) 385.77 28.67 P
+(Page) 484.09 28.67 T
+(4) 509.44 28.67 T
+( of 12) 514.94 28.67 T
+72 173/G1013694 FmPA
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2 10 Q
+(1\3202.2) 139.5 713.33 T
+(De\336nitions, Acr) 171 713.33 T
+(onyms and Ab) 238.04 713.33 T
+(br) 299.62 713.33 T
+(e) 309.44 713.33 T
+(viations) 313.73 713.33 T
+72 857/G1033201 FmPA
+3 F
+(See \322Near IR Imager \050NIRI\051\321De\336nitions, Abbre) 171.21 697.33 T
+(viations, and References\323.) 369.24 697.33 T
+72 841/G1033202 FmPA
+2 F
+(1\3202.3) 139.5 667.33 T
+(Stylistic Con) 171 667.33 T
+(v) 224.77 667.33 T
+(entions) 229.67 667.33 T
+72 811/G1033203 FmPA
+3 F
+(References to documents in Section) 171.21 651.33 T
+(1.5, \322References,) 317.02 651.33 T
+(\323 on page) 385.18 651.33 T
+(2 of \322Near IR Imager) 426 651.33 T
+72 795/G1033207 FmPA
+(\050NIRI\051\321De\336nitions, Abbre) 171.21 639.33 T
+(viations, and References\323 are gi) 282.61 639.33 T
+(v) 409.82 639.33 T
+(en lik) 414.67 639.33 T
+(e this; [1].) 437.07 639.33 T
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.4/DEST FmPD2
+[/Rect[285 647 431 658]/Border[0 0 0]/Dest/M9.40713.Heading2.15.References/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Rect[464 635 475 646]/Border[0 0 0]/Dest/M9.25768.Doclist1.1.nirihty000fm.obsolete.superseded.by.this.document.and.by.2.NIRI.Optical/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Title(A)/Rect[63 63 549 729]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "4" 4
+%%Page: "5" 5
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 0.5 0.5 0 0.5 0 0 0.5]
+[ 0.5 0 0 0.5 0 0.5 0.5]
+[ 0.5 0 0.5 0.5 0 0.5 0]
+[ 0 0.5 0 0.5 0.5 0 0.5]
+[ 0 0.5 0.5 0.5 0.5 0 0]
+[ 0 0 0.5 0.5 0.5 0.5 0]
+[ 0 0 0 0.5 0.5 0.5 0.5]
+[ 0 0 0 0.25 0.75 0.75 0.75]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 18 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2001-06-27) 484.01 748 T
+72 892/G1013680 FmPA
+72 878/G1013681 FmPA
+72 36 540 50 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 46.4 540 46.4 2 L
+1.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+0 11 Q
+0 X
+0 0 0 1 0 0 0 K
+(\322NIRI/GNIRS Science Instrument to On Instrument Wavefront Sensor\323) 72 28.67 T
+-1.38 (ICD 1.9/1.10[ab]) 385.77 28.67 P
+(Page) 484.09 28.67 T
+(5) 509.44 28.67 T
+( of 12) 514.94 28.67 T
+72 173/G1013694 FmPA
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 687.6 540 702 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 694.8 540 694.8 2 L
+1.5 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+2 18 Q
+0 X
+0 0 0 1 0 0 0 K
+(Chapter 2) 79.55 708 T
+(Details of the NIRI/GNIRS to OIWFS Interface) 171.21 708 T
+72 852/G1015663 FmPA
+72 626.6 540 635.6 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171 635.6 549 635.6 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 635.6 162 635.6 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2\3201.0) 135 639.6 T
+(Intr) 171 639.6 T
+(oduction) 191.45 639.6 T
+72 784/G1015668 FmPA
+72 580.6 540 589.6 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171 589.6 549 589.6 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 589.6 162 589.6 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2\3202.0) 135 593.6 T
+(Ph) 171 593.6 T
+(ysical System Interfaces) 184.82 593.6 T
+72 738/G1003277 FmPA
+2 10 Q
+(2\3202.1) 139.5 553.93 T
+(Mechanical Interface) 171 553.93 T
+72 698/G1003287 FmPA
+0 F
+(Not Applicable for a softwar) 171.21 537.93 T
+(e ICD.) 285.3 537.93 T
+72 682/G1003288 FmPA
+2 F
+(2\3202.2) 139.5 507.93 T
+(Optical Interface) 171 507.93 T
+72 652/G1003289 FmPA
+0 F
+(Not Applicable for a softwar) 171.21 491.93 T
+(e ICD.) 285.3 491.93 T
+72 636/G1003290 FmPA
+2 F
+(2\3202.3) 139.5 461.93 T
+(Electr) 171 461.93 T
+(onic Interface) 196.92 461.93 T
+72 606/G1003291 FmPA
+0 F
+(Not Applicable for this ICD.) 171.21 445.93 T
+72 590/G1032496 FmPA
+2 F
+(2\3202.4) 139.5 415.93 T
+(Mass/Balance) 171 415.93 T
+72 560/G1027061 FmPA
+0 F
+(Not Applicable for a softwar) 171.21 399.93 T
+(e ICD.) 285.3 399.93 T
+72 544/G1003625 FmPA
+2 F
+(2\3202.5) 139.5 369.93 T
+(Thermal Interface) 171 369.93 T
+72 514/G1003626 FmPA
+0 F
+(Not Applicable for a softwar) 171.21 353.93 T
+(e ICD.) 285.3 353.93 T
+72 498/G1003627 FmPA
+72 304.6 540 313.6 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171 313.6 549 313.6 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 313.6 162 313.6 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2\3203.0) 135 317.6 T
+(Softwar) 171 317.6 T
+(e/Contr) 211.44 317.6 T
+(ol Function Interface \050wa) 250.55 317.6 T
+(v) 379.9 317.6 T
+(efr) 385.78 317.6 T
+(ont sensor\051) 400.21 317.6 T
+72 462/G1003628 FmPA
+2 10 Q
+(2\3203.1) 139.5 277.93 T
+(Ov) 171 277.93 T
+(er) 183.68 277.93 T
+(view) 192.46 277.93 T
+72 422/G1003629 FmPA
+(2\3203.1.1) 132 252.93 T
+(Communications infrastructur) 171 252.93 T
+(e) 302.2 252.93 T
+72 397/G1003630 FmPA
+3 F
+(The communications infrastructure is the same as described in [16].) 171.21 239.93 T
+72 384/G1003634 FmPA
+2 F
+(2\3203.2) 139.5 209.93 T
+(Implementation) 171 209.93 T
+72 354/G1003773 FmPA
+3 F
+-0.16 (This section contains tables summarizing the EPICS records used for the interf) 171.21 193.93 P
+-0.16 (ace. The ne) 484.55 193.93 P
+-0.16 (xt) 529.88 193.93 P
+72 338/G1003774 FmPA
+(sections \050Section) 171.21 181.93 T
+(2\3203.2.1.1 on page) 241.76 181.93 T
+(6\051 contain the details of what those records do.) 315.64 181.93 T
+-0.34 (It is assumed in all cases that the record names gi) 171.21 157.93 P
+-0.34 (v) 364.76 157.93 P
+-0.34 (en in this document will be pre\336x) 369.61 157.93 P
+-0.34 (ed by the) 501.86 157.93 P
+72 302/G1003781 FmPA
+(string \322niri:\323 or \322nirs:\323 when the database is implemented, e) 171.21 145.93 T
+(xcept for the SAD database) 411.02 145.93 T
+(which might be pre\336x) 171.21 133.93 T
+(ed by \322niri::\323 or \322nirs::\323.) 259.11 133.93 T
+2 F
+(2\3203.2.1) 132 108.93 T
+(Command \050CAD/CAR\051 r) 171 108.93 T
+(ecords) 278.02 108.93 T
+72 253/G1003795 FmPA
+3 F
+(The columns of the command record tables are as follo) 171.21 95.93 T
+(ws:) 391.19 95.93 T
+72 240/G1004784 FmPA
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.5/DEST FmPD2
+171 864/M9.17962.Chapter.Chapter.2.Details.of.the.NIRI.to.OCS.Interface FmPA
+171 864/I1.1015669 FmPA
+[/Rect[423 236 440 247]/Border[0 0 0]/Dest/M9.42664.Doclist.6.cicssmb039.CICS.Project.Glossary.and.References.Steven.Beard.Royal/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Rect[209 178 321 189]/Border[0 0 0]/Page 6/View[/XYZ null 223 540 FmDC exch pop null]/LNK FmPD
+[/Title(A)/Rect[63 63 549 729]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "5" 5
+%%Page: "6" 6
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 0.5 0.5 0 0.5 0 0 0.5]
+[ 0.5 0 0 0.5 0 0.5 0.5]
+[ 0.5 0 0.5 0.5 0 0.5 0]
+[ 0 0.5 0 0.5 0.5 0 0.5]
+[ 0 0.5 0.5 0.5 0.5 0 0]
+[ 0 0 0.5 0.5 0.5 0.5 0]
+[ 0 0 0 0.5 0.5 0.5 0.5]
+[ 0 0 0 0.25 0.75 0.75 0.75]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 18 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2001-06-27) 484.01 748 T
+72 892/G1013680 FmPA
+72 878/G1013681 FmPA
+72 36 540 50 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 46.4 540 46.4 2 L
+1.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+0 11 Q
+0 X
+0 0 0 1 0 0 0 K
+(\322NIRI/GNIRS Science Instrument to On Instrument Wavefront Sensor\323) 72 28.67 T
+-1.38 (ICD 1.9/1.10[ab]) 385.77 28.67 P
+(Page) 484.09 28.67 T
+(6) 509.44 28.67 T
+( of 12) 514.94 28.67 T
+72 173/G1013694 FmPA
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2 10 Q
+(Description.) 171.21 713.33 T
+72 857/G1004785 FmPA
+3 F
+(A brief description of the command.) 225.65 713.33 T
+72 857/G1004786 FmPA
+2 F
+(Attrib) 171.21 689.33 T
+(ute.) 197.67 689.33 T
+72 833/G1004787 FmPA
+3 F
+-0.04 (The name of the attrib) 216 689.33 P
+-0.04 (ute which the Observ) 304.5 689.33 P
+-0.04 (atory Control System associates with) 389.38 689.33 P
+72 833/G1004788 FmPA
+(a particular parameter of a particular command.) 171.21 677.33 T
+2 F
+(CAD r) 171.21 653.33 T
+(ecord/\336eld.) 199.63 653.33 T
+72 797/G1004789 FmPA
+3 F
+-0.08 (The name of the EPICS CAD record \050minus the \322niri:\323 or \322nirs:\323 pre\336x\051) 249.63 653.33 P
+72 797/G1004790 FmPA
+(together with the \336eld in that CAD record associated with each parameter of the command.) 171.21 641.33 T
+2 F
+(CAR r) 171.21 617.33 T
+(ecord.) 199.63 617.33 T
+72 761/G1004793 FmPA
+3 F
+(The CAR record associated with the command. Note that se) 228.51 617.33 T
+(v) 468.22 617.33 T
+(eral CAD) 473.07 617.33 T
+72 761/G1004794 FmPA
+(records may share the same CAR record.) 171.21 605.33 T
+(These commands are e) 171.21 581.33 T
+(x) 262.42 581.33 T
+(ecuted by asserting the top le) 267.27 581.33 T
+(v) 383.39 581.33 T
+(el WFS apply record.) 388.24 581.33 T
+72 725/G1014314 FmPA
+208.71 388.33 171.21 388.33 2 L
+V
+0.5 H
+0 Z
+N
+(2\3203.2.1.1) 171.21 389.33 T
+350.41 388.33 223.2 388.33 2 L
+V
+N
+(Detailed Command Description) 223.2 389.33 T
+72 533/G1032708 FmPA
+208.71 362.33 171.21 362.33 2 L
+V
+N
+(2\3203.2.1.2) 171.21 363.33 T
+268.2 362.33 223.2 362.33 2 L
+V
+N
+(lockCfgSel) 223.2 363.33 T
+72 507/G1032709 FmPA
+(An instrument may ha) 171.21 350.33 T
+(v) 260.17 350.33 T
+(e limitations on which mechanisms which may be mo) 265.02 350.33 T
+(ving simulta-) 479.86 350.33 T
+72 494/G1033508 FmPA
+-0.35 (neously) 171.21 338.33 P
+-0.35 (. This interlock is intended to pre) 201.67 338.33 P
+-0.35 (v) 331.83 338.33 P
+-0.35 (ent the w) 336.67 338.33 P
+-0.35 (a) 372.54 338.33 P
+-0.35 (v) 376.78 338.33 P
+-0.35 (efront sensor components from mo) 381.63 338.33 P
+-0.35 (ving) 520.07 338.33 P
+-0.15 (while the instrument is being recon\336gured, if it is possible for w) 171.21 326.33 P
+-0.15 (a) 426.1 326.33 P
+-0.15 (v) 430.34 326.33 P
+-0.15 (efront sensor components) 435.19 326.33 P
+(to be damaged. There are tw) 171.21 314.33 T
+(o possible states:) 284.96 314.33 T
+2 F
+(\322LOCK\323.) 171.21 290.33 T
+72 434/G1033602 FmPA
+3 F
+-0.17 (Hardw) 215.66 290.33 P
+-0.17 (are is pre) 242.77 290.33 P
+-0.17 (v) 278.83 290.33 P
+-0.17 (ented from mo) 283.68 290.33 P
+-0.17 (ving. An) 342.07 290.33 P
+-0.17 (y ne) 376.75 290.33 P
+-0.17 (w commands which might cause the) 393.27 290.33 P
+72 434/G1033603 FmPA
+(hardw) 171.21 278.33 T
+(are to mo) 196.1 278.33 T
+(v) 233.72 278.33 T
+(e will f) 238.57 278.33 T
+(ail.) 266.8 278.33 T
+2 F
+(\322UNLOCK\323.) 171.21 254.33 T
+72 398/G1033604 FmPA
+3 F
+(Hardw) 230.1 254.33 T
+(are is permitted to mo) 257.21 254.33 T
+(v) 344.83 254.33 T
+(e \050if no other locks are set\051.) 349.68 254.33 T
+72 398/G1033605 FmPA
+-0.02 (The lock may be set at an) 171.21 230.33 P
+-0.02 (y time; ho) 273.14 230.33 P
+-0.02 (we) 313.41 230.33 P
+-0.02 (v) 324.82 230.33 P
+-0.02 (er) 329.67 230.33 P
+-0.02 (, it does not interrupt an) 337.04 230.33 P
+-0.02 (y currently e) 432.33 230.33 P
+-0.02 (x) 482.68 230.33 P
+-0.02 (ecuting com-) 487.53 230.33 P
+72 374/G1033322 FmPA
+(mands. \050See section 2\3206.0, \322) 171.21 218.33 T
+(Acti) 284.56 218.33 T
+(vity Completion,) 301.53 218.33 T
+(\323 p. 11, belo) 368.62 218.33 T
+(w) 417.53 218.33 T
+(.\051) 424.1 218.33 T
+0 F
+-0.06 (This command should be used with caution. Excessive use of this loc) 171.21 194.33 P
+-0.06 (k will interfer) 444.82 194.33 P
+-0.06 (e with the) 498.78 194.33 P
+72 338/G1034611 FmPA
+(pr) 171.21 182.33 T
+(oper functioning of the OIWFS \050and NIRI\051 and will k) 179.65 182.33 T
+(eep the OIWFS \050and NIRI\051 fr) 391.48 182.33 T
+(om) 507.39 182.33 T
+(obe) 171.21 170.33 T
+(ying commands that ar) 185.35 170.33 T
+(e issued by other systems \050e) 276.92 170.33 T
+(.g) 387.58 170.33 T
+(., the Acquisition and Guiding sub-) 394.93 170.33 T
+(system\051.) 171.21 158.33 T
+(This command is not needed by NIRI.) 171.21 134.33 T
+72 278/G1034730 FmPA
+72 549 540 572 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171.21 557 556.72 557 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 557 157.04 557 2 L
+0 Z
+N
+0 0 612 792 C
+5 9 Q
+0 X
+0 0 0 1 0 0 0 K
+(T) 72 543 T
+(ABLE 1.) 76.69 543 T
+3 F
+(NIRI/GNIRS OIWFS CAD/CAR records) 171.21 543 T
+72 687/G1033242 FmPA
+5 8 Q
+(Description) 78.63 501.67 T
+73 646/G1033250 FmPA
+(Attrib) 181.32 501.67 T
+(ute) 202.49 501.67 T
+175 646/G1033252 FmPA
+(CAD) 416.53 519.67 T
+411 664/G1033254 FmPA
+(recor) 416.53 510.67 T
+(d:\336eld) 436.38 510.67 T
+(\050\322niri:wfs:\323 +\051) 416.53 501.67 T
+411 646/G1033255 FmPA
+(CAR recor) 486.54 519.67 T
+(d) 525.94 519.67 T
+481 664/G1033257 FmPA
+(\050\322niri:wfs:\323) 486.54 510.67 T
+481 655/G1033258 FmPA
+(+\051) 486.54 501.67 T
+3 9 Q
+(Con\336guration interlock) 78.63 487 T
+73 631/G1033260 FmPA
+(Lock for con\336guration \050string, \322LOCK\323 | \322UNLOCK\323\051) 181.32 487 T
+175 631/G1033262 FmPA
+(lockCfgSel.A) 416.53 487 T
+411 631/G1033264 FmPA
+(lockC) 486.54 487 T
+481 631/G1033266 FmPA
+(Observ) 78.63 472 T
+(ation interlock) 104.4 472 T
+73 616/G1033276 FmPA
+(Lock for observ) 181.32 472 T
+(ation \050string, \322LOCK\323 | \322UNLOCK\323\051) 238.58 472 T
+175 616/G1033278 FmPA
+(lockObsSel.A) 416.53 472 T
+411 616/G1033280 FmPA
+(General interlock) 78.63 457 T
+73 601/G1033284 FmPA
+(Lock \050string, \322LOCK\323 | \322UNLOCK\323\051) 181.32 457 T
+175 601/G1033286 FmPA
+(lockGenSel.A) 416.53 457 T
+411 601/G1033288 FmPA
+(T) 78.63 442 T
+(emperature interlock) 83.5 442 T
+73 586/G1033621 FmPA
+(Lock for cool do) 181.32 442 T
+(wn / w) 241.34 442 T
+(arm up \050string, \322W) 265.74 442 T
+(ARM\323 | \322COLD\323 |) 332.65 442 T
+175 586/G1033623 FmPA
+(\322CHANGING\323\051) 181.32 431 T
+(lockTmpSel.A) 416.53 442 T
+411 586/G1033625 FmPA
+(Datum mechanism) 78.63 416 T
+73 560/G1033415 FmPA
+(Datum mechanisms) 181.32 416 T
+175 560/G1033417 FmPA
+(datum) 416.53 416 T
+411 560/G1033419 FmPA
+(datumC) 486.54 416 T
+481 560/G1033421 FmPA
+72.63 531.75 72.63 411.25 2 L
+V
+0.5 H
+0 Z
+N
+175.32 532.25 175.32 410.75 2 L
+V
+N
+410.53 532.25 410.53 410.75 2 L
+V
+N
+480.54 532.25 480.54 410.75 2 L
+V
+N
+540 531.75 540 411.25 2 L
+V
+N
+72.38 532 540.25 532 2 L
+V
+N
+72.38 497 540.25 497 2 L
+V
+2 H
+N
+72.38 482 480.79 482 2 L
+V
+0.5 H
+N
+72.38 467 480.79 467 2 L
+V
+N
+72.38 452 480.79 452 2 L
+V
+N
+72.38 426 540.25 426 2 L
+V
+N
+72.38 411 540.25 411 2 L
+V
+N
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.6/DEST FmPD2
+171 693/M9.24745.TableTitle.TABLE.2.General.observing.command.CADCAR.records FmPA
+171 693/I1.1033241 FmPA
+223 540/M9.38465.Heading3.3341.Command.description FmPA
+223 540/I1.1032707 FmPA
+[/Rect[223 215 396 225]/Border[0 0 0]/Page 11/View[/XYZ null 171 365 FmDC exch pop null]/LNK FmPD
+[/Title(A)/Rect[63 63 549 729]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "6" 6
+%%Page: "7" 7
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 0.5 0.5 0 0.5 0 0 0.5]
+[ 0.5 0 0 0.5 0 0.5 0.5]
+[ 0.5 0 0.5 0.5 0 0.5 0]
+[ 0 0.5 0 0.5 0.5 0 0.5]
+[ 0 0.5 0.5 0.5 0.5 0 0]
+[ 0 0 0.5 0.5 0.5 0.5 0]
+[ 0 0 0 0.5 0.5 0.5 0.5]
+[ 0 0 0 0.25 0.75 0.75 0.75]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 18 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2001-06-27) 484.01 748 T
+72 892/G1013680 FmPA
+72 878/G1013681 FmPA
+72 36 540 50 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 46.4 540 46.4 2 L
+1.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+0 11 Q
+0 X
+0 0 0 1 0 0 0 K
+(\322NIRI/GNIRS Science Instrument to On Instrument Wavefront Sensor\323) 72 28.67 T
+-1.38 (ICD 1.9/1.10[ab]) 385.77 28.67 P
+(Page) 484.09 28.67 T
+(7) 509.44 28.67 T
+( of 12) 514.94 28.67 T
+72 173/G1013694 FmPA
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+208.71 712.33 171.21 712.33 2 L
+V
+0.5 H
+0 Z
+N
+3 10 Q
+(2\3203.2.1.3) 171.21 713.33 T
+269.31 712.33 223.2 712.33 2 L
+V
+N
+(lockObsSel) 223.2 713.33 T
+72 857/G1032876 FmPA
+(This command is pro) 171.21 688.33 T
+(vided to pro) 255.78 688.33 T
+(vide a lo) 303.96 688.33 T
+(w noise en) 338.15 688.33 T
+(vironment for sensiti) 380.52 688.33 T
+(v) 463.6 688.33 T
+(e observ) 468.45 688.33 T
+(ations.) 501.8 688.33 T
+72 832/G1035168 FmPA
+(There are tw) 171.21 676.33 T
+(o possibl) 221.64 676.33 T
+(e states.) 257.48 676.33 T
+2 F
+(\322LOCK\323) 171.21 652.33 T
+(.) 210.66 652.33 T
+72 796/G1035170 FmPA
+3 F
+-0.17 (Hardw) 215.66 652.33 P
+-0.17 (are is pre) 242.77 652.33 P
+-0.17 (v) 278.83 652.33 P
+-0.17 (ented from mo) 283.68 652.33 P
+-0.17 (ving. An) 342.07 652.33 P
+-0.17 (y ne) 376.75 652.33 P
+-0.17 (w commands which might cause the) 393.27 652.33 P
+72 796/G1035169 FmPA
+(hardw) 171.21 640.33 T
+(are to mo) 196.1 640.33 T
+(v) 233.72 640.33 T
+(e will f) 238.57 640.33 T
+(ail.) 266.8 640.33 T
+2 F
+(\322) 171.21 616.33 T
+(UNLOCK\323.) 176.21 616.33 T
+72 760/G1035166 FmPA
+3 F
+(Hardw) 230.1 616.33 T
+(are is permitted to mo) 257.21 616.33 T
+(v) 344.83 616.33 T
+(e \050if no other locks are set\051.) 349.68 616.33 T
+72 760/G1033743 FmPA
+-0.02 (The lock may be set at an) 171.21 592.33 P
+-0.02 (y time; ho) 273.14 592.33 P
+-0.02 (we) 313.41 592.33 P
+-0.02 (v) 324.82 592.33 P
+-0.02 (er) 329.67 592.33 P
+-0.02 (, it does not interrupt an) 337.04 592.33 P
+-0.02 (y currently e) 432.33 592.33 P
+-0.02 (x) 482.68 592.33 P
+-0.02 (ecuting com-) 487.53 592.33 P
+72 736/G1033744 FmPA
+(mands. \050See section 2\3206.0, \322) 171.21 580.33 T
+(Acti) 284.56 580.33 T
+(vity Completion,) 301.53 580.33 T
+(\323 p. 11, belo) 368.62 580.33 T
+(w) 417.53 580.33 T
+(.\051) 424.1 580.33 T
+0 F
+(This command should be used with caution. Use of this loc) 171.21 556.33 T
+(k will interfer) 406.29 556.33 T
+(e with the pr) 460.37 556.33 T
+(oper) 510.2 556.33 T
+72 700/G1034621 FmPA
+(functioning of the OIWFS \050and NIRI\051 and will k) 171.21 544.33 T
+(eep the OIWFS \050and NIRI\051 fr) 362.21 544.33 T
+(om obe) 478.12 544.33 T
+(ying) 506.98 544.33 T
+(commands that ar) 171.21 532.33 T
+(e issued by other systems \050e) 243.06 532.33 T
+(.g) 353.72 532.33 T
+(., the Acquisition and Guiding subsystem\051.) 361.07 532.33 T
+(This command is not needed by NIRI.) 171.21 508.33 T
+72 652/G1034732 FmPA
+208.71 482.33 171.21 482.33 2 L
+V
+N
+3 F
+(2\3203.2.1.4) 171.21 483.33 T
+269.86 482.33 223.2 482.33 2 L
+V
+N
+(lockGenSel) 223.2 483.33 T
+72 627/G1032877 FmPA
+-0.14 (This command is pro) 171.21 470.33 P
+-0.14 (vided as a \322general\323 command to lock all hardw) 255.36 470.33 P
+-0.14 (are for an) 446.86 470.33 P
+-0.14 (y unspeci\336ed) 484.73 470.33 P
+72 614/G1033519 FmPA
+(reason.) 171.21 458.33 T
+(There are tw) 171.21 434.33 T
+(o possible states:) 221.64 434.33 T
+72 578/G1034560 FmPA
+2 F
+(\322LOCK\323.) 171.21 410.33 T
+72 554/G1033747 FmPA
+3 F
+-0.17 (Hardw) 215.66 410.33 P
+-0.17 (are is pre) 242.77 410.33 P
+-0.17 (v) 278.83 410.33 P
+-0.17 (ented from mo) 283.68 410.33 P
+-0.17 (ving. An) 342.07 410.33 P
+-0.17 (y ne) 376.75 410.33 P
+-0.17 (w commands which might cause the) 393.27 410.33 P
+72 554/G1033748 FmPA
+(hardw) 171.21 398.33 T
+(are to mo) 196.1 398.33 T
+(v) 233.72 398.33 T
+(e will f) 238.57 398.33 T
+(ail.) 266.8 398.33 T
+2 F
+(\322UNLOCK\323.) 171.21 374.33 T
+72 518/G1033749 FmPA
+3 F
+(Hardw) 230.1 374.33 T
+(are is permitted to mo) 257.21 374.33 T
+(v) 344.83 374.33 T
+(e \050if no other locks are set\051.) 349.68 374.33 T
+72 518/G1033750 FmPA
+-0.02 (The lock may be set at an) 171.21 350.33 P
+-0.02 (y time; ho) 273.14 350.33 P
+-0.02 (we) 313.41 350.33 P
+-0.02 (v) 324.82 350.33 P
+-0.02 (er) 329.67 350.33 P
+-0.02 (, it does not interrupt an) 337.04 350.33 P
+-0.02 (y currently e) 432.33 350.33 P
+-0.02 (x) 482.68 350.33 P
+-0.02 (ecuting com-) 487.53 350.33 P
+72 494/G1033751 FmPA
+(mands. \050See section 2\3206.0, \322) 171.21 338.33 T
+(Acti) 284.56 338.33 T
+(vity Completion,) 301.53 338.33 T
+(\323 p. 11, belo) 368.62 338.33 T
+(w) 417.53 338.33 T
+(.\051) 424.1 338.33 T
+0 F
+(This command should be used with caution. Use of this loc) 171.21 314.33 T
+(k will interfer) 406.29 314.33 T
+(e with the pr) 460.37 314.33 T
+(oper) 510.2 314.33 T
+72 458/G1034623 FmPA
+(functioning of the OIWFS \050and NIRI\051 and will k) 171.21 302.33 T
+(eep the OIWFS \050and NIRI\051 fr) 362.21 302.33 T
+(om obe) 478.12 302.33 T
+(ying) 506.98 302.33 T
+(commands that ar) 171.21 290.33 T
+(e issued by other systems \050e) 243.06 290.33 T
+(.g) 353.72 290.33 T
+(., the Acquisition and Guiding subsystem\051.) 361.07 290.33 T
+(This command is not needed by NIRI.) 171.21 266.33 T
+72 410/G1034714 FmPA
+208.71 240.33 171.21 240.33 2 L
+V
+N
+3 F
+(2\3203.2.1.5) 171.21 241.33 T
+272.09 240.33 223.2 240.33 2 L
+V
+N
+(lockTmpSel) 223.2 241.33 T
+72 385/G1033646 FmPA
+(The OIWFS motors \050and, possibly) 171.21 228.33 T
+(, other components\051 can be damaged if a mo) 308.61 228.33 T
+(v) 485.92 228.33 T
+(e command) 490.77 228.33 T
+72 372/G1033634 FmPA
+-0.07 (is issued before the system has reached a uniform temperature throughout. Furthermore, the) 171.21 216.33 P
+-0.24 (ph) 171.21 204.33 P
+-0.24 (ysical parameters of the system \050e.g., the datum position\051 may depend on the temperature.) 181.16 204.33 P
+-0.26 (The lockTmpSel command informs the OIWFS about the current temperature of the system.) 171.21 192.33 P
+(There are three possible states:) 171.21 180.33 T
+2 F
+(\322W) 171.21 156.33 T
+(ARM\323.) 185.01 156.33 T
+72 300/G1033635 FmPA
+3 F
+(Hardw) 218.89 156.33 T
+(are is permitted to mo) 246 156.33 T
+(v) 333.62 156.33 T
+(e \050if no other locks are set\051. The system is at or) 338.47 156.33 T
+72 300/G1033636 FmPA
+(near room temperature.) 171.21 144.33 T
+2 F
+(\322COLD\323.) 171.21 120.33 T
+72 264/G1033637 FmPA
+3 F
+-0.27 (Hardw) 215.1 120.33 P
+-0.27 (are is permitted to mo) 242.21 120.33 P
+-0.27 (v) 328.74 120.33 P
+-0.27 (e \050if no other locks are set\051. The system is at or near) 333.59 120.33 P
+72 264/G1033638 FmPA
+(its operating temperature.) 171.21 108.33 T
+0 1 1 0 1 0 0 K
+60 613 63 683 R
+0 1 1 0 1 0 0 K
+V
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.7/DEST FmPD2
+[/Rect[223 577 396 587]/Border[0 0 0]/Page 11/View[/XYZ null 171 365 FmDC exch pop null]/LNK FmPD
+[/Rect[223 335 396 345]/Border[0 0 0]/Page 11/View[/XYZ null 171 365 FmDC exch pop null]/LNK FmPD
+[/Title(A)/Rect[63 63 549 729]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "7" 7
+%%Page: "8" 8
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 0.5 0.5 0 0.5 0 0 0.5]
+[ 0.5 0 0 0.5 0 0.5 0.5]
+[ 0.5 0 0.5 0.5 0 0.5 0]
+[ 0 0.5 0 0.5 0.5 0 0.5]
+[ 0 0.5 0.5 0.5 0.5 0 0]
+[ 0 0 0.5 0.5 0.5 0.5 0]
+[ 0 0 0 0.5 0.5 0.5 0.5]
+[ 0 0 0 0.25 0.75 0.75 0.75]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 18 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2001-06-27) 484.01 748 T
+72 892/G1013680 FmPA
+72 878/G1013681 FmPA
+72 36 540 50 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 46.4 540 46.4 2 L
+1.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+0 11 Q
+0 X
+0 0 0 1 0 0 0 K
+(\322NIRI/GNIRS Science Instrument to On Instrument Wavefront Sensor\323) 72 28.67 T
+-1.38 (ICD 1.9/1.10[ab]) 385.77 28.67 P
+(Page) 484.09 28.67 T
+(8) 509.44 28.67 T
+( of 12) 514.94 28.67 T
+72 173/G1013694 FmPA
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+2 10 Q
+(\322CHANGING\323.) 171.21 713.33 T
+72 857/G1033639 FmPA
+3 F
+(Hardw) 242.32 713.33 T
+(are is not permitted to mo) 269.43 713.33 T
+(v) 372.33 713.33 T
+(e. The system is currently being cooled) 377.18 713.33 T
+72 857/G1033640 FmPA
+(do) 171.21 701.33 T
+(wn or w) 180.96 701.33 T
+(armed up.) 213.63 701.33 T
+-0.04 (When the temperature setting is changed, the OIWFS will enter the not-datumed state. \050The) 171.21 677.33 P
+72 821/G1033701 FmPA
+-0.06 (datum shifts slightly) 171.21 665.33 P
+-0.06 (, depending on the temperature of the system.\051 Upon reboot, the system) 252.13 665.33 P
+(al) 171.21 653.33 T
+(w) 178.33 653.33 T
+(ays be) 185.45 653.33 T
+(gins in a \322CHANGING\323 state, until e) 210.57 653.33 T
+(xplicitly set to another state.) 360.12 653.33 T
+-0.02 (The lock may be set at an) 171.21 629.33 P
+-0.02 (y time; ho) 273.14 629.33 P
+-0.02 (we) 313.41 629.33 P
+-0.02 (v) 324.82 629.33 P
+-0.02 (er) 329.67 629.33 P
+-0.02 (, it does not interrupt an) 337.04 629.33 P
+-0.02 (y currently e) 432.33 629.33 P
+-0.02 (x) 482.68 629.33 P
+-0.02 (ecuting com-) 487.53 629.33 P
+72 773/G1033758 FmPA
+(mands. \050See section 2\3206.0, \322) 171.21 617.33 T
+(Acti) 284.56 617.33 T
+(vity Completion,) 301.53 617.33 T
+(\323 p. 11, belo) 368.62 617.33 T
+(w) 417.53 617.33 T
+(.\051) 424.1 617.33 T
+-0.32 (It it al) 171.21 593.33 P
+-0.32 (w) 194.35 593.33 P
+-0.32 (ays better to be conserv) 201.48 593.33 P
+-0.32 (ati) 294.35 593.33 P
+-0.32 (v) 304.1 593.33 P
+-0.32 (e and lea) 308.95 593.33 P
+-0.32 (v) 343.64 593.33 P
+-0.32 (e the state of the system \322CHANGING\323, until it) 348.49 593.33 P
+72 737/G1033644 FmPA
+(can be guaranteed that the OIWFS mechanisms ha) 171.21 581.33 T
+(v) 372.91 581.33 T
+(e reached their steady-state temperature.) 377.76 581.33 T
+(This command also sets the v) 171.21 557.33 T
+(alue of v) 289.01 557.33 T
+(arious internal temperature-dependent parameters) 323.75 557.33 T
+72 701/G1034840 FmPA
+(within the OIWFS. If this parameter is set incorrectly) 171.21 545.33 T
+(, mechanisms will mo) 384.14 545.33 T
+(v) 471.77 545.33 T
+(e, b) 476.62 545.33 T
+(ut may) 490.86 545.33 T
+(incorrectly report that there is a hardw) 171.21 533.33 T
+(are problem.) 324.4 533.33 T
+0 F
+(This command should be used with caution. Use of this loc) 171.21 509.33 T
+(k will interfer) 406.29 509.33 T
+(e with the pr) 460.37 509.33 T
+(oper) 510.2 509.33 T
+72 653/G1034838 FmPA
+(functioning of the OIWFS \050and NIRI\051 and will k) 171.21 497.33 T
+(eep the OIWFS \050and NIRI\051 fr) 362.21 497.33 T
+(om obe) 478.12 497.33 T
+(ying) 506.98 497.33 T
+(commands that ar) 171.21 485.33 T
+(e issued by other systems \050e) 243.06 485.33 T
+(.g) 353.72 485.33 T
+(., the Acquisition and Guiding subsystem\051.) 361.07 485.33 T
+208.71 459.33 171.21 459.33 2 L
+V
+0.5 H
+0 Z
+N
+3 F
+(2\3203.2.1.6) 171.21 460.33 T
+230.42 459.33 223.2 459.33 2 L
+V
+N
+(D) 223.2 460.33 T
+237.24 459.33 230.02 459.33 2 L
+V
+N
+(A) 230.02 460.33 T
+258.35 459.33 236.13 459.33 2 L
+V
+N
+(TUM) 236.13 460.33 T
+72 604/G1034755 FmPA
+(This command will cause all mechanisms to be datumed. Note that the OIWFS does) 171.21 447.33 T
+0 F
+(not) 510.9 447.33 T
+72 591/G1034756 FmPA
+3 F
+(automatically datum itself when a mo) 171.21 435.33 T
+(v) 321.88 435.33 T
+(e command is issued.) 326.73 435.33 T
+0 F
+(This command should be used with caution. Use of this loc) 171.21 411.33 T
+(k may interfer) 406.29 411.33 T
+(e with the pr) 462.02 411.33 T
+(oper) 511.85 411.33 T
+72 555/G1034631 FmPA
+-0.05 (functioning of the OIWFS and will k) 171.21 399.33 P
+-0.05 (eep the OIWFS fr) 315.8 399.33 P
+-0.05 (om obe) 385.45 399.33 P
+-0.05 (ying commands that ar) 414.25 399.33 P
+-0.05 (e issued) 505.67 399.33 P
+(by other systems \050e) 171.21 387.33 T
+(.g) 247.43 387.33 T
+(., the Acquisition and Guiding subsystem\051.) 254.78 387.33 T
+2 F
+(2\3203.2.2) 132 362.33 T
+(Status Inf) 171 362.33 T
+(ormation Records) 212.7 362.33 T
+72 506/G1033778 FmPA
+3 F
+(The follo) 171.21 349.33 T
+(wing tables sho) 207.9 349.33 T
+(w the status information pro) 269.87 349.33 T
+(vided by the NIRI/GNIRS OIWFS) 382.49 349.33 T
+72 493/G1033779 FmPA
+(components controller which are of importance to the instrument as a whole.) 171.21 337.33 T
+-0.28 (Unless otherwise noted, the SIR records described here are to be used for status information,) 171.21 313.33 P
+72 457/G1034889 FmPA
+(and not to be used for real-time control purposes. It is possible that rapid changes in the) 171.21 301.33 T
+(underlying system may not be re\337ected in the SIR records.) 171.21 289.33 T
+(The tables ha) 171.21 265.33 T
+(v) 224.33 265.33 T
+(e the follo) 229.18 265.33 T
+(wing columns:) 269.48 265.33 T
+72 409/G1034885 FmPA
+2 F
+(SIR r) 171.21 241.33 T
+(ecord.) 194.64 241.33 T
+72 385/G1033780 FmPA
+3 F
+-0.18 (The part of the name of the EPICS SIR record which follo) 223.52 241.33 P
+-0.18 (ws the \322niri:\323 pre\336x) 454.33 241.33 P
+3 8 Q
+-0.14 (1) 533.5 245.33 P
+3 10 Q
+-0.18 (.) 537.5 241.33 P
+72 385/G1033784 FmPA
+2 F
+(Units.) 171.21 217.33 T
+72 361/G1033785 FmPA
+3 F
+(The units in which the quantity is stored) 198.99 217.33 T
+72 361/G1033786 FmPA
+2 F
+(Comments.) 171.21 193.33 T
+72 337/G1033787 FmPA
+3 F
+-0.19 (A description of the item. The \336rst paragraph of this will go into the SIR record) 222.31 193.33 P
+72 337/G1033788 FmPA
+(description and also the comment \336eld in the FITS header) 171.21 181.33 T
+(.) 402.58 181.33 T
+72 105 540 121 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171.21 113 341.29 113 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+3 9 Q
+0 X
+0 0 0 1 0 0 0 K
+(1.) 171.21 99 T
+(Note that the actual system has been designed so the Status Alarm Database can easily be gi) 185.39 99 T
+(v) 516.6 99 T
+(en a) 520.97 99 T
+72 243/G1033783 FmPA
+(dif) 185.39 89 T
+(ferent pre\336x from the rest of the NIRI database \050for e) 195.16 89 T
+(xample \322niri:\323\051. It is assumed in this docu-) 386.46 89 T
+(ment that the Status Alarm Database pre\336x will be \322niri:\323.) 185.39 79 T
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.8/DEST FmPD2
+[/Rect[223 614 396 624]/Border[0 0 0]/Page 11/View[/XYZ null 171 365 FmDC exch pop null]/LNK FmPD
+[/Title(A)/Rect[63 63 549 729]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "8" 8
+%%Page: "9" 9
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 0.5 0.5 0 0.5 0 0 0.5]
+[ 0.5 0 0 0.5 0 0.5 0.5]
+[ 0.5 0 0.5 0.5 0 0.5 0]
+[ 0 0.5 0 0.5 0.5 0 0.5]
+[ 0 0.5 0.5 0.5 0.5 0 0]
+[ 0 0 0.5 0.5 0.5 0.5 0]
+[ 0 0 0 0.5 0.5 0.5 0.5]
+[ 0 0 0 0.25 0.75 0.75 0.75]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 18 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2001-06-27) 484.01 748 T
+72 892/G1013680 FmPA
+72 878/G1013681 FmPA
+72 36 540 50 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 46.4 540 46.4 2 L
+1.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+0 11 Q
+0 X
+0 0 0 1 0 0 0 K
+(\322NIRI/GNIRS Science Instrument to On Instrument Wavefront Sensor\323) 72 28.67 T
+-1.38 (ICD 1.9/1.10[ab]) 385.77 28.67 P
+(Page) 484.09 28.67 T
+(9) 509.44 28.67 T
+( of 12) 514.94 28.67 T
+72 173/G1013694 FmPA
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 10 Q
+(Note that only the type) 171.21 713.33 T
+(, units and comments ar) 261.66 713.33 T
+(e actually contained in the SIR r) 357.12 713.33 T
+(ecor) 486.18 713.33 T
+(ds. The) 503.58 713.33 T
+72 857/G1033789 FmPA
+(FITS k) 171.21 701.33 T
+(e) 198.05 701.33 T
+(ywor) 202.19 701.33 T
+(d is pr) 221.82 701.33 T
+(o) 246.93 701.33 T
+(vided by the DHS.) 251.83 701.33 T
+2 F
+(2\3203.2.3) 132 116.52 T
+(Detailed SIR r) 171 116.52 T
+(ecord description) 232.48 116.52 T
+72 261/G1034773 FmPA
+72.45 260.19 540 267.2 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72.45 263.35 228.36 263.35 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+3 9 Q
+0 X
+0 0 0 1 0 0 0 K
+(a.) 72.45 254.19 T
+(The instrument should not trigger an) 86.63 254.19 T
+(y special actions based on the state of the lockGen record, because it is intended that) 218.23 254.19 T
+72 398/G1034568 FmPA
+(the lockGen should be usable at an) 86.63 244.19 T
+(y time, for an) 211.97 244.19 T
+(y reason, without side ef) 260.33 244.19 T
+(fects.) 348.34 244.19 T
+(b) 72.45 231.19 T
+(.) 76.59 231.19 T
+(F) 86.63 231.19 T
+(or safety) 91.5 231.19 T
+(, when NIRI or the standalone OIWFS is rebooted, the system al) 122.15 231.19 T
+(w) 354.28 231.19 T
+(ays restarts in the \322CHANGING\323.) 360.68 231.19 T
+72 375/G1034769 FmPA
+(c.) 72.45 218.19 T
+(F) 86.63 218.19 T
+(or NIRI, this number is the total of the NIRI CC motors and NIRI OIWFS motors,) 91.5 218.19 T
+0 F
+(e) 389.98 218.19 T
+(xcluding the gimbal \050prbx, prby\051) 393.8 218.19 T
+72 362/G1034110 FmPA
+(motor) 86.63 208.19 T
+(s, whic) 108.04 208.19 T
+(h may be mo) 132.9 208.19 T
+(ved at any time) 178.55 208.19 T
+3 F
+(. F) 233.29 208.19 T
+(or GNIRS, and an) 242.66 208.19 T
+(y other non-NIRI systems, this number only represents the) 307.51 208.19 T
+(OIWFS motors. If the system attempts to mo) 86.63 198.19 T
+(v) 248.49 198.19 T
+(e a motor when the maximum number of motors is already in motion, then) 252.86 198.19 T
+-0.06 (the motion of that motor will silently be delayed until the requested action may be carried out; no error or w) 86.63 188.19 P
+-0.06 (arning will be) 473.76 188.19 P
+(issued.) 86.63 178.19 T
+(d.) 72.45 165.19 T
+(It is the responsibility of the instrument to combine the v) 86.63 165.19 T
+(alue of the wfs:wfsBeam with information from the components) 290.9 165.19 T
+72 309/G1034277 FmPA
+-0.2 (controller to produce the v) 86.63 155.19 P
+-0.2 (alue of the global wfsBeam SIR record.) 181.07 155.19 P
+-0.2 ( This \336eld indicates only that there is no obstruction, not) 322.57 155.19 P
+-0.19 (that light is actually getting to the detector) 86.63 145.19 P
+-0.19 (. Furthermore, it does not consider the obscuration caused by the pick-of) 237.07 145.19 P
+-0.19 (f mirror) 496.02 145.19 P
+-0.19 (.) 523.58 145.19 P
+72 669 540 692 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171.21 677 556.72 677 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 677 157.04 677 2 L
+0 Z
+N
+0 0 612 792 C
+5 9 Q
+0 X
+0 0 0 1 0 0 0 K
+(T) 72 663 T
+(ABLE 2.) 76.69 663 T
+3 F
+(NIRI/GNIRS OIWFS status Information) 171.21 663 T
+72 807/G1033792 FmPA
+5 8 Q
+(SIR recor) 78.45 630.67 T
+(d) 113.86 630.67 T
+72 775/G1033804 FmPA
+(\050\322niri:wfs:\323 +\051) 78.45 621.67 T
+72 766/G1033805 FmPA
+(FITS) 146.25 630.67 T
+140 775/G1033807 FmPA
+(ke) 146.25 621.67 T
+(yw) 155.03 621.67 T
+(or) 165.54 621.67 T
+(d) 173.38 621.67 T
+(FITS) 192.15 639.67 T
+186 784/G1033809 FmPA
+(inc) 192.15 630.67 T
+(lud) 203.55 630.67 T
+(ed?) 192.15 621.67 T
+(T) 228.81 621.67 T
+(ype) 233.22 621.67 T
+223 766/G1033811 FmPA
+(Units) 277.07 621.67 T
+271 766/G1033813 FmPA
+(Comments) 317.15 621.67 T
+311 766/G1033815 FmPA
+3 9 Q
+(lockHealth) 78.45 607 T
+72 751/G1034898 FmPA
+140 751/G1034900 FmPA
+(no) 192.15 607 T
+186 751/G1034902 FmPA
+(string) 228.81 607 T
+223 751/G1034904 FmPA
+271 751/G1034906 FmPA
+(Health of subsystem \050\322GOOD\323 | \322W) 317.15 607 T
+(ARNING\323 | \322B) 447.59 607 T
+(AD\323\051.) 502.56 607 T
+311 751/G1034908 FmPA
+(Intended to be combined with o) 317.15 596 T
+(v) 431.25 596 T
+(erall instrument Health.) 435.62 596 T
+(This can also be set if there is a hardw) 317.15 585 T
+(are or con\336guration) 454.78 585 T
+-0.24 (problem with the database. Diagnosis requires the use of the) 317.15 574 P
+(Engineering user interf) 317.15 563 T
+(ace, and is not considered a function) 400.04 563 T
+(of the Instrument to OIWFS interf) 317.15 552 T
+(ace.) 440.3 552 T
+(lockCfg) 78.45 537 T
+72 681/G1033938 FmPA
+140 681/G1033901 FmPA
+(no) 192.15 537 T
+186 681/G1033903 FmPA
+(long) 228.81 537 T
+223 681/G1033905 FmPA
+271 681/G1033825 FmPA
+(Lock) 317.15 537 T
+(ed for con\336guration \050non-zero = lock) 335.55 537 T
+(ed\051. If this is set,) 469.26 537 T
+311 681/G1033946 FmPA
+(the system will be put into a \322W) 317.15 526 T
+(ARNING\323 state.) 432.31 526 T
+(lockObs) 78.45 511 T
+72 655/G1033940 FmPA
+140 655/G1033909 FmPA
+(no) 192.15 511 T
+186 655/G1033911 FmPA
+(long) 228.81 511 T
+223 655/G1033913 FmPA
+271 655/G1033837 FmPA
+(Lock) 317.15 511 T
+(ed for observ) 335.55 511 T
+(ation \050non-zero = lock) 382.81 511 T
+(ed\051. If this is set,) 463.03 511 T
+311 655/G1033948 FmPA
+(the system will be put into a \322W) 317.15 500 T
+(ARNING\323 state.) 432.31 500 T
+(lockGen) 78.45 485 T
+3 7.2 Q
+(a) 108.94 488.6 T
+72 629/G1033942 FmPA
+140 629/G1033917 FmPA
+3 9 Q
+(no) 192.15 485 T
+186 629/G1033919 FmPA
+(long) 228.81 485 T
+223 629/G1033921 FmPA
+271 629/G1033849 FmPA
+(Lock) 317.15 485 T
+(ed \050generic\051 \050non-zero = lock) 335.55 485 T
+(ed\051. If this is set, the sys-) 441 485 T
+311 629/G1033950 FmPA
+(tem will be put into a \322W) 317.15 474 T
+(ARNING\323 state.) 407.56 474 T
+(lockTmp) 78.45 459 T
+72 603/G1033944 FmPA
+140 603/G1033925 FmPA
+(no) 192.15 459 T
+186 603/G1033927 FmPA
+(long) 228.81 459 T
+223 603/G1033929 FmPA
+271 603/G1033861 FmPA
+(Lock) 317.15 459 T
+(ed for cool do) 335.55 459 T
+(wn / w) 385.57 459 T
+(arm up \050non-zero = lock) 409.98 459 T
+(ed. I.e.,) 497.44 459 T
+311 603/G1033952 FmPA
+-0.16 (lockTmpV) 317.15 448 P
+-0.16 (al is \322CHANGING\323. If this is set, the system will) 355.15 448 P
+(be put into a \322W) 317.15 437 T
+(ARNING\323 state.) 375.56 437 T
+(lockInit) 78.45 422 T
+72 566/G1033960 FmPA
+140 566/G1033962 FmPA
+(no) 192.15 422 T
+186 566/G1033964 FmPA
+(long) 228.81 422 T
+223 566/G1033966 FmPA
+271 566/G1033968 FmPA
+(Lock) 317.15 422 T
+(ed for initialization \050non-zero = lock) 335.55 422 T
+(ed\051? If this is set,) 466.77 422 T
+311 566/G1033970 FmPA
+(the system will be put into a \322W) 317.15 411 T
+(ARNING\323 state.) 432.31 411 T
+(lockLock) 78.45 396 T
+72 540/G1033974 FmPA
+140 540/G1033976 FmPA
+(no) 192.15 396 T
+186 540/G1033978 FmPA
+(long) 228.81 396 T
+223 540/G1033980 FmPA
+271 540/G1033982 FmPA
+-0.07 (Combined v) 317.15 396 P
+-0.07 (alue) 361.11 396 P
+0 F
+-0.07 (\050lo) 378.28 396 P
+-0.07 (gical or\051) 388.19 396 P
+3 F
+-0.07 ( of lockCfg, lockObs, lockGen,) 419.37 396 P
+311 540/G1033984 FmPA
+(lockTmp, and lockInit.) 317.15 385 T
+(lockTmpV) 78.45 370 T
+(al) 116.45 370 T
+72 514/G1034182 FmPA
+140 514/G1034184 FmPA
+(no) 192.15 370 T
+186 514/G1034186 FmPA
+(string) 228.81 370 T
+223 514/G1034188 FmPA
+271 514/G1034190 FmPA
+(Current temperature state \050\322COLD\323 | \322W) 317.15 370 T
+(ARM\323 | \322CHANG-) 464.08 370 T
+311 514/G1034192 FmPA
+(ING) 317.15 359 T
+3 7.2 Q
+(b) 333.14 362.6 T
+3 9 Q
+(\323\051) 336.74 359 T
+(lockMaxMo) 78.45 344 T
+(v) 122.81 344 T
+(e) 127.18 344 T
+72 488/G1034047 FmPA
+140 488/G1034049 FmPA
+(no) 192.15 344 T
+186 488/G1034051 FmPA
+(long) 228.81 344 T
+223 488/G1034053 FmPA
+271 488/G1034055 FmPA
+(Ho) 317.15 344 T
+(w man) 327.92 344 T
+(y motors may be mo) 352.03 344 T
+(v) 425.9 344 T
+(ed at the same time.) 430.26 344 T
+3 7.2 Q
+(c) 502 347.6 T
+311 488/G1034057 FmPA
+3 9 Q
+(lockActi) 78.45 329 T
+(v) 109.22 329 T
+(e) 113.59 329 T
+72 473/G1034098 FmPA
+140 473/G1034100 FmPA
+(no) 192.15 329 T
+186 473/G1034102 FmPA
+(long) 228.81 329 T
+223 473/G1034104 FmPA
+271 473/G1034106 FmPA
+(Ho) 317.15 329 T
+(w man) 327.92 329 T
+(y motors ha) 352.03 329 T
+(v) 394.35 329 T
+(e been commanded to mo) 398.72 329 T
+(v) 491.07 329 T
+(e and are) 495.43 329 T
+311 473/G1034108 FmPA
+(w) 317.15 315.6 T
+(aiting to mo) 323.56 315.6 T
+(v) 366.93 315.6 T
+(e or are currently mo) 371.29 315.6 T
+(ving) 446.63 315.6 T
+3 7.2 Q
+(c) 462.64 319.2 T
+3 9 Q
+(.) 465.83 315.6 T
+(lockMo) 78.45 300.6 T
+(ving) 106.32 300.6 T
+72 445/G1034071 FmPA
+140 445/G1034073 FmPA
+(no) 192.15 300.6 T
+186 445/G1034075 FmPA
+(long) 228.81 300.6 T
+223 445/G1034077 FmPA
+271 445/G1034079 FmPA
+(Ho) 317.15 298.2 T
+(w man) 327.92 298.2 T
+(y motors are currently mo) 352.03 298.2 T
+(ving) 445.38 298.2 T
+3 7.2 Q
+(c) 461.38 301.8 T
+3 9 Q
+(.) 464.58 298.2 T
+311 442/G1034081 FmPA
+(wfsBeam) 78.45 283.2 T
+72 427/G1034247 FmPA
+140 427/G1034249 FmPA
+(no) 192.15 283.2 T
+186 427/G1034251 FmPA
+(long) 228.81 283.2 T
+223 427/G1034253 FmPA
+271 427/G1034255 FmPA
+-0.24 (Flag to indicate that the) 317.15 283.2 P
+-0.24 (W) 403.19 283.2 P
+-0.24 (FS components are allo) 411.68 283.2 P
+-0.24 (wing light) 495.48 283.2 P
+311 427/G1034257 FmPA
+(to f) 317.15 272.2 T
+(all on the on-instrument w) 329.31 272.2 T
+(a) 424.21 272.2 T
+(v) 428.03 272.2 T
+(efront sensor) 432.39 272.2 T
+(.) 478.64 272.2 T
+3 7.2 Q
+(d) 480.89 275.8 T
+72.45 651.75 72.45 267.45 2 L
+V
+0.5 H
+0 Z
+N
+140.25 652.25 140.25 266.95 2 L
+V
+N
+186.15 652.25 186.15 266.95 2 L
+V
+N
+222.81 652.25 222.81 266.95 2 L
+V
+N
+271.07 652.25 271.07 266.95 2 L
+V
+N
+311.15 652.25 311.15 266.95 2 L
+V
+N
+540 651.75 540 267.45 2 L
+V
+N
+72.2 652 540.25 652 2 L
+V
+N
+72.2 617 540.25 617 2 L
+V
+2 H
+N
+72.2 547 540.25 547 2 L
+V
+0.5 H
+N
+72.2 521 540.25 521 2 L
+V
+N
+72.2 495 540.25 495 2 L
+V
+N
+72.2 469 540.25 469 2 L
+V
+N
+72.2 432 540.25 432 2 L
+V
+N
+72.2 406 540.25 406 2 L
+V
+N
+72.2 380 540.25 380 2 L
+V
+N
+72.2 354 540.25 354 2 L
+V
+N
+72.2 339 540.25 339 2 L
+V
+N
+72.2 310.6 540.25 310.6 2 L
+V
+N
+72.2 293.2 540.25 293.2 2 L
+V
+N
+72.2 267.2 540.25 267.2 2 L
+V
+N
+0 1 1 0 1 0 0 K
+60 280.2 63 289.2 R
+0 1 1 0 1 0 0 K
+V
+60 142.19 63 161.19 R
+V
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.9/DEST FmPD2
+87 368/M9.11235.TableFootnote.a.For.NIRI.this.number.is.the.total.of.the.NIRI.CC.motors.and.NIRI.OIWFS.moto FmPA
+87 368/I1.1034114 FmPA
+[/Rect[463 313 466 324]/Border[0 0 0]/Page 9/View[/XYZ null 87 368 FmDC exch pop null]/LNK FmPD
+[/Rect[461 295 465 307]/Border[0 0 0]/Page 9/View[/XYZ null 87 368 FmDC exch pop null]/LNK FmPD
+[/Title(A)/Rect[63 63 549 729]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "9" 9
+%%Page: "10" 10
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 0.5 0.5 0 0.5 0 0 0.5]
+[ 0.5 0 0 0.5 0 0.5 0.5]
+[ 0.5 0 0.5 0.5 0 0.5 0]
+[ 0 0.5 0 0.5 0.5 0 0.5]
+[ 0 0.5 0.5 0.5 0.5 0 0]
+[ 0 0 0.5 0.5 0.5 0.5 0]
+[ 0 0 0 0.5 0.5 0.5 0.5]
+[ 0 0 0 0.25 0.75 0.75 0.75]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 18 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2001-06-27) 484.01 748 T
+72 892/G1013680 FmPA
+72 878/G1013681 FmPA
+72 36 540 50 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 46.4 540 46.4 2 L
+1.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+0 11 Q
+0 X
+0 0 0 1 0 0 0 K
+(\322NIRI/GNIRS Science Instrument to On Instrument Wavefront Sensor\323) 72 28.67 T
+-1.38 (ICD 1.9/1.10[ab]) 385.77 28.67 P
+(Page) 478.59 28.67 T
+(10) 503.94 28.67 T
+( of 12) 514.94 28.67 T
+72 173/G1013694 FmPA
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+208.71 712.33 171.21 712.33 2 L
+V
+0.5 H
+0 Z
+N
+3 10 Q
+(2\3203.2.3.1) 171.21 713.33 T
+290.69 712.33 223.2 712.33 2 L
+V
+N
+(The lockMaxMo) 223.2 713.33 T
+295.54 712.33 290.54 712.33 2 L
+V
+N
+(v) 290.54 713.33 T
+339.27 712.33 295.39 712.33 2 L
+V
+N
+(e, lockActi) 295.39 713.33 T
+344.02 712.33 339.02 712.33 2 L
+V
+N
+(v) 339.02 713.33 T
+401.36 712.33 343.87 712.33 2 L
+V
+N
+(e, and lockMo) 343.87 713.33 T
+450.92 712.33 401.21 712.33 2 L
+V
+N
+(ving records) 401.21 713.33 T
+72 857/G1034774 FmPA
+-0.38 (The lockMaxMo) 171.21 700.33 P
+-0.38 (v) 238.17 700.33 P
+-0.38 (e, lockActi) 243.02 700.33 P
+-0.38 (v) 286.27 700.33 P
+-0.38 (e, and lockMo) 291.12 700.33 P
+-0.38 (ving records pro) 347.69 700.33 P
+-0.38 (vide a mechanism to restrict the) 412.32 700.33 P
+72 844/G1034775 FmPA
+(number of mechanisms which may mo) 171.21 688.33 T
+(v) 326.32 688.33 T
+(e simultaneously \050necessary) 331.17 688.33 T
+(, because of po) 442.72 688.33 T
+(wer sup-) 502.45 688.33 T
+(ply restrictions\051. The lockMaxMo) 171.21 676.33 T
+(v) 306.6 676.33 T
+(e record contains the maximum number of mechanisms) 311.45 676.33 T
+-0.07 (which may be mo) 171.21 664.33 P
+-0.07 (v) 242.22 664.33 P
+-0.07 (ed simultaneously) 247.07 664.33 P
+-0.07 (. The lockMo) 318.85 664.33 P
+-0.07 (ving record contains the number of mech-) 372.71 664.33 P
+(anisms which are currently mo) 171.21 652.33 T
+(ving. The lockActi) 294.37 652.33 T
+(v) 369.39 652.33 T
+(e record contains the number of mecha-) 374.24 652.33 T
+(nisms which are mo) 171.21 640.33 T
+(ving or which are w) 251.33 640.33 T
+(aiting to mo) 331.21 640.33 T
+(v) 379.4 640.33 T
+(e.) 384.25 640.33 T
+(If an attempt is made to mo) 171.21 616.33 T
+(v) 281.05 616.33 T
+(e more mechanisms than are permitted, then the system will) 285.9 616.33 T
+72 760/G1034785 FmPA
+-0.15 (silently postpone the motion, so that no more than the maximum number of mechanisms are) 171.21 604.33 P
+(in motion.) 171.21 592.33 T
+(This restriction does not apply to the gimbal \050prbx, prby\051 mechanisms, which are permitted) 171.21 568.33 T
+72 712/G1034786 FmPA
+(to mo) 171.21 556.33 T
+(v) 194.12 556.33 T
+(e at an) 198.97 556.33 T
+(y time.) 224.92 556.33 T
+2 12 Q
+(2\3204.0) 135 520 T
+(Softwar) 171 520 T
+(e/Contr) 211.44 520 T
+(ol Function Interface \050Components) 250.55 520 T
+72 664/G1034302 FmPA
+72 493 540 502 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171 502 549 502 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 502 162 502 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(Contr) 171 506 T
+(oller\051) 201.44 506 T
+2 10 Q
+(2\3204.1) 139.5 466.33 T
+(Ov) 171 466.33 T
+(er) 183.68 466.33 T
+(view) 192.46 466.33 T
+72 610/G1034303 FmPA
+(2\3204.1.1) 132 441.33 T
+(Communications Infrastructur) 171 441.33 T
+(e) 303.31 441.33 T
+72 585/G1034304 FmPA
+3 F
+(The communications infrastructure is the same as described in [16].) 171.21 428.33 T
+72 572/G1034308 FmPA
+2 F
+(2\3204.2) 139.5 398.33 T
+(Implementation) 171 398.33 T
+72 542/G1034309 FmPA
+3 F
+(The instrument may control the temperature interlock system by writing to the lock records) 171.21 382.33 T
+72 526/G1034329 FmPA
+(which are described abo) 171.21 370.33 T
+(v) 267.97 370.33 T
+(e. Alternati) 272.82 370.33 T
+(v) 317.56 370.33 T
+(ely) 322.41 370.33 T
+(, it may pro) 333.98 370.33 T
+(vide a status and information record) 379.94 370.33 T
+3 8 Q
+(2) 524.08 374.33 T
+3 10 Q
+(which will be used to automatically update the lock records.) 171.21 358.33 T
+2 F
+(2\3204.2.1) 132 333.33 T
+(Monitoring an exter) 171 333.33 T
+(nal r) 256.95 333.33 T
+(ecord.) 277.05 333.33 T
+72 477/G1034814 FmPA
+3 F
+-0.23 (The te) 171.21 308.33 P
+-0.23 (mperature interlock may be set) 196.25 308.33 P
+-0.23 (by u) 321.46 308.33 P
+-0.23 (sing a record in another IOC. This feature must be) 338.73 308.33 P
+72 452/G1034815 FmPA
+-0.1 (enabled as a con\336guration option \050see [7],) 171.21 296.33 P
+-0.1 (section 6.4, \322Con\336guration,) 341 296.33 P
+-0.1 (\323 p. 8) 450.92 296.33 P
+-0.1 ( and) 472.65 296.33 P
+-0.1 (section 7.4,) 491.88 296.33 P
+-0.08 (\322Con\336guration,) 171.21 284.33 P
+-0.08 (\323 p. 11) 233.01 284.33 P
+-0.08 (\051.) 259.8 284.33 P
+0 F
+-0.08 (All thr) 268.05 284.33 P
+-0.08 (ee of the variables de\336ned below must be set as described, or) 293.45 284.33 P
+(all thr) 171.21 272.33 T
+(ee must be left unset.) 195.57 272.33 T
+3 F
+(Set the con\336guration v) 171.21 248.33 T
+(ariable) 261.79 248.33 T
+0 F
+(NIRI_TMPV) 291.5 248.33 T
+(AR) 341.45 248.33 T
+3 F
+( to the name of a \336eld of an EPICS record) 353.67 248.33 T
+72 392/G1034826 FmPA
+(which contains a numeric v) 171.21 236.33 T
+(alue. If the \336eld contains a 0, the v) 280.94 236.33 T
+(alue of the temperature inter-) 419 236.33 T
+(lock will be \322CHANGING.) 171.21 224.33 T
+(\323; a 1, the v) 280.49 224.33 T
+(alue is \322COLD\323; and a a 2, the v) 326.62 224.33 T
+(alue is \322W) 456.62 224.33 T
+(ARM\323.) 497.63 224.33 T
+(The con\336guration v) 171.21 200.33 T
+(ariable) 249.84 200.33 T
+0 F
+(NIRI_TMPSCAN) 279.55 200.33 T
+3 F
+(should be set to the rate at which the \336eld) 350.94 200.33 T
+72 344/G1034835 FmPA
+(de\336ned by) 171.21 188.33 T
+0 F
+(NIRI_TMPV) 215.65 188.33 T
+(AR) 265.6 188.33 T
+3 F
+( should be monitored. This should be a v) 277.82 188.33 T
+(alid capf) 440.62 188.33 T
+(ast scan rate,) 475.23 188.33 T
+(e.g., \3221 second\323. There is no reason to scan at a rate f) 171.21 176.33 T
+(aster than \3221 second.) 383.82 176.33 T
+(\323) 466.43 176.33 T
+(The con\336guration v) 171.21 152.33 T
+(ariable) 249.84 152.33 T
+0 F
+(NIRI_TMPHB) 279.55 152.33 T
+3 F
+( should be set to the name of a \336eld which is) 337.32 152.33 T
+72 296/G1034882 FmPA
+(changing at least as frequently as) 171.21 140.33 T
+0 F
+(NIRI_TMPSCAN) 306.18 140.33 T
+3 F
+(, and which resides within the same IOC) 375.07 140.33 T
+-0.02 (as) 171.21 128.33 P
+0 F
+-0.02 (NIRI_TMPV) 182.02 128.33 P
+-0.02 (AR) 231.97 128.33 P
+3 F
+-0.02 (. This is used to detect communications problems and IOC problems, and) 244.19 128.33 P
+72 95 540 111 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171.21 103 341.29 103 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+3 9 Q
+0 X
+0 0 0 1 0 0 0 K
+(2.) 171.21 89 T
+-0.14 (Gemini requires a SIR record to be the interf) 185.39 89 P
+-0.14 (ace between tw) 345.17 89 P
+-0.14 (o systems. The softw) 400.28 89 P
+-0.14 (are will w) 475.77 89 P
+-0.14 (ork cor-) 511.4 89 P
+72 233/G1034812 FmPA
+(rectly with an) 185.39 79 T
+(y record that can return a numeric v) 234.74 79 T
+(alue.) 363.23 79 T
+0 1 1 0 1 0 0 K
+60 281 63 315 R
+0 1 1 0 1 0 0 K
+V
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.10/DEST FmPD2
+171 549/M9.36588.Heading2.242.Implementation FmPA
+171 549/I1.1034646 FmPA
+171 484/M9.28262.Heading3.2421.Monitoring.an.external.record FmPA
+171 484/I1.1034818 FmPA
+[/Rect[423 425 440 435]/Border[0 0 0]/Dest/M9.42664.Doclist.6.cicssmb039.CICS.Project.Glossary.and.References.Steven.Beard.Royal/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Rect[341 293 473 303]/Border[0 0 0]/Dest/M9.39567.Heading2.44.Configuration/Action/GoToR/File(niri_hty_006.fm.pdf)/LNK FmPD2
+[/Rect[324 293 336 303]/Border[0 0 0]/Dest/M9.27174.Doclist.7.nirihty006fm.Near.IR.Imager.NIRISoftware.Release.Notes.Hubert.Yamada/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Rect[492 293 540 303]/Border[0 0 0]/Dest/M9.41748.Heading2.44.Configuration/Action/GoToR/File(niri_hty_006.fm.pdf)/LNK FmPD2
+[/Rect[72 281 260 293]/Border[0 0 0]/Dest/M9.41748.Heading2.44.Configuration/Action/GoToR/File(niri_hty_006.fm.pdf)/LNK FmPD2
+[/Title(A)/Rect[63 63 549 729]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "10" 10
+%%Page: "11" 11
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 0.5 0.5 0 0.5 0 0 0.5]
+[ 0.5 0 0 0.5 0 0.5 0.5]
+[ 0.5 0 0.5 0.5 0 0.5 0]
+[ 0 0.5 0 0.5 0.5 0 0.5]
+[ 0 0.5 0.5 0.5 0.5 0 0]
+[ 0 0 0.5 0.5 0.5 0.5 0]
+[ 0 0 0 0.5 0.5 0.5 0.5]
+[ 0 0 0 0.25 0.75 0.75 0.75]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 18 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2001-06-27) 484.01 748 T
+72 892/G1013680 FmPA
+72 878/G1013681 FmPA
+72 36 540 50 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 46.4 540 46.4 2 L
+1.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+0 11 Q
+0 X
+0 0 0 1 0 0 0 K
+(\322NIRI/GNIRS Science Instrument to On Instrument Wavefront Sensor\323) 72 28.67 T
+-1.38 (ICD 1.9/1.10[ab]) 385.77 28.67 P
+(Page) 478.59 28.67 T
+(11) 503.94 28.67 T
+( of 12) 514.94 28.67 T
+72 173/G1013694 FmPA
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+3 10 Q
+(will automatically force the system into a \322CHANGING\323 \050lock) 171.21 713.33 T
+(ed\051 state if there is a prob-) 424.4 713.33 T
+(lem.) 171.21 701.33 T
+2 F
+(2\3204.2.2) 132 676.33 T
+(Status Inf) 171 676.33 T
+(ormation Records) 212.7 676.33 T
+72 820/G1034344 FmPA
+3 F
+(The follo) 171.21 663.33 T
+(wing tables sho) 207.9 663.33 T
+(w the status information pro) 269.87 663.33 T
+(vided by the NIRI/GNIRS OIWFS) 382.49 663.33 T
+72 807/G1034345 FmPA
+-0.23 (components controller which are of importance to the instrument as a whole.The tables ha) 171.21 651.33 P
+-0.23 (v) 528.45 651.33 P
+-0.23 (e) 533.29 651.33 P
+(the follo) 171.21 639.33 T
+(wing columns:) 204.57 639.33 T
+2 F
+(SIR r) 171.21 615.33 T
+(ecord.) 194.64 615.33 T
+72 759/G1034346 FmPA
+3 F
+-0.18 (The part of the name of the EPICS SIR record which follo) 223.52 615.33 P
+-0.18 (ws the \322niri:\323 pre\336x) 454.33 615.33 P
+3 8 Q
+-0.14 (3) 533.5 619.33 P
+3 10 Q
+-0.18 (.) 537.5 615.33 P
+72 759/G1034350 FmPA
+2 F
+(Units.) 171.21 591.33 T
+72 735/G1034351 FmPA
+3 F
+(The units in which the quantity is stored) 198.99 591.33 T
+72 735/G1034352 FmPA
+2 F
+(Comments.) 171.21 567.33 T
+72 711/G1034353 FmPA
+3 F
+-0.19 (A description of the item. The \336rst paragraph of this will go into the SIR record) 222.31 567.33 P
+72 711/G1034354 FmPA
+(description and also the comment \336eld in the FITS header) 171.21 555.33 T
+(.) 402.58 555.33 T
+0 F
+(Note that only the type) 171.21 531.33 T
+(, units and comments ar) 261.66 531.33 T
+(e actually contained in the SIR r) 357.12 531.33 T
+(ecor) 486.18 531.33 T
+(ds. The) 503.58 531.33 T
+72 675/G1034355 FmPA
+(FITS k) 171.21 519.33 T
+(e) 198.05 519.33 T
+(ywor) 202.19 519.33 T
+(d is pr) 221.82 519.33 T
+(o) 246.93 519.33 T
+(vided by the DHS.) 251.83 519.33 T
+72 326 540 335 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171 335 549 335 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 335 162 335 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2\3205.0) 135 339 T
+(Safety Issues) 171 339 T
+72 483/G1032894 FmPA
+3 10 Q
+(The instrument softw) 171.21 309.33 T
+(are must al) 256.66 309.33 T
+(w) 300.44 309.33 T
+(ays call lockTmpSel when the system is e) 307.56 309.33 T
+(xpected to be at) 474.34 309.33 T
+72 453/G1032898 FmPA
+-0.17 (a non-equilibrium temperature. If the alternati) 171.21 297.33 P
+-0.17 (v) 353.97 297.33 P
+-0.17 (e interf) 358.82 297.33 P
+-0.17 (ace is used \050see section 2\3204.2, \322Imple-) 387.16 297.33 P
+(mentation,) 171.21 285.33 T
+(\323 p. 10\051, the sir records which are being monitored must be hold the appropriate) 213.01 285.33 T
+-0.12 (temperature state.) 171.21 273.33 P
+0 F
+-0.12 (V) 244.57 273.33 P
+-0.12 (arious components may not oper) 249.57 273.33 P
+-0.12 (ate corr) 380.04 273.33 P
+-0.12 (ectly \050and could be dama) 411.49 273.33 P
+-0.12 (g) 512.01 273.33 P
+-0.12 (ed\051 if) 516.91 273.33 P
+-0.25 (the) 171.21 261.33 P
+-0.25 (y ar) 183.13 261.33 P
+-0.25 (e mo) 198.34 261.33 P
+-0.25 (ved when ther) 217.15 261.33 P
+-0.25 (e is a signi\336cant temper) 272.37 261.33 P
+-0.25 (atur) 366.76 261.33 P
+-0.25 (e gr) 383.06 261.33 P
+-0.25 (adient acr) 398.49 261.33 P
+-0.25 (oss the component \050mor) 438.62 261.33 P
+-0.25 (e) 533.31 261.33 P
+(than 50 de) 171.21 249.33 T
+(gr) 213.03 249.33 T
+(ees C\051.) 221.55 249.33 T
+72 200 540 209 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171 209 549 209 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 209 162 209 2 L
+0 Z
+N
+0 0 612 792 C
+2 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2\3206.0) 135 213 T
+(Acti) 171 213 T
+(vity Completion) 192.2 213 T
+72 357/G1034953 FmPA
+3 10 Q
+(The interlocks only pre) 171.21 183.33 T
+(v) 264 183.33 T
+(ent ne) 268.85 183.33 T
+(w actions from starting. The) 292.76 183.33 T
+(y do not interrupt currently e) 405.65 183.33 T
+(x) 520.76 183.33 T
+(e-) 525.61 183.33 T
+72 327/G1034954 FmPA
+(cuting commands.) 171.21 171.33 T
+72 105 540 121 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171.21 113 341.29 113 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+3 9 Q
+0 X
+0 0 0 1 0 0 0 K
+(3.) 171.21 99 T
+(Note that the actual system has been designed so the Status Alarm Database can easily be gi) 185.39 99 T
+(v) 516.6 99 T
+(en a) 520.97 99 T
+72 243/G1034349 FmPA
+(dif) 185.39 89 T
+(ferent pre\336x from the rest of the NIRI database \050for e) 195.16 89 T
+(xample \322niri:\323\051. It is assumed in this docu-) 386.46 89 T
+(ment that the Status Alarm Database pre\336x will be \322niri:\323.) 185.39 79 T
+72 487 540 510 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171.21 495 556.72 495 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 495 157.04 495 2 L
+0 Z
+N
+0 0 612 792 C
+5 9 Q
+0 X
+0 0 0 1 0 0 0 K
+(T) 72 481 T
+(ABLE 3.) 76.69 481 T
+3 F
+(NIRI/GNIRS OIWFS status Information) 171.21 481 T
+72 625/G1034358 FmPA
+5 8 Q
+(SIR recor) 78.45 448.67 T
+(d) 113.86 448.67 T
+72 593/G1034370 FmPA
+(\050\322niri:wfs:\323 +\051) 78.45 439.67 T
+72 584/G1034371 FmPA
+(FITS) 146.25 448.67 T
+140 593/G1034373 FmPA
+(ke) 146.25 439.67 T
+(yw) 155.03 439.67 T
+(or) 165.54 439.67 T
+(d) 173.38 439.67 T
+(FITS) 192.15 457.67 T
+186 602/G1034375 FmPA
+(inc) 192.15 448.67 T
+(lud) 203.55 448.67 T
+(ed?) 192.15 439.67 T
+(T) 228.81 439.67 T
+(ype) 233.22 439.67 T
+223 584/G1034377 FmPA
+(Units) 277.07 439.67 T
+271 584/G1034379 FmPA
+(Comments) 317.15 439.67 T
+311 584/G1034381 FmPA
+3 9 Q
+(lockTmpV) 78.45 425 T
+(al) 116.45 425 T
+72 569/G1034455 FmPA
+140 569/G1034457 FmPA
+(no) 192.15 425 T
+186 569/G1034459 FmPA
+(string) 228.81 425 T
+223 569/G1034461 FmPA
+271 569/G1034463 FmPA
+(Current temperature state \050\322COLD\323 | \322W) 317.15 425 T
+(ARM\323 | \322CHANG-) 464.08 425 T
+311 569/G1034465 FmPA
+(ING\323\051) 317.15 414 T
+(lockTmpHB) 78.45 399 T
+72 543/G1034859 FmPA
+140 543/G1034861 FmPA
+(no) 192.15 399 T
+186 543/G1034863 FmPA
+(long) 228.81 399 T
+223 543/G1034865 FmPA
+271 543/G1034867 FmPA
+(A non-zero v) 317.15 399 T
+(alue indicates a communications error or a) 364.41 399 T
+311 543/G1034869 FmPA
+(problem with the IOC containing ${NIRI_TMPV) 317.15 388 T
+(AR} and) 494.49 388 T
+(${NIRI_TMPHB}) 317.15 377 T
+72.45 469.75 72.45 372.25 2 L
+V
+0.5 H
+0 Z
+N
+140.25 470.25 140.25 371.75 2 L
+V
+N
+186.15 470.25 186.15 371.75 2 L
+V
+N
+222.81 470.25 222.81 371.75 2 L
+V
+N
+271.07 470.25 271.07 371.75 2 L
+V
+N
+311.15 470.25 311.15 371.75 2 L
+V
+N
+540 469.75 540 372.25 2 L
+V
+N
+72.2 470 540.25 470 2 L
+V
+N
+72.2 435 540.25 435 2 L
+V
+2 H
+N
+72.2 409 540.25 409 2 L
+V
+0.5 H
+N
+72.2 372 540.25 372 2 L
+V
+N
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.11/DEST FmPD2
+171 365/M9.29933.Heading1.260.Activity.Completion FmPA
+171 365/I1.1034961 FmPA
+[/Rect[451 294 540 304]/Border[0 0 0]/Page 10/View[/XYZ null 171 549 FmDC exch pop null]/LNK FmPD
+[/Rect[72 282 240 294]/Border[0 0 0]/Page 10/View[/XYZ null 171 549 FmDC exch pop null]/LNK FmPD
+[/Title(A)/Rect[63 63 549 729]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "11" 11
+%%Page: "12" 12
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 0.5 0.5 0 0.5 0 0 0.5]
+[ 0.5 0 0 0.5 0 0.5 0.5]
+[ 0.5 0 0.5 0.5 0 0.5 0]
+[ 0 0.5 0 0.5 0.5 0 0.5]
+[ 0 0.5 0.5 0.5 0.5 0 0]
+[ 0 0 0.5 0.5 0.5 0.5 0]
+[ 0 0 0 0.5 0.5 0.5 0.5]
+[ 0 0 0 0.25 0.75 0.75 0.75]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 18 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2001-06-27) 484.01 748 T
+72 892/G1013680 FmPA
+72 878/G1013681 FmPA
+72 36 540 50 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 46.4 540 46.4 2 L
+1.5 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+0 11 Q
+0 X
+0 0 0 1 0 0 0 K
+(\322NIRI/GNIRS Science Instrument to On Instrument Wavefront Sensor\323) 72 28.67 T
+-1.38 (ICD 1.9/1.10[ab]) 385.77 28.67 P
+(Page) 478.59 28.67 T
+(12) 503.94 28.67 T
+( of 12) 514.94 28.67 T
+72 173/G1013694 FmPA
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+3 10 Q
+-0.25 (In order to be sure that the \336lter wheel and the focusing stage ha) 171.21 713.33 P
+-0.25 (v) 424.7 713.33 P
+-0.25 (e stopped, it is necessary to) 429.55 713.33 P
+72 857/G1034988 FmPA
+(monitor their CAR records. These records are standard CAR records; when the mechanism) 171.21 701.33 T
+(is idle, these records will ha) 171.21 689.33 T
+(v) 282.66 689.33 T
+(e the v) 287.51 689.33 T
+(alue \322IDLE\323.) 313.92 689.33 T
+(The Gimbal Mirror is unusual; if it is in \322follo) 171.21 665.33 T
+(w\323 mode, it is possible for the mechanism to) 355.68 665.33 T
+72 809/G1034993 FmPA
+-0.31 (be in motion, e) 171.21 653.33 P
+-0.31 (v) 230.02 653.33 P
+-0.31 (en if the CAR record sho) 234.87 653.33 P
+-0.31 (ws \322IDLE\323. F) 333.3 653.33 P
+-0.31 (or this reason, the CAR record should) 388.34 653.33 P
+(not be used to determine mechanism acti) 171.21 641.33 T
+(vity) 334.27 641.33 T
+(. Instead, use the IsIdle SIR record. When this) 349.18 641.33 T
+(SIR record has a zero v) 171.21 629.33 T
+(alue, the gimbals are guaranteed to be inacti) 264.54 629.33 T
+(v) 440.36 629.33 T
+(e.) 445.21 629.33 T
+72 597 540 620 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171.21 605 556.72 605 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 605 157.04 605 2 L
+0 Z
+N
+0 0 612 792 C
+5 9 Q
+0 X
+0 0 0 1 0 0 0 K
+(T) 72 591 T
+(ABLE 4.) 76.69 591 T
+3 F
+(NIRI/GNIRS OIWFS Acti) 171.21 591 T
+(vity Records) 266.98 591 T
+72 735/G1035058 FmPA
+5 8 Q
+(Recor) 76.27 567.67 T
+(d) 98.78 567.67 T
+70 712/G1035095 FmPA
+(\050\322niri:wfs:\323 +\051) 76.27 558.67 T
+(Recor) 144.07 558.67 T
+(d T) 166.58 558.67 T
+(ype) 178.1 558.67 T
+138 703/G1035067 FmPA
+(T) 211.87 558.67 T
+(ype) 216.28 558.67 T
+206 703/G1035069 FmPA
+(Units) 313.07 558.67 T
+307 703/G1035071 FmPA
+(Comments) 353.15 558.67 T
+347 703/G1035073 FmPA
+3 9 Q
+(IsIdle) 76.27 544 T
+70 688/G1035098 FmPA
+(SIR) 144.07 544 T
+138 688/G1035075 FmPA
+(long) 211.87 544 T
+206 688/G1035077 FmPA
+(0=TR) 211.87 533 T
+(UE, 1=F) 232.59 533 T
+(ALSE) 263 533 T
+307 688/G1035079 FmPA
+(Both ax) 353.15 544 T
+(es of gimbal mirror are inacti) 381.27 544 T
+(v) 486.27 544 T
+(e.) 490.63 544 T
+347 688/G1035081 FmPA
+(\336ltC) 76.27 518 T
+70 662/G1035100 FmPA
+(CAR) 144.07 518 T
+138 662/G1035083 FmPA
+(Standard CAR v) 211.87 518 T
+(alues) 271.15 518 T
+206 662/G1035085 FmPA
+307 662/G1035087 FmPA
+(State of the \336lter wheel.) 353.15 518 T
+347 662/G1035089 FmPA
+(focC) 76.27 503 T
+70 647/G1035118 FmPA
+(CAR) 144.07 503 T
+138 647/G1035120 FmPA
+(Standard CAR v) 211.87 503 T
+(alues) 271.15 503 T
+206 647/G1035122 FmPA
+307 647/G1035124 FmPA
+(State of the focusing stage.) 353.15 503 T
+347 647/G1035126 FmPA
+70.27 579.75 70.27 498.25 2 L
+V
+0.5 H
+0 Z
+N
+138.07 580.25 138.07 497.75 2 L
+V
+N
+205.87 580.25 205.87 497.75 2 L
+V
+N
+307.07 580.25 307.07 497.75 2 L
+V
+N
+347.15 580.25 347.15 497.75 2 L
+V
+N
+540 579.75 540 498.25 2 L
+V
+N
+70.02 580 540.25 580 2 L
+V
+N
+70.02 554 540.25 554 2 L
+V
+2 H
+N
+70.02 528 540.25 528 2 L
+V
+0.5 H
+N
+70.02 513 540.25 513 2 L
+V
+N
+70.02 498 540.25 498 2 L
+V
+N
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.12/DEST FmPD2
+[/Title(A)/Rect[63 63 549 729]/ARTICLE FmPD2
+[/Page 1/View[/XYZ null 77 811 FmDC exch pop null]/Title(Title - \215NIRI/GNIRS Science Instrument to On Instrument Wa...)/Count 2/OUT FmPD
+[/Page 3/View[/XYZ null 171 864 FmDC exch pop null]/Title(Chapter - Chapter 1 Introduction)/Count 2/OUT FmPD
+[/Page 3/View[/XYZ null 171 792 FmDC exch pop null]/Title(Heading1 - 1\2051.0 Description)/Count -3/OUT FmPD
+[/Page 3/View[/XYZ null 171 695 FmDC exch pop null]/Title(Heading2 - 1\2051.1 Purpose)/OUT FmPD
+[/Page 3/View[/XYZ null 171 547 FmDC exch pop null]/Title(Heading2 - 1\2051.2 Scope)/OUT FmPD
+[/Page 3/View[/XYZ null 171 350 FmDC exch pop null]/Title(Heading2 - 1\2051.3 Differences between NIRI and GNIRS)/OUT FmPD
+[/Page 3/View[/XYZ null 171 287 FmDC exch pop null]/Title(Heading1 - 1\2052.0 Related Documents and Drawings)/Count -3/OUT FmPD
+[/Page 3/View[/XYZ null 171 246 FmDC exch pop null]/Title(Heading2 - 1\2052.1 References)/OUT FmPD
+[/Page 4/View[/XYZ null 171 864 FmDC exch pop null]/Title(Heading2 - 1\2052.2 Definitions, Acronyms and Abbreviations)/OUT FmPD
+[/Page 4/View[/XYZ null 171 818 FmDC exch pop null]/Title(Heading2 - 1\2052.3 Stylistic Conventions)/OUT FmPD
+[/Page 5/View[/XYZ null 171 864 FmDC exch pop null]/Title(Chapter - Chapter 2 Details of the NIRI/GNIRS to OIWFS Inter...)/Count 6/OUT FmPD
+[/Page 5/View[/XYZ null 171 792 FmDC exch pop null]/Title(Heading1 - 2\2051.0 Introduction)/OUT FmPD
+[/Page 5/View[/XYZ null 171 746 FmDC exch pop null]/Title(Heading1 - 2\2052.0 Physical System Interfaces)/Count -5/OUT FmPD
+[/Page 5/View[/XYZ null 171 705 FmDC exch pop null]/Title(Heading2 - 2\2052.1 Mechanical Interface)/OUT FmPD
+[/Page 5/View[/XYZ null 171 659 FmDC exch pop null]/Title(Heading2 - 2\2052.2 Optical Interface)/OUT FmPD
+[/Page 5/View[/XYZ null 171 613 FmDC exch pop null]/Title(Heading2 - 2\2052.3 Electronic Interface)/OUT FmPD
+[/Page 5/View[/XYZ null 171 567 FmDC exch pop null]/Title(Heading2 - 2\2052.4 Mass/Balance)/OUT FmPD
+[/Page 5/View[/XYZ null 171 521 FmDC exch pop null]/Title(Heading2 - 2\2052.5 Thermal Interface)/OUT FmPD
+[/Page 5/View[/XYZ null 171 470 FmDC exch pop null]/Title(Heading1 - 2\2053.0 Software/Control Function Interface \(wavefro...)/Count -2/OUT FmPD
+[/Page 5/View[/XYZ null 171 429 FmDC exch pop null]/Title(Heading2 - 2\2053.1 Overview)/Count -1/OUT FmPD
+[/Page 5/View[/XYZ null 171 404 FmDC exch pop null]/Title(Heading3 - 2\2053.1.1 Communications infrastructure)/OUT FmPD
+[/Page 5/View[/XYZ null 171 361 FmDC exch pop null]/Title(Heading2 - 2\2053.2 Implementation)/Count -3/OUT FmPD
+[/Page 5/View[/XYZ null 171 260 FmDC exch pop null]/Title(Heading3 - 2\2053.2.1 Command \(CAD/CAR\) records)/Count -6/OUT FmPD
+[/Page 6/View[/XYZ null 223 540 FmDC exch pop null]/Title(Heading4 - 2\2053.2.1.1 Detailed Command Description)/OUT FmPD
+[/Page 6/View[/XYZ null 223 514 FmDC exch pop null]/Title(Heading4 - 2\2053.2.1.2 lockCfgSel)/OUT FmPD
+[/Page 7/View[/XYZ null 223 864 FmDC exch pop null]/Title(Heading4 - 2\2053.2.1.3 lockObsSel)/OUT FmPD
+[/Page 7/View[/XYZ null 223 634 FmDC exch pop null]/Title(Heading4 - 2\2053.2.1.4 lockGenSel)/OUT FmPD
+[/Page 7/View[/XYZ null 223 392 FmDC exch pop null]/Title(Heading4 - 2\2053.2.1.5 lockTmpSel)/OUT FmPD
+[/Page 8/View[/XYZ null 223 611 FmDC exch pop null]/Title(Heading4 - 2\2053.2.1.6 DATUM)/OUT FmPD
+[/Page 8/View[/XYZ null 171 513 FmDC exch pop null]/Title(Heading3 - 2\2053.2.2 Status Information Records)/OUT FmPD
+[/Page 9/View[/XYZ null 171 267 FmDC exch pop null]/Title(Heading3 - 2\2053.2.3 Detailed SIR record description)/Count -1/OUT FmPD
+[/Page 10/View[/XYZ null 223 864 FmDC exch pop null]/Title(Heading4 - 2\2053.2.3.1 The lockMaxMove, lockActive, and lockMov...)/OUT FmPD
+[/Page 10/View[/XYZ null 171 672 FmDC exch pop null]/Title(Heading1 - 2\2054.0 Software/Control Function Interface \(Compone...)/Count -2/OUT FmPD
+[/Page 10/View[/XYZ null 171 617 FmDC exch pop null]/Title(Heading2 - 2\2054.1 Overview)/Count -1/OUT FmPD
+[/Page 10/View[/XYZ null 171 592 FmDC exch pop null]/Title(Heading3 - 2\2054.1.1 Communications Infrastructure)/OUT FmPD
+[/Page 10/View[/XYZ null 171 549 FmDC exch pop null]/Title(Heading2 - 2\2054.2 Implementation)/Count -2/OUT FmPD
+[/Page 10/View[/XYZ null 171 484 FmDC exch pop null]/Title(Heading3 - 2\2054.2.1 Monitoring an external record.)/OUT FmPD
+[/Page 11/View[/XYZ null 171 827 FmDC exch pop null]/Title(Heading3 - 2\2054.2.2 Status Information Records)/OUT FmPD
+[/Page 11/View[/XYZ null 171 491 FmDC exch pop null]/Title(Heading1 - 2\2055.0 Safety Issues)/OUT FmPD
+[/Page 11/View[/XYZ null 171 365 FmDC exch pop null]/Title(Heading1 - 2\2056.0 Activity Completion)/OUT FmPD
+FMENDPAGE
+%%EndPage: "12" 12
+%%Trailer
+%%BoundingBox: 0 0 612 792
+%%PageOrder: Ascend
+%%Pages: 12
+%%DocumentFonts: Times-Italic
+%%+ Helvetica
+%%+ Times-Bold
+%%+ Times-Roman
+%%+ Courier-Bold
+%%+ Helvetica-Bold
+%%EOF

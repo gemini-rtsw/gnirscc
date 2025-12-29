@@ -1,0 +1,17 @@
+nirsTop.db:     record(car,"nirs:dc:alwaysC") {
+nirsTop.db:     record(car,"nirs:dc:applyC") {
+nirsTop.db:     record(car,"nirs:dc:arSetupC") {
+nirsTop.db:     record(car,"nirs:dc:datumC") {
+nirsTop.db:     record(car,"nirs:dc:drRoiSetC") {
+nirsTop.db:     record(car,"nirs:dc:endGuideC") {
+nirsTop.db:     record(car,"nirs:dc:endObserveC") {
+nirsTop.db:     record(car,"nirs:dc:endVerifyC") {
+nirsTop.db:     record(car,"nirs:dc:gSysC") {
+nirsTop.db:     record(car,"nirs:dc:guideC") {
+nirsTop.db:     record(car,"nirs:dc:initC") {
+nirsTop.db:     record(car,"nirs:dc:noopC") {
+nirsTop.db:     record(car,"nirs:dc:observeC") {
+nirsTop.db:     record(car,"nirs:dc:obsSetupC") {
+nirsTop.db:     record(car,"nirs:dc:parkC") {
+nirsTop.db:     record(car,"nirs:dc:testC") {
+nirsTop.db:     record(car,"nirs:dc:verifyC") {

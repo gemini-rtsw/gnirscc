@@ -1,0 +1,3320 @@
+%!PS-Adobe-3.0
+%%BoundingBox: (atend)
+%%Pages: (atend)
+%%PageOrder: (atend)
+%%DocumentFonts: (atend)
+%%Creator: Frame 5.0
+%%DocumentData: Clean7Bit
+%%EndComments
+%%BeginProlog
+%
+% Frame ps_prolog 5.0, for use with Frame 5.0 products
+% This ps_prolog file is Copyright (c) 1986-1995 Frame Technology
+% Corporation.  All rights reserved.  This ps_prolog file may be
+% freely copied and distributed in conjunction with documents created
+% using FrameMaker, FrameMaker/SGML and FrameViewer as long as this 
+% copyright notice is preserved.
+%
+% FrameMaker users specify the proper paper size for each print job in the
+% "Print" dialog's "Printer Paper Size" "Width" and "Height~ fields.  If the
+% printer that the PS file is sent to does not support the requested paper
+% size, or if there is no paper tray of the proper size currently installed, 
+% then the job will not be printed.  The following flag, if set to true, will
+% cause the job to print on the default paper in such cases.
+/FMAllowPaperSizeMismatch            false def
+%
+% Frame products normally print colors as their true color on a color printer
+% or as shades of gray, based on luminance, on a black-and white printer. The
+% following flag, if set to true, forces all non-white colors to print as pure
+% black. This has no effect on bitmap images.
+/FMPrintAllColorsAsBlack             false def
+%
+% Frame products can either set their own line screens or use a printer's 
+% default settings. Three flags below control this separately for no 
+% separations, spot separations and process separations. If a flag
+% is true, then the default printer settings will not be changed. If it is
+% false, Frame products will use their own settings from a table based on
+% the printer's resolution.
+/FMUseDefaultNoSeparationScreen      true  def
+/FMUseDefaultSpotSeparationScreen    true  def
+/FMUseDefaultProcessSeparationScreen false def
+%
+% For any given PostScript printer resolution, Frame products have two sets of 
+% screen angles and frequencies for printing process separations, which are 
+% recomended by Adobe. The following variable chooses the higher frequencies
+% when set to true or the lower frequencies when set to false. This is only
+% effective if the appropriate FMUseDefault...SeparationScreen flag is false.
+/FMUseHighFrequencyScreens true def
+%
+% The following is a set of predefined optimal frequencies and angles for various
+% common dpi settings. This is taken from "Advances in Color Separation Using
+% PostScript Software Technology," from Adobe Systems (3/13/89 P.N. LPS 0043)
+% and corrolated with information which is in various PPD (4.0) files.
+%
+% The "dpiranges" figure is the minimum dots per inch device resolution which
+% can support this setting. The "low" and "high" values are controlled by the
+% setting of the FMUseHighFrequencyScreens flag above. The "TDot" flags control
+% the use of the "Yellow Triple Dot" feature whereby the frequency id divided by
+% three, but the dot function is "trippled" giving a block of 3x3 dots per cell.
+%
+% PatFreq is a compromise pattern frequency for ps Level 2 printers which is close
+% to the ideal WYSIWYG pattern frequency of 9 repetitions/inch but does not beat
+% (too badly) against the screen frequencies of any separations for that DPI.
+/dpiranges   [  2540    2400    1693     1270    1200     635      600      0      ] def
+/CMLowFreqs  [ 100.402  94.8683 89.2289 100.402  94.8683  66.9349  63.2456 47.4342 ] def
+/YLowFreqs   [  95.25   90.0    84.65    95.25   90.0     70.5556  66.6667 50.0    ] def
+/KLowFreqs   [  89.8026 84.8528 79.8088  89.8026 84.8528  74.8355  70.7107 53.033  ] def
+/CLowAngles  [  71.5651 71.5651 71.5651 71.5651  71.5651  71.5651  71.5651 71.5651 ] def
+/MLowAngles  [  18.4349 18.4349 18.4349 18.4349  18.4349  18.4349  18.4349 18.4349 ] def
+/YLowTDot    [  true    true    false    true    true     false    false   false   ] def
+/CMHighFreqs [ 133.87  126.491 133.843  108.503 102.523  100.402   94.8683 63.2456 ] def
+/YHighFreqs  [ 127.0   120.0   126.975  115.455 109.091   95.25    90.0    60.0    ] def
+/KHighFreqs  [ 119.737 113.137 119.713  128.289 121.218   89.8026  84.8528 63.6395 ] def
+/CHighAngles [  71.5651 71.5651 71.5651  70.0169 70.0169  71.5651  71.5651 71.5651 ] def
+/MHighAngles [  18.4349 18.4349 18.4349  19.9831 19.9831  18.4349  18.4349 18.4349 ] def
+/YHighTDot   [  false   false   true     false   false    true     true    false   ] def
+/PatFreq     [	10.5833 10.0     9.4055  10.5833 10.0	  10.5833  10.0	   9.375   ] def
+%
+% PostScript Level 2 printers contain an "Accurate Screens" feature which can
+% improve process separation rendering at the expense of compute time. This 
+% flag is ignored by PostScript Level 1 printers.
+/FMUseAcccurateScreens true def
+%
+% The following PostScript procedure defines the spot function that Frame
+% products will use for process separations. You may un-comment-out one of
+% the alternative functions below, or use your own.
+%
+% Dot function
+/FMSpotFunction {abs exch abs 2 copy add 1 gt 
+		{1 sub dup mul exch 1 sub dup mul add 1 sub }
+		{dup mul exch dup mul add 1 exch sub }ifelse } def
+%
+% Line function
+% /FMSpotFunction { pop } def
+%
+% Elipse function
+% /FMSpotFunction { dup 5 mul 8 div mul exch dup mul exch add 
+%		sqrt 1 exch sub } def
+%
+%
+/FMversion (5.0) def 
+/fMLevel1 /languagelevel where {pop languagelevel} {1} ifelse 2 lt def
+/FMPColor
+	fMLevel1 {
+		false
+		/colorimage where {pop pop true} if
+	} {
+		true
+	} ifelse
+def
+/FrameDict 400 dict def 
+systemdict /errordict known not {/errordict 10 dict def
+		errordict /rangecheck {stop} put} if
+% The readline in PS 23.0 doesn't recognize cr's as nl's on AppleTalk
+FrameDict /tmprangecheck errordict /rangecheck get put 
+errordict /rangecheck {FrameDict /bug true put} put 
+FrameDict /bug false put 
+mark 
+% Some PS machines read past the CR, so keep the following 3 lines together!
+currentfile 5 string readline
+00
+0000000000
+cleartomark 
+errordict /rangecheck FrameDict /tmprangecheck get put 
+FrameDict /bug get { 
+	/readline {
+		/gstring exch def
+		/gfile exch def
+		/gindex 0 def
+		{
+			gfile read pop 
+			dup 10 eq {exit} if 
+			dup 13 eq {exit} if 
+			gstring exch gindex exch put 
+			/gindex gindex 1 add def 
+		} loop
+		pop 
+		gstring 0 gindex getinterval true 
+		} bind def
+	} if
+/FMshowpage /showpage load def
+/FMquit /quit load def
+/FMFAILURE { 
+	dup = flush 
+	FMshowpage 
+	/Helvetica findfont 12 scalefont setfont
+	72 200 moveto show
+	72 220 moveto show
+	FMshowpage 
+	FMquit 
+	} def 
+/FMVERSION {
+	FMversion ne {
+		(Frame product version does not match ps_prolog!  Check installation;)
+		(also check ~/fminit and ./fminit for old versions) FMFAILURE
+		} if
+	} def 
+/FMBADEPSF { 
+	(Adobe's PostScript Language Reference Manual, 2nd Edition, section H.2.4)
+	(says your EPS file is not valid, as it calls X              )
+	dup dup (X) search pop exch pop exch pop length 
+	5 -1 roll 
+	putinterval 
+	FMFAILURE
+	} def
+/fmConcatProcs
+	{
+	/proc2 exch cvlit def/proc1 exch cvlit def/newproc proc1 length proc2 length add array def
+	newproc 0 proc1 putinterval newproc proc1 length proc2 putinterval newproc cvx
+}def
+FrameDict begin [
+	/ALDsave
+	/FMdicttop
+	/FMoptop
+	/FMpointsize
+	/FMsaveobject
+	/b
+	/bitmapsave
+	/blut
+	/bpside
+	/bs
+	/bstring
+	/bwidth
+	/c
+	/cf
+	/cs
+	/cynu
+	/depth
+	/edown
+	/fh
+	/fillvals
+	/fw
+	/fx
+	/fy
+	/g
+	/gfile
+	/gindex
+	/grnt
+	/gryt
+	/gstring
+	/height
+	/hh
+	/i
+	/im
+	/indx
+	/is
+	/k
+	/kk
+	/landscape
+	/lb
+	/len
+	/llx
+	/lly
+	/m
+	/magu
+	/manualfeed
+	/n
+	/offbits
+	/onbits
+	/organgle
+	/orgbangle
+	/orgbfreq
+	/orgbproc
+	/orgbxfer
+	/orgfreq
+	/orggangle
+	/orggfreq
+	/orggproc
+	/orggxfer
+	/orgmatrix
+	/orgproc
+	/orgrangle
+	/orgrfreq
+	/orgrproc
+	/orgrxfer
+	/orgxfer
+	/pagesave
+	/paperheight
+	/papersizedict
+	/paperwidth
+	/pos
+	/pwid
+	/r
+	/rad
+	/redt
+	/sl
+	/str
+	/tran
+	/u
+	/urx
+	/ury
+	/val
+	/width
+	/width
+	/ws
+	/ww
+	/x
+	/x1
+	/x2
+	/xindex
+	/xpoint
+	/xscale
+	/xx
+	/y
+	/y1
+	/y2
+	/yelu
+	/yindex
+	/ypoint
+	/yscale
+	/yy
+] { 0 def } forall
+/FmBD {bind def} bind def
+systemdict /pdfmark known {
+	/fMAcrobat true def
+	
+	/FmPD /pdfmark load def
+	
+	
+	/FmPT /show load def
+	
+	
+	currentdistillerparams /CoreDistVersion get 2000 ge {
+	
+		
+		/FmPD2 /pdfmark load def
+		
+		
+		
+		
+		
+		/FmPA { mark exch /Dest exch 5 3 roll 
+				/View [ /XYZ null 6 -2 roll FmDC exch pop null] /DEST FmPD 
+		}FmBD
+	} {
+		
+		/FmPD2 /cleartomark load def
+		/FmPA {pop pop pop}FmBD
+	} ifelse
+} {
+	
+	/fMAcrobat false def
+	/FmPD /cleartomark load def
+	/FmPD2 /cleartomark load def
+	/FmPT /pop load def
+	/FmPA {pop pop pop}FmBD
+} ifelse
+/FmDC {
+	transform fMDefaultMatrix itransform cvi exch cvi exch
+}FmBD
+/FmBx {
+	dup 3 index lt {3 1 roll exch} if 
+	1 index 4 index lt {4 -1 roll 3 1 roll exch 4 1 roll} if
+}FmBD
+/FMnone 0 def
+/FMcyan 1 def
+/FMmagenta 2 def
+/FMyellow 3 def
+/FMblack 4 def
+/FMcustom 5 def
+/fMNegative false def 
+/FrameSepIs FMnone def 
+/FrameSepBlack 0 def
+/FrameSepYellow 0 def
+/FrameSepMagenta 0 def
+/FrameSepCyan 0 def
+/FrameSepRed 1 def
+/FrameSepGreen 1 def
+/FrameSepBlue 1 def
+/FrameCurGray 1 def
+/FrameCurPat null def
+/FrameCurColors [ 0 0 0 1 0 0 0 ] def 
+/FrameColorEpsilon .001 def	
+/eqepsilon {		
+	sub dup 0 lt {neg} if
+	FrameColorEpsilon le
+} bind def
+/FrameCmpColorsCMYK { 
+	2 copy 0 get exch 0 get eqepsilon {
+		2 copy 1 get exch 1 get eqepsilon {
+			2 copy 2 get exch 2 get eqepsilon {
+				3 get exch 3 get eqepsilon
+			} {pop pop false} ifelse
+		}{pop pop false} ifelse
+	} {pop pop false} ifelse
+} bind def
+/FrameCmpColorsRGB { 
+	2 copy 4 get exch 0 get eqepsilon {
+		2 copy 5 get exch 1 get eqepsilon {
+			6 get exch 2 get eqepsilon
+		}{pop pop false} ifelse
+	} {pop pop false} ifelse
+} bind def
+/RGBtoCMYK { 
+	1 exch sub 
+	3 1 roll 
+	1 exch sub 
+	3 1 roll 
+	1 exch sub 
+	3 1 roll 
+	3 copy 
+	2 copy 
+	le { pop } { exch pop } ifelse 
+	2 copy 
+	le { pop } { exch pop } ifelse 
+	dup dup dup 
+	6 1 roll 
+	4 1 roll 
+	7 1 roll 
+	sub 
+	6 1 roll 
+	sub 
+	5 1 roll 
+	sub 
+	4 1 roll 
+} bind def
+/CMYKtoRGB { 
+	dup dup 4 -1 roll add 						  
+	5 1 roll 3 -1 roll add 						  
+	4 1 roll add 								  
+	1 exch sub dup 0 lt {pop 0} if 3 1 roll 	  
+	1 exch sub dup 0 lt {pop 0} if exch 	      
+	1 exch sub dup 0 lt {pop 0} if exch	  		  
+} bind def
+/FrameSepInit {
+	1.0 RealSetgray
+} bind def
+/FrameSetSepColor { 
+	/FrameSepBlue exch def
+	/FrameSepGreen exch def
+	/FrameSepRed exch def
+	/FrameSepBlack exch def
+	/FrameSepYellow exch def
+	/FrameSepMagenta exch def
+	/FrameSepCyan exch def
+	/FrameSepIs FMcustom def
+	setCurrentScreen	
+} bind def
+/FrameSetCyan {
+	/FrameSepBlue 1.0 def
+	/FrameSepGreen 1.0 def
+	/FrameSepRed 0.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 1.0 def
+	/FrameSepIs FMcyan def
+	setCurrentScreen	
+} bind def
+ 
+/FrameSetMagenta {
+	/FrameSepBlue 1.0 def
+	/FrameSepGreen 0.0 def
+	/FrameSepRed 1.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 1.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMmagenta def
+	setCurrentScreen
+} bind def
+ 
+/FrameSetYellow {
+	/FrameSepBlue 0.0 def
+	/FrameSepGreen 1.0 def
+	/FrameSepRed 1.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 1.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMyellow def
+	setCurrentScreen
+} bind def
+ 
+/FrameSetBlack {
+	/FrameSepBlue 0.0 def
+	/FrameSepGreen 0.0 def
+	/FrameSepRed 0.0 def
+	/FrameSepBlack 1.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMblack def
+	setCurrentScreen
+} bind def
+ 
+/FrameNoSep { 
+	/FrameSepIs FMnone def
+	setCurrentScreen
+} bind def
+/FrameSetSepColors { 
+	FrameDict begin
+	[ exch 1 add 1 roll ]
+	/FrameSepColors  
+	exch def end
+	} bind def
+/FrameColorInSepListCMYK { 
+	FrameSepColors {  
+       		exch dup 3 -1 roll 
+       		FrameCmpColorsCMYK 
+       		{ pop true exit } if
+    	} forall 
+	dup true ne {pop false} if
+	} bind def
+/FrameColorInSepListRGB { 
+	FrameSepColors {  
+       		exch dup 3 -1 roll 
+       		FrameCmpColorsRGB 
+       		{ pop true exit } if
+    	} forall 
+	dup true ne {pop false} if
+	} bind def
+/RealSetgray /setgray load def
+/RealSetrgbcolor /setrgbcolor load def
+/RealSethsbcolor /sethsbcolor load def
+end 
+/setgray { 
+	FrameDict begin
+	FrameSepIs FMnone eq
+		{ RealSetgray } 
+		{ 
+		FrameSepIs FMblack eq 
+			{ RealSetgray } 
+			{ FrameSepIs FMcustom eq 
+			  FrameSepRed 0 eq and
+			  FrameSepGreen 0 eq and
+			  FrameSepBlue 0 eq and {
+			  	RealSetgray
+			  } {
+				1 RealSetgray pop 
+			  } ifelse
+			} ifelse
+		} ifelse
+	end
+} bind def
+/setrgbcolor { 
+	FrameDict begin
+	FrameSepIs FMnone eq
+	{  RealSetrgbcolor }
+	{
+		3 copy [ 4 1 roll ] 
+		FrameColorInSepListRGB
+		{
+				FrameSepBlue eq exch 
+			 	FrameSepGreen eq and exch 
+			 	FrameSepRed eq and
+			 	{ 0 } { 1 } ifelse
+		}
+		{
+			FMPColor {
+				RealSetrgbcolor
+				currentcmykcolor
+			} {
+				RGBtoCMYK
+			} ifelse
+			FrameSepIs FMblack eq
+			{1.0 exch sub 4 1 roll pop pop pop} {
+			FrameSepIs FMyellow eq
+			{pop 1.0 exch sub 3 1 roll pop pop} {
+			FrameSepIs FMmagenta eq
+			{pop pop 1.0 exch sub exch pop } {
+			FrameSepIs FMcyan eq
+			{pop pop pop 1.0 exch sub } 
+			{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+		} ifelse
+		RealSetgray
+	} 
+	ifelse
+	end
+} bind def
+/sethsbcolor {
+	FrameDict begin
+	FrameSepIs FMnone eq 
+	{ RealSethsbcolor } 
+	{
+		RealSethsbcolor 
+		currentrgbcolor  
+		setrgbcolor 
+	} 
+	ifelse
+	end
+} bind def
+FrameDict begin
+/setcmykcolor where {
+	pop /RealSetcmykcolor /setcmykcolor load def
+} {
+	/RealSetcmykcolor {
+		4 1 roll
+		3 { 3 index add 0 max 1 min 1 exch sub 3 1 roll} repeat 
+		RealSetrgbcolor pop
+	} bind def
+} ifelse
+userdict /setcmykcolor { 
+		FrameDict begin
+		FrameSepIs FMnone eq
+		{ RealSetcmykcolor } 
+		{
+			4 copy [ 5 1 roll ]
+			FrameColorInSepListCMYK
+			{
+				FrameSepBlack eq exch 
+				FrameSepYellow eq and exch 
+				FrameSepMagenta eq and exch 
+				FrameSepCyan eq and 
+				{ 0 } { 1 } ifelse
+			}
+			{
+				FrameSepIs FMblack eq
+				{1.0 exch sub 4 1 roll pop pop pop} {
+				FrameSepIs FMyellow eq
+				{pop 1.0 exch sub 3 1 roll pop pop} {
+				FrameSepIs FMmagenta eq
+				{pop pop 1.0 exch sub exch pop } {
+				FrameSepIs FMcyan eq
+				{pop pop pop 1.0 exch sub } 
+				{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+			} ifelse
+			RealSetgray
+		}
+		ifelse
+		end
+	} bind put
+fMLevel1 { 
+	
+	
+	
+	/patScreenDict 7 dict dup begin
+		<0f1e3c78f0e1c387> [ 45  { pop } {exch pop} 		.5   2 sqrt] FmBD
+		<0f87c3e1f0783c1e> [ 135 { pop } {exch pop}			.5   2 sqrt] FmBD
+		<cccccccccccccccc> [ 0   { pop } dup				.5   2	   ] FmBD
+		<ffff0000ffff0000> [ 90  { pop } dup				.5   2	   ] FmBD
+		<8142241818244281> [ 45  { 2 copy lt {exch} if pop}	dup .75  2 sqrt] FmBD
+		<03060c183060c081> [ 45  { pop } {exch pop}			.875 2 sqrt] FmBD
+		<8040201008040201> [ 135 { pop } {exch pop}			.875 2 sqrt] FmBD
+	end def
+} { 
+	
+	/patProcDict 5 dict dup begin
+		<0f1e3c78f0e1c387> { 3 setlinewidth -1 -1 moveto 9 9 lineto stroke 
+											4 -4 moveto 12 4 lineto stroke
+											-4 4 moveto 4 12 lineto stroke} bind def
+		<0f87c3e1f0783c1e> { 3 setlinewidth -1 9 moveto 9 -1 lineto stroke 
+											-4 4 moveto 4 -4 lineto stroke
+											4 12 moveto 12 4 lineto stroke} bind def
+		<8142241818244281> { 1 setlinewidth -1 9 moveto 9 -1 lineto stroke
+											-1 -1 moveto 9 9 lineto stroke } bind def
+		<03060c183060c081> { 1 setlinewidth -1 -1 moveto 9 9 lineto stroke 
+											4 -4 moveto 12 4 lineto stroke
+											-4 4 moveto 4 12 lineto stroke} bind def
+		<8040201008040201> { 1 setlinewidth -1 9 moveto 9 -1 lineto stroke 
+											-4 4 moveto 4 -4 lineto stroke
+											4 12 moveto 12 4 lineto stroke} bind def
+	end def
+	/patDict 15 dict dup begin
+		/PatternType 1 def		
+		/PaintType 2 def		
+		/TilingType 3 def		
+		/BBox [ 0 0 8 8 ] def 	
+		/XStep 8 def			
+		/YStep 8 def			
+		/PaintProc {
+			begin
+			patProcDict bstring known {
+				patProcDict bstring get exec
+			} {
+				8 8 true [1 0 0 -1 0 8] bstring imagemask
+			} ifelse
+			end
+		} bind def
+	end def
+} ifelse
+/combineColor {
+    FrameSepIs FMnone eq
+	{
+		graymode fMLevel1 or not {
+			
+			[/Pattern [/DeviceCMYK]] setcolorspace
+			FrameCurColors 0 4 getinterval aload pop FrameCurPat setcolor
+		} {
+			FrameCurColors 3 get 1.0 ge {
+				FrameCurGray RealSetgray
+			} {
+				fMAcrobat not FMPColor graymode and and {
+					0 1 3 { 
+						FrameCurColors exch get
+						1 FrameCurGray sub mul
+					} for
+					RealSetcmykcolor
+				} {
+					4 1 6 {
+						FrameCurColors exch get
+						graymode {
+							1 exch sub 1 FrameCurGray sub mul 1 exch sub
+						} {
+							1.0 lt {FrameCurGray} {1} ifelse
+						} ifelse
+					} for
+					RealSetrgbcolor
+				} ifelse
+			} ifelse
+		} ifelse
+	} { 
+		FrameCurColors 0 4 getinterval aload
+		FrameColorInSepListCMYK {
+			FrameSepBlack eq exch 
+			FrameSepYellow eq and exch 
+			FrameSepMagenta eq and exch 
+			FrameSepCyan eq and
+			FrameSepIs FMcustom eq and
+			{ FrameCurGray } { 1 } ifelse
+		} {
+			FrameSepIs FMblack eq
+			{FrameCurGray 1.0 exch sub mul 1.0 exch sub 4 1 roll pop pop pop} {
+			FrameSepIs FMyellow eq
+			{pop FrameCurGray 1.0 exch sub mul 1.0 exch sub 3 1 roll pop pop} {
+			FrameSepIs FMmagenta eq
+			{pop pop FrameCurGray 1.0 exch sub mul 1.0 exch sub exch pop } {
+			FrameSepIs FMcyan eq
+			{pop pop pop FrameCurGray 1.0 exch sub mul 1.0 exch sub } 
+			{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+		} ifelse
+		graymode fMLevel1 or not {
+			
+			[/Pattern [/DeviceGray]] setcolorspace
+			FrameCurPat setcolor
+		} { 
+			graymode not fMLevel1 and {
+				
+				dup 1 lt {pop FrameCurGray} if
+			} if
+			RealSetgray
+		} ifelse
+	} ifelse
+} bind def
+/savematrix {
+	orgmatrix currentmatrix pop
+	} bind def
+/restorematrix {
+	orgmatrix setmatrix
+	} bind def
+/fMDefaultMatrix matrix defaultmatrix def
+/fMatrix2 matrix def
+/dpi    72 0 fMDefaultMatrix dtransform
+    dup mul exch   dup mul add   sqrt def
+	
+/freq dpi dup 72 div round dup 0 eq {pop 1} if 8 mul div def
+/sangle 1 0 fMDefaultMatrix dtransform exch atan def
+	sangle fMatrix2 rotate 
+	fMDefaultMatrix fMatrix2 concatmatrix 
+	dup 0 get /sflipx exch def
+	    3 get /sflipy exch def
+/screenIndex {
+	0 1 dpiranges length 1 sub { dup dpiranges exch get 1 sub dpi le {exit} {pop} ifelse } for
+} bind def
+/getCyanScreen {
+	FMUseHighFrequencyScreens { CHighAngles CMHighFreqs} {CLowAngles CMLowFreqs} ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get /FMSpotFunction load
+} bind def
+/getMagentaScreen {
+	FMUseHighFrequencyScreens { MHighAngles CMHighFreqs } {MLowAngles CMLowFreqs} ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get /FMSpotFunction load
+} bind def
+/getYellowScreen {
+	FMUseHighFrequencyScreens { YHighTDot YHighFreqs} { YLowTDot YLowFreqs } ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get { 3 div
+			{2 { 1 add 2 div 3 mul dup floor sub 2 mul 1 sub exch} repeat
+			FMSpotFunction } } {/FMSpotFunction load } ifelse
+			0.0 exch
+} bind def
+/getBlackScreen  {
+	FMUseHighFrequencyScreens { KHighFreqs } { KLowFreqs } ifelse
+		screenIndex get 45.0 /FMSpotFunction load 
+} bind def
+/getSpotScreen {
+	getBlackScreen
+} bind def
+/getCompositeScreen {
+	getBlackScreen
+} bind def
+/FMSetScreen 
+	fMLevel1 { /setscreen load 
+	}{ {
+		8 dict begin
+		/HalftoneType 1 def
+		/SpotFunction exch def
+		/Angle exch def
+		/Frequency exch def
+		/AccurateScreens FMUseAcccurateScreens def
+		currentdict end sethalftone
+	} bind } ifelse
+def
+/setDefaultScreen {
+	FMPColor {
+		orgrxfer cvx orggxfer cvx orgbxfer cvx orgxfer cvx setcolortransfer
+	}
+	{
+		orgxfer cvx settransfer
+	} ifelse
+	orgfreq organgle orgproc cvx setscreen
+} bind def
+/setCurrentScreen {
+	FrameSepIs FMnone eq {
+		FMUseDefaultNoSeparationScreen {
+			setDefaultScreen
+		} {
+			getCompositeScreen FMSetScreen
+		} ifelse
+	} {
+		FrameSepIs FMcustom eq {
+			FMUseDefaultSpotSeparationScreen {
+				setDefaultScreen
+			} {
+				getSpotScreen FMSetScreen
+			} ifelse
+		} {
+			FMUseDefaultProcessSeparationScreen {
+				setDefaultScreen
+			} {
+				FrameSepIs FMcyan eq {
+					getCyanScreen FMSetScreen
+				} {
+					FrameSepIs FMmagenta eq {
+						getMagentaScreen FMSetScreen
+					} {
+						FrameSepIs FMyellow eq {
+							getYellowScreen FMSetScreen
+						} {
+							getBlackScreen FMSetScreen
+						} ifelse
+					} ifelse
+				} ifelse
+			} ifelse
+		} ifelse
+	} ifelse 
+} bind def
+end
+	
+/FMDOCUMENT { 
+	array /FMfonts exch def 
+	/#copies exch def
+	FrameDict begin
+	0 ne /manualfeed exch def
+	/paperheight exch def
+	/paperwidth exch def
+	0 ne /fMNegative exch def 
+	0 ne /edown exch def 
+	/yscale exch def
+	/xscale exch def
+	fMLevel1 {
+		manualfeed {setmanualfeed} if
+		/FMdicttop countdictstack 1 add def 
+		/FMoptop count def 
+		setpapername 
+		manualfeed {true} {papersize} ifelse 
+		{manualpapersize} {false} ifelse 
+		{desperatepapersize} {false} ifelse 
+		{papersizefailure} if
+		count -1 FMoptop {pop pop} for
+		countdictstack -1 FMdicttop {pop end} for 
+		}
+		{2 dict
+		 dup /PageSize [paperwidth paperheight] put
+		 manualfeed {dup /ManualFeed manualfeed put} if
+		 {setpagedevice} stopped {papersizefailure} if
+		}
+	ifelse 
+	
+	FMPColor {
+		currentcolorscreen
+			cvlit /orgproc exch def
+				  /organgle exch def 
+				  /orgfreq exch def
+			cvlit /orgbproc exch def
+				  /orgbangle exch def 
+				  /orgbfreq exch def
+			cvlit /orggproc exch def
+				  /orggangle exch def 
+				  /orggfreq exch def
+			cvlit /orgrproc exch def
+				  /orgrangle exch def 
+				  /orgrfreq exch def
+			currentcolortransfer 
+			fMNegative {
+				1 1 4 { 
+					pop { 1 exch sub } fmConcatProcs 4 1 roll
+				} for
+				4 copy
+				setcolortransfer
+			} if
+			cvlit /orgxfer exch def
+			cvlit /orgbxfer exch def
+			cvlit /orggxfer exch def
+			cvlit /orgrxfer exch def
+	} {
+		currentscreen 
+			cvlit /orgproc exch def
+				  /organgle exch def 
+				  /orgfreq exch def
+				  
+		currenttransfer 
+		fMNegative {
+			{ 1 exch sub } fmConcatProcs
+			dup settransfer
+		} if 
+		cvlit /orgxfer exch def
+	} ifelse
+	end 
+} def 
+/FMBEGINPAGE { 
+	FrameDict begin 
+	/pagesave save def
+	3.86 setmiterlimit
+	/landscape exch 0 ne def
+	landscape { 
+		90 rotate 0 exch dup /pwid exch def neg translate pop 
+	}{
+		pop /pwid exch def
+	} ifelse
+	edown { [-1 0 0 1 pwid 0] concat } if
+	0 0 moveto paperwidth 0 lineto paperwidth paperheight lineto 
+	0 paperheight lineto 0 0 lineto 1 setgray fill
+	xscale yscale scale
+	/orgmatrix matrix def
+	gsave 
+} def 
+/FMENDPAGE {
+	grestore 
+	pagesave restore
+	end 
+	showpage
+	} def 
+/FMFONTDEFINE { 
+	FrameDict begin
+	findfont 
+	ReEncode 
+	1 index exch 
+	definefont 
+	FMfonts 3 1 roll 
+	put
+	end 
+	} def 
+/FMFILLS {
+	FrameDict begin dup
+	array /fillvals exch def
+	dict /patCache exch def
+	end 
+	} def 
+/FMFILL {
+	FrameDict begin
+	 fillvals 3 1 roll put
+	end 
+	} def 
+/FMNORMALIZEGRAPHICS { 
+	newpath
+	1 setlinewidth
+	0 setlinecap
+	0 0 0 sethsbcolor
+	0 setgray 
+	} bind def
+/FMBEGINEPSF { 
+	end 
+	/FMEPSF save def 
+	/showpage {} def 
+% See Adobe's "PostScript Language Reference Manual, 2nd Edition", page 714.
+% "...the following operators MUST NOT be used in an EPS file:" (emphasis ours)
+	/banddevice {(banddevice) FMBADEPSF} def
+	/clear {(clear) FMBADEPSF} def
+	/cleardictstack {(cleardictstack) FMBADEPSF} def 
+	/copypage {(copypage) FMBADEPSF} def
+	/erasepage {(erasepage) FMBADEPSF} def
+	/exitserver {(exitserver) FMBADEPSF} def
+	/framedevice {(framedevice) FMBADEPSF} def
+	/grestoreall {(grestoreall) FMBADEPSF} def
+	/initclip {(initclip) FMBADEPSF} def
+	/initgraphics {(initgraphics) FMBADEPSF} def
+	/quit {(quit) FMBADEPSF} def
+	/renderbands {(renderbands) FMBADEPSF} def
+	/setglobal {(setglobal) FMBADEPSF} def
+	/setpagedevice {(setpagedevice) FMBADEPSF} def
+	/setshared {(setshared) FMBADEPSF} def
+	/startjob {(startjob) FMBADEPSF} def
+	/lettertray {(lettertray) FMBADEPSF} def
+	/letter {(letter) FMBADEPSF} def
+	/lettersmall {(lettersmall) FMBADEPSF} def
+	/11x17tray {(11x17tray) FMBADEPSF} def
+	/11x17 {(11x17) FMBADEPSF} def
+	/ledgertray {(ledgertray) FMBADEPSF} def
+	/ledger {(ledger) FMBADEPSF} def
+	/legaltray {(legaltray) FMBADEPSF} def
+	/legal {(legal) FMBADEPSF} def
+	/statementtray {(statementtray) FMBADEPSF} def
+	/statement {(statement) FMBADEPSF} def
+	/executivetray {(executivetray) FMBADEPSF} def
+	/executive {(executive) FMBADEPSF} def
+	/a3tray {(a3tray) FMBADEPSF} def
+	/a3 {(a3) FMBADEPSF} def
+	/a4tray {(a4tray) FMBADEPSF} def
+	/a4 {(a4) FMBADEPSF} def
+	/a4small {(a4small) FMBADEPSF} def
+	/b4tray {(b4tray) FMBADEPSF} def
+	/b4 {(b4) FMBADEPSF} def
+	/b5tray {(b5tray) FMBADEPSF} def
+	/b5 {(b5) FMBADEPSF} def
+	FMNORMALIZEGRAPHICS 
+	[/fy /fx /fh /fw /ury /urx /lly /llx] {exch def} forall 
+	fx fw 2 div add fy fh 2 div add  translate
+	rotate
+	fw 2 div neg fh 2 div neg translate
+	fw urx llx sub div fh ury lly sub div scale 
+	llx neg lly neg translate 
+	/FMdicttop countdictstack 1 add def 
+	/FMoptop count def 
+	} bind def
+/FMENDEPSF {
+	count -1 FMoptop {pop pop} for 
+	countdictstack -1 FMdicttop {pop end} for 
+	FMEPSF restore
+	FrameDict begin 
+	} bind def
+FrameDict begin 
+/setmanualfeed {
+%%BeginFeature *ManualFeed True
+	 statusdict /manualfeed true put
+%%EndFeature
+	} bind def
+/max {2 copy lt {exch} if pop} bind def
+/min {2 copy gt {exch} if pop} bind def
+/inch {72 mul} def
+/pagedimen { 
+	paperheight sub abs 16 lt exch 
+	paperwidth sub abs 16 lt and
+	{/papername exch def} {pop} ifelse
+	} bind def
+/setpapername { 
+	/papersizedict 14 dict def 
+	papersizedict begin
+	/papername /unknown def 
+		/Letter 8.5 inch 11.0 inch pagedimen
+		/LetterSmall 7.68 inch 10.16 inch pagedimen
+		/Tabloid 11.0 inch 17.0 inch pagedimen
+		/Ledger 17.0 inch 11.0 inch pagedimen
+		/Legal 8.5 inch 14.0 inch pagedimen
+		/Statement 5.5 inch 8.5 inch pagedimen
+		/Executive 7.5 inch 10.0 inch pagedimen
+		/A3 11.69 inch 16.5 inch pagedimen
+		/A4 8.26 inch 11.69 inch pagedimen
+		/A4Small 7.47 inch 10.85 inch pagedimen
+		/B4 10.125 inch 14.33 inch pagedimen
+		/B5 7.16 inch 10.125 inch pagedimen
+	end
+	} bind def
+/papersize {
+	papersizedict begin
+		/Letter {lettertray letter} def
+		/LetterSmall {lettertray lettersmall} def
+		/Tabloid {11x17tray 11x17} def
+		/Ledger {ledgertray ledger} def
+		/Legal {legaltray legal} def
+		/Statement {statementtray statement} def
+		/Executive {executivetray executive} def
+		/A3 {a3tray a3} def
+		/A4 {a4tray a4} def
+		/A4Small {a4tray a4small} def
+		/B4 {b4tray b4} def
+		/B5 {b5tray b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	statusdict begin stopped end 
+	} bind def
+/manualpapersize {
+	papersizedict begin
+		/Letter {letter} def
+		/LetterSmall {lettersmall} def
+		/Tabloid {11x17} def
+		/Ledger {ledger} def
+		/Legal {legal} def
+		/Statement {statement} def
+		/Executive {executive} def
+		/A3 {a3} def
+		/A4 {a4} def
+		/A4Small {a4small} def
+		/B4 {b4} def
+		/B5 {b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	stopped 
+	} bind def
+/desperatepapersize {
+	statusdict /setpageparams known
+		{
+		paperwidth paperheight 0 1 
+		statusdict begin
+		{setpageparams} stopped 
+		end
+		} {true} ifelse 
+	} bind def
+/papersizefailure {
+	FMAllowPaperSizeMismatch not
+		{
+(The requested paper size is not available in any currently-installed tray)
+(Edit the PS file to "FMAllowPaperSizeMismatch true" to use default tray)
+		 FMFAILURE } if
+	} def
+/DiacriticEncoding [
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /space /exclam /quotedbl
+/numbersign /dollar /percent /ampersand /quotesingle /parenleft
+/parenright /asterisk /plus /comma /hyphen /period /slash /zero /one
+/two /three /four /five /six /seven /eight /nine /colon /semicolon
+/less /equal /greater /question /at /A /B /C /D /E /F /G /H /I /J /K
+/L /M /N /O /P /Q /R /S /T /U /V /W /X /Y /Z /bracketleft /backslash
+/bracketright /asciicircum /underscore /grave /a /b /c /d /e /f /g /h
+/i /j /k /l /m /n /o /p /q /r /s /t /u /v /w /x /y /z /braceleft /bar
+/braceright /asciitilde /.notdef /Adieresis /Aring /Ccedilla /Eacute
+/Ntilde /Odieresis /Udieresis /aacute /agrave /acircumflex /adieresis
+/atilde /aring /ccedilla /eacute /egrave /ecircumflex /edieresis
+/iacute /igrave /icircumflex /idieresis /ntilde /oacute /ograve
+/ocircumflex /odieresis /otilde /uacute /ugrave /ucircumflex
+/udieresis /dagger /.notdef /cent /sterling /section /bullet
+/paragraph /germandbls /registered /copyright /trademark /acute
+/dieresis /.notdef /AE /Oslash /.notdef /.notdef /.notdef /.notdef
+/yen /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/ordfeminine /ordmasculine /.notdef /ae /oslash /questiondown
+/exclamdown /logicalnot /.notdef /florin /.notdef /.notdef
+/guillemotleft /guillemotright /ellipsis /.notdef /Agrave /Atilde
+/Otilde /OE /oe /endash /emdash /quotedblleft /quotedblright
+/quoteleft /quoteright /.notdef /.notdef /ydieresis /Ydieresis
+/fraction /currency /guilsinglleft /guilsinglright /fi /fl /daggerdbl
+/periodcentered /quotesinglbase /quotedblbase /perthousand
+/Acircumflex /Ecircumflex /Aacute /Edieresis /Egrave /Iacute
+/Icircumflex /Idieresis /Igrave /Oacute /Ocircumflex /.notdef /Ograve
+/Uacute /Ucircumflex /Ugrave /dotlessi /circumflex /tilde /macron
+/breve /dotaccent /ring /cedilla /hungarumlaut /ogonek /caron
+] def
+/ReEncode { 
+	dup 
+	length 
+	dict begin 
+	{
+	1 index /FID ne 
+		{def} 
+		{pop pop} ifelse 
+	} forall 
+	0 eq {/Encoding DiacriticEncoding def} if 
+	currentdict 
+	end 
+	} bind def
+FMPColor 
+	
+	{
+	/BEGINBITMAPCOLOR { 
+		BITMAPCOLOR} def
+	/BEGINBITMAPCOLORc { 
+		BITMAPCOLORc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUECOLOR } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUECOLORc } def
+	/BEGINBITMAPCMYK { 
+		BITMAPCMYK } def
+	/BEGINBITMAPCMYKc { 
+		BITMAPCMYKc } def
+	}
+	
+	{
+	/BEGINBITMAPCOLOR { 
+		BITMAPGRAY} def
+	/BEGINBITMAPCOLORc { 
+		BITMAPGRAYc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUEGRAY } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUEGRAYc } def
+	/BEGINBITMAPCMYK { 
+		BITMAPCMYKGRAY } def
+	/BEGINBITMAPCMYKc { 
+		BITMAPCMYKGRAYc } def
+	}
+ifelse
+/K { 
+	FMPrintAllColorsAsBlack {
+		dup 1 eq 2 index 1 eq and 3 index 1 eq and not
+			{7 {pop} repeat 0 0 0 1 0 0 0} if
+	} if 
+	FrameCurColors astore 
+	pop combineColor
+} bind def
+/graymode true def
+fMLevel1 {
+	/fmGetFlip {
+		fMatrix2 exch get mul 0 lt { -1 } { 1 } ifelse
+	} FmBD
+} if
+/setPatternMode {
+	fMLevel1 {
+		2 index patScreenDict exch known {
+			pop pop
+			patScreenDict exch get aload pop 
+			freq 								
+			mul									
+			5 2 roll							
+			fMatrix2 currentmatrix 1 get 0 ne {
+				3 -1 roll 90 add 3 1 roll 		
+				sflipx 1 fmGetFlip sflipy 2 fmGetFlip neg mul
+			} {  								
+				sflipx 0 fmGetFlip sflipy 3 fmGetFlip mul 
+			} ifelse
+			0 lt {exch pop} {pop} ifelse 		
+			fMNegative { 
+				{neg} fmConcatProcs 			
+			} if
+			bind
+			
+			
+			
+			systemdict /setscreen get exec		
+			/FrameCurGray exch def
+		} {
+			/bwidth  exch def
+			/bpside  exch def
+			/bstring exch def
+			/onbits 0 def  /offbits 0 def
+			freq sangle landscape {90 add} if 
+				{/ypoint exch def
+				 /xpoint exch def
+				 /xindex xpoint 1 add 2 div bpside mul cvi def
+				 /yindex ypoint 1 add 2 div bpside mul cvi def
+				 bstring yindex bwidth mul xindex 8 idiv add get
+				 1 7 xindex 8 mod sub bitshift and 0 ne fMNegative {not} if
+				 {/onbits  onbits  1 add def 1}
+				 {/offbits offbits 1 add def 0}
+				 ifelse
+				}
+				setscreen
+			offbits offbits onbits add div fMNegative {1.0 exch sub} if
+			/FrameCurGray exch def
+		} ifelse
+	} { 
+		pop pop
+		dup patCache exch known {
+			patCache exch get
+		} { 
+			dup
+			patDict /bstring 3 -1 roll put
+			patDict 
+			9 PatFreq screenIndex get div dup matrix scale
+			makepattern
+			dup 
+			patCache 4 -1 roll 3 -1 roll put
+		} ifelse
+		/FrameCurGray 0 def
+		/FrameCurPat exch def
+	} ifelse
+	/graymode false def
+	combineColor
+} bind def
+/setGrayScaleMode {
+	graymode not {
+		/graymode true def
+		fMLevel1 {
+			setCurrentScreen
+		} if
+	} if
+	/FrameCurGray exch def
+	combineColor
+} bind def
+/normalize {
+	transform round exch round exch itransform
+	} bind def
+/dnormalize {
+	dtransform round exch round exch idtransform
+	} bind def
+/lnormalize { 
+	0 dtransform exch cvi 2 idiv 2 mul 1 add exch idtransform pop
+	} bind def
+/H { 
+	lnormalize setlinewidth
+	} bind def
+/Z {
+	setlinecap
+	} bind def
+	
+/PFill {
+	graymode fMLevel1 or not {
+		gsave 1 setgray eofill grestore
+	} if
+} bind def
+/PStroke {
+	graymode fMLevel1 or not {
+		gsave 1 setgray stroke grestore
+	} if
+	stroke
+} bind def
+/X { 
+	fillvals exch get
+	dup type /stringtype eq
+	{8 1 setPatternMode} 
+	{setGrayScaleMode}
+	ifelse
+	} bind def
+/V { 
+	PFill gsave eofill grestore
+	} bind def
+/Vclip {
+	clip
+	} bind def
+/Vstrk {
+	currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/N { 
+	PStroke
+	} bind def
+/Nclip {
+	strokepath clip newpath
+	} bind def
+/Nstrk {
+	currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/M {newpath moveto} bind def
+/E {lineto} bind def
+/D {curveto} bind def
+/O {closepath} bind def
+/L { 
+ 	/n exch def
+	newpath
+	normalize
+	moveto 
+	2 1 n {pop normalize lineto} for
+	} bind def
+/Y { 
+	L 
+	closepath
+	} bind def
+/R { 
+	/y2 exch def
+	/x2 exch def
+	/y1 exch def
+	/x1 exch def
+	x1 y1
+	x2 y1
+	x2 y2
+	x1 y2
+	4 Y 
+	} bind def
+/rarc 
+	{rad 
+	 arcto
+	} bind def
+/RR { 
+	/rad exch def
+	normalize
+	/y2 exch def
+	/x2 exch def
+	normalize
+	/y1 exch def
+	/x1 exch def
+	mark
+	newpath
+	{
+	x1 y1 rad add moveto
+	x1 y2 x2 y2 rarc
+	x2 y2 x2 y1 rarc
+	x2 y1 x1 y1 rarc
+	x1 y1 x1 y2 rarc
+	closepath
+	} stopped {x1 y1 x2 y2 R} if 
+	cleartomark
+	} bind def
+/RRR { 
+	/rad exch def
+	normalize /y4 exch def /x4 exch def
+	normalize /y3 exch def /x3 exch def
+	normalize /y2 exch def /x2 exch def
+	normalize /y1 exch def /x1 exch def
+	newpath
+	normalize moveto 
+	mark
+	{
+	x2 y2 x3 y3 rarc
+	x3 y3 x4 y4 rarc
+	x4 y4 x1 y1 rarc
+	x1 y1 x2 y2 rarc
+	closepath
+	} stopped
+	 {x1 y1 x2 y2 x3 y3 x4 y4 newpath moveto lineto lineto lineto closepath} if
+	cleartomark
+	} bind def
+/C { 
+	grestore
+	gsave
+	R 
+	clip
+	setCurrentScreen
+} bind def
+/CP { 
+	grestore
+	gsave
+	Y 
+	clip
+	setCurrentScreen
+} bind def
+/F { 
+	FMfonts exch get
+	FMpointsize scalefont
+	setfont
+	} bind def
+/Q { 
+	/FMpointsize exch def
+	F 
+	} bind def
+/T { 
+	moveto show
+	} bind def
+/RF { 
+	rotate
+	0 ne {-1 1 scale} if
+	} bind def
+/TF { 
+	gsave
+	moveto 
+	RF
+	show
+	grestore
+	} bind def
+/P { 
+	moveto
+	0 32 3 2 roll widthshow
+	} bind def
+/PF { 
+	gsave
+	moveto 
+	RF
+	0 32 3 2 roll widthshow
+	grestore
+	} bind def
+/S { 
+	moveto
+	0 exch ashow
+	} bind def
+/SF { 
+	gsave
+	moveto
+	RF
+	0 exch ashow
+	grestore
+	} bind def
+/B { 
+	moveto
+	0 32 4 2 roll 0 exch awidthshow
+	} bind def
+/BF { 
+	gsave
+	moveto
+	RF
+	0 32 4 2 roll 0 exch awidthshow
+	grestore
+	} bind def
+/G { 
+	gsave
+	newpath
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	PFill fill
+	grestore
+	} bind def
+/Gstrk {
+	savematrix
+    newpath
+    2 index 2 div add exch 3 index 2 div sub exch 
+    normalize 2 index 2 div sub exch 3 index 2 div add exch 
+    translate
+    scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    restorematrix
+    currentlinewidth exch setlinewidth PStroke setlinewidth
+    } bind def
+/Gclip { 
+	newpath
+	savematrix
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	clip newpath
+	restorematrix
+	} bind def
+/GG { 
+	gsave
+	newpath
+	normalize translate 0.0 0.0 moveto 
+	rotate 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath
+	PFill
+	fill
+	grestore
+	} bind def
+/GGclip { 
+	savematrix
+	newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath
+	clip newpath
+	restorematrix
+	} bind def
+/GGstrk { 
+	savematrix
+    newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath 
+	restorematrix
+    currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/A { 
+	gsave
+	savematrix
+	newpath
+	2 index 2 div add exch 3 index 2 div sub exch 
+	normalize 2 index 2 div sub exch 3 index 2 div add exch 
+	translate 
+	scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	restorematrix
+	PStroke
+	grestore
+	} bind def
+/Aclip {
+	newpath
+	savematrix
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	strokepath clip newpath
+	restorematrix
+} bind def
+/Astrk {
+	Gstrk
+} bind def
+/AA { 
+	gsave
+	savematrix
+	newpath
+	
+	3 index 2 div add exch 4 index 2 div sub exch 
+	
+	normalize 3 index 2 div sub exch 4 index 2 div add exch
+	translate 
+	rotate 
+	scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	restorematrix
+	PStroke
+	grestore
+	} bind def
+/AAclip {
+	savematrix
+	newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath
+	strokepath clip newpath
+	restorematrix
+} bind def
+/AAstrk {
+	GGstrk
+} bind def
+/BEGINPRINTCODE { 
+	/FMdicttop countdictstack 1 add def 
+	/FMoptop count 7 sub def 
+	/FMsaveobject save def
+	userdict begin 
+	/showpage {} def 
+	FMNORMALIZEGRAPHICS 
+	3 index neg 3 index neg translate
+	} bind def
+/ENDPRINTCODE {
+	count -1 FMoptop {pop pop} for 
+	countdictstack -1 FMdicttop {pop end} for 
+	FMsaveobject restore 
+	} bind def
+/gn { 
+	0 
+	{	46 mul 
+		cf read pop 
+		32 sub 
+		dup 46 lt {exit} if 
+		46 sub add 
+		} loop
+	add 
+	} bind def
+/cfs { 
+	/str sl string def 
+	0 1 sl 1 sub {str exch val put} for 
+	str def 
+	} bind def
+/ic [ 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0
+	{0 hx} {1 hx} {2 hx} {3 hx} {4 hx} {5 hx} {6 hx} {7 hx} {8 hx} {9 hx}
+	{10 hx} {11 hx} {12 hx} {13 hx} {14 hx} {15 hx} {16 hx} {17 hx} {18 hx}
+	{19 hx} {gn hx} {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12}
+	{13} {14} {15} {16} {17} {18} {19} {gn} {0 wh} {1 wh} {2 wh} {3 wh}
+	{4 wh} {5 wh} {6 wh} {7 wh} {8 wh} {9 wh} {10 wh} {11 wh} {12 wh}
+	{13 wh} {14 wh} {gn wh} {0 bl} {1 bl} {2 bl} {3 bl} {4 bl} {5 bl} {6 bl}
+	{7 bl} {8 bl} {9 bl} {10 bl} {11 bl} {12 bl} {13 bl} {14 bl} {gn bl}
+	{0 fl} {1 fl} {2 fl} {3 fl} {4 fl} {5 fl} {6 fl} {7 fl} {8 fl} {9 fl}
+	{10 fl} {11 fl} {12 fl} {13 fl} {14 fl} {gn fl}
+	] def
+/ms { 
+	/sl exch def 
+	/val 255 def 
+	/ws cfs 
+	/im cfs 
+	/val 0 def 
+	/bs cfs 
+	/cs cfs 
+	} bind def
+400 ms 
+/ip { 
+	is 
+	0 
+	cf cs readline pop 
+	{	ic exch get exec 
+		add 
+		} forall 
+	pop 
+	
+	} bind def
+/rip { 
+	   
+	  
+	  bis ris copy pop 
+      is
+      0
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop 
+	  ris gis copy pop 
+	  dup is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  gis bis copy pop 
+	  dup add is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+      pop 
+      
+      } bind def
+/rip4 { 
+	   
+	  
+	  kis cis copy pop 
+      is
+      0
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop 
+	  cis mis copy pop 
+	  dup is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  mis yis copy pop 
+	  dup dup add is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  yis kis copy pop 
+	  3 mul is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+      pop 
+      
+      } bind def
+/wh { 
+	/len exch def 
+	/pos exch def 
+	ws 0 len getinterval im pos len getinterval copy pop
+	pos len 
+	} bind def
+/bl { 
+	/len exch def 
+	/pos exch def 
+	bs 0 len getinterval im pos len getinterval copy pop
+	pos len 
+	} bind def
+/s1 1 string def
+/fl { 
+	/len exch def 
+	/pos exch def 
+	/val cf s1 readhexstring pop 0 get def
+	pos 1 pos len add 1 sub {im exch val put} for
+	pos len 
+	} bind def
+/hx { 
+	3 copy getinterval 
+	cf exch readhexstring pop pop 
+	} bind def
+/wbytes { 
+      dup dup
+      8 gt { pop 8 idiv mul }
+      { 8 eq {pop} {1 eq {7 add 8 idiv} {3 add 4 idiv} ifelse} ifelse } ifelse
+	} bind def
+/BEGINBITMAPBWc { 
+	1 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAPGRAYc { 
+	8 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAP2BITc { 
+	2 {} COMMONBITMAPc
+	} bind def
+/COMMONBITMAPc { 
+		 
+	/cvtProc exch def
+	/depth exch def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+	cvtProc                
+	/is im 0 lb getinterval def 
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height depth [width 0 0 height neg 0 height] 
+	{ip} image 
+	bitmapsave restore 
+	grestore
+	} bind def
+/BEGINBITMAPBW { 
+	1 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAPGRAY { 
+	8 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAP2BIT { 
+	2 {} COMMONBITMAP
+	} bind def
+/COMMONBITMAP { 
+	/cvtProc exch def
+	/depth exch def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/bitmapsave save def 
+	cvtProc              
+	/is width depth wbytes string def
+	/cf currentfile def 
+	width height depth [width 0 0 height neg 0 height] 
+	{cf is readhexstring pop} image
+	bitmapsave restore 
+	grestore
+	} bind def
+/ngrayt 256 array def
+/nredt 256 array def
+/nbluet 256 array def
+/ngreent 256 array def
+fMLevel1 {
+/colorsetup {
+	currentcolortransfer
+	/gryt exch def
+	/blut exch def
+	/grnt exch def
+	/redt exch def
+	0 1 255 {
+		/indx exch def
+		/cynu 1 red indx get 255 div sub def
+		/magu 1 green indx get 255 div sub def
+		/yelu 1 blue indx get 255 div sub def
+		/kk cynu magu min yelu min def
+		/u kk currentundercolorremoval exec def
+%		/u 0 def
+		nredt indx 1 0 cynu u sub max sub redt exec put
+		ngreent indx 1 0 magu u sub max sub grnt exec put
+		nbluet indx 1 0 yelu u sub max sub blut exec put
+		ngrayt indx 1 kk currentblackgeneration exec sub gryt exec put
+	} for
+	{255 mul cvi nredt exch get}
+	{255 mul cvi ngreent exch get}
+	{255 mul cvi nbluet exch get}
+	{255 mul cvi ngrayt exch get}
+	setcolortransfer
+	{pop 0} setundercolorremoval
+	{} setblackgeneration
+	} bind def
+}
+{
+/colorSetup2 {
+	[ /Indexed /DeviceRGB 255 
+		{dup red exch get 255 div 
+		 exch dup green exch get 255 div 
+		 exch blue exch get 255 div}
+	] setcolorspace
+} bind def
+} ifelse
+/fakecolorsetup {
+	/tran 256 string def
+	0 1 255 {/indx exch def 
+		tran indx
+		red indx get 77 mul
+		green indx get 151 mul
+		blue indx get 28 mul
+		add add 256 idiv put} for
+	currenttransfer
+	{255 mul cvi tran exch get 255.0 div}
+	exch fmConcatProcs settransfer
+} bind def
+/BITMAPCOLOR { 
+	/depth 8 def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/bitmapsave save def
+	fMLevel1 {	
+		colorsetup
+		/is width depth wbytes string def
+		/cf currentfile def 
+		width height depth [width 0 0 height neg 0 height] 
+		{cf is readhexstring pop} {is} {is} true 3 colorimage 
+	} {
+		colorSetup2
+		/is width depth wbytes string def
+		/cf currentfile def 
+		7 dict dup begin
+			/ImageType 1 def
+			/Width width def
+			/Height height def
+			/ImageMatrix [width 0 0 height neg 0 height] def
+			/DataSource {cf is readhexstring pop} bind def
+			/BitsPerComponent depth def
+			/Decode [0 255] def
+		end image	
+	} ifelse
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPCOLORc { 
+	/depth 8 def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+	fMLevel1 {	
+		colorsetup
+		/is im 0 lb getinterval def 
+		ws 0 lb getinterval is copy pop 
+		/cf currentfile def 
+		width height depth [width 0 0 height neg 0 height] 
+		{ip} {is} {is} true 3 colorimage
+	} {
+		colorSetup2
+		/is im 0 lb getinterval def 
+		ws 0 lb getinterval is copy pop 
+		/cf currentfile def 
+		7 dict dup begin
+			/ImageType 1 def
+			/Width width def
+			/Height height def
+			/ImageMatrix [width 0 0 height neg 0 height] def
+			/DataSource {ip} bind def
+			/BitsPerComponent depth def
+			/Decode [0 255] def
+		end image	
+	} ifelse
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPTRUECOLORc { 
+	/depth 24 def
+        gsave
+ 	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/ris im 0 width getinterval def	
+	/gis im width width getinterval def	
+	/bis im width 2 mul width getinterval def 
+        
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height 8 [width 0 0 height neg 0 height] 
+	{width rip pop ris} {gis} {bis} true 3 colorimage
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPCMYKc { 
+	/depth 32 def
+        gsave
+ 	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/cis im 0 width getinterval def	
+	/mis im width width getinterval def	
+	/yis im width 2 mul width getinterval def 
+	/kis im width 3 mul width getinterval def 
+        
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height 8 [width 0 0 height neg 0 height] 
+	{width rip4 pop cis} {mis} {yis} {kis} true 4 colorimage
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPTRUECOLOR { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /gis width string def
+        /bis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop } 
+        { cf gis readhexstring pop } 
+        { cf bis readhexstring pop } 
+        true 3 colorimage 
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYK { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /mis width string def
+        /yis width string def
+        /kis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop } 
+        { cf mis readhexstring pop } 
+        { cf yis readhexstring pop } 
+        { cf kis readhexstring pop } 
+        true 4 colorimage 
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPTRUEGRAYc { 
+	/depth 24 def
+        gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+        /bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/ris im 0 width getinterval def	
+	/gis im width width getinterval def	
+	/bis im width 2 mul width getinterval def 
+        ws 0 lb getinterval is copy pop 
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        {width rip pop ris gis bis width gray} image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYKGRAYc { 
+	/depth 32 def
+        gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+        /bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/cis im 0 width getinterval def	
+	/mis im width width getinterval def	
+	/yis im width 2 mul width getinterval def 
+	/kis im width 3 mul width getinterval def 
+        ws 0 lb getinterval is copy pop 
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        {width rip pop cis mis yis kis width cgray} image
+        bitmapsave restore 
+        grestore
+        } bind def
+/cgray { 
+        /ww exch def
+        /k exch def
+        /y exch def
+        /m exch def
+        /c exch def
+        0 1 ww 1 sub { /i exch def c i get m i get y i get k i get CMYKtoRGB
+				.144 mul 3 1 roll .587 mul 3 1 roll .299 mul add add
+				c i 3 -1 roll floor cvi put } for
+        c
+ 		} bind def
+/gray { 
+        /ww exch def
+        /b exch def
+        /g exch def
+        /r exch def
+        0 1 ww 1 sub { /i exch def r i get .299 mul g i get .587 mul
+			b i get .114 mul add add r i 3 -1 roll floor cvi put } for
+        r
+        } bind def
+/BITMAPTRUEGRAY { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /gis width string def
+        /bis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop 
+          cf gis readhexstring pop 
+          cf bis readhexstring pop width gray}  image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYKGRAY { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /yis width string def
+        /mis width string def
+        /kis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop 
+          cf mis readhexstring pop 
+          cf yis readhexstring pop 
+          cf kis readhexstring pop width cgray}  image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPGRAY { 
+	8 {fakecolorsetup} COMMONBITMAP
+	} bind def
+/BITMAPGRAYc { 
+	8 {fakecolorsetup} COMMONBITMAPc
+	} bind def
+/ENDBITMAP {
+	} bind def
+end 
+	/ALDmatrix matrix def ALDmatrix currentmatrix pop
+/StartALD {
+	/ALDsave save def
+	 savematrix
+	 ALDmatrix setmatrix
+	} bind def
+/InALD {
+	 restorematrix
+	} bind def
+/DoneALD {
+	 ALDsave restore
+	} bind def
+/I { setdash } bind def
+/J { [] 0 setdash } bind def
+%%EndProlog
+%%BeginSetup
+(5.0) FMVERSION
+1 1 0 0 612 792 0 1 13 FMDOCUMENT
+0 0 /Helvetica-Bold FMFONTDEFINE
+1 0 /Times-Bold FMFONTDEFINE
+2 0 /Times-Roman FMFONTDEFINE
+3 0 /Helvetica FMFONTDEFINE
+4 0 /Times-Italic FMFONTDEFINE
+32 FMFILLS
+0 0 FMFILL
+1 0.1 FMFILL
+2 0.3 FMFILL
+3 0.5 FMFILL
+4 0.7 FMFILL
+5 0.9 FMFILL
+6 0.97 FMFILL
+7 1 FMFILL
+8 <0f1e3c78f0e1c387> FMFILL
+9 <0f87c3e1f0783c1e> FMFILL
+10 <cccccccccccccccc> FMFILL
+11 <ffff0000ffff0000> FMFILL
+12 <8142241818244281> FMFILL
+13 <03060c183060c081> FMFILL
+14 <8040201008040201> FMFILL
+16 1 FMFILL
+17 0.9 FMFILL
+18 0.7 FMFILL
+19 0.5 FMFILL
+20 0.3 FMFILL
+21 0.1 FMFILL
+22 0.03 FMFILL
+23 0 FMFILL
+24 <f0e1c3870f1e3c78> FMFILL
+25 <f0783c1e0f87c3e1> FMFILL
+26 <3333333333333333> FMFILL
+27 <0000ffff0000ffff> FMFILL
+28 <7ebddbe7e7dbbd7e> FMFILL
+29 <fcf9f3e7cf9f3f7e> FMFILL
+30 <7fbfdfeff7fbfdfe> FMFILL
+%%EndSetup
+%%Page: "1" 1
+%%BeginPaperSize: Letter
+%%EndPaperSize
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+J
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.68 558 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Created:Februar) 72 741 T
+(y 6, 1997) 142.1 741 T
+72 885/G297553 FmPA
+(Modi\336ed:October 23, 1999) 72 730 T
+72 874/G297557 FmPA
+72 444.68 558 444.68 2 L
+2 Z
+N
+72 62.08 558 62.08 2 L
+0.25 H
+N
+(Near IR Ima) 72 47.11 T
+(g) 121.43 47.11 T
+(er \050NIRI\051 and W) 127.02 47.11 T
+(a) 191.16 47.11 T
+(vefr) 196.03 47.11 T
+(ont Sensor \050OIWFS\051\321De\336nitions, Abbre) 212.35 47.11 T
+(viations and Ref) 383.73 47.11 T
+(erences) 453.16 47.11 T
+( niri_hty_009) 487.18 47.11 T
+0 10 Q
+(/) 542.21 47.11 T
+0 9 Q
+(05) 544.98 47.11 T
+72 191/G297576 FmPA
+72 468 198 720 R
+V
+0 0 0 0 1 1 1 K
+0 0 0 1 0 0 0 K
+72 852/G297577 FmPA
+0 0 0 0 1 1 1 K
+1 20 Q
+7 X
+0 0 0 0 1 1 1 K
+(Gemini) 81 684.67 T
+0 0 0 1 0 0 0 K
+72 829/G297578 FmPA
+0 0 0 0 1 1 1 K
+1 18 Q
+(Near) 81 662 T
+0 0 0 1 0 0 0 K
+0 0 0 0 1 1 1 K
+(Infra-Red) 81 640 T
+0 0 0 1 0 0 0 K
+0 0 0 0 1 1 1 K
+(Imager) 81 618 T
+0 0 0 1 0 0 0 K
+0 0 0 0 1 1 1 K
+(and) 81 596 T
+0 0 0 1 0 0 0 K
+72 740/G310592 FmPA
+0 0 0 0 1 1 1 K
+(W) 81 574 T
+(a) 97.83 574 T
+(v) 106.38 574 T
+(efr) 115.2 574 T
+(ont) 136.85 574 T
+0 0 0 1 0 0 0 K
+72 718/G310593 FmPA
+0 0 0 0 1 1 1 K
+(Sensor) 81 552 T
+0 0 0 1 0 0 0 K
+108 513 135 540 R
+4 X
+0 0 0 1 0 0 0 K
+V
+0.5 H
+0 X
+N
+135 486 162 513 R
+4 X
+V
+135 513 162 540 R
+3 X
+V
+108 486 135 513 R
+V
+1 1 0 0 0 0 1 K
+0 14 Q
+0 X
+1 1 0 0 0 0 1 K
+(NIRI) 120.5 511.95 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+108 486 162 540 R
+3 H
+1 X
+0 0 0 1 0 0 0 K
+N
+0 0 0 1 0 0 0 K
+1 1 0 0 0 0 1 K
+0 X
+1 1 0 0 0 0 1 K
+(OIWFS) 111.55 497.95 T
+0 0 0 1 0 0 0 K
+2 24 Q
+0 0 0 1 0 0 0 K
+-0.17 (Near IR Imager \050NIRI\051 and) 207 704 S
+207 848/G310580 FmPA
+-0.17 (W) 207 674 S
+-0.17 (a) 227.57 674 S
+-0.17 (v) 237.58 674 S
+-0.17 (efront Sensor \050OIWFS\051\321) 249.05 674 S
+-0.17 (De\336nitions, Abbre) 207 644 S
+-0.17 (viations and) 382.24 644 S
+207 591.6 558 606 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+207 598.8 675 598.8 2 L
+1.5 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+2 24 Q
+0 X
+0 0 0 1 0 0 0 K
+-0.17 (References) 207 614 S
+1 12 Q
+(Hubert Y) 207 567.6 T
+(amada) 254.98 567.6 T
+207 712/G264991 FmPA
+3 11 Q
+(nir) 207 543.27 T
+(i_hty_009 / 05 / 1999-10-23) 219.39 543.27 T
+207 687/G264998 FmPA
+0 10 Q
+(This repor) 207 502.93 T
+(t lists all abbre) 256.1 502.93 T
+(viations and ref) 325.98 502.93 T
+(erences whic) 399.79 502.93 T
+(h are speci\336c to) 462.5 502.93 T
+207 647/G265293 FmPA
+(the Gemini \322Near Infra-Red Ima) 207 489.93 T
+(g) 355.27 489.93 T
+(er\323 and \322On Instrument W) 361.48 489.93 T
+(a) 484.43 489.93 T
+(vefr) 489.84 489.93 T
+(ont) 507.98 489.93 T
+(Sensor) 207 476.93 T
+(.) 240.3 476.93 T
+(\323) 241.88 476.93 T
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+72 411 558 420 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171 420 549 420 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 420 162 420 2 L
+0 Z
+N
+0 0 612 792 C
+1 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(1) 156 424 T
+(Intr) 171 424 T
+(oduction) 191.45 424 T
+72 568/G297440 FmPA
+(1.1) 147 380 T
+(Pur) 171 380 T
+(pose of the document) 190.21 380 T
+72 524/G274043 FmPA
+2 10 Q
+(This is a master list of all abbre) 171.21 355.33 T
+(viations and acron) 296.78 355.33 T
+(yms that are used by the softw) 369.95 355.33 T
+(are documenta-) 491.5 355.33 T
+72 499/G297657 FmPA
+(tion for the Near Infra-Red Imager \050NIRI\051 and On Instrument W) 171.21 343.33 T
+(a) 428.11 343.33 T
+(v) 432.35 343.33 T
+(efront Sensor \050OIWFS\051.) 437.2 343.33 T
+1 12 Q
+(1.2) 147 309 T
+(Scope) 171 309 T
+72 453/G297669 FmPA
+2 10 Q
+-0.24 (The softw) 171.21 291.33 P
+-0.24 (are product to be de) 211.15 291.33 P
+-0.24 (v) 289.37 291.33 P
+-0.24 (eloped from this document will be the control system for the Near) 294.22 291.33 P
+72 435/G297633 FmPA
+(Infra-Red Imager \050NIRI\051 and the On Instrument W) 171.21 279.33 T
+(a) 373.96 279.33 T
+(v) 378.2 279.33 T
+(efront Sensor \050OIWFS\051.) 383.05 279.33 T
+1 12 Q
+(1.3) 147 245 T
+(Ab) 171 245 T
+(br) 186.22 245 T
+(e) 198 245 T
+(viations and Acr) 203.15 245 T
+(onyms) 287.6 245 T
+72 389/G276524 FmPA
+4 10 Q
+(This list is incomplete) 171.21 220.33 T
+(. F) 258.57 220.33 T
+(or a mor) 268.63 220.33 T
+(e complete listing) 303.26 220.33 T
+(, see the Abbr) 373.71 220.33 T
+(e) 428.33 220.33 T
+(viations and Acr) 432.62 220.33 T
+(onyms list in) 498.28 220.33 T
+72 364/G297919 FmPA
+([16]) 171.21 208.33 T
+2 F
+(.) 188.99 208.33 T
+(A&G) 171.21 190.33 T
+(Acquisition and Guiding) 242.08 190.33 T
+72 334/G299890 FmPA
+(A/D) 171.21 178.33 T
+(Analog to Digital Con) 242.08 178.33 T
+(v) 330.85 178.33 T
+(erter) 335.7 178.33 T
+72 322/G310410 FmPA
+(CICS) 171.21 166.33 T
+(Core Instrument Control System) 242.08 166.33 T
+72 310/G309349 FmPA
+(CC) 171.21 154.33 T
+(Components Controller) 242.08 154.33 T
+72 298/G297924 FmPA
+(DC) 171.21 142.33 T
+(Detector Controller) 242.08 142.33 T
+72 286/G310429 FmPA
+(GN) 171.21 130.33 T
+(AA) 185.3 130.33 T
+(C) 199.34 130.33 T
+(Gemini NO) 242.08 130.33 T
+(A) 288.67 130.33 T
+(O Aladdin Array Controller) 295.34 130.33 T
+72 274/G310582 FmPA
+(GNIRS) 171.21 118.33 T
+(Gemini Near Infra-Red Spectrograph) 242.08 118.33 T
+72 262/G297925 FmPA
+(HS) 171.21 106.33 T
+(Hall-ef) 242.08 106.33 T
+(fect Sensor) 270.15 106.33 T
+72 250/G299254 FmPA
+(ICD) 171.21 94.33 T
+(Interf) 242.08 94.33 T
+(ace Control Document) 264.19 94.33 T
+72 238/G310408 FmPA
+(IS) 171.21 82.33 T
+(Instrument Sequencer) 242.08 82.33 T
+72 226/G310397 FmPA
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/Creator(FrameMaker xm5.0.1P1j)/DOCINFO FmPD2
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.1/DEST FmPD2
+207 864/M9.61531.ReportTitle.Document.Title FmPA
+207 864/I1.310577 FmPA
+171 461/M9.87121.Heading2.12.Scope FmPA
+171 461/I1.276482 FmPA
+171 397/M9.14393.Heading2.13.Definitions.Acronyms.and.Abbreviations FmPA
+171 397/I1.276523 FmPA
+[/Rect[72 205 189 215]/Border[0 0 0]/Page 3/View[/XYZ null 200 732 FmDC exch pop null]/LNK FmPD
+[/Title(A)/Rect[198 459 567 729]/ARTICLE FmPD2
+[/Title(A)/Rect[63 67 567 441]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "1" 1
+%%Page: "2" 2
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.68 540 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Intr) 114.8 733.66 T
+(oduction) 129.12 733.66 T
+54 878/G297473 FmPA
+54 726.98 540 726.98 2 L
+0.25 H
+N
+52.58 54.99 538.58 54.99 2 L
+2 Z
+N
+0 10 Q
+(2) 52.58 38.89 T
+0 9 Q
+( of) 58.14 38.89 T
+0 10 Q
+( 4) 69.14 38.89 T
+0 9 Q
+( niri_hty_009) 113.39 38.89 T
+0 10 Q
+(/) 168.41 38.89 T
+0 9 Q
+(05) 171.19 38.89 T
+-0.31 (Near IR Ima) 238.49 38.89 P
+-0.31 (g) 287.3 38.89 P
+-0.31 (er \050NIRI\051 and W) 292.88 38.89 P
+-0.31 (a) 356.09 38.89 P
+-0.31 (vefr) 360.96 38.89 P
+-0.31 (ont Sensor \050OIWFS\051\321De\336nitions,) 377.28 38.89 P
+53 183/G297492 FmPA
+2 10 Q
+(N/A) 153.21 680.66 T
+(Not Applicable) 224.08 680.66 T
+54 825/G297926 FmPA
+(NIRI) 153.21 668.66 T
+(Near Infra-Red Imager) 224.08 668.66 T
+54 813/G297927 FmPA
+(OCS) 153.21 656.66 T
+(Observ) 224.08 656.66 T
+(atory Control System) 252.71 656.66 T
+54 801/G310409 FmPA
+(OIWFS) 153.21 644.66 T
+(On Instrument W) 224.08 644.66 T
+(a) 293.27 644.66 T
+(v) 297.51 644.66 T
+(e-Front Sensor) 302.36 644.66 T
+54 789/G297928 FmPA
+(OMS) 153.21 632.66 T
+(Ore) 224.08 632.66 T
+(gon Microsystems) 238.92 632.66 T
+54 777/G300273 FmPA
+(TBD) 153.21 620.66 T
+(T) 224.08 620.66 T
+(o Be Determined) 229.39 620.66 T
+54 765/G298153 FmPA
+(TCS) 153.21 608.66 T
+(T) 224.08 608.66 T
+(elescope Control System) 229.49 608.66 T
+54 753/G310407 FmPA
+(WCS) 153.21 596.66 T
+(W) 224.08 596.66 T
+(orld Coordinate System) 232.72 596.66 T
+54 741/G299885 FmPA
+(UH IfA) 153.21 584.66 T
+(Uni) 224.08 584.66 T
+(v) 238.83 584.66 T
+(ersity of Ha) 243.68 584.66 T
+(w) 290.74 584.66 T
+(aii, Institute for Astronomy) 297.86 584.66 T
+54 729/G297929 FmPA
+1 F
+(1.3.1) 124 559.66 T
+(Stylistic Con) 153 559.66 T
+(v) 206.77 559.66 T
+(entions) 211.67 559.66 T
+54 704/G280730 FmPA
+2 F
+(References to documents in Section) 153.21 546.66 T
+(1.5, \322References,) 299.02 546.66 T
+(\323 on page) 367.18 546.66 T
+(2 are gi) 408 546.66 T
+(v) 437.74 546.66 T
+(en lik) 442.59 546.66 T
+(e this [1].) 464.99 546.66 T
+54 691/G280734 FmPA
+1 12 Q
+(1.4) 129 512.33 T
+(De\336nitions) 153 512.33 T
+54 656/G297941 FmPA
+4 10 Q
+(This list is incomplete) 153.21 487.66 T
+(. F) 240.57 487.66 T
+(or a mor) 250.63 487.66 T
+(e complete listing) 285.26 487.66 T
+(, see the CICS de\336nitions list in [17]) 355.71 487.66 T
+2 F
+(.) 501.83 487.66 T
+54 632/G298166 FmPA
+1 F
+(Hall-effect Sensor) 153.21 463.66 T
+(.) 228.58 463.66 T
+54 608/G298154 FmPA
+2 F
+(An electronic component which is used to detect and to measure mag-) 233.58 463.66 T
+54 608/G298181 FmPA
+(netic \336eld strength.) 153.21 451.66 T
+1 12 Q
+(1.5) 129 417.33 T
+(Refer) 153 417.33 T
+(ences) 181.43 417.33 T
+54 561/G298174 FmPA
+2 10 Q
+([1]) 153.21 399.66 T
+-0.41 (niri_hty_000.fm \050obsolete, superseded by [2] and by [3]\051, \322NIRI Optical-Components) 181.56 399.66 P
+54 544/G310234 FmPA
+(Controller: Implementation Issues,) 181.56 387.66 T
+(\323 Hubert Y) 320.02 387.66 T
+(amada, Ev Irwin, T) 363.45 387.66 T
+(on) 440.13 387.66 T
+(y Y) 449.98 387.66 T
+(oung, Uni) 463.6 387.66 T
+(v) 503.35 387.66 T
+(er-) 508.2 387.66 T
+(sity of Ha) 181.56 375.66 T
+(w) 220.85 375.66 T
+(aii, Institute for Astronomy) 227.97 375.66 T
+(.) 336.76 375.66 T
+([2]) 153.21 360.66 T
+(niri_hty_001.fm) 181.56 360.66 T
+2 8 Q
+(1) 246.84 364.66 T
+2 10 Q
+(, \322Near IR Imager \050NIRI\051\321Architectural Design Document,) 250.84 360.66 T
+(\323) 492.29 360.66 T
+54 505/G310194 FmPA
+(Hubert Y) 181.56 348.66 T
+(amada, Uni) 218.05 348.66 T
+(v) 263.9 348.66 T
+(ersity of Ha) 268.75 348.66 T
+(w) 315.81 348.66 T
+(aii, Institute for Astronomy) 322.93 348.66 T
+(.) 431.72 348.66 T
+([3]) 153.21 333.66 T
+(niri_hty_002.fm, \322Near IR Imager \050NIRI\051\321Detailed Design Document,) 181.56 333.66 T
+(\323 Hubert) 469.41 333.66 T
+54 478/G310195 FmPA
+(Y) 181.56 321.66 T
+(amada, Uni) 187.78 321.66 T
+(v) 233.63 321.66 T
+(ersity of Ha) 238.48 321.66 T
+(w) 285.54 321.66 T
+(aii, Institute for Astronomy) 292.66 321.66 T
+(.) 401.45 321.66 T
+([4]) 153.21 306.66 T
+(niri_hty_003.fm, \322Near IR Imager \050NIRI\051 to Observ) 181.56 306.66 T
+(atory Control System,) 390.15 306.66 T
+(\323 Hubert) 477.51 306.66 T
+54 451/G297895 FmPA
+(Y) 181.56 294.66 T
+(amada, Uni) 187.78 294.66 T
+(v) 233.63 294.66 T
+(ersity of Ha) 238.48 294.66 T
+(w) 285.54 294.66 T
+(aii, Institute for Astronomy) 292.66 294.66 T
+(.) 401.45 294.66 T
+([5]) 153.21 279.66 T
+(niri_hty_004.fm, \322Near IR Imager \050NIRI\051\321Softw) 181.56 279.66 T
+(are Calibration and Maintenance,) 382.53 279.66 T
+(\323) 515.13 279.66 T
+54 424/G297989 FmPA
+(Hubert Y) 181.56 267.66 T
+(amada, Uni) 218.05 267.66 T
+(v) 263.9 267.66 T
+(ersity of Ha) 268.75 267.66 T
+(w) 315.81 267.66 T
+(aii, Institute for Astronomy) 322.93 267.66 T
+([6]) 153.21 252.66 T
+(niri_hty_005.fm \322NIRI Science Instrument to On Instrument W) 181.56 252.66 T
+(a) 435.73 252.66 T
+(v) 439.97 252.66 T
+(efront Sensor\323,) 444.82 252.66 T
+54 397/G310355 FmPA
+(Hubert Y) 181.56 240.66 T
+(amada, Uni) 218.05 240.66 T
+(v) 263.9 240.66 T
+(ersity of Ha) 268.75 240.66 T
+(w) 315.81 240.66 T
+(aii, Institute for Astronomy) 322.93 240.66 T
+(.) 431.72 240.66 T
+([7]) 153.21 225.66 T
+(niri_hty_006.fm \322Near IR Imager \050NIRI\051-Softw) 181.56 225.66 T
+(are Release Notes\323, Hubert Y) 373.36 225.66 T
+(amada,) 490.93 225.66 T
+54 370/G310377 FmPA
+(Uni) 181.56 213.66 T
+(v) 196.31 213.66 T
+(ersity of Ha) 201.16 213.66 T
+(w) 248.22 213.66 T
+(aii, Institute for Astronomy; Ste) 255.34 213.66 T
+(v) 382.59 213.66 T
+(en Beard, Ro) 387.44 213.66 T
+(yal Observ) 439.83 213.66 T
+(atory) 483.18 213.66 T
+(Edinb) 181.56 201.66 T
+(ur) 205.25 201.66 T
+(gh.) 213.4 201.66 T
+([8]) 153.21 186.66 T
+(niri_hty_007.fm \322Near IR Imager \050NIRI\051-The Engineering User Interf) 181.56 186.66 T
+(ace\323, Hubert) 462.49 186.66 T
+54 331/G310384 FmPA
+(Y) 181.56 174.66 T
+(amada, Uni) 187.78 174.66 T
+(v) 233.63 174.66 T
+(ersity of Ha) 238.48 174.66 T
+(w) 285.54 174.66 T
+(aii, Institute for Astronomy) 292.66 174.66 T
+(.) 401.45 174.66 T
+([9]) 153.21 159.66 T
+(niri_hty_008.fm \322) 181.56 159.66 T
+(A&G to NIRI/GNIRS On Instrument W) 252.98 159.66 T
+(a) 413 159.66 T
+(v) 417.24 159.66 T
+(efront Sensor\323, Hubert) 422.09 159.66 T
+54 304/G310330 FmPA
+(Y) 181.56 147.66 T
+(amada, Uni) 187.78 147.66 T
+(v) 233.63 147.66 T
+(ersity of Ha) 238.48 147.66 T
+(w) 285.54 147.66 T
+(aii, Institute for Astronomy) 292.66 147.66 T
+(.) 401.45 147.66 T
+([10]) 153.21 132.66 T
+(niri_hty_009.fm, \322Near IR Imager \050NIRI\051\321De\336nitions, Abbre) 181.56 132.66 T
+(viations and Refer-) 432.93 132.66 T
+54 277/G310304 FmPA
+(ences, Hubert Y) 181.56 120.66 T
+(amada, Uni) 245.26 120.66 T
+(v) 291.11 120.66 T
+(ersity of Ha) 295.96 120.66 T
+(w) 343.02 120.66 T
+(aii, Institute for Astronomy) 350.14 120.66 T
+54 92.17 523.28 108.17 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+153.21 100.17 323.29 100.17 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+2 9 Q
+0 X
+0 0 0 1 0 0 0 K
+(1.) 153.21 86.17 T
+-0.1 (The NIRI and OIWFS softw) 167.39 86.17 P
+-0.1 (are documentation is currently under de) 269.36 86.17 P
+-0.1 (v) 411.83 86.17 P
+-0.1 (elopment. W) 416.19 86.17 P
+-0.1 (orking drafts are) 461.86 86.17 P
+54 230/G310419 FmPA
+(a) 167.39 76.17 T
+(v) 171.2 76.17 T
+(ailable by ftp from ftp://gemftp.if) 175.48 76.17 T
+(a.ha) 295.63 76.17 T
+(w) 310.23 76.17 T
+(aii.edu/gemini_IF) 316.64 76.17 T
+(A/niri.) 380.23 76.17 T
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.2/DEST FmPD2
+182 550/M9.25768.Doclist1.1.nirihty000fm.obsolete.superseded.by.this.document.and.by.2.NIRI.Optical FmPA
+182 550/I1.310247 FmPA
+182 511/M9.31363.Doclist.24.icdhty001fm.under.preparation.Near.IR.Imager.NIRIArchitectural.Design FmPA
+182 511/I1.297892 FmPA
+182 430/M9.11561.Doclist.5.nirihty004fm.under.preparation.Near.IR.Imager.NIRISoftware.Calibration FmPA
+182 430/I1.310251 FmPA
+153 569/M9.40713.Heading2.15.References FmPA
+153 569/I1.298280 FmPA
+182 484/M9.40087.Doclist.3.nirihty002fm.under.preparation.Near.IR.Imager.NIRIDetailed.Design FmPA
+182 484/I1.310327 FmPA
+182 310/M9.11799.Doclist.6.nirihty008fm.AG.to.NIRIGNIRS.On.Instrument.Wavefront.Sensor.Hubert FmPA
+182 310/I1.310333 FmPA
+182 403/M9.16875.Doclist.6.nirihty005fm.NIRIGNIRS.Science.Instrument.to.On.Instrument.Wavefront.Sen FmPA
+182 403/I1.310358 FmPA
+182 376/M9.27174.Doclist.7.nirihty006fm.Near.IR.Imager.NIRISoftware.Release.Notes.Hubert.Yamada FmPA
+182 376/I1.310555 FmPA
+182 337/M9.41577.Doclist.8.nirihty007fm.Near.IR.Imager.NIRIThe.Engineering.User.Interface.Hubert FmPA
+182 337/I1.310640 FmPA
+[/Rect[391 396 403 407]/Border[0 0 0]/Page 2/View[/XYZ null 182 484 FmDC exch pop null]/LNK FmPD
+[/Rect[349 396 360 407]/Border[0 0 0]/Page 2/View[/XYZ null 182 511 FmDC exch pop null]/LNK FmPD
+[/Rect[489 543 501 554]/Border[0 0 0]/Page 2/View[/XYZ null 182 550 FmDC exch pop null]/LNK FmPD
+[/Rect[484 484 502 495]/Border[0 0 0]/Page 3/View[/XYZ null 200 705 FmDC exch pop null]/LNK FmPD
+[/Rect[267 543 413 554]/Border[0 0 0]/Page 2/View[/XYZ null 153 569 FmDC exch pop null]/LNK FmPD
+[/Title(A)/Rect[45 60 532 696]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "2" 2
+%%Page: "3" 3
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.68 558 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Intr) 132.8 733.66 T
+(oduction) 147.12 733.66 T
+72 878/G297507 FmPA
+72 726.98 558 726.98 2 L
+0.25 H
+N
+72 62.08 558 62.08 2 L
+2 Z
+N
+(Near IR Ima) 72 46.12 T
+(g) 121.43 46.12 T
+(er \050NIRI\051 and W) 127.02 46.12 T
+(a) 191.16 46.12 T
+(vefr) 196.03 46.12 T
+(ont Sensor \050OIWFS\051\321De\336nitions, Abbre) 212.35 46.12 T
+(viations and Ref) 383.73 46.12 T
+(erences) 453.16 46.12 T
+72 190/G297526 FmPA
+2 10 Q
+([11]) 171.21 680.66 T
+(NIRI Hardw) 199.56 680.66 T
+(are-speci\336cation document\050s\051, under preparation, T) 249.72 680.66 T
+(on) 454.42 680.66 T
+(y Y) 464.27 680.66 T
+(oung) 477.89 680.66 T
+72 825/G310318 FmPA
+([12]) 171.21 665.66 T
+(NIRI Electronics-speci\336cation document\050s\051, under preparation, Ev Irwin) 199.56 665.66 T
+72 810/G310306 FmPA
+([13]) 171.21 650.66 T
+(NIRI W) 199.56 650.66 T
+(a) 231.25 650.66 T
+(v) 235.49 650.66 T
+(efront-sensor detector document\050s\051, under preparation, Ev Irwin) 240.34 650.66 T
+72 795/G310308 FmPA
+([14]) 171.21 635.66 T
+(cics_smb_041, \322CICS\321Detailed Design Document,) 199.56 635.66 T
+(\323 Ste) 409.12 635.66 T
+(v) 428.59 635.66 T
+(en Beard, Ro) 433.44 635.66 T
+(yal Observ) 485.83 635.66 T
+(a-) 529.18 635.66 T
+72 780/G297991 FmPA
+(tory Edinb) 199.56 623.66 T
+(ur) 241.86 623.66 T
+(gh.) 250.01 623.66 T
+([15]) 171.21 608.66 T
+(cics_smb_022, \322CICS\321Architectural Design Document,) 199.56 608.66 T
+(\323 Ste) 428 608.66 T
+(v) 447.47 608.66 T
+(en Beard, Ro) 452.32 608.66 T
+(yal) 504.71 608.66 T
+72 753/G297996 FmPA
+(Observ) 199.56 596.66 T
+(atory Edinb) 228.19 596.66 T
+(ur) 274.93 596.66 T
+(gh.) 283.08 596.66 T
+([16]) 171.21 581.66 T
+(cics_smb_013, \322Science Instrument to Observ) 199.56 581.66 T
+(atory Control System\323, Ste) 384.56 581.66 T
+(v) 492.09 581.66 T
+(en Beard,) 496.94 581.66 T
+72 726/G297985 FmPA
+(Ro) 199.56 569.66 T
+(yal Observ) 211.13 569.66 T
+(atory Edinb) 254.48 569.66 T
+(ur) 301.22 569.66 T
+(gh.) 309.37 569.66 T
+([17]) 171.21 554.66 T
+-0.04 (cics_smb_039, \322CICS Project Glossary and References,) 199.56 554.66 P
+-0.04 (\323 Ste) 422.79 554.66 P
+-0.04 (v) 442.22 554.66 P
+-0.04 (en Beard, Ro) 447.07 554.66 P
+-0.04 (yal Obser-) 499.39 554.66 P
+72 699/G310188 FmPA
+(v) 199.56 542.66 T
+(atory Edinb) 204.31 542.66 T
+(ur) 251.05 542.66 T
+(gh.) 259.2 542.66 T
+([18]) 171.21 527.66 T
+(GN) 199.56 527.66 T
+(AA) 213.65 527.66 T
+(C.ICD.193_195ab) 227.69 527.66 T
+(.fm, \322ICD 1.9.3[ab]\321Detector Controller to NIRI/NIRS) 300.62 527.66 T
+72 672/G298052 FmPA
+(ICS Interf) 199.56 515.66 T
+(ace\323, Nick C. Buchholz, NO) 239.73 515.66 T
+(A) 353.52 515.66 T
+(O.) 360.19 515.66 T
+([19]) 171.21 500.66 T
+(ic16110.doc, \322ICD) 199.56 500.66 T
+(1.6/1.10 A&G to On-Instrument W) 277.88 500.66 T
+(a) 418.18 500.66 T
+(v) 422.42 500.66 T
+(efront Sensors\323, Nick Dil-) 427.27 500.66 T
+72 645/G310361 FmPA
+(lon, Malcolm Ste) 199.56 488.66 T
+(w) 268.48 488.66 T
+(art, Ste) 275.6 488.66 T
+(v) 303.68 488.66 T
+(en Beard, Brian Leckie.) 308.53 488.66 T
+([20]) 171.21 473.66 T
+(ag_jms_004, \322Control of W) 199.56 473.66 T
+(a) 310.42 473.66 T
+(v) 314.66 473.66 T
+(efront Sensors\323, Malcolm Ste) 319.51 473.66 T
+(w) 437.58 473.66 T
+(art) 444.7 473.66 T
+72 618/G300237 FmPA
+([21]) 171.21 458.66 T
+(SPE-C-G0037,) 199.56 458.66 T
+4 F
+(\322Softwar) 262.34 458.66 T
+(e Design Description\323) 298.65 458.66 T
+2 F
+(, Gemini 8m T) 389.2 458.66 T
+(elescopes Project.) 447.39 458.66 T
+72 603/G310259 FmPA
+([22]) 171.21 443.66 T
+(SPE-I-G0009, \322) 199.56 443.66 T
+4 F
+(Softwar) 263.44 443.66 T
+(e Pr) 294.19 443.66 T
+(o) 310.68 443.66 T
+(gr) 315.58 443.66 T
+(amming Standar) 324.32 443.66 T
+(ds\323,) 390.34 443.66 T
+2 F
+(Gemini 8m T) 409.79 443.66 T
+(elescopes Project.) 462.98 443.66 T
+72 588/G310261 FmPA
+([23]) 171.21 428.66 T
+4 F
+(\322Instrumentation \050F) 199.56 428.66 T
+(acilities and Science\051 ICD\325) 280.2 428.66 T
+(s Guidelines\323) 388.39 428.66 T
+2 F
+(, Susan W) 443.67 428.66 T
+(ieland, Gem-) 484.1 428.66 T
+72 573/G310265 FmPA
+(ini 8m T) 199.56 416.66 T
+(elescopes Project.) 233.31 416.66 T
+([24]) 171.21 401.66 T
+(gscg.kkg.009,) 199.56 401.66 T
+4 F
+( \322ICD) 255.39 401.66 T
+(1a \321 The System Command Interface\323) 283.17 401.66 T
+2 F
+(, Kim Gillies, NO) 440.1 401.66 T
+(A) 511.14 401.66 T
+(O.) 517.81 401.66 T
+72 546/G310268 FmPA
+([25]) 171.21 386.66 T
+(gscg.kkg.024,) 199.56 386.66 T
+4 F
+(\322ICD) 257.89 386.66 T
+(1b \321) 283.17 386.66 T
+(The Baseline Attrib) 307.06 386.66 T
+(ute/V) 384.64 386.66 T
+(alue Interface\323) 404.64 386.66 T
+2 F
+(, Kim Gillies,) 466.02 386.66 T
+72 531/G310270 FmPA
+(NO) 199.56 374.66 T
+(A) 213.65 374.66 T
+(O.) 220.32 374.66 T
+([26]) 171.21 359.66 T
+(gscg.kkg.010,) 199.56 359.66 T
+4 F
+(\322ICD) 257.89 359.66 T
+(2 \321 Systems Status and Alarm Interfaces\323) 283.17 359.66 T
+2 F
+(, Gemini 8m T) 453.72 359.66 T
+(ele-) 511.91 359.66 T
+72 504/G310274 FmPA
+(scopes Project.) 199.56 347.66 T
+([27]) 171.21 332.66 T
+(gscg.grp.015,) 199.56 332.66 T
+4 F
+(\322ICD) 256.22 332.66 T
+(7a \321 ICS Subsystem Interfaces\323) 281.5 332.66 T
+2 F
+(, Ste) 412.6 332.66 T
+(v) 430.13 332.66 T
+(en Beard, Ste) 434.98 332.66 T
+(v) 488.33 332.66 T
+(e W) 493.18 332.66 T
+(ampler) 508.76 332.66 T
+72 477/G310351 FmPA
+(and Chris Mayer) 199.56 320.66 T
+(, Gemini 8m T) 266.37 320.66 T
+(elescopes Project.) 324.56 320.66 T
+([28]) 171.21 305.66 T
+(gscg.grp.009, \322) 199.56 305.66 T
+4 F
+(ICD) 260.66 305.66 T
+(7b\321 TCS Subsystem Interfaces\323,) 280.38 305.66 T
+2 F
+(Philip T) 416.21 305.66 T
+(aylor) 447.92 305.66 T
+72 450/G310401 FmPA
+([29]) 171.21 290.66 T
+(gscg.grp.???, \322) 199.56 290.66 T
+4 F
+(ICD) 258.98 290.66 T
+(12\321Interloc) 278.7 290.66 T
+(k System) 329.05 290.66 T
+2 F
+(\323, Pere) 363.76 290.66 T
+(grin McGehee) 390.82 290.66 T
+72 435/G310352 FmPA
+([30]) 171.21 275.66 T
+(gscg.grp.???,) 199.56 275.66 T
+4 F
+(\322ICD) 254.54 275.66 T
+(13 \321 Standar) 279.82 275.66 T
+(d Contr) 335.01 275.66 T
+(oller) 365.4 275.66 T
+2 F
+(\323, Bret Goodrich & Andre) 384.29 275.66 T
+(w Johnson,) 488.74 275.66 T
+72 420/G310282 FmPA
+(Gemini 8m T) 199.56 263.66 T
+(elescopes Project.) 252.75 263.66 T
+([31]) 171.21 248.66 T
+(gscg.grp.025,) 199.56 248.66 T
+4 F
+(\322ICD) 256.22 248.66 T
+(16 \321 The P) 281.5 248.66 T
+(ar) 328.2 248.66 T
+(ameter De\336nition F) 336.94 248.66 T
+(ormat\323) 414.77 248.66 T
+2 F
+(, Ste) 444.22 248.66 T
+(v) 461.75 248.66 T
+(e W) 466.6 248.66 T
+(ampler) 482.18 248.66 T
+(, Gem-) 509.55 248.66 T
+72 393/G310339 FmPA
+(ini 8m T) 199.56 236.66 T
+(elescopes Project.) 233.31 236.66 T
+([32]) 171.21 221.66 T
+(ocs.kkg.031,) 199.56 221.66 T
+4 F
+(\322Sequence Command Speci\336cations\323) 252.89 221.66 T
+2 F
+(, Kim Gillies, Shane W) 403.43 221.66 T
+(alk) 495.96 221.66 T
+(er &) 508.08 221.66 T
+72 366/G310292 FmPA
+(Ste) 199.56 209.66 T
+(v) 212.09 209.66 T
+(en Beard, NO) 216.94 209.66 T
+(A) 271.85 209.66 T
+(O/Gemini 8m T) 278.52 209.66 T
+(elescopes Project.) 341.71 209.66 T
+([33]) 171.21 194.66 T
+(pg-c-0019, \322) 199.56 194.66 T
+4 F
+(An Engineering bac) 250.1 194.66 T
+(k-door for Gemini instruments) 329.89 194.66 T
+2 F
+(\323, Ste) 451.83 194.66 T
+(v) 473.8 194.66 T
+(e W) 478.65 194.66 T
+(ampler) 494.23 194.66 T
+(,) 521.6 194.66 T
+72 339/G310553 FmPA
+(Gemini 8m T) 199.56 182.66 T
+(elescopes Project.) 252.75 182.66 T
+([34]) 171.21 167.66 T
+(cics_smb_045, \322) 199.56 167.66 T
+4 F
+(CICS \321 Pr) 266.22 167.66 T
+(oject History Document\323,) 311.33 167.66 T
+2 F
+(Ste) 417.43 167.66 T
+(v) 429.96 167.66 T
+(en Beard, Ro) 434.81 167.66 T
+(yal Observ) 487.2 167.66 T
+(a-) 530.55 167.66 T
+72 312/G310606 FmPA
+(tory Edinb) 199.56 155.66 T
+(ur) 241.86 155.66 T
+(gh.) 250.01 155.66 T
+([35]) 171.21 140.66 T
+(niri_hty_011.fm, \322Near IR Imager \050NIRI\051 and On Instrument W) 199.56 140.66 T
+(a) 455.37 140.66 T
+(v) 459.61 140.66 T
+(efront Sensor) 464.46 140.66 T
+72 285/G310629 FmPA
+(\050OIWFS\051 \321Implementation Notes and Record Reference Manual,) 199.56 128.66 T
+(\323 Hubert Y) 465.19 128.66 T
+(amada,) 508.62 128.66 T
+(Uni) 199.56 116.66 T
+(v) 214.31 116.66 T
+(ersity of Ha) 219.16 116.66 T
+(w) 266.22 116.66 T
+(aii, Institute for Astronomy) 273.34 116.66 T
+(.) 382.13 116.66 T
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.3/DEST FmPD2
+200 759/M9.26652.Doclist.8.cicssmb022.CICSArchitectural.Design.Document.Steven.Beard.Royal FmPA
+200 759/I1.310249 FmPA
+200 678/M9.10059.Doclist.11.GNAACICD193195abfm.ICD.193abDetector.Controller.to.NIRINIRS.ICS FmPA
+200 678/I1.310250 FmPA
+200 732/M9.42664.Doclist.6.cicssmb039.CICS.Project.Glossary.and.References.Steven.Beard.Royal FmPA
+200 732/I1.297992 FmPA
+200 786/M9.24037.Doclist.7.cicssmb041.CICSDetailed.Design.Document.Steven.Beard.Royal.Observa FmPA
+200 786/I1.310252 FmPA
+200 609/M9.34238.Doclist.3.SPECG0037.Software.Design.Description.Gemini.8m.Telescopes.Project FmPA
+200 609/I1.310255 FmPA
+200 705/M9.31287.Doclist.9.cicssmb039.CICS.Project.Glossary.and.References.Steven.Beard.Royal.Obser FmPA
+200 705/I1.310187 FmPA
+200 594/M9.18487.Doclist.3.SPEIG0009.Software.Programming.Standards.Gemini.8m.Telescopes.Project FmPA
+200 594/I1.310260 FmPA
+200 579/M9.37868.Doclist.2.Instrumentation.Facilities.and.Science.ICDs.Guidelines.Susan.Wieland FmPA
+200 579/I1.310262 FmPA
+200 552/M9.34190.Doclist.2.gscgkkg009.ICD.1a..The.System.Command.Interface.Kim.Gillies.NOAO FmPA
+200 552/I1.310267 FmPA
+200 537/M9.33320.Doclist.3.ICD1b..The.Baseline.AttributeValue.Interface.Kim.Gillies.NOAO FmPA
+200 537/I1.310269 FmPA
+200 510/M9.73805.Doclist.4.GSCGkkg010.ICD.2..Systems.Status.and.Alarm.Interfaces.Gemini.8m.Tele FmPA
+200 510/I1.310271 FmPA
+200 483/M9.19195.Doclist.4.gscggrp015.ICD7a..ICS.Subsystem.Interfaces.Steven.Beard.Steve.Wampler FmPA
+200 483/I1.310276 FmPA
+200 426/M9.16149.Doclist.21.gscggrp.ICD.13..Standard.Controller.Peregrine.McGehee.Gemini.8m.Tele FmPA
+200 426/I1.310281 FmPA
+200 399/M9.41757.Doclist.7.gscgsbw067.Prototype.Parameter.Definition.Format.Steve.Wampler.Gemini FmPA
+200 399/I1.310286 FmPA
+200 372/M9.35232.Doclist.10.ocskkg031.Preliminary.Sequencer.Command.Specifications.Kim.Gillies.Shane FmPA
+200 372/I1.310291 FmPA
+200 831/M9.32449.Doclist.7.NIRI.Hardwarespecification.documents.under.preparation.Tony.Young FmPA
+200 831/I1.310325 FmPA
+200 816/M9.31164.Doclist.8.NIRI.Electronicsspecification.documents.under.preparation.Ev.Irwin FmPA
+200 816/I1.310326 FmPA
+200 441/M9.12987.Doclist.26.gscggrp.ICD12.Interlock.System.Peregrin.McGehee FmPA
+200 441/I1.310350 FmPA
+200 651/M9.20565.Doclist.17.ic16110doc.ICD16110.AG.to.OnInstrument.Wavefront.Sensors.Nick.Dil FmPA
+200 651/I1.310364 FmPA
+200 801/M9.14118.Doclist.11.NIRI.Wavefrontsensor.detector.documents.under.preparation.Ev.Irwin FmPA
+200 801/I1.310365 FmPA
+200 456/M9.19653.Doclist.28.gscggrp009.ICD7b.TCS.Subsystem.Interfaces.Philip.Taylor FmPA
+200 456/I1.310406 FmPA
+200 624/M9.17983.Doclist.20.agjms004.Control.of.Wavefront.Sensors.Malcolm.Stewart FmPA
+200 624/I1.310411 FmPA
+200 345/M9.38250.Doclist.33.pgc0019.An.Engineering.backdoor.for.Gemini.instruments.Steve.Wampler FmPA
+200 345/I1.310554 FmPA
+200 318/M9.34394.Doclist.34.cicssmb045.CICS..Project.History.Document.Steven.Beard.Royal.Observa FmPA
+200 318/I1.310625 FmPA
+200 291/M9.22264.Doclist.35.nirihty011fm.Near.IR.Imager.NIRI.and.On.Instrument.Wavefront.Sensor FmPA
+200 291/I1.310636 FmPA
+[/Title(A)/Rect[63 60 550 696]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "3" 3
+%%Page: "4" 4
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.68 540 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Intr) 114.8 733.66 T
+(oduction) 129.12 733.66 T
+54 878/G297473 FmPA
+54 726.98 540 726.98 2 L
+0.25 H
+N
+52.58 54.99 538.58 54.99 2 L
+2 Z
+N
+0 10 Q
+(4) 52.58 38.89 T
+0 9 Q
+( of) 58.14 38.89 T
+0 10 Q
+( 4) 69.14 38.89 T
+0 9 Q
+( niri_hty_009) 113.39 38.89 T
+0 10 Q
+(/) 168.41 38.89 T
+0 9 Q
+(05) 171.19 38.89 T
+-0.31 (Near IR Ima) 238.49 38.89 P
+-0.31 (g) 287.3 38.89 P
+-0.31 (er \050NIRI\051 and W) 292.88 38.89 P
+-0.31 (a) 356.09 38.89 P
+-0.31 (vefr) 360.96 38.89 P
+-0.31 (ont Sensor \050OIWFS\051\321De\336nitions,) 377.28 38.89 P
+53 183/G297492 FmPA
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.4/DEST FmPD2
+[/Title(A)/Rect[45 60 532 696]/ARTICLE FmPD2
+[/Page 1/View[/XYZ null 207 864 FmDC exch pop null]/Title(Near IR Imager \(NIRI\) and Wavefront Sensor \(OIWFS\)...)/Count 1/OUT FmPD
+[/Page 1/View[/XYZ null 171 576 FmDC exch pop null]/Title(1 Introduction)/Count 5/OUT FmPD
+[/Page 1/View[/XYZ null 171 532 FmDC exch pop null]/Title(1.1 Purpose of the document)/OUT FmPD
+[/Page 1/View[/XYZ null 171 461 FmDC exch pop null]/Title(1.2 Scope)/OUT FmPD
+[/Page 1/View[/XYZ null 171 397 FmDC exch pop null]/Title(1.3 Abbreviations and Acronyms)/Count -1/OUT FmPD
+[/Page 2/View[/XYZ null 153 710 FmDC exch pop null]/Title(1.3.1 Stylistic Conventions)/OUT FmPD
+[/Page 2/View[/XYZ null 153 664 FmDC exch pop null]/Title(1.4 Definitions)/Count -1/OUT FmPD
+[/Page 2/View[/XYZ null 153 614 FmDC exch pop null]/Title(Hall-effect Sensor.)/OUT FmPD
+[/Page 2/View[/XYZ null 153 569 FmDC exch pop null]/Title(1.5 References)/Count -35/OUT FmPD
+[/Page 2/View[/XYZ null 182 550 FmDC exch pop null]/Title([1]\023 niri_hty_000.fm \(obsolete, superseded by [2] ...)/OUT FmPD
+[/Page 2/View[/XYZ null 182 511 FmDC exch pop null]/Title([2]\023 niri_hty_001.fm, \215Near IR Imager \(NIRI\)\204Archi...)/OUT FmPD
+[/Page 2/View[/XYZ null 182 484 FmDC exch pop null]/Title([3]\023 niri_hty_002.fm, \215Near IR Imager \(NIRI\)\204Detai...)/OUT FmPD
+[/Page 2/View[/XYZ null 182 457 FmDC exch pop null]/Title([4]\023 niri_hty_003.fm, \215Near IR Imager \(NIRI\) to Ob...)/OUT FmPD
+[/Page 2/View[/XYZ null 182 430 FmDC exch pop null]/Title([5]\023 niri_hty_004.fm, \215Near IR Imager \(NIRI\)\204Softw...)/OUT FmPD
+[/Page 2/View[/XYZ null 182 403 FmDC exch pop null]/Title([6]\023 niri_hty_005.fm \215NIRI Science Instrument to O...)/OUT FmPD
+[/Page 2/View[/XYZ null 182 376 FmDC exch pop null]/Title([7]\023 niri_hty_006.fm \215Near IR Imager \(NIRI\)-Softwa...)/OUT FmPD
+[/Page 2/View[/XYZ null 182 337 FmDC exch pop null]/Title([8]\023 niri_hty_007.fm \215Near IR Imager \(NIRI\)-The En...)/OUT FmPD
+[/Page 2/View[/XYZ null 182 310 FmDC exch pop null]/Title([9]\023 niri_hty_008.fm \215A&G to NIRI/GNIRS On Instrum...)/OUT FmPD
+[/Page 2/View[/XYZ null 182 283 FmDC exch pop null]/Title([10]\023 niri_hty_009.fm, \215Near IR Imager \(NIRI\)\204Defi...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 831 FmDC exch pop null]/Title([11]\023 NIRI Hardware-specification document\(s\), und...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 816 FmDC exch pop null]/Title([12]\023 NIRI Electronics-specification document\(s\), ...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 801 FmDC exch pop null]/Title([13]\023 NIRI Wavefront-sensor detector document\(s\), ...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 786 FmDC exch pop null]/Title([14]\023 cics_smb_041, \215CICS\204Detailed Design Document...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 759 FmDC exch pop null]/Title([15]\023 cics_smb_022, \215CICS\204Architectural Design Doc...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 732 FmDC exch pop null]/Title([16]\023 cics_smb_013, \215Science Instrument to Observa...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 705 FmDC exch pop null]/Title([17]\023 cics_smb_039, \215CICS Project Glossary and Ref...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 678 FmDC exch pop null]/Title([18]\023 GNAAC.ICD.193_195ab.fm, \215ICD 1.9.3[ab]\204Detec...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 651 FmDC exch pop null]/Title([19]\023 ic16110.doc, \215ICD\0211.6/1.10 A&G to On-Instrum...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 624 FmDC exch pop null]/Title([20]\023 ag_jms_004, \215Control of Wavefront Sensors\216, ...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 609 FmDC exch pop null]/Title([21]\023 SPE-C-G0037, \215Software Design Description\216, ...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 594 FmDC exch pop null]/Title([22]\023 SPE-I-G0009, \215Software Programming Standards...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 579 FmDC exch pop null]/Title([23]\023 \215Instrumentation \(Facilities and Science\) IC...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 552 FmDC exch pop null]/Title([24]\023 gscg.kkg.009, \215ICD\0211a \204 The System Command I...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 537 FmDC exch pop null]/Title([25]\023 gscg.kkg.024, \215ICD\0211b \204 The Baseline Attribu...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 510 FmDC exch pop null]/Title([26]\023 gscg.kkg.010, \215ICD\0212 \204 Systems Status and Al...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 483 FmDC exch pop null]/Title([27]\023 gscg.grp.015, \215ICD\0217a \204 ICS Subsystem Interf...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 456 FmDC exch pop null]/Title([28]\023 gscg.grp.009, \215ICD\0217b\204 TCS Subsystem Interfa...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 441 FmDC exch pop null]/Title([29]\023 gscg.grp.???, \215ICD\02112\204Interlock System\216, Per...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 426 FmDC exch pop null]/Title([30]\023 gscg.grp.???, \215ICD\02113 \204 Standard Controller\216...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 399 FmDC exch pop null]/Title([31]\023 gscg.grp.025, \215ICD\02116 \204 The Parameter Defini...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 372 FmDC exch pop null]/Title([32]\023 ocs.kkg.031, \215Sequence Command Specification...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 345 FmDC exch pop null]/Title([33]\023 pg-c-0019, \215An Engineering back-door for Gem...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 318 FmDC exch pop null]/Title([34]\023 cics_smb_045, \215CICS \204 Project History Docume...)/OUT FmPD
+[/Page 3/View[/XYZ null 200 291 FmDC exch pop null]/Title([35]\023 niri_hty_011.fm, \215Near IR Imager \(NIRI\) and ...)/OUT FmPD
+FMENDPAGE
+%%EndPage: "4" 4
+%%Trailer
+%%BoundingBox: 0 0 612 792
+%%PageOrder: Ascend
+%%Pages: 4
+%%DocumentFonts: Helvetica-Bold
+%%+ Times-Bold
+%%+ Times-Roman
+%%+ Helvetica
+%%+ Times-Italic
+%%EOF

@@ -1,0 +1,42 @@
+#! /bin/sh
+
+# $Id: niriScanSplit,v 1.2 2009/05/27 19:34:40 fkraemer Exp $
+
+doPrint=0
+noRemove=0
+
+while [ $# -gt 0 ]; do
+	case $1	in
+	--print|-p) doPrint=1; shift;;
+	--noremove|-n) noRemove=1; shift;;
+	-*) 1>&2 echo Unknown option: $1;;
+	*) break;;
+	esac
+done
+
+if [ $# -ne 1 ]; then
+	echo `basename $0`: `basename $0` FILE.dat
+	exit
+fi
+base=`basename $1 .dat`
+
+awk '{ if ($6 == "f") print $1, $2 }' < ${base}.dat > ${base}_1pf.tmp
+awk '{ if ($6 == "f") print $1, $3 }' < ${base}.dat > ${base}_1bf.tmp
+awk '{ if ($6 == "f") print $1, $4 }' < ${base}.dat > ${base}_2pf.tmp
+awk '{ if ($6 == "f") print $1, $5 }' < ${base}.dat > ${base}_2bf.tmp
+awk '{ if ($6 == "r") print $1, $2 }' < ${base}.dat > ${base}_1pr.tmp
+awk '{ if ($6 == "r") print $1, $3 }' < ${base}.dat > ${base}_1br.tmp
+awk '{ if ($6 == "r") print $1, $4 }' < ${base}.dat > ${base}_2pr.tmp
+awk '{ if ($6 == "r") print $1, $5 }' < ${base}.dat > ${base}_2br.tmp
+
+gnuplot << _EOF_
+	set term postscript
+	set output '${base}_1p.ps'
+	plot '${base}_1pf.tmp','${base}_1pr.tmp'
+	set output '${base}_1b.ps'
+	plot '${base}_1bf.tmp','${base}_1br.tmp'
+	set output '${base}_2p.ps'
+	plot '${base}_2pf.tmp','${base}_2pr.tmp'
+	set output '${base}_2b.ps'
+	plot '${base}_2bf.tmp','${base}_2br.tmp'
+_EOF_

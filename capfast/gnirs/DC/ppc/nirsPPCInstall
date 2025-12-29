@@ -1,0 +1,38 @@
+#!/bin/csh -f
+#
+# DCDATA_TARGET and DCCTRL_TARGET specify which targets to use for the two application
+# only concerned with DCDATA_TARGET here
+#
+# Matthieu Bec - 12/20/2001
+#
+setenv DCDATA_TARGET ppc604
+#setenv DCCTRL_TARGET mv167   ;# actually an mv162, but that's irrelevant for cross compiling
+
+applSetup.pl \
+        -T ${DCDATA_TARGET}\
+	-i ${NIRS_DIR}\
+        --site MK\
+	-P ${NIRS_DCINSTPATH}/ppc\
+        -d /gemini/dhs/dhs-0.19b/external\
+	-d /gemini/dhs/dhs-0.19b\
+	-I dc-data\
+	-I startup\
+	-s Makefile.Dirs
+
+#        --depends /gemini/astlib\
+#        --depends /gemini/slalib\
+#        --depends /gemini/timelib\
+
+
+# only site MK and CP supported by applSetup.pl
+# edit the script if you want a NOAO
+# not used for Niri anyway
+
+# might work, otherwise, cd to the directory individually 
+# --include dc-ctrl
+# --include dc-data
+
+#gmake clean |& tee build.log
+#gmake |& tee build.log
+
+# gmake clean all doesn't work with Makefile

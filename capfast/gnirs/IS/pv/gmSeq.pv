@@ -1,0 +1,71 @@
+#
+# gmSeq.pv
+#
+# pvload parameter definition file for GMOS instrument sequencer
+#
+# This file sets up the permanent parameters for the instrument
+# sequencer. It should not need to be edited.
+#
+# Set the initial debugging mode to NONE
+# and clear the "IS only" flag.
+#
+group {
+   string $(top)debug.A       = "NONE" ;
+   string $(top)debug.B       = "0" ;
+}
+long   $(top)debugMenu.VAL = 1;
+string $(top)debug.DIR     = "CLEAR" ;
+
+#
+# Initialise the default grating selection parameters.
+#
+##string $(top)grSelect.A = "WLEN" ;
+##string $(top)grSelect.D = "1" ;
+##string $(top)grSelect.DIR = "CLEAR" ;
+#
+# Initialise names of mask, filter and grating lookup tables
+#
+#string $(top)dirLut.VAL          = "/chard/gemini/gnirs/control/data" ;
+
+#group {
+#   string $(top)fw1SeqLut.VAL  = "fwIS.lut" ;
+#  string $(top)fw2SeqLut.VAL       = "fwIS.lut" ;
+#   string $(top)slitSeqLut.VAL       = "slitIS.lut" ;
+#   string $(top)gratingSeqLut.VAL       = "gratingIS.lut" ;
+#   string $(top)deckerSeqLut.VAL       = "deckerIS.lut" ;
+#   string $(top)xdispSeqLut.VAL       = "xdispIS.lut" ;
+#   string $(top)focusSeqLut.VAL       = "focusIS.lut" ;
+#   string $(top)cameraSeqLut.VAL       = "cameraIS.lut" ;
+#   string $(top)coverSeqLut.VAL       = "coverIS.lut" ;
+#   string $(top)acqSeqLut.VAL       = "acqIS.lut" ;
+#}
+#group{
+
+#   string $(top)fw1Lut.VAL       = "fw1.lut" ;
+#   string $(top)fw2Lut.VAL       = "fw2.lut" ;
+#   string $(top)slitLut.VAL       = "slit.lut" ;
+#   string $(top)gratingLut.VAL       = "grating.lut" ;
+#   string $(top)deckerLut.VAL       = "decker.lut" ;
+#   string $(top)xdispLut.VAL       = "xdisp.lut" ;
+#   string $(top)focusLut.VAL       = "focus.lut" ;
+#   string $(top)cameraLut.VAL       = "camera.lut" ;
+#   string $(top)coverLut.VAL       = "cover.lut" ;
+#   string $(top)acqLut.VAL       = "acq.lut" ;
+#}
+
+#
+#  Initialise filter and grating names in SAD:
+#  The fields set here are output to the SIR records
+#
+##   string $(top)fltPos.VALG   = "unknown" ;
+##   string $(top)fltPos.VALH   = "unknown" ;
+##   string $(top)grSelect.VALD = "unknown" ;
+
+
+
+# mechanism names
+#string $(top)getNames.DIR = "MARK";	
+#string $(top)getNames.DIR = "START";
+
+
+string $(top)apply.DIR = "CLEAR";

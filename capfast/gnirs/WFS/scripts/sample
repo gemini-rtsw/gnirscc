@@ -1,0 +1,18 @@
+init "Config 1" 
+move filt2 "M'"
+move filt3 "grid"
+go
+observe
+
+init "Config 2"
+move filt1 "PK-50"
+move filt3 "grid"
+go
+setTime 5
+observe 2
+
+init "Config 3"
+move filt2 "K'"
+move filt3 "grid"
+go
+observe

@@ -1,0 +1,892 @@
+#+
+#  RealTcs.itcl
+#
+#  A RealTcs object controls the tcs, enabling and disabling guiding as
+#  required, configuring the telescope, deploying guide probes and
+#  positioning the science fold.
+#
+#  In order to determine whether a guide target has changed, the current
+#  target name is stored in the class common variables p1target etc.
+#
+#  The current state of the tcs is stored in the array tcsstate when the
+#  move is started.
+#
+#  D Terrett 6 February 2002
+#
+#  Copyright CCLRC
+#+
+
+itcl::class RealTcs {
+   
+   common ignoretcs 0
+   common maxguidestep 0.0
+   common p1target ""
+   common p2target ""
+   common oitarget ""
+   common tcsstartstate
+   common trace 0
+   common defaultdelay 1000
+      
+   public {
+      proc gettcsstate {{array ""}}
+      constructor {args} {}
+      destructor {}
+      method continue {}
+      method endobserve {}
+      method move {whendone}
+      method observe {}
+      method pause {}
+      variable p "" {checkisdouble p}
+      variable q "" {checkisdouble q}
+      variable guideWithPWFS1 ""
+      variable guideWithPWFS2 ""
+      variable guideWithOIWFS ""
+      variable posAngle ""
+      variable observeType ""
+      variable agname ""
+      variable sfname ""
+   }
+   private {
+      method checkisdouble {option}
+      method configerror {args}
+      method configto {}
+      method guideofferror {args}
+      method guideoffto {}
+      method guideonerror {args}
+      method guideonto {}
+      method guideon {}
+      method isinposition {}
+      method ready {}
+      method telconfig {}
+      method tracecs {args}
+      common inposition
+      variable configaction
+      variable guideduringmove
+      variable guideoffaction
+      variable guideonaction
+      variable newstate
+      variable tcsstate
+      variable tcssetup 0
+      variable x
+      variable y
+      variable whendoneproc
+   }
+}
+
+# Create the status acceptor for reading the state of the tcs.
+if { [catch {sa tcsstate info}] } {
+   epics sa tcsstate
+}
+
+itcl::body RealTcs::gettcsstate {{array ""}} {
+
+# Captures the state of the tcs (as relevant to the sequence executor) in
+# the specifed array or in the class common array tcsstartstate.
+
+   if { [string equal $array ""] } {
+      upvar 0 tcsstartstate state
+   } else {
+      upvar 1 $array state
+   }
+
+# The instrument alignment angle is assumed to be zero if it doesn't appear
+# to have been set
+   set state(iaa) [sa tcsstate get instrAA]
+   if { [string is double -strict $state(iaa)] } {
+      set state(iaa) [expr $state(iaa) / 57.2957795131]
+   } else {
+      set state(iaa) 0.0
+   }
+
+# If the x or y offsets aren't numbers then presumably no offset command
+# has been sent to the tcs so assume they are 0.0.
+   set state(xoffset) [sa tcsstate get xoffsetPoA1]
+   if { ! [string is double -strict $state(xoffset)] } {
+      set state(xoffset) 0.0
+   }
+   set state(yoffset) [sa tcsstate get yoffsetPoA1]
+   if { ! [string is double -strict $state(yoffset)] } {
+      set state(yoffset) 0.0
+   }
+
+# The m2 guide state is either On or Off.
+   switch [sa tcsstate get m2GuideState] {
+      On {set state(m2GuideState) 1}
+      Off {set state(m2GuideState) 0}
+      default {error "failed to get m2 guide state"}
+   }
+
+# The absorb tip/tilt flag is an integer. Zero means off, 3 means M2 and
+# 4 means A&G (i.e. PWFS1 or PWFS2).
+   set state(absorbTipTilt) [sa tcsstate get absorbTipTilt]
+#   set tcsstartstate(absorbTipTilt) $state(absorbTipTilt)
+   if { $state(absorbTipTilt) != 0 && $state(absorbTipTilt) != 3  &&
+         $state(absorbTipTilt) !=4 } {
+      error "absorb tip/tilt flag invalid"
+   }
+
+#  set state(m1Guide) [sa tcsstate get m1Guide]
+#  set tcsstartstate(m1GuideState) $state(m1Guide)
+# The m1 guide state is either On or Off.
+   switch [sa tcsstate get m1Guide] {
+      On {set state(m1GuideState) 1}
+      Off {set state(m1GuideState) 0}
+      default {error "failed to get m1 guide state"}
+   }
+
+# Interpret anything other than OFF as meaning that m2 is configured to
+# accept guide signals from the wave-front sensor.
+   set state(m2p1Guide) \
+      [expr { ! [string equal [sa tcsstate get m2p1Guide] OFF] }]
+   set state(m2p2Guide) \
+      [expr { ! [string equal [sa tcsstate get m2p2Guide] OFF] }]
+   set state(m2oiGuide) \
+      [expr { ! [string equal [sa tcsstate get m2oiGuide] OFF] }]
+
+# M1 guide source is a string. The default is PWFS1.
+   set state(m1GuideSource) [sa tcsstate get m1GuideSource]
+   if { [string is space $state(m1GuideSource)] } {
+      set state(m1GuideSource) PWFS1
+   }
+
+# The ISS port labels are just strings.
+   set state(port1Label) [sa tcsstate get port1Label]
+   set state(port2Label) [sa tcsstate get port2Label]
+   set state(port3Label) [sa tcsstate get port3Label]
+   set state(port4Label) [sa tcsstate get port4Label]
+   set state(port5Label) [sa tcsstate get port5Label]
+
+# The science fold position name is a string.
+   if { [sa tcsstate get sfParked] == 1 } {
+      set state(sfName) park
+   } else {
+      set state(sfName) [sa tcsstate get sfName]
+   }
+
+# The WFS probe arms follow states are either ON or OFF.
+   switch [sa tcsstate get p1FollowS] {
+      ON {set state(p1Following) 1}
+      OFF {set state(p1Following) 0}
+      default {error "failed to get p1 follow state"}
+   }
+   switch [sa tcsstate get p2FollowS] {
+      ON {set state(p2Following) 1}
+      OFF {set state(p2Following) 0}
+      default {error "failed to get p2 follow state"}
+   }
+   switch [sa tcsstate get oiFollowS] {
+      ON - On - on {set state(oiFollowing) 1}
+      OFF - Off - off {set state(oiFollowing) 0}
+      default {error "failed to get oi follow state"}
+   }
+
+# The probe parked flags are 0 or 1.
+   set state(p1Parked) [sa tcsstate get p1Parked]
+   set state(p2Parked) [sa tcsstate get p2Parked]
+
+# There is no parked flag for the OIWFS yet so, for the moment, we will
+# assume that if it isn't following then it is parked. (The sequencer never
+# disables follow except by parking the arm).
+   set state(oiParked) [expr { ! $state(oiFollowing) }]
+
+# The WFS integrating states are either Yes or No.
+   switch [sa tcsstate get pwfs1On] {
+      Yes {set state(pwfs1On) 1}
+      No {set state(pwfs1On) 0}
+      default {error "failed to get p1 integrating state"}
+   }
+   switch [sa tcsstate get pwfs2On] {
+      Yes {set state(pwfs2On) 1}
+      No {set state(pwfs2On) 0}
+      default {error "failed to get p2 integrating state"}
+   }
+   switch [sa tcsstate get oiwfsOn] {
+      Yes {set state(oiwfsOn) 1}
+      No {set state(oiwfsOn) 0}
+      default {error "failed to get oi integrating state"}
+   }
+
+# Trace the state.
+   if { $trace } {
+      foreach {el val} [array get state] {
+         puts "- TCS state trace - $el $val"
+      }
+   }
+}
+
+itcl::body RealTcs::constructor {args} {
+
+# Create the action that disables guiding. We don't need to check that
+# the tcs is "in position" before proceeding to configure the telescope.
+   set guideoffaction [seq::Action #auto tcs]
+   $guideoffaction configure -onok [itcl::code $this telconfig]
+   $guideoffaction configure -onerror [itcl::code $this guideofferror]
+   $guideoffaction configure -ontimeout [itcl::code $this guideoffto]
+   $guideoffaction configure -timeout 10
+   $guideoffaction set mountGuide mode off
+   $guideoffaction set m1Guide state off
+   $guideoffaction set m2Guide state off
+
+# Create that action that configures and moves the telescope. Parameter
+# setting depend on the state of the system and option values at the time
+# the action is started.
+   set configaction [seq::Action #auto tcs]
+   $configaction configure -onok [itcl::code $this guideon]
+   $configaction configure -waitvar [itcl::scope inposition]
+   $configaction configure -oktest [itcl::code $this isinposition]
+   $configaction configure -onerror [itcl::code $this configerror]
+   $configaction configure -ontimeout [itcl::code $this configto]
+   $configaction configure -timeout 120
+
+   $configaction connect pwfs1Park
+   $configaction connect pwfs2Park
+   $configaction connect oiwfsPark
+   $configaction connect pwfs1Guide
+   $configaction connect pwfs2Guide
+   $configaction connect oiwfsGuide
+   $configaction connect pwfs1StopObserve
+   $configaction connect pwfs2StopObserve
+   $configaction connect oiwfsStopObserve
+   $configaction connect p1Follow
+   $configaction connect p2Follow
+   $configaction connect oiFollow
+   $configaction connect scienceFold
+   $configaction connect scienceFoldPark
+   $configaction connect offsetPoA1
+   $configaction connect offsetPoB1
+   $configaction connect offsetPoC1
+
+# Create the action that turns guiding back on.
+   set guideonaction [seq::Action #auto tcs]
+   $guideonaction configure -onok [itcl::code $this ready]
+   $guideonaction configure -waitvar [itcl::scope inposition]
+   $guideonaction configure -oktest [itcl::code $this isinposition]
+   $guideonaction configure -onerror [itcl::code $this guideonerror]
+   $guideonaction configure -ontimeout [itcl::code $this guideonto]
+   $guideonaction configure -timeout 30
+   $guideonaction connect m2Guide
+   $guideonaction connect m1Guide
+   $guideonaction connect mountGuide
+   $guideonaction connect pwfs1Observe
+   $guideonaction connect pwfs2Observe
+   $guideonaction connect oiwfsObserve
+
+# Create the tcs sequence command command senders.
+   foreach cs {tcs::observe tcs::endObserve tcs::pause tcs::continue} {
+      if { [catch {cs $cs info} ] } {
+         epics cs $cs
+      }
+   }
+   eval configure $args
+}
+
+itcl::body RealTcs::destructor {} {
+
+# Delete the actions created in the constructor.
+   itcl::delete object $configaction
+   itcl::delete object $guideoffaction
+   itcl::delete object $guideonaction
+}
+
+itcl::body RealTcs::observe {} {
+
+# Post an observe command to the TCS. We assume that if it is accepted
+# then it will complete successfully and promptly and so we can simply
+# post and forget. After posting we wait 10ms in order to give the ocswish
+# channel access thread a chance to execute.
+   tracecs tcs::observe set dummy MARK
+   if { [catch {tracecs tcs::observe post} msg] } {
+      lappend Sequence::errormsg 
+            "Error when posting observe command to the tcs: $msg"
+      return 0
+   } else {
+      after 10
+      return 1
+   }
+}
+
+itcl::body RealTcs::endobserve {} {
+
+# Post an endObserve command to the tcs. 
+   tracecs tcs::endObserve set dummy MARK
+   if { [catch {tracecs tcs::endObserve post} msg] } {
+      lappend Sequence::errormsg 
+            "Error when posting endObserve command to the tcs: $msg"
+      return 0
+   } else {
+      after 10
+      return 1
+   }
+}
+
+itcl::body RealTcs::pause {} {
+
+# Post a pause command to the tcs. 
+   tracecs tcs::pause set dummy MARK
+   if { [catch {tracecs tcs::pause post} msg] } {
+      lappend Sequence::errormsg 
+            "Error when posting pause command to the tcs: $msg"
+      return 0
+   } else {
+      after 10
+      return 1
+   }
+}
+
+itcl::body RealTcs::continue {} {
+
+# Post a continue command to the tcs. 
+   tracecs tcs::continue set dummy MARK
+   if { [catch {tracecs tcs::continue post} msg] } {
+      lappend Sequence::errormsg 
+            "Error when posting continue command to the tcs: $msg"
+      return 0
+   } else {
+      after 10
+      return 1
+   }
+}
+
+itcl::body RealTcs::move {whendone} {
+
+# Moves the telescope.
+
+# First we must determine whether or not we can move the telescope
+# while still guiding. Start by assuming that we can.
+   set guideduringmove 1
+
+# Get the current state of the tcs.
+   if { [catch {gettcsstate tcsstate} msg] } {
+      lappend ::Sequence::errormsg $msg
+      return 0
+   }
+
+# Look at the size of the telescope movement and see whether it
+# is bigger than the maximum step allowed while still guiding.
+
+# Compute the new offsets in the focal plane. If p & q aren't defined then
+# use the current offsets so that the telescope isn't moved.
+   if { $p == "" || $q == "" } {
+      set x $tcsstate(xoffset)
+      set y $tcsstate(yoffset)
+   } else {
+      set x [expr { ( $p * cos($tcsstate(iaa)) + $q * \
+            sin($tcsstate(iaa)) ) * 0.62056151}]
+      set y [expr { ( - $p * sin($tcsstate(iaa)) + $q * \
+            cos($tcsstate(iaa)) ) * 0.62056151}]
+   }
+
+# Compare the difference between the old and new offsets with maxguidestep.
+   set dx [expr {$tcsstate(xoffset) - $x}]
+   set dy [expr {$tcsstate(yoffset) - $y}]
+   if { ($dx * $dx + $dy * $dy) > ($maxguidestep *  0.62056151) * \
+         ($maxguidestep *  0.62056151) } {
+
+# The move is too big so we can't keep guiding.
+      set guideduringmove 0
+   } else {
+
+# If a WFS currently integrating and the target has changed (either to another
+# target or to parked or frozen) then we can't keep guiding.
+      if { $tcsstate(pwfs1On) && $p1target != $guideWithPWFS1 } {
+         set guideduringmove 0
+      }
+      if { $tcsstate(pwfs2On) && $p2target != $guideWithPWFS2 } {
+         set guideduringmove 0
+      }
+      if { $tcsstate(oiwfsOn) && $oitarget != $guideWithOIWFS } {
+         set guideduringmove 0
+      }
+   }
+
+# Store the "whendone" procedure.
+   set whendoneproc $whendone
+
+# Turn off guiding if we have decided that we need to. Otherwise call the
+# telconfig method directly to reconfigure the telescope.
+   if { ! $guideduringmove } {
+      puts "### $this - guideoffaction start"
+      sa tcsstate link inPosition [itcl::scope inposition]
+      $guideoffaction start
+   } else {
+      puts "### $this - skip guideoffaction"
+      telconfig
+   }
+   return 1
+}
+
+itcl::body RealTcs::telconfig {} {
+
+# Configures the telescope in preparation for re-enabling guiding.
+
+# Construct an array that specifies how the tcs should be configured for
+# the current step.
+
+# P1 probe arm and WFS. If the guideWith parameter hasn't been set then
+# copy the existing state.
+   if { $guideWithPWFS1 == "park" } {
+      set newstate(p1Parked) 1
+      set newstate(p1Following) 0
+      set newstate(pwfs1On) 0
+   } elseif { $guideWithPWFS1 == "freeze" } {
+      set newstate(p1Parked) 0
+      set newstate(p1Following) 1
+      set newstate(pwfs1On) 0
+   } elseif { $guideWithPWFS1 == "" } {
+      set newstate(p1Parked) $tcsstate(p1Parked)
+      set newstate(p1Following) $tcsstate(p1Following)
+      set newstate(pwfs1On) $tcsstate(pwfs1On)
+   } else {
+      set newstate(p1Parked) 0
+      set newstate(p1Following) 1
+      set newstate(pwfs1On) 1
+   }
+
+# Repeat for the other probes.
+   if { $guideWithPWFS2 == "park" } {
+      set newstate(p2Parked) 1
+      set newstate(p2Following) 0
+      set newstate(pwfs2On) 0
+   } elseif { $guideWithPWFS2 == "freeze" } {
+      set newstate(p2Parked) 0
+      set newstate(p2Following) 1
+      set newstate(pwfs2On) 0
+   } elseif { $guideWithPWFS2 == "" } {
+      set newstate(p2Parked) $tcsstate(p2Parked)
+      set newstate(p2Following) $tcsstate(p2Following)
+      set newstate(pwfs2On) $tcsstate(pwfs2On)
+   } else {
+      set newstate(p2Parked) 0
+      set newstate(p2Following) 1
+      set newstate(pwfs2On) 1
+   }
+   if { $guideWithOIWFS == "park" } {
+      set newstate(oiParked) 1
+      set newstate(oiFollowing) 0
+      set newstate(oiwfsOn) 0
+   } elseif { $guideWithOIWFS == "freeze" } {
+      set newstate(oiParked) 0
+      set newstate(oiFollowing) 1
+      set newstate(oiwfsOn) 0
+   } elseif { $guideWithOIWFS == "" } {
+      set newstate(oiParked) $tcsstate(oiParked)
+      set newstate(oiFollowing) $tcsstate(oiFollowing)
+      set newstate(oiwfsOn) $tcsstate(oiwfsOn)
+   } else {
+      set newstate(oiParked) 0
+      set newstate(oiFollowing) 1
+      set newstate(oiwfsOn) 1
+   }
+
+# For the OIWFS there is a special case of a FLAT or an ARC where the
+# instrument can see GCAL and not the sky so whatever the sequence says
+# the OIWFS must be turned off.
+   if { $observeType == "FLAT" || $observeType == "ARC" } {
+      set newstate(oiwfsOn) 0
+   }
+
+# Pointing origin.
+   set newstate(xoffsetPoA1) $x
+   set newstate(yoffsetPoA1) $y
+
+# Copy the existing M2 guide configuration.
+   set newstate(m2p1Guide) $tcsstate(m2p1Guide)
+   set newstate(m2p2Guide) $tcsstate(m2p2Guide)
+   set newstate(m2oiGuide) $tcsstate(m2oiGuide)
+
+# M2 tip/tilt is on if both WFS on and m2 guide are true for any
+# of the wave-front sensors.
+   set newstate(m2GuideState) [expr {
+         $newstate(m2p1Guide) && $newstate(pwfs1On) ||
+         $newstate(m2p2Guide) && $newstate(pwfs2On) ||
+         $newstate(m2oiGuide) && $newstate(oiwfsOn)
+   }]
+
+# If the WFS that matches the starting M1 guiding source is on then m1 guide
+# is on.
+   set newstate(m1GuideState) 0
+   if { $tcsstartstate(m1GuideState) } {
+      switch $tcsstartstate(m1GuideSource) {
+         PWFS1 { if { $newstate(pwfs1On) } { set newstate(m1GuideState) 1 } }
+         PWFS2 { if { $newstate(pwfs2On) } { set newstate(m1GuideState) 1 } }
+         OIWFS { if { $newstate(oiwfsOn) } { set newstate(m1GuideState) 1 } }
+      }
+   }
+
+# If any of the WFS that are on matches an M2 guide source then m2 guide
+# state should be true.
+   if { ( $newstate(pwfs1On) && $newstate(m2p1Guide) ) || \
+         ( $newstate(pwfs2On) && $newstate(m2p2Guide) ) || \
+         ( $newstate(oiwfsOn) && $newstate(m2oiGuide) ) } {
+      set newstate(m2GuideState) 1
+   } else {
+      set newstate(m2GuideState) 0
+   }
+
+# Turn on absorb tip/tilt if the source of tip/tilt that matches the state
+# in the start state is on.
+   set newstate(absorbTipTilt) 0
+   switch $tcsstartstate(absorbTipTilt) {
+      3 { if { $newstate(m2GuideState) } {
+         set newstate(absorbTipTilt) 3 } 
+      }
+      4 { if { $newstate(pwfs1On) || $newstate(pwfs2On) } {
+         set newstate(absorbTipTilt) 4 } 
+      }
+   }
+
+# Determine the position of the science fold. If the step has no instrument
+# or the observe type is DARK or BIAS isn't set then we don't care so just 
+# copy the existing position.
+   if { [string equal $agname ""]  || $observeType == "DARK" || \
+         $observeType == "BIAS" || $observeType == "" } {
+      set newstate(sfName) $tcsstate(sfName)
+   } else {
+
+# We need to know which port the instrument is on. For most instruments the 
+# A&G name is just the instrument name in lower case with the port number 
+# appended but the acquisition camera name is "ac" and has no port number.
+      if { [string equal $agname "ac"] } {
+         set port ""
+      } else {
+         switch $agname \
+               $tcsstate(port1Label) { set port 1 } \
+               $tcsstate(port2Label) { set port 2 } \
+               $tcsstate(port3Label) { set port 3 } \
+               $tcsstate(port4Label) { set port 4 } \
+               $tcsstate(port5Label) { set port 5 } \
+               default { 
+                  lappend ::Sequence::errormsg "Instrument not found on ISS"
+                  $whendoneproc 0
+                  return
+               }
+      }
+
+# The position depends on the port, the instrument name and the observe type.
+      if { $observeType == "FLAT" || $observeType == "ARC" } {
+         set newstate(sfName) gcal2${sfname}${port}
+      } else {
+         if { $port == 1 || $port == "" } {
+            set newstate(sfName) park
+         } else {
+            set newstate(sfName) ${sfname}${port}
+         }
+      }
+   }
+
+# Configure the config action whereever the newstate array differs from the
+# tcsstate array taking care to unset any parameters we don't want otherwise 
+# commands could be left marked from a previous execution of this step.
+   $configaction unset p1Follow followState
+   $configaction unset p2Follow followState
+   $configaction unset oiFollow followState
+   $configaction unset pwfs1Park dummy
+   $configaction unset pwfs2Park dummy
+   $configaction unset oiwfsPark dummy
+   $configaction unset pwfs1Guide nodachopa
+   $configaction unset pwfs2Guide nodachopa
+   $configaction unset oiwfsGuide nodachopa
+   $configaction unset pwfs1Guide nodbchopa
+   $configaction unset pwfs2Guide nodbchopa
+   $configaction unset oiwfsGuide nodbchopa
+   $configaction unset pwfs1StopObserve dummy
+   $configaction unset pwfs2StopObserve dummy
+   $configaction unset oiwfsStopObserve dummy
+   $configaction unset scienceFold scfold
+   $configaction unset scienceFoldPark dummy
+
+puts "TCS setup currently is $tcssetup"
+set tcssetup 0
+
+# Park WFS arms.
+   if { $newstate(p1Parked) && ( ! $tcsstate(p1Parked) ) } {
+      if { $trace } { puts "p1Parked $newstate(p1Parked) <- $tcsstate(p1Parked)" }
+      $configaction set pwfs1Park dummy MARK
+      set tcssetup 1
+   }
+   if { $newstate(p2Parked) && ( ! $tcsstate(p2Parked) ) } {
+      if { $trace } { puts "p2Parked $newstate(p2Parked) <- $tcsstate(p2Parked)" }
+      $configaction set pwfs2Park dummy MARK
+      set tcssetup 1
+   }
+   if { $newstate(oiParked) && ( ! $tcsstate(oiParked) ) } {
+      if { $trace } { puts "oiParked $newstate(oiParked) <- $tcsstate(oiParked)" }
+      $configaction set oiwfsPark dummy MARK
+      set tcssetup 1
+   }
+
+# WFS follow.
+   if { $newstate(p1Following) && ( ! $tcsstate(p1Following) ) } {
+      if { $trace } { puts "p1Following $newstate(p1Following) <- $tcsstate(p1Following)" }
+      $configaction set p1Follow followState On
+      set tcssetup 1
+   }
+   if { $newstate(p2Following) && ( ! $tcsstate(p2Following) ) } {
+      if { $trace } { puts "p2Following $newstate(p2Following) <- $tcsstate(p2Following)" }
+      $configaction set p2Follow followState On
+      set tcssetup 1
+   }
+   if { $newstate(oiFollowing) && ( ! $tcsstate(oiFollowing) ) } {
+      if { $trace } { puts "oiFollowing $newstate(oiFollowing) <- $tcsstate(oiFollowing)" }
+      $configaction set oiFollow followState On
+      set tcssetup 1
+   }
+
+# WFS On implies that the WFS should be tracking a star so the chop/nod
+# flag for chop A Nod A should be on.
+   if { $newstate(pwfs1On) } {
+      $configaction set pwfs1Guide nodachopa On
+   } else {
+      $configaction set pwfs1Guide nodachopa Off
+      $configaction set pwfs1Guide nodbchopa Off
+   }
+   if { $newstate(pwfs2On) } {
+      $configaction set pwfs2Guide nodachopa On
+   } else {
+      $configaction set pwfs2Guide nodachopa Off
+      $configaction set pwfs2Guide nodbchopa Off
+   }
+   if { $newstate(oiwfsOn) } {
+      $configaction set oiwfsGuide nodachopa On
+   } else {
+      $configaction set oiwfsGuide nodachopa Off
+      $configaction set oiwfsGuide nodbchopa Off
+   }
+
+# Turn off WFS not in use.
+   if { ( ! $newstate(pwfs1On) ) && $tcsstate(pwfs1On) } {
+      if { $trace } { puts "pwfs1On $newstate(pwfs1On) <- $tcsstate(pwfs1On)" }
+      $configaction set pwfs1StopObserve dummy MARK
+   }
+   if { ( ! $newstate(pwfs2On) ) && $tcsstate(pwfs2On) } {
+      if { $trace } { puts "pwfs2On $newstate(pwfs2On) <- $tcsstate(pwfs2On)" }
+      $configaction set pwfs2StopObserve dummy MARK
+   }
+   if { ( ! $newstate(oiwfsOn) ) && $tcsstate(oiwfsOn) } {
+      if { $trace } { puts "oiwfsOn $newstate(oiwfsOn) <- $tcsstate(oiwfsOn)" }
+      $configaction set oiwfsStopObserve dummy MARK
+   }
+
+# Set tcs setup flag
+   if { ( $newstate(pwfs1On) != "" && 
+          ($newstate(pwfs1On) != $tcsstate(pwfs1On)) ) ||
+        ( $newstate(pwfs2On) != "" &&
+          ($newstate(pwfs2On) != $tcsstate(pwfs2On)) ) ||
+        ( $newstate(oiwfsOn) != "" &&
+        ( $newstate(oiwfsOn) != $tcsstate(oiwfsOn)) ) } {
+      
+      if { $trace } { puts "pwfs1On $newstate(pwfs1On) <- $tcsstate(pwfs1On)" }
+      if { $trace } { puts "pwfs2On $newstate(pwfs2On) <- $tcsstate(pwfs2On)" }
+      if { $trace } { puts "oiwfsOn $newstate(oiwfsOn) <- $tcsstate(oiwfsOn)" }
+      set tcssetup 1
+      } 
+
+# Position science fold.
+   if { $newstate(sfName) != "" && $newstate(sfName) != $tcsstate(sfName) } {
+      if { $trace } { puts "sfName $newstate(sfName) <- $tcsstate(sfName)" }
+      # temporarly cope with the scifold pb.
+      tcs configure -delay 3000
+      set tcssetup 1
+      if { $newstate(sfName) == "park" } {
+         $configaction set scienceFoldPark dummy MARK
+      } else {
+         $configaction set scienceFold scfold $newstate(sfName)
+      }
+   } else {
+   # scifold won't move .. back to normal
+   tcs configure -delay $defaultdelay
+   }
+
+# Pointing origin.
+
+   if { ( $newstate(xoffsetPoA1) != $tcsstate(xoffset)) || 
+        ($newstate(yoffsetPoA1) != $tcsstate(yoffset)) } {
+        if { $trace } { puts "xoffsetPoA1 $newstate(xoffsetPoA1) <- $tcsstate(xoffset)" }
+        if { $trace } { puts "yoffsetPoA1 $newstate(yoffsetPoA1) <- $tcsstate(yoffset)" }
+        set tcssetup 1
+        }
+
+   $configaction set offsetPoA1 x $newstate(xoffsetPoA1)
+   $configaction set offsetPoB1 x $newstate(xoffsetPoA1)
+   $configaction set offsetPoC1 x $newstate(xoffsetPoA1)
+   $configaction set offsetPoA1 y $newstate(yoffsetPoA1)
+   $configaction set offsetPoB1 y $newstate(yoffsetPoA1)
+   $configaction set offsetPoC1 y $newstate(yoffsetPoA1)
+
+   sa tcsstate link inPosition [itcl::scope inposition]
+
+# If something change
+
+   if { $tcssetup } {
+      
+      puts "### $this configaction start"
+      # Start the move.
+      $configaction start
+   } else {
+      puts "### $this skip configaction"
+      after idle [$configaction cget -onok]
+   }
+
+# And record the new guiding targets.
+   set p1target $guideWithPWFS1
+   set p2target $guideWithPWFS2
+   set oitarget $guideWithOIWFS
+}
+
+itcl::body RealTcs::guideon {} {
+
+# Get the current state of the tcs.
+   if { [catch {gettcsstate tcsstate} msg] } {
+      lappend ::Sequence::errormsg $msg
+      return 0
+   }
+
+set tcssetup 0
+
+# Turns on guiding.
+   if { ( $newstate(m1GuideState) != $tcsstate(m1GuideState)) } {
+      set tcssetup 1
+      if { $newstate(m1GuideState) } {
+         $guideonaction set m1Guide state on
+      } else {
+         $guideonaction set m1Guide state off
+      }
+   }
+   if { ( $newstate(m2GuideState) != $tcsstate(m2GuideState)) } {
+      set tcssetup 1
+      if { $newstate(m2GuideState) } {
+         $guideonaction set m2Guide state on
+      } else {
+         $guideonaction set m2Guide state off
+      }
+   }
+# Turn on WFS if needed.
+   if { ( $newstate(pwfs1On) != $tcsstate(pwfs1On)) } {
+      set tcssetup 1
+      if { $newstate(pwfs1On) && ( ! $tcsstate(pwfs1On) ) } {
+         $guideonaction set pwfs1Observe noexp -1
+      } else {
+         $guideonaction unset pwfs1Observe noexp
+      }
+   }
+   if { ( $newstate(pwfs2On) != $tcsstate(pwfs2On)) } {
+      set tcssetup 1
+      if { $newstate(pwfs2On) && ( ! $tcsstate(pwfs2On) ) } {
+         $guideonaction set pwfs2Observe noexp -1
+      } else {
+         $guideonaction unset pwfs2Observe noexp
+      }
+   }
+   if { ( $newstate(oiwfsOn) != $tcsstate(oiwfsOn)) } {
+      set tcssetup 1
+      if { $newstate(oiwfsOn) && ( ! $tcsstate(oiwfsOn) ) } {
+         $guideonaction set oiwfsObserve noexp -1
+      } else {
+         $guideonaction unset oiwfsObserve noexp
+      }
+   }
+   if { ( $newstate(absorbTipTilt) != $tcsstate(absorbTipTilt)) } {
+      set tcssetup 1
+      if { $newstate(absorbTipTilt) != 0} {
+         $guideonaction set mountGuide mode on
+      } else {
+         $guideonaction set mountGuide mode off
+      }
+   }
+
+# If something change
+
+   if { $tcssetup } {
+      
+      puts "### $this guideonaction start"
+      # Start guiding.
+      sa tcsstate link inPosition [itcl::scope inposition]
+      puts "$this guideonaction start"
+      $guideonaction start
+      
+   } else {
+      puts "### $this skip guideonaction"
+      after idle [$guideonaction cget -onok]
+   }
+
+}
+
+itcl::body RealTcs::ready {} {
+
+# Calls the "whendone" action to indicate the tcs is ready. This has to
+# be done in a method so that whendoneproc gets substituted at run time
+# and not when the actions are created in the constructor.
+   $whendoneproc 1
+}
+
+itcl::body RealTcs::isinposition {} {
+
+# Check the TCS in position status record.
+   if { $ignoretcs } {
+      return 1
+   } else {
+      return [string equal TRUE [sa tcsstate get inPosition]]
+   }
+}
+
+itcl::body RealTcs::tracecs {args} {
+
+# Executes a cs command with optional tracing.
+   if { $trace} {
+      puts "trace: cs $args"
+   }
+   eval cs $args
+}
+
+# These methods handle errors and timeouts from actions by setting the
+# Sequence class error message variable and calling the "whendone" procedure
+# with an error status.
+
+itcl::body RealTcs::configerror {args} {
+   lappend ::Sequence::errormsg \
+         "Failed to configure telescope:"
+   if { [llength $args] } {
+      eval lappend ::Sequence::errormsg $args
+      }
+   $whendoneproc 0
+}
+
+itcl::body RealTcs::configto {} {
+   lappend ::Sequence::errormsg "Timed out while configuring telescope"
+   $whendoneproc 0
+}
+
+itcl::body RealTcs::guideofferror {args} {
+   lappend ::Sequence::errormsg "Failed to disable guiding:"
+   if { [llength $args] } {
+      eval lappend ::Sequence::errormsg $args
+      }
+   $whendoneproc 0
+}
+
+itcl::body RealTcs::guideoffto {} {
+   lappend ::Sequence::errormsg "Disabling guiding timed out"
+   $whendoneproc 0
+}
+
+itcl::body RealTcs::guideonerror {args} {
+   lappend ::Sequence::errormsg "Failed to enable guiding:"
+   if { [llength $args] } {
+      eval lappend ::Sequence::errormsg $args
+      }
+   $whendoneproc 0
+}
+
+itcl::body RealTcs::guideonto {} {
+   lappend ::Sequence::errormsg "Enabling guiding timed out"
+   $whendoneproc 0
+}
+
+itcl::body RealTcs::checkisdouble {option} {
+
+# Checks that an option is a either a double or an empty string.
+   upvar 0 $option var
+   if { ! [string is double $var] } {
+      error "parameter $option has value \"$var\" which is not a valid number"
+   }
+}

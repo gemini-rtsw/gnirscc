@@ -1,0 +1,3 @@
+DIRS += src
+DIRS += capfast
+DIRS += dl

@@ -1,0 +1,14 @@
+A list of all those things which are wrong, not complete or kludgy.
+
+1. error message handling is the same every where. We need to write a
+single routine to do this.
+
+2. need to implement fast and full simulation version of the code to
+deal with missing hardware mainly the preamp box and/or PR/CD board.
+
+3. need to regularize the debugging into none, partial amd full to match 
+the debug command.
+
+4.
+
+

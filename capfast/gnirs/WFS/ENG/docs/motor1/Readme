@@ -1,0 +1,73 @@
+motorRecord.tar
+
+inventory
+
+total 398
+-rw-r--r--   1 michelle roe          556 Aug 19 15:34 choiceRec.ascii
+-rw-r--r--   1 michelle roe        17477 Aug 19 15:30 devOms.c
+-rw-r--r--   1 michelle roe          125 Aug 19 15:34 devSup.ascii
+-rw-r--r--   1 michelle roe        42995 Aug 19 15:30 drvOms.c
+-rw-r--r--   1 michelle roe           27 Aug 19 15:34 drvSup.ascii
+-rw-r--r--   1 michelle roe        56701 Aug 19 15:35 edb.def
+-rw-r--r--   1 michelle roe         3647 Aug 19 15:37 emotor.sym
+-rw-r--r--   1 michelle roe         2907 Aug 19 15:37 emotors.sym
+-rw-r--r--   1 michelle roe        73865 Aug 19 15:31 recMotor.c
+
+
+Copy the .ascii files into your application ascii/cat_ascii directory and
+gmake from ascii.
+
+Copy edb.def and the .sym files to your application capfast directory.
+
+Copy the .c files to your application src directory.
+
+
+OMS58 support has been removed because it seemed to be causing trouble.
+Anyone who needs it will have to do their own experimenting.
+
+The edb.def file lacks support for the mbbiDirect record which is probably
+an oversight on the part of Gemini (an embbid symbol is available in the
+Gemini distribution).
+
+None of this has been tested (by me) with interrupts.  The function omsSetup
+needs to be called prior to iocInit to initialize certain parameters and it
+is here that interrupt operation would be defined.  The following are
+extracts from the VxWorks startup script for the Michelle Cryostat Control
+System.
+
+--------------------------------------------------------------------------
+
+# Load any application records, device support or drivers here,
+# or code for subroutine records
+ld < ./bin/mv167/drvOms.o
+ld < ./bin/mv167/devOms.o
+ld < ./bin/mv167/recMotor.o
+
+ld < ./bin/mv167/amslib.o
+ld < ./bin/mv167/elglib.o
+ld < ./bin/mv167/etnetio.o
+ld < ./bin/mv167/crulib.o
+ld < ./bin/mv167/ccsStartup.o
+
+ld < epics/extensions/bin/mv167/pvload
+
+...................
+
+omsSetup(2,8,0xFC00,0,1,6)
+
+--------------------------------------------------------------------------
+
+The omsSetup call indicates that the rack contains 2 OMS cards with 8 drive
+channels, with the default base addresses, no interrupts, dummy interrupt
+level (1) and a polling rate of 10 Hz (60/6).
+
+
+Len Lawrence (lcl@roe.ac.uk)
+
+1997 Aug 19
+
+
+
+
+
+

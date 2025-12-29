@@ -1,0 +1,11 @@
+4.4.7
+
+The function that opens the serial port to the temperature control card is in
+openprt2.c.  All of the other functions related to reading the temperature card
+are in epicsDev.c.  init_aiTempPort, init_aoTempPort, read_aiTempPort and 
+write_aoTempPort are the routines for the epics temperature card device driver.  
+The other routines in the file are for converting from a voltage to the actual
+units of the record.  Most of these are called from the subroutine records.  When
+the ai or ao is fired, it gets the current value and passes the value to the 
+subroutine record for further processing.  When done, the value is placed in an 
+epics record.  

@@ -1,0 +1,134 @@
+! $Id: hallStepRecord.ascii,v 1.2 2009/05/27 19:33:59 fkraemer Exp $
+!
+! hallStepRecord.ascii
+!
+!       Author: Hubert Yamada
+!       Date:   1997 March 22
+!
+
+#include <dbDefs.h>
+#include <special.h>
+#include <choiceGbl.h>
+#include <choiceHallStep.h>
+#include <dbFldTypes.h>
+#define INCdbRecDesh
+#include <dbRecDes.h>
+#include<guigroup.h>
+RECTYP "hallStep"
+!
+! Prompt               fld  special    field         pp  interest   initial pmt range1 range2 conversion
+!                      name            type                   size 
+!                                                             choice_set
+!
+"Subr. return value"    VAL  0          ASL0 DBF_LONG      NO  0 0 0
+"Old return value"      OVAL SPC_NOMOD  ASL1 DBF_LONG      NO  1 0 0
+"Display Precision"     PREC 0          ASL1 DBF_SHORT     NO  1 0 GUI_DISPLAY                                          CON 0 CON 20 CT_DECIMAL
+
+"Stop operation"        STOP SPC_MOD    ASL0 DBF_SHORT     NO  2 0 0
+
+"Operation"             OP   SPC_MOD    ASL0 DBF_SHORT     YES 1 0 0
+"Destination"           DEST SPC_MOD    ASL0 DBF_LONG      NO  1 0 0
+"Operation status"      OPST SPC_NOMOD  ASL0 DBF_STRING    NO  0 40 0
+"Operation error msg"   MESS SPC_NOMOD  ASL0 DBF_STRING    NO  0 40 0
+"High Operating Range"  HOPR 0          ASL1 DBF_LONG      NO  1 0 GUI_DISPLAY                                          VAR LOPR CON 2147483647 CT_DECIMAL
+"Low Operating Range"   LOPR 0          ASL1 DBF_LONG      NO  1 0 GUI_DISPLAY                                          CON -2147483648 VAR HOPR CT_DECIMAL
+"Raw mode"              RAW  0          ASL1 DBF_RECCHOICE NO  0 0 REC_HS_RAW                                           CON 0 CON 1
+
+"Operation complete"    DONE SPC_NOMOD  ASL0 DBF_OUTLINK   NO  4 0 GUI_OUTPUT 
+"Operation busy"        BUSY SPC_NOMOD  ASL0 DBF_OUTLINK   NO  4 0 GUI_OUTPUT
+"Improperly positioned" PSER SPC_NOMOD  ASL0 DBF_OUTLINK   NO  4 0 GUI_OUTPUT
+"Datumed"               DATM SPC_MOD    ASL0 DBF_LONG      NO  4 0 0 
+"Redatum pos error"     RDTM SPC_NOMOD  ASL0 DBF_LONG      NO  4 0 0 
+
+"Datum slope P"         DSLP SPC_MOD    ASL0 DBF_LONG      NO  4 0 0
+"Datum slope B"         DSLB SPC_MOD    ASL0 DBF_LONG      NO  4 0 0
+
+"Datum offset, rough P" DOFP SPC_MOD    ASL0 DBF_LONG      NO  4 0 0
+"Datum offset, rough B" DOFB SPC_MOD    ASL0 DBF_LONG      NO  4 0 0
+"Sensor offset, 1P-1B"  DOF1 SPC_MOD    ASL0 DBF_LONG      NO  4 0 0
+"Offset of home"        ZERO SPC_MOD    ASL0 DBF_LONG      NO  4 0 0
+"Peak width 1P"         WTHP SPC_MOD    ASL0 DBF_LONG      NO  4 0 0
+"Peak threshold 1P"     THRP SPC_MOD    ASL0 DBF_DOUBLE    NO  4 0.0 0
+"Peak width 1B"         WTHB SPC_MOD    ASL0 DBF_LONG      NO  4 0 0
+"Peak threshold 1B"     THRB SPC_MOD    ASL0 DBF_DOUBLE    NO  4 0.0 0
+
+"Cycle stop"            CSTP SPC_MOD    ASL0 DBF_LONG      NO  4 0 0
+"Sensor tolerance"      TOL  SPC_MOD    ASL0 DBF_DOUBLE    NO  4 0.300 0
+"Cycle set values"      CSET SPC_MOD    ASL0 DBF_GBLCHOICE NO  4 0 GBL_YES_NO                                           CON 0 CON 1
+! These next items _must_ be adjacent
+"Cycle A dest."         CDSA SPC_MOD    ASL0 DBF_LONG      NO  2 0 0
+"Cycle B dest."         CDSB SPC_MOD    ASL0 DBF_LONG      NO  2 0 0
+"Cycle C dest."         CDSC SPC_MOD    ASL0 DBF_LONG      NO  2 0 0
+! These next items _must_ be adjacent
+"Cycle A expect"        E1PA SPC_MOD    ASL0 DBF_DOUBLE    NO  4 0 0
+"Cycle B expect"        E1PB SPC_MOD    ASL0 DBF_DOUBLE    NO  4 0 0
+"Cycle C expect"        E1PC SPC_MOD    ASL0 DBF_DOUBLE    NO  4 0 0
+! These next items _must_ be adjacent
+"Cycle A read"          V1PA SPC_NOMOD  ASL0 DBF_DOUBLE    NO  4 0 0
+"Cycle B read"          V1PB SPC_NOMOD  ASL0 DBF_DOUBLE    NO  4 0 0
+"Cycle C read"          V1PC SPC_NOMOD  ASL0 DBF_DOUBLE    NO  4 0 0
+! These next items _must_ be adjacent
+"Cycle A expect"        E1BA SPC_MOD    ASL0 DBF_DOUBLE    NO  4 0 0
+"Cycle B expect"        E1BB SPC_MOD    ASL0 DBF_DOUBLE    NO  4 0 0
+"Cycle C expect"        E1BC SPC_MOD    ASL0 DBF_DOUBLE    NO  4 0 0
+! These next items _must_ be adjacent
+"Cycle A read"          V1BA SPC_NOMOD  ASL0 DBF_DOUBLE    NO  4 0 0
+"Cycle B read"          V1BB SPC_NOMOD  ASL0 DBF_DOUBLE    NO  4 0 0
+"Cycle C read"          V1BC SPC_NOMOD  ASL0 DBF_DOUBLE    NO  4 0 0
+! These next items _must_ be adjacent
+"Cycle A expect"        E2PA SPC_MOD    ASL0 DBF_DOUBLE    NO  4 0 0
+"Cycle B expect"        E2PB SPC_MOD    ASL0 DBF_DOUBLE    NO  4 0 0
+"Cycle C expect"        E2PC SPC_MOD    ASL0 DBF_DOUBLE    NO  4 0 0
+! These next items _must_ be adjacent
+"Cycle A read"          V2PA SPC_NOMOD  ASL0 DBF_DOUBLE    NO  4 0 0
+"Cycle B read"          V2PB SPC_NOMOD  ASL0 DBF_DOUBLE    NO  4 0 0
+"Cycle C read"          V2PC SPC_NOMOD  ASL0 DBF_DOUBLE    NO  4 0 0
+! These next items _must_ be adjacent
+"Cycle A expect"        E2BA SPC_MOD    ASL0 DBF_DOUBLE    NO  4 0 0
+"Cycle B expect"        E2BB SPC_MOD    ASL0 DBF_DOUBLE    NO  4 0 0
+"Cycle C expect"        E2BC SPC_MOD    ASL0 DBF_DOUBLE    NO  4 0 0
+! These next items _must_ be adjacent
+"Cycle A read"          V2BA SPC_NOMOD  ASL0 DBF_DOUBLE    NO  4 0 0
+"Cycle B read"          V2BB SPC_NOMOD  ASL0 DBF_DOUBLE    NO  4 0 0
+"Cycle C read"          V2BC SPC_NOMOD  ASL0 DBF_DOUBLE    NO  4 0 0
+
+"Warn HS"               HSWN SPC_NOMOD  ASL0 DBF_SHORT     NO  2 0 0
+
+"Input Link HS1P"       HS1P SPC_NOMOD  ASL0 DBF_INLINK    NO  2 0 GUI_INPUTS
+"Expect HS1P"           EX1P SPC_MOD    ASL0 DBF_DOUBLE    NO  4 0 0
+"Enable HS1P"           EN1P SPC_MOD    ASL0 DBF_RECCHOICE NO  4 1 REC_HS_ENABLE                                        CON 0 CON 1
+"Input Link HS1B"       HS1B SPC_NOMOD  ASL0 DBF_INLINK    NO  2 0 GUI_INPUTS
+"Expect HS1B"           EX1B SPC_MOD    ASL0 DBF_DOUBLE    NO  4 0 0
+"Enable HS1B"           EN1B SPC_MOD    ASL0 DBF_RECCHOICE NO  4 1 REC_HS_ENABLE                                        CON 0 CON 1
+"Input Link HS2P"       HS2P SPC_NOMOD  ASL0 DBF_INLINK    NO  2 0 GUI_INPUTS
+"Expect HS2P"           EX2P SPC_MOD    ASL0 DBF_DOUBLE    NO  4 0 0
+"Enable HS2P"           EN2P SPC_MOD    ASL0 DBF_RECCHOICE NO  4 1 REC_HS_ENABLE                                        CON 0 CON 1
+"Input Link HS2B"       HS2B SPC_NOMOD  ASL0 DBF_INLINK    NO  2 0 GUI_INPUTS
+"Expect HS2B"           EX2B SPC_MOD    ASL0 DBF_DOUBLE    NO  4 0 0
+"Enable HS2B"           EN2B SPC_MOD    ASL0 DBF_RECCHOICE NO  4 1 REC_HS_ENABLE                                        CON 0 CON 1
+"Auto power off"        POFF SPC_MOD    ASL0 DBF_RECCHOICE YES 2 1 REC_HS_YN                                            CON 0 CON 1
+"Last auto power off"   LPOF SPC_MOD    ASL0 DBF_RECCHOICE NO  4 1 REC_HS_YN                                            CON 0 CON 1
+
+"Motor finished moving" IDMV SPC_NOMOD  ASL0 DBF_INLINK    NO  2 0 GUI_INPUTS
+"Motor in high limit"   IHLS SPC_NOMOD  ASL0 DBF_INLINK    NO  2 0 GUI_INPUTS
+"Motor in low limit"    ILLS SPC_NOMOD  ASL0 DBF_INLINK    NO  2 0 GUI_INPUTS
+"Motor Cur. position"   IMPS SPC_NOMOD  ASL0 DBF_INLINK    NO  2 0 GUI_INPUTS
+"Motor New position"    OMVL SPC_NOMOD  ASL0 DBF_OUTLINK   NO  2 0 GUI_OUTPUT
+"Motor HW position"     ODMV SPC_NOMOD  ASL0 DBF_OUTLINK   NO  2 0 GUI_OUTPUT
+"Motor set position"    OSET SPC_NOMOD  ASL0 DBF_OUTLINK   NO  2 0 GUI_OUTPUT
+"Motor Set home fw"     OHMF SPC_NOMOD  ASL0 DBF_OUTLINK   NO  2 0 GUI_OUTPUT
+"Motor Set home rv"     OHMR SPC_NOMOD  ASL0 DBF_OUTLINK   NO  2 0 GUI_OUTPUT
+"Motor Stop motion"     OSTP SPC_NOMOD  ASL0 DBF_OUTLINK   NO  2 0 GUI_OUTPUT
+"Motor Auto power off"  OPWR SPC_NOMOD  ASL0 DBF_OUTLINK   NO  2 0 GUI_OUTPUT
+"Destination Link"      ODST SPC_NOMOD  ASL0 DBF_OUTLINK   NO  2 0 GUI_OUTPUT
+"Select Error Link"     IVER SPC_NOMOD  ASL0 DBF_INLINK    NO  2 0 GUI_INPUTS
+"Select Exp Pos"        VMMP SPC_NOMOD  ASL0 DBF_LONG      NO  2 0 0
+"Select Exp Value 1"    VVLP SPC_MOD    ASL0 DBF_DOUBLE    NO  2 0 0
+"Select Exp Value 2"    VVLB SPC_MOD    ASL0 DBF_DOUBLE    NO  2 0 0
+"Select Exp Tolerance"  VTOL SPC_MOD    ASL0 DBF_DOUBLE    NO  2 0 0
+"Backlash"              BLSH SPC_MOD    ASL0 DBF_LONG      NO  4 0 0
+"Select Read Value 1"   RVLP SPC_NOMOD  ASL0 DBF_DOUBLE    NO  2 0 0
+"Select Read Value 2"   RVLB SPC_NOMOD  ASL0 DBF_DOUBLE    NO  2 0 0
+"Motor pos modulus"     MMPS SPC_NOMOD  ASL0 DBF_LONG      NO  2 0 0
+"Not in max motors"     NOTM SPC_MOD    ASL0 DBF_LONG      NO  4 0 0
+"Max home search time"  TOUT SPC_MOD    ASL0 DBF_LONG      NO  4 0 0

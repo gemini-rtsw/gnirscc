@@ -1,0 +1,9 @@
+[symbol2]
+bbox -144 -128 144 128
+uniq 71
+[tools]
+[attributes]
+[layers]
+<symbol>
+r 0 -144 -128 144 128
+l 100 0 0 -30 -5 xdisp

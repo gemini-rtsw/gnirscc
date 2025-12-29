@@ -1,0 +1,7 @@
+DIRS += ascii
+DIRS += capfast
+DIRS += dl
+DIRS += pv
+DIRS += src
+DIRS += startup
+DIRS += alh

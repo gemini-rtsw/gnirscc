@@ -1,0 +1,14 @@
+[symbol2]
+bbox 224 432 704 672
+port 336 592 100 1792 SDIS symbol 1 224 592 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 150 0 0 320 496 dc setup functions
+r 0 288 432 704 672
+v 0 224 592
+288 592
+_
+[comments]

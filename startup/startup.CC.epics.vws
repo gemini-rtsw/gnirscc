@@ -1,0 +1,141 @@
+#
+# VxWorks startup script to load and execute system (iocCore) software.
+#
+# First, vxWorks startup issues:
+
+# Make delete key work for backspace
+# tyBackspaceSet 0177
+
+# cd to application install directory (beware automounter problems)
+cd "/home/gnirs"
+pwd
+
+# The local file contains site-specific information
+# such as the default router and the vxWorks password file.
+
+< /home/gnirs/bin/mv167/local
+
+putenv("INITDIR=/home/gnirs/pv/")
+#dhs libraries
+#ld </home/gemini/dhs/dhs-0.16/external/lib/mv167/libers.o
+#ld </home/gemini/dhs/dhs-0.16/external/lib/mv167/libimp.o
+#ld </home/gemini/dhs/dhs-0.16/external/lib/mv167/libsds.o
+#ld </home/gemini/dhs/dhs-0.16/lib/mv167/libgen.a
+#ld </home/gemini/dhs/dhs-0.16/lib/mv167/libdhs.a
+
+
+# Load EPICS core and record stuff
+ld < epics/base/bin/mv167/iocCore
+ld < epics/base/bin/mv167/drvSup
+ld < epics/base/bin/mv167/recSup
+ld < epics/base/bin/mv167/devSup
+
+#pvload program
+ld < epics/extensions/bin/mv167/pvload
+
+# If using state programs, load the sequencer
+#ld < epics/base/bin/mv167/seq
+
+# Load any application records, device support or drivers here,
+# or code for subroutine records
+ld < /home/gnirs/epics/extensions/src/gemini/slalib/bin/mv167/slalib
+ld < /home/gnirs/epics/extensions/src/gemini/timelib/bin/mv167/timelib
+ld < /home/gnirs/epics/extensions/src/gemini/astlib/bin/mv167/astlib
+
+#gnirs controller code
+ld < /home/gnirs/bin/mv167/ccGlobal.o
+ld < /home/gnirs/bin/mv167/mytimeLib.o
+ld < /home/gnirs/bin/mv167/hdwrControl.o
+ld < /home/gnirs/bin/mv167/epicsControl.o
+
+
+# Load sequences here
+# ld < /home/gnirs/bin/mv167/testseq.o
+#ld </home/gnirs/epics/extensions/src/gemini/timelib/bin/mv167/timeSeq
+
+#timeClockInit (0,1,60,1,0)
+
+# Configure the Timestamp system, 1=Master IOC
+#TSconfigure 1, 0, 0, 0, 0, 0
+
+
+# Load one or more ASCII databases here
+dbLoad "/home/gnirs/data/default.dctsdr"
+dbLoadRecords "/home/gnirs/data/ccTop.db"
+dbLoadRecords "/home/gnirs/data/nirsCcSadTop.db"
+
+# This turns off logging
+iocLogDisable=1
+
+# start dhs
+#sp ImpMaster
+
+# start epics
+iocInit "/home/gnirs/data/resource.seed.def"
+
+
+
+#load motor parameters
+pvload "/home/gnirs/data/acq.pv","top=nirs:cc:"
+pvload "/home/gnirs/data/cam.pv","top=nirs:cc:"
+pvload "/home/gnirs/data/cover.pv","top=nirs:cc:"
+pvload "/home/gnirs/data/deck.pv","top=nirs:cc:"
+pvload "/home/gnirs/data/filt1.pv","top=nirs:cc:"
+pvload "/home/gnirs/data/filt2.pv","top=nirs:cc:"
+pvload "/home/gnirs/data/grat.pv","top=nirs:cc:"
+#pvload "/home/gnirs/data/focus.pv","top=nirs:cc:"
+pvload "/home/gnirs/data/slit.pv","top=nirs:cc:"
+#pvload "/home/gnirs/data/spare1.pv","top=nirs:cc:"
+#pvload "/home/gnirs/data/spare2.pv","top=nirs:cc:"
+pvload "/home/gnirs/data/xdisp.pv","top=nirs:cc:"
+
+# Start sequences
+# seq &testseq
+#seq &timeSeq, "sys=gm:dc:"
+
+#start epics control tasks
+initTasks
+
+
+# Set debugging/logging level
+gnirsInitLogging
+gnirsSetDebug 3
+sendToMotorDebug=1
+
+# Read config file
+#sdsuReadConfig "/home/gnirs/data/dcConfig"
+
+# save with fits or dhs
+#useFits 0
+# simulation = 0 for real use of DHS, =1 to fake it
+#useDHS "128.171.188.193", "dataServerNT", 0
+
+
+# Initialize GNIRS hardware interface
+#pvload "/home/gnirs/data/cadInitVals.par","top=nirs:cc:,sadtop=nirs:cc:sad:"
+
+# ### Simulation mode NOSIM:0  VSM:1  FASTSIM:2  FULLSIM:3
+#setSimulation 3
+
+# Set flag if xycom board not present
+#noXYCOM = 1
+
+# Set flag if temperature board not present
+#noWFDEW = 1
+
+# Set flag if SenTorr not present
+noSenTorr = 1
+
+# Read the motor configuration file and initialize the motors
+#readConfig "/home/gnirs/data/gnirsConfig"
+strncpy  &configDirectory, "/home/gnirs/data/", 160
+
+# Setup the vme hardware
+#vmeInit
+#load cad values
+pvload "/home/gnirs/data/cadVals.pv","top=nirs:cc:,sadtop=nirs:sad:cc:"
+
+dbpf "nirs:cc:hSimMode", "FAST"
+dbpf "nirs:cc:simMode", "NONE"
+dbpf "nirs:cc:init.DIR" ,"START"
+dbpf "nirs:cc:masterEnable","ON"

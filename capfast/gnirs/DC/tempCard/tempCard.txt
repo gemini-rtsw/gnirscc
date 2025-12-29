@@ -1,0 +1,19 @@
+2.1.3.?
+EPICS temperature control interface
+
+The temperature control interface allows values from the temperature control
+board to be read into the EPICS database.  The values include the temperature
+of the detector, power input of the heater, and parameters from the pid loop.  
+The temperature control interface opens the serial port to the temperature
+control board at startup time, and reads and writes to it when requested
+by EPICS. 
+
+ The DTYP for this type of record is 'tempCard'.  The EPICS record OUT field contains the string to send to the temperature card.  Some of the other 
+important fields are the inpb - inpf fields of the sub records associated with
+the ao and ai records.  These give the conversion parameters to switch from
+a voltage to the required units of the record.  How these fields are used is
+shown in convertTemp and cnvrtTempAo. 
+
+
+.
+

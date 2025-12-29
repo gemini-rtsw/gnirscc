@@ -1,0 +1,56 @@
+GNIRS CC Release Notes. The release numbers below are used to
+track tags in CVS. So update your release specific notes here 
+and add a cvs tag accordingly.
+*************************************************************
+*V1-19:
+ - Added LR and HR IFU and filter wheel changes
+*V1-16:
+ - Remove debug print statements for REL-3467.
+*V1-15:
+ - Revert back to using fw1
+*V1-14:
+ - Use fw2 instead of fw1 for squiggle avoidance (implmented in
+   V1-10) as fw1 was wearing out. Added LOLO, LOW values to
+   startupCC.pv.
+*V1-13:
+ - Added debug code to mech.c that unfortunatly fixed the
+   problem (at least it ran for four months without reproducing).
+   Leaving debug code in as it's only triggered when the fault
+   reproduces.
+*V1-12:
+ - Version number skipped for some reason ..
+*V1-11:
+ - Change datum algorithm for rotary devices in motors.c.
+ - Fix bug in nodeLookup that results in matches that shouldn't
+   be.
+
+*V1-10:
+ - Add feature to move filter wheels in order to block stray
+   light that causes squiggles on the detector.
+
+*V1-9:
+ - Add focus values for FW1.
+
+*V1-8:
+- Filter Wheel 2 is now set to always use the alternate HOME switch.
+
+- Modifies all mechanism names such that the menu selection specicifies
+  only human readable names: this is what the seqexec will use
+  to configure GNIRS.
+
+- Further, the GNIRS instrument part ID's will be appendend to
+  the names in the status field. These concatenated strings
+  will be included to in the FITS header.
+
+- WCS file is now automated depending on Camera, aoFold, and ISSport.
+
+- Add WCS utilities showwcsxform() and showwcsheader()
+
+- NIS Focus LUT Proceesing changed mechanism names to remove part ID.
+
+*V1-7:
+- Modifies the names of the prisms to depend on camera selection.
+- Updates the focus LUTs accoringly to deal with prism name changes.
+
+*V1-3:
+This is the first GNIRS Summit Release for Gemini North.

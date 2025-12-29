@@ -1,0 +1,249 @@
+#+
+# HdrNiri
+#
+# A HdrNiri object manages the sending of niri specifics DHS header info
+# to the DHS before and after an observation.
+#
+# M Bec  31 July 2000
+#
+#+
+
+itcl::class dhshdr::HdrNiri {
+
+   inherit dhshdr::HdrInfo
+
+   constructor {instrument contribs} {
+      HdrInfo::constructor $instrument $contribs 
+      } {
+      
+      hsender Hbefore -command ${this}::hbefore
+      ${this}::hbefore init
+      ${this}::hbefore add destName -value $dhshdr::destination
+      ${this}::hbefore add instrument
+      ${this}::hbefore set instrument $instrument
+      
+      ${this}::hbefore add ARRAYID
+      ${this}::hbefore add ARRAYTYP
+      ${this}::hbefore add CAMERA     
+      ${this}::hbefore add COADDS     
+      ${this}::hbefore add DATE-OBS   
+      ${this}::hbefore add EXPTIME    
+      ${this}::hbefore add FILTER1    
+      ${this}::hbefore add FILTER2    
+      ${this}::hbefore add FILTER3    
+      ${this}::hbefore add FOCUSNAM   
+      ${this}::hbefore add FOCUSPOS   
+      ${this}::hbefore add FPMASK     
+      ${this}::hbefore add BEAMSPLT 
+      ${this}::hbefore add WINDCOVR 
+      ${this}::hbefore add FRMSPCYCL  
+      ${this}::hbefore add HDRTIMING  
+      ${this}::hbefore add INPORT     
+      ${this}::hbefore add LNRS           
+      ${this}::hbefore add MODE       
+      ${this}::hbefore add NDAVGS     
+      ${this}::hbefore add PVIEW      
+      ${this}::hbefore add TDETABS    
+      ${this}::hbefore add TIME       
+      ${this}::hbefore add TIME-OBS   
+      ${this}::hbefore add TMOUNT     
+      ${this}::hbefore add UCODENAM   
+      ${this}::hbefore add UCODETYP   
+      ${this}::hbefore add VDDCL1     
+      ${this}::hbefore add VDDCL2     
+      ${this}::hbefore add VDDUC      
+      ${this}::hbefore add VDET       
+      ${this}::hbefore add VGGCL1     
+      ${this}::hbefore add VGGCL2     
+      ${this}::hbefore add VSET       
+      
+      hsender Hafter -command ${this}::hafter
+      ${this}::hafter init
+      ${this}::hafter add destName -value $dhshdr::destination
+      ${this}::hafter add instrument
+      ${this}::hafter set instrument $instrument
+      
+      ${this}::hafter add A_TDETABS  
+      ${this}::hafter add A_TMOUNT   
+      ${this}::hafter add A_VDDCL1   
+      ${this}::hafter add A_VDDCL2   
+      ${this}::hafter add A_VDDUC    
+      ${this}::hafter add A_VDET     
+      ${this}::hafter add A_VGGCL1   
+      ${this}::hafter add A_VGGCL2   
+      ${this}::hafter add A_VSET     
+      ${this}::hafter add UTEND      
+      ${this}::hafter add OBSEPOCH
+          
+      }
+      
+      
+   public {
+      method sendbefore {} {
+         # parent's method need be called before: it generates the dhslabel
+         HdrInfo::sendbefore
+
+         hdrsetval ${this}::hbefore ARRAYID   [sa dhshdr::niri get ARRAYID   ]
+         hdrsetval ${this}::hbefore ARRAYTYP  [sa dhshdr::niri get ARRAYTYP  ]
+         hdrsetval ${this}::hbefore CAMERA    [sa dhshdr::niri get CAMERA    ]
+         hdrsetval ${this}::hbefore COADDS    [sa dhshdr::niri get COADDS    ]
+         hdrsetval ${this}::hbefore DATE-OBS  [sa dhshdr::niri get DATE-OBS  ]
+         
+         if [ catch {
+            set exptime [expr [sa dhshdr::niri get inttime] + [sa dhshdr::niri get mintime] ]
+            } ] {
+               set exptime INDEF
+               }
+         hdrsetval ${this}::hbefore EXPTIME   $exptime
+         
+         hdrsetval ${this}::hbefore FILTER1   [sa dhshdr::niri get FILTER1   ]
+         hdrsetval ${this}::hbefore FILTER2   [sa dhshdr::niri get FILTER2   ]
+         hdrsetval ${this}::hbefore FILTER3   [sa dhshdr::niri get FILTER3   ]
+         hdrsetval ${this}::hbefore FOCUSNAM  [sa dhshdr::niri get FOCUSNAM  ]
+         hdrsetval ${this}::hbefore FOCUSPOS  [sa dhshdr::niri get FOCUSPOS  ]
+         hdrsetval ${this}::hbefore FPMASK    [sa dhshdr::niri get FPMASK    ]
+         hdrsetval ${this}::hbefore BEAMSPLT  [sa dhshdr::niri get BEAMSPLT  ]
+         hdrsetval ${this}::hbefore WINDCOVR  [sa dhshdr::niri get WINDCOVR  ]
+         hdrsetval ${this}::hbefore FRMSPCYCL [sa dhshdr::niri get FRMSPCYCL ]
+         
+         set hdrtiming [sa dhshdr::niri get hdrtiming ]
+         switch $hdrtiming {
+            1 { set hdrtiming BEFORE }
+            2 { set hdrtiming AFTER }
+            3 { set hdrtiming BOTH }
+            default { set hdrtiming INDEF }
+            }
+         hdrsetval ${this}::hbefore HDRTIMING $hdrtiming
+         
+         hdrsetval ${this}::hbefore INPORT    [sa dhshdr::niri get INPORT    ]
+         hdrsetval ${this}::hbefore LNRS      [sa dhshdr::niri get LNRS      ]
+         
+         set mode [sa dhshdr::niri get MODE ]
+         switch $mode {
+            0 { set mode STARE }
+            1 { set mode SEP }
+            2 { set mode CHOP }
+            3 { set mode CHOP2 }
+            4 { set mode TEST }
+            default { set mode INDEF }
+            }
+         hdrsetval ${this}::hbefore MODE $mode
+         
+         hdrsetval ${this}::hbefore NDAVGS    [sa dhshdr::niri get NDAVGS    ]
+         hdrsetval ${this}::hbefore PVIEW     [sa dhshdr::niri get PVIEW     ]
+         hdrsetval ${this}::hbefore TDETABS   [sa dhshdr::niri get TDETABS   ]
+         set ut [sa dhshdr::niri get ut]
+         hdrsetval ${this}::hbefore TIME      $ut
+         hdrsetval ${this}::hbefore TIME-OBS  $ut
+         hdrsetval ${this}::hbefore TMOUNT    [sa dhshdr::niri get TMOUNT    ]
+         hdrsetval ${this}::hbefore UCODENAM  [sa dhshdr::niri get UCODENAM  ]
+         
+         set ucodetyp [sa dhshdr::niri get UCODETYP ]
+         switch $ucodetyp {
+            0 { set ucodetyp INDEF }
+            1 { set ucodetyp RRD }
+            2 { set ucodetyp RDD }
+            3 { set ucodetyp RD }
+            4 { set ucodetyp SRB }
+            default { set ucodetyp INDEF }
+            }
+         hdrsetval ${this}::hbefore UCODETYP $ucodetyp
+         
+         hdrsetval ${this}::hbefore VDDCL1    [sa dhshdr::niri get VDDCL1    ]
+         hdrsetval ${this}::hbefore VDDCL2    [sa dhshdr::niri get VDDCL2    ]
+         hdrsetval ${this}::hbefore VDDUC     [sa dhshdr::niri get VDDUC     ]
+         hdrsetval ${this}::hbefore VDET      [sa dhshdr::niri get VDET      ]
+         hdrsetval ${this}::hbefore VGGCL1    [sa dhshdr::niri get VGGCL1    ]
+         hdrsetval ${this}::hbefore VGGCL2    [sa dhshdr::niri get VGGCL2    ]
+         hdrsetval ${this}::hbefore VSET      [sa dhshdr::niri get VSET      ]
+
+         # Post the "before" headers.
+            if { $dhshdr::debug } {
+               foreach par [lindex [${this}::hbefore info] 3] {
+                  puts [${this}::hbefore info $par]
+               }
+               puts "${this}::hbefore postWait -label $dhshdr::dhslabel"
+            }
+         ${this}::hbefore postWait -label $dhshdr::dhslabel
+         }
+       
+       
+         
+      # There is an issue with sendafter: happening at end of observe, not
+      # end of readout, and that can be a big dealy for niri ..         
+      
+      method sendafter {} {
+         hdrsetval ${this}::hafter A_TDETABS   [sa dhshdr::niri get TDETABS]
+         hdrsetval ${this}::hafter A_TMOUNT    [sa dhshdr::niri get TMOUNT ]
+         hdrsetval ${this}::hafter A_VDDCL1    [sa dhshdr::niri get VDDCL1 ]
+         hdrsetval ${this}::hafter A_VDDCL2    [sa dhshdr::niri get VDDCL2 ]
+         hdrsetval ${this}::hafter A_VDDUC     [sa dhshdr::niri get VDDUC  ]
+         hdrsetval ${this}::hafter A_VDET      [sa dhshdr::niri get VDET   ]
+         hdrsetval ${this}::hafter A_VGGCL1    [sa dhshdr::niri get VGGCL1 ]
+         hdrsetval ${this}::hafter A_VGGCL2    [sa dhshdr::niri get VGGCL2 ]
+         hdrsetval ${this}::hafter A_VSET      [sa dhshdr::niri get VSET   ]
+         hdrsetval ${this}::hafter UTEND       [sa dhshdr::niri get ut     ]
+         hdrsetval ${this}::hafter OBSEPOCH    [sa dhshdr::niri get OBSEPOCH]
+         
+         # Post the "after" headers.
+            if { $dhshdr::debug } {
+               foreach par [lindex [${this}::hafter info] 3] {
+                  puts [${this}::hafter info $par]
+               }
+               puts "${this}::hafter postWait -label $dhshdr::dhslabel"
+            }
+         ${this}::hafter postWait -label $dhshdr::dhslabel
+                             
+         # need be called last because it's final !!
+          HdrInfo::sendafter
+         }
+   }
+
+   proc dictload {} {
+      hsender -dict add ARRAYID                    
+      hsender -dict add ARRAYTYP                   
+      hsender -dict add A_TDETABS  -type DOUBLE    
+      hsender -dict add A_TMOUNT   -type DOUBLE    
+      hsender -dict add A_VDDCL1   -type DOUBLE    
+      hsender -dict add A_VDDCL2   -type DOUBLE    
+      hsender -dict add A_VDDUC    -type DOUBLE    
+      hsender -dict add A_VDET     -type DOUBLE    
+      hsender -dict add A_VGGCL1   -type DOUBLE    
+      hsender -dict add A_VGGCL2   -type DOUBLE    
+      hsender -dict add A_VSET     -type DOUBLE    
+      hsender -dict add CAMERA                     
+      hsender -dict add COADDS     -type INT      
+      hsender -dict add DATE-OBS                   
+      hsender -dict add OBSEPOCH   -type DOUBLE
+      hsender -dict add EXPTIME    -type DOUBLE    
+      hsender -dict add FILTER1                    
+      hsender -dict add FILTER2                    
+      hsender -dict add FILTER3                    
+      hsender -dict add FOCUSNAM                   
+      hsender -dict add FOCUSPOS   -type DOUBLE    
+      hsender -dict add FPMASK                     
+      hsender -dict add BEAMSPLT                     
+      hsender -dict add WINDCOVR                     
+      hsender -dict add FRMSPCYCL  -type INT      
+      hsender -dict add HDRTIMING                  
+      hsender -dict add INPORT     -type INT      
+      hsender -dict add LNRS       -type INT      
+      hsender -dict add MODE                       
+      hsender -dict add NDAVGS     -type INT      
+      hsender -dict add PVIEW                      
+      hsender -dict add TDETABS    -type DOUBLE    
+      hsender -dict add TIME                       
+      hsender -dict add TIME-OBS                   
+      hsender -dict add TMOUNT     -type DOUBLE    
+      hsender -dict add UCODENAM                   
+      hsender -dict add UCODETYP                   
+      hsender -dict add UTEND                      
+      hsender -dict add VDDCL1     -type DOUBLE    
+      hsender -dict add VDDCL2     -type DOUBLE    
+      hsender -dict add VDDUC      -type DOUBLE    
+      hsender -dict add VDET       -type DOUBLE    
+      hsender -dict add VGGCL1     -type DOUBLE    
+      hsender -dict add VGGCL2     -type DOUBLE    
+      hsender -dict add VSET       -type DOUBLE    
+      }
+   }

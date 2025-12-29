@@ -1,0 +1,115 @@
+# $Id: prb.pv,v 1.2 2009/05/27 19:35:01 fkraemer Exp $
+
+group {
+	#
+	# Strings loaded by pvload into the WFS probe menu record.
+	#
+
+	string $(top)prbSelMenu.ZRST = "Neutral";
+	string $(top)prbSelMenu.ONST = "Minimum";
+	string $(top)prbSelMenu.TWST = "Maximum";
+
+	string $(top)prbxSelMenu.ZRST = "Neutral";
+	string $(top)prbxSelMenu.ONST = "Minimum";
+	string $(top)prbxSelMenu.TWST = "Maximum";
+
+	string $(top)prbySelMenu.ZRST = "Neutral";
+	string $(top)prbySelMenu.ONST = "Minimum";
+	string $(top)prbySelMenu.TWST = "Maximum";
+
+	#
+	# Scale and offset values loaded by pvload for the NIRI WFS gimbal mirror.
+	#
+
+#	#
+#	# These are arc seconds on the gimbal mirrors (39E-3 arc sec / ministep).
+#	#
+#
+#	float $(top)prbxScale.VAL = 25.64;
+#	long $(top)prbxOffset.VAL = 0;
+#	string $(sadtop)prbxUnits.VAL = "arc sec";
+#
+#	float $(top)prbyScale.VAL = 25.64;
+#	long $(top)prbyOffset.VAL = 0;
+#	string $(sadtop)prbyUnits.VAL = "arc sec";
+
+	#
+	# These are mm in the focal plane (39E-3 arc sec / ministep),
+	# 0.019752 arc sec / mm.
+	#
+
+	float $(top)prbxScale.VAL = -1298;
+	long $(top)prbxOffset.VAL = 0;
+	string $(sadtop)prbxUnits.VAL = "mm";
+
+	float $(top)prbyScale.VAL = -1298;
+	long $(top)prbyOffset.VAL = 0;
+	string $(sadtop)prbyUnits.VAL = "mm";
+
+	#
+	# These are offset in sky coordinates (0.63E-3 arc sec / ministep). 
+	# The values are approximate, and will be replaced by more precise
+	# values if needed later.
+
+	double $(top)prbSkyA11.VAL = 1587;
+	double $(top)prbSkyA12.VAL = 0;
+	double $(top)prbSkyA21.VAL = 0;
+	double $(top)prbSkyA22.VAL = 1587;
+	double $(top)prbSkyI11.VAL = 0.63E-3;
+	double $(top)prbSkyI12.VAL = 0;
+	double $(top)prbSkyI21.VAL = 0;
+	double $(top)prbSkyI22.VAL = 0.63E-3;
+	long $(top)prbSkyC1.VAL = 0;
+	long $(top)prbSkyC2.VAL = 0;
+
+	string $(top)prbSkyUnits = "arc sec";
+
+	#
+	# Values that correspond to the park position, maximum of 4.  (Set unused
+	# positions to "park".  Note:  Alternate names for the home position are
+	# defined in ENG/pv/cfg.tcl and the ENG/pv/*/*.lut (generated using
+	# ENG/pv/cfg.tcl).
+	#
+
+	string $(sadtop)prbxParkSub.C = "park";
+	string $(sadtop)prbxParkSub.D = "home";
+	string $(sadtop)prbxParkSub.E = "pos00";
+	string $(sadtop)prbxParkSub.F = "park";
+
+	string $(sadtop)prbyParkSub.C = "park";
+	string $(sadtop)prbyParkSub.D = "home";
+	string $(sadtop)prbyParkSub.E = "pos00";
+	string $(sadtop)prbyParkSub.F = "park";
+
+	#
+	# Respect limits.
+	#
+
+	long $(sadtop)prbxEngCyclic = 1;
+	long $(sadtop)prbyEngCyclic = 1;
+
+	#
+	# How large should the positioning error be before making a correction
+	# (when following), in mirror arc seconds.  .2 corresponds to 5 usteps,
+	# which is the smallest reasonable correction.
+	#
+
+	double $(top)prbxAgSetThresh = .2;
+	double $(top)prbyAgSetThresh = .2;
+
+	#
+	# Initialize input strings to sane values.
+	#
+
+	double $(top)prbMove.A = 0.0;
+	double $(top)prbMove.B = 0.0;
+
+	double $(top)prbSkyMove.A = 0.0;
+	double $(top)prbSkyMove.B = 0.0;
+					
+	double $(top)prbxMove.A = 0;
+	long $(top)prbxEngMove.A = 0;
+
+	double $(top)prbyMove.A = 0;
+	long $(top)prbyEngMove.A = 0;
+}

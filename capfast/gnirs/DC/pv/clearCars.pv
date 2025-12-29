@@ -1,0 +1,21 @@
+
+group {
+
+   long $(top)applyC.IVAL = 0;
+   long $(top)arSetupC.IVAL = 0;
+   long $(top)datumC.IVAL = 0;
+   long $(top)drRoiSetC.IVAL = 0;
+   long $(top)endGuideC.IVAL = 0;
+   long $(top)endObserveC.IVAL = 0;
+   long $(top)endVerifyC.IVAL = 0;
+   long $(top)gSysC.IVAL = 0;
+   long $(top)guideC.IVAL = 0;
+   long $(top)noopC.IVAL = 0;
+   long $(top)obsSetupC.IVAL = 0;
+   long $(top)observeC.IVAL = 0;
+   long $(top)parkC.IVAL = 0;
+   long $(top)testC.IVAL = 0;
+   long $(top)verifyC.IVAL = 0;
+
+}
+

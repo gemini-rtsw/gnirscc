@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sequence PUBLIC "-//Gemini Observatory//DTD for OT Science Program Sequence//EN" "Seq.dtd">
+<sequence version="0.1">
+  <step name="step 1">
+    <system name="telescope">
+      <param name="q" value="0.0" />
+      <param name="guideWithPWFS1" value="PWFS1-1" />
+      <param name="guideWithOIWFS" value="freeze" />
+      <param name="p" value="0.0" />
+    </system>
+  </step>
+  <step name="step 2">
+    <system name="telescope">
+      <param name="q" value="300.0" />
+      <param name="guideWithPWFS1" value="freeze" />
+      <param name="guideWithOIWFS" value="OIWFS-1" />
+      <param name="p" value="300.0" />
+    </system>
+  </step>
+  <step name="step 3">
+    <system name="telescope">
+      <param name="q" value="0.0" />
+      <param name="guideWithPWFS1" value="PWFS1-1" />
+      <param name="guideWithOIWFS" value="freeze" />
+      <param name="p" value="0.0" />
+    </system>
+  </step>
+</sequence>

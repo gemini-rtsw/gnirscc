@@ -1,0 +1,17 @@
+[symbol2]
+bbox -448 -160 480 128
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 1 0 16 -112 Gemini 8m Telescopes Project
+l 200 1 0 32 16 GNIRS Components Controller
+l 200 1 0 16 -48 Data Handling Status Alarm Database
+v 7 -448 -160
+448 -160
+_
+v 7 -448 128
+448 128
+_
+[comments]

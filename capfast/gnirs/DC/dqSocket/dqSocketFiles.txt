@@ -1,0 +1,13 @@
+4.4.2
+The dqSocket directory contains an interface to EPICS for the datacube.  
+Channel access would normally be used, but there were problems encountered
+with channel access when a database wasn't loaded on the local computer.  Even 
+though the control database was loaded elsewhere.  The server routines are
+contained in gnDQSocket.c and are loaded onto the computer that runs EPICS.  
+This routine is an infinite loop that waits for a connection, processes the 
+request it gets, closes the socket and then waits for another connection.
+
+The client side, contained in gnSocketIntrfc.c, is the one initiating the 
+connection to the server.  When it wants to read or write to an EPICS variable,
+it opens the socket and sends the request.  Waits for the response and then 
+closes the socket. 

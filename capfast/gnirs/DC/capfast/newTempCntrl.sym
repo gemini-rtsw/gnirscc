@@ -1,0 +1,9 @@
+[symbol2]
+bbox 32 32 160 256
+uniq 13
+[tools]
+[attributes]
+[layers]
+<symbol>
+r 0 32 32 160 256
+l 100 0 0 24 139 newTempCntrl

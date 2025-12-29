@@ -1,0 +1,38 @@
+#! /bin/sh
+
+#
+# This script is used by the Makefiles to make the following substitutions
+# to a text file:
+#
+#     @(ccdir) is replaced by the shell variable ${ccdir}
+#     @(dcprefix) is replaced by the shell variable ${dcprefix}
+#     @(dcsadprefix) is replaced by the shell variable ${dcsadprefix}
+#     @(engdir) is replaced by the shell variable ${engdir}
+#     @(isdir) is replaced by the shell variable ${isdir}
+#     @(libdir) is replaced by the shell variable ${libdir}
+#     @(name) is replaced by the shell variable ${name}
+#     @(prefix) is replaced by the shell variable ${prefix}
+#     @(sadprefix) is replaced by the shell variable ${sadprefix}
+#     @(usevxtime) is replaced by the shell variable ${usevxtime}
+#     @(usebancomm) is replaced by the shell variable ${usebancomm}
+#     @(wfsdir) is replaced by the shell variable ${wfsdir}
+#
+
+. .applTop/config.par
+
+sed \
+	-e "s;@(astlibdir);${astlibdir};g" \
+	-e "s;@(ccdir);${ccdir};g" \
+	-e "s;@(dcprefix);${dcprefix};g" \
+	-e "s;@(dcsadprefix);${dcsadprefix};g" \
+	-e "s;@(engdir);${engdir};g" \
+	-e "s;@(isdir);${isdir};g" \
+	-e "s;@(libdir);${libdir};g" \
+	-e "s;@(name);${name};g" \
+	-e "s;@(prefix);${prefix};g" \
+	-e "s;@(sadprefix);${sadprefix};g" \
+	-e "s;@(slalibdir);${slalibdir};g" \
+	-e "s;@(timelibdir);${timelibdir};g" \
+	-e "s;@(usebancomm);${usebancomm};g" \
+	-e "s;@(usevxtime);${usevxtime};g" \
+	-e "s;@(wfsdir);${wfsdir};g" 

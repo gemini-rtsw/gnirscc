@@ -1,0 +1,20 @@
+minnie(mk) -> bootChange
+
+'.' = clear field;  '-' = go to previous field;  ^D = quit
+
+boot device          : dc 
+processor number     : 0 
+host name            : pisces 
+file name            : /gemini/niri/vw/config/mv2700/vxWorks 
+inet on ethernet (e) : 10.2.2.117:ffffff00 
+inet on backplane (b): 
+host inet (h)        : 10.2.4.57 
+gateway inet (g)     : 10.2.2.1 
+user (u)             : gemvx 
+ftp password (pw) (blank = use rsh): 
+flags (f)            : 0x8 
+target name (tn)     : mko-dc-data-niri 
+startup script (s)   : /home/gemvx/nirippc/bin/svgm5/startup.minnie-mk 
+other (o)            : 
+
+value = 0 = 0x0

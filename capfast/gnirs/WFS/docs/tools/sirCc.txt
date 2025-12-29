@@ -1,0 +1,269 @@
+SIR record ("niri:" or "nirs:" +)	FITS Keyword	FITS Included	Type	Units	Comments
+cc:covDatumHealth	CCCVDTH	Never	STRING		Health: Window Cover is datumed [GOOD|WARNING|BAD]
+cc:covDatumed	CCCVDTM	Never	LONG	0/1	Is Window Cover datumed [YES=0|NO=1]?
+cc:covEngCyclic	CCCVECY	Never	LONG	0/1	Ignore limits for Window Cover [YES=0|NO=1]?
+cc:covEngMax	CCCVEMX	Never	LONG	ustep	Maximum position of Window Cover (motor microsteps)
+cc:covEngMin	CCCVEMN	Never	LONG	ustep	Minimum position of Window Cover (motor microsteps)
+cc:covEngName	CCCVENM	Start	STRING		Engineering name of Window Cover position
+cc:covEngPos	CCCVEPS	Start	LONG	ustep	Position of Window Cover (motor microsteps)
+cc:covHallHealth	CCCVHLH	Never	STRING		Health: Window Cover Hall sensor [GOOD|WARNING|BAD]
+cc:covHealth	CCCVHLT	Never	STRING		Health: Window Cover (combined) [GOOD|WARNING|BAD]
+cc:covLabel	CCCVLBL	Never	STRING		The FDSC field describes the Window Cover
+cc:covMax	CCCVMAX	Never	DOUBLE	user units	Maximum position of Window Cover (user units)
+cc:covMin	CCCVMIN	Never	DOUBLE	user units	Minimum position of Window Cover (user units)
+cc:covModuleHealth	CCCVMDH	Never	STRING		Health: Window Cover driver [GOOD|WARNING|BAD]
+cc:covName	CCCVNAM	Start	STRING		User name of Window Cover position
+cc:covParked	CCCVPRK	Never	LONG	0/1	Is Window Cover parked [YES=0|NO=1]?
+cc:covPos	CCCVPOS	Start	DOUBLE	user units	Position of Window Cover position (user units)
+cc:covPosErrHealth	CCCVPEH	Never	STRING		Health: Window Cover backlash corrected [GOOD|WARNING|BAD]
+cc:covRdtmVal	CCCVRDT	Never	LONG	ustep	Returned value from Window Cover redatum command
+cc:covReject	CCCVREJ	Never	LONG	0/-1	Combined Window Cover CAR state [GOOD=0|REJECT=-1]
+cc:covSnlHealth	CCCVSNH	Never	STRING		Health: Window Cover SNL [GOOD|WARNING|BAD]
+cc:covState	CCCVSTE	Never	STRING		Window Cover SNL state
+cc:covUnits	CCCVUNT	Start	STRING		Definition of user units for Window Cover
+cc:debugMode	CCDMODE	Never	STRING		Debugging mode [NOLOG|NONE|MIN|FULL]
+cc:filt1DatumHealth	CCFL1DTH	Never	STRING		Health: Filter Wheel 1 is datumed [GOOD|WARNING|BAD]
+cc:filt1Datumed	CCFL1DTM	Never	LONG	0/1	Is Filter Wheel 1 datumed [YES=0|NO=1]?
+cc:filt1EngCyclic	CCFL1ECY	Never	LONG	0/1	Ignore limits for Filter Wheel 1 [YES=0|NO=1]?
+cc:filt1EngMax	CCFL1EMX	Never	LONG	ustep	Maximum position of Filter Wheel 1 (motor microsteps)
+cc:filt1EngMin	CCFL1EMN	Never	LONG	ustep	Minimum position of Filter Wheel 1 (motor microsteps)
+cc:filt1EngName	CCFL1ENM	Start	STRING		Engineering name of Filter Wheel 1 position
+cc:filt1EngPos	CCFL1EPS	Start	LONG	ustep	Position of Filter Wheel 1 (motor microsteps)
+cc:filt1HallHealth	CCFL1HLH	Never	STRING		Health: Filter Wheel 1 Hall sensor [GOOD|WARNING|BAD]
+cc:filt1Health	CCFL1HLT	Never	STRING		Health: Filter Wheel 1 (combined) [GOOD|WARNING|BAD]
+cc:filt1Label	CCFL1LBL	Never	STRING		The FDSC field describes the Filter Wheel 1
+cc:filt1Max	CCFL1MAX	Never	DOUBLE	user units	Maximum position of Filter Wheel 1 (user units)
+cc:filt1Min	CCFL1MIN	Never	DOUBLE	user units	Minimum position of Filter Wheel 1 (user units)
+cc:filt1ModuleHealth	CCFL1MDH	Never	STRING		Health: Filter Wheel 1 driver [GOOD|WARNING|BAD]
+cc:filt1Name	CCFL1NAM	Start	STRING		User name of Filter Wheel 1 position
+cc:filt1Parked	CCFL1PRK	Never	LONG	0/1	Is Filter Wheel 1 parked [YES=0|NO=1]?
+cc:filt1Pos	CCFL1POS	Start	DOUBLE	user units	Position of Filter Wheel 1 position (user units)
+cc:filt1PosErrHealth	CCFL1PEH	Never	STRING		Health: Filter Wheel 1 backlash corrected [GOOD|WARNING|BAD]
+cc:filt1RdtmVal	CCFL1RDT	Never	LONG	ustep	Returned value from Filter Wheel 1 redatum command
+cc:filt1Reject	CCFL1REJ	Never	LONG	0/-1	Combined Filter Wheel 1 CAR state [GOOD=0|REJECT=-1]
+cc:filt1SnlHealth	CCFL1SNH	Never	STRING		Health: Filter Wheel 1 SNL [GOOD|WARNING|BAD]
+cc:filt1State	CCFL1STE	Never	STRING		Filter Wheel 1 SNL state
+cc:filt1Units	CCFL1UNT	Start	STRING		Definition of user units for Filter Wheel 1
+cc:filt2DatumHealth	CCFL2DTH	Never	STRING		Health: Filter Wheel 2 is datumed [GOOD|WARNING|BAD]
+cc:filt2Datumed	CCFL2DTM	Never	LONG	0/1	Is Filter Wheel 2 datumed [YES=0|NO=1]?
+cc:filt2EngCyclic	CCFL2ECY	Never	LONG	0/1	Ignore limits for Filter Wheel 2 [YES=0|NO=1]?
+cc:filt2EngMax	CCFL2EMX	Never	LONG	ustep	Maximum position of Filter Wheel 2 (motor microsteps)
+cc:filt2EngMin	CCFL2EMN	Never	LONG	ustep	Minimum position of Filter Wheel 2 (motor microsteps)
+cc:filt2EngName	CCFL2ENM	Start	STRING		Engineering name of Filter Wheel 2 position
+cc:filt2EngPos	CCFL2EPS	Start	LONG	ustep	Position of Filter Wheel 2 (motor microsteps)
+cc:filt2HallHealth	CCFL2HLH	Never	STRING		Health: Filter Wheel 2 Hall sensor [GOOD|WARNING|BAD]
+cc:filt2Health	CCFL2HLT	Never	STRING		Health: Filter Wheel 2 (combined) [GOOD|WARNING|BAD]
+cc:filt2Label	CCFL2LBL	Never	STRING		The FDSC field describes the Filter Wheel 2
+cc:filt2Max	CCFL2MAX	Never	DOUBLE	user units	Maximum position of Filter Wheel 2 (user units)
+cc:filt2Min	CCFL2MIN	Never	DOUBLE	user units	Minimum position of Filter Wheel 2 (user units)
+cc:filt2ModuleHealth	CCFL2MDH	Never	STRING		Health: Filter Wheel 2 driver [GOOD|WARNING|BAD]
+cc:filt2Name	CCFL2NAM	Start	STRING		User name of Filter Wheel 2 position
+cc:filt2Parked	CCFL2PRK	Never	LONG	0/1	Is Filter Wheel 2 parked [YES=0|NO=1]?
+cc:filt2Pos	CCFL2POS	Start	DOUBLE	user units	Position of Filter Wheel 2 position (user units)
+cc:filt2PosErrHealth	CCFL2PEH	Never	STRING		Health: Filter Wheel 2 backlash corrected [GOOD|WARNING|BAD]
+cc:filt2RdtmVal	CCFL2RDT	Never	LONG	ustep	Returned value from Filter Wheel 2 redatum command
+cc:filt2Reject	CCFL2REJ	Never	LONG	0/-1	Combined Filter Wheel 2 CAR state [GOOD=0|REJECT=-1]
+cc:filt2SnlHealth	CCFL2SNH	Never	STRING		Health: Filter Wheel 2 SNL [GOOD|WARNING|BAD]
+cc:filt2State	CCFL2STE	Never	STRING		Filter Wheel 2 SNL state
+cc:filt2Units	CCFL2UNT	Start	STRING		Definition of user units for Filter Wheel 2
+cc:filt3DatumHealth	CCFL3DTH	Never	STRING		Health: Filter Wheel 3 is datumed [GOOD|WARNING|BAD]
+cc:filt3Datumed	CCFL3DTM	Never	LONG	0/1	Is Filter Wheel 3 datumed [YES=0|NO=1]?
+cc:filt3EngCyclic	CCFL3ECY	Never	LONG	0/1	Ignore limits for Filter Wheel 3 [YES=0|NO=1]?
+cc:filt3EngMax	CCFL3EMX	Never	LONG	ustep	Maximum position of Filter Wheel 3 (motor microsteps)
+cc:filt3EngMin	CCFL3EMN	Never	LONG	ustep	Minimum position of Filter Wheel 3 (motor microsteps)
+cc:filt3EngName	CCFL3ENM	Start	STRING		Engineering name of Filter Wheel 3 position
+cc:filt3EngPos	CCFL3EPS	Start	LONG	ustep	Position of Filter Wheel 3 (motor microsteps)
+cc:filt3HallHealth	CCFL3HLH	Never	STRING		Health: Filter Wheel 3 Hall sensor [GOOD|WARNING|BAD]
+cc:filt3Health	CCFL3HLT	Never	STRING		Health: Filter Wheel 3 (combined) [GOOD|WARNING|BAD]
+cc:filt3Label	CCFL3LBL	Never	STRING		The FDSC field describes the Filter Wheel 3
+cc:filt3Max	CCFL3MAX	Never	DOUBLE	user units	Maximum position of Filter Wheel 3 (user units)
+cc:filt3Min	CCFL3MIN	Never	DOUBLE	user units	Minimum position of Filter Wheel 3 (user units)
+cc:filt3ModuleHealth	CCFL3MDH	Never	STRING		Health: Filter Wheel 3 driver [GOOD|WARNING|BAD]
+cc:filt3Name	CCFL3NAM	Start	STRING		User name of Filter Wheel 3 position
+cc:filt3Parked	CCFL3PRK	Never	LONG	0/1	Is Filter Wheel 3 parked [YES=0|NO=1]?
+cc:filt3Pos	CCFL3POS	Start	DOUBLE	user units	Position of Filter Wheel 3 position (user units)
+cc:filt3PosErrHealth	CCFL3PEH	Never	STRING		Health: Filter Wheel 3 backlash corrected [GOOD|WARNING|BAD]
+cc:filt3RdtmVal	CCFL3RDT	Never	LONG	ustep	Returned value from Filter Wheel 3 redatum command
+cc:filt3Reject	CCFL3REJ	Never	LONG	0/-1	Combined Filter Wheel 3 CAR state [GOOD=0|REJECT=-1]
+cc:filt3SnlHealth	CCFL3SNH	Never	STRING		Health: Filter Wheel 3 SNL [GOOD|WARNING|BAD]
+cc:filt3State	CCFL3STE	Never	STRING		Filter Wheel 3 SNL state
+cc:filt3Units	CCFL3UNT	Start	STRING		Definition of user units for Filter Wheel 3
+cc:focDatumHealth	CCFOCDTH	Never	STRING		Health: Focus Stage is datumed [GOOD|WARNING|BAD]
+cc:focDatumed	CCFOCDTM	Never	LONG	0/1	Is Focus Stage datumed [YES=0|NO=1]?
+cc:focEngCyclic	CCFOCECY	Never	LONG	0/1	Ignore limits for Focus Stage [YES=0|NO=1]?
+cc:focEngMax	CCFOCEMX	Never	LONG	ustep	Maximum position of Focus Stage (motor microsteps)
+cc:focEngMin	CCFOCEMN	Never	LONG	ustep	Minimum position of Focus Stage (motor microsteps)
+cc:focEngName	CCFOCENM	Start	STRING		Engineering name of Focus Stage position
+cc:focEngPos	CCFOCEPS	Start	LONG	ustep	Position of Focus Stage (motor microsteps)
+cc:focHallHealth	CCFOCHLH	Never	STRING		Health: Focus Stage Hall sensor [GOOD|WARNING|BAD]
+cc:focHealth	CCFOCHLT	Never	STRING		Health: Focus Stage (combined) [GOOD|WARNING|BAD]
+cc:focLabel	CCFOCLBL	Never	STRING		The FDSC field describes the Focus Stage
+cc:focMax	CCFOCMAX	Never	DOUBLE	user units	Maximum position of Focus Stage (user units)
+cc:focMin	CCFOCMIN	Never	DOUBLE	user units	Minimum position of Focus Stage (user units)
+cc:focModuleHealth	CCFOCMDH	Never	STRING		Health: Focus Stage driver [GOOD|WARNING|BAD]
+cc:focName	CCFOCNAM	Start	STRING		User name of Focus Stage position
+cc:focParked	CCFOCPRK	Never	LONG	0/1	Is Focus Stage parked [YES=0|NO=1]?
+cc:focPos	CCFOCPOS	Start	DOUBLE	user units	Position of Focus Stage position (user units)
+cc:focPosErrHealth	CCFOCPEH	Never	STRING		Health: Focus Stage backlash corrected [GOOD|WARNING|BAD]
+cc:focRdtmVal	CCFOCRDT	Never	LONG	ustep	Returned value from Focus Stage redatum command
+cc:focReject	CCFOCREJ	Never	LONG	0/-1	Combined Focus Stage CAR state [GOOD=0|REJECT=-1]
+cc:focSnlHealth	CCFOCSNH	Never	STRING		Health: Focus Stage SNL [GOOD|WARNING|BAD]
+cc:focState	CCFOCSTE	Never	STRING		Focus Stage SNL state
+cc:focUnits	CCFOCUNT	Start	STRING		Definition of user units for Focus Stage
+cc:foplDatumHealth	CCFPDTH	Never	STRING		Health: Focal Plane Mask is datumed [GOOD|WARNING|BAD]
+cc:foplDatumed	CCFPDTM	Never	LONG	0/1	Is Focal Plane Mask datumed [YES=0|NO=1]?
+cc:foplEngCyclic	CCFPECY	Never	LONG	0/1	Ignore limits for Focal Plane Mask [YES=0|NO=1]?
+cc:foplEngMax	CCFPEMX	Never	LONG	ustep	Maximum position of Focal Plane Mask (motor microsteps)
+cc:foplEngMin	CCFPEMN	Never	LONG	ustep	Minimum position of Focal Plane Mask (motor microsteps)
+cc:foplEngName	CCFPENM	Start	STRING		Engineering name of Focal Plane Mask position
+cc:foplEngPos	CCFPEPS	Start	LONG	ustep	Position of Focal Plane Mask (motor microsteps)
+cc:foplHallHealth	CCFPHLH	Never	STRING		Health: Focal Plane Mask Hall sensor [GOOD|WARNING|BAD]
+cc:foplHealth	CCFPHLT	Never	STRING		Health: Focal Plane Mask (combined) [GOOD|WARNING|BAD]
+cc:foplLabel	CCFPLBL	Never	STRING		The FDSC field describes the Focal Plane Mask
+cc:foplMax	CCFPMAX	Never	DOUBLE	user units	Maximum position of Focal Plane Mask (user units)
+cc:foplMin	CCFPMIN	Never	DOUBLE	user units	Minimum position of Focal Plane Mask (user units)
+cc:foplModuleHealth	CCFPMDH	Never	STRING		Health: Focal Plane Mask driver [GOOD|WARNING|BAD]
+cc:foplName	CCFPNAM	Start	STRING		User name of Focal Plane Mask position
+cc:foplParked	CCFPPRK	Never	LONG	0/1	Is Focal Plane Mask parked [YES=0|NO=1]?
+cc:foplPos	CCFPPOS	Start	DOUBLE	user units	Position of Focal Plane Mask position (user units)
+cc:foplPosErrHealth	CCFPPEH	Never	STRING		Health: Focal Plane Mask backlash corrected [GOOD|WARNING|BAD]
+cc:foplRdtmVal	CCFPRDT	Never	LONG	ustep	Returned value from Focal Plane Mask redatum command
+cc:foplReject	CCFPREJ	Never	LONG	0/-1	Combined Focal Plane Mask CAR state [GOOD=0|REJECT=-1]
+cc:foplSnlHealth	CCFPSNH	Never	STRING		Health: Focal Plane Mask SNL [GOOD|WARNING|BAD]
+cc:foplState	CCFPSTE	Never	STRING		Focal Plane Mask SNL state
+cc:foplUnits	CCFPUNT	Start	STRING		Definition of user units for Focal Plane Mask
+cc:health	CCHLTH	Never	STRING		CC Health [GOOD|WARNING|BAD]
+cc:heartBeat	CCHRTB	Never	LONG	count	Heart beat record: Shows that CC is still alive
+cc:historyLog	CCHLOG	Never	STRING		History log record (should be BIGSTRING)
+cc:issPort	CCISSPT	Start	LONG	number	ISS port on which instrument is installed
+cc:label	CCLABEL	Never	STRING		The FDSC field describes the Components Controller
+cc:name	CCNAME	Never	STRING		Components Controller Name
+cc:puvwDatumHealth	CCPVDTH	Never	STRING		Health: Pupil Viewer is datumed [GOOD|WARNING|BAD]
+cc:puvwDatumed	CCPVDTM	Never	LONG	0/1	Is Pupil Viewer datumed [YES=0|NO=1]?
+cc:puvwEngCyclic	CCPVECY	Never	LONG	0/1	Ignore limits for Pupil Viewer [YES=0|NO=1]?
+cc:puvwEngMax	CCPVEMX	Never	LONG	ustep	Maximum position of Pupil Viewer (motor microsteps)
+cc:puvwEngMin	CCPVEMN	Never	LONG	ustep	Minimum position of Pupil Viewer (motor microsteps)
+cc:puvwEngName	CCPVENM	Start	STRING		Engineering name of Pupil Viewer position
+cc:puvwEngPos	CCPVEPS	Start	LONG	ustep	Position of Pupil Viewer (motor microsteps)
+cc:puvwHallHealth	CCPVHLH	Never	STRING		Health: Pupil Viewer Hall sensor [GOOD|WARNING|BAD]
+cc:puvwHealth	CCPVHLT	Never	STRING		Health: Pupil Viewer (combined) [GOOD|WARNING|BAD]
+cc:puvwLabel	CCPVLBL	Never	STRING		The FDSC field describes the Pupil Viewer
+cc:puvwMax	CCPVMAX	Never	DOUBLE	user units	Maximum position of Pupil Viewer (user units)
+cc:puvwMin	CCPVMIN	Never	DOUBLE	user units	Minimum position of Pupil Viewer (user units)
+cc:puvwModuleHealth	CCPVMDH	Never	STRING		Health: Pupil Viewer driver [GOOD|WARNING|BAD]
+cc:puvwName	CCPVNAM	Start	STRING		User name of Pupil Viewer position
+cc:puvwParked	CCPVPRK	Never	LONG	0/1	Is Pupil Viewer parked [YES=0|NO=1]?
+cc:puvwPos	CCPVPOS	Start	DOUBLE	user units	Position of Pupil Viewer position (user units)
+cc:puvwPosErrHealth	CCPVPEH	Never	STRING		Health: Pupil Viewer backlash corrected [GOOD|WARNING|BAD]
+cc:puvwRdtmVal	CCPVRDT	Never	LONG	ustep	Returned value from Pupil Viewer redatum command
+cc:puvwReject	CCPVREJ	Never	LONG	0/-1	Combined Pupil Viewer CAR state [GOOD=0|REJECT=-1]
+cc:puvwSnlHealth	CCPVSNH	Never	STRING		Health: Pupil Viewer SNL [GOOD|WARNING|BAD]
+cc:puvwState	CCPVSTE	Never	STRING		Pupil Viewer SNL state
+cc:puvwUnits	CCPVUNT	Start	STRING		Definition of user units for Pupil Viewer
+cc:simMode	CCSMODE	Start	STRING		Simulation mode [NONE|FULL|FAST|VSM]
+cc:spltDatumHealth	CCSPDTH	Never	STRING		Health: Beam Splitter is datumed [GOOD|WARNING|BAD]
+cc:spltDatumed	CCSPDTM	Never	LONG	0/1	Is Beam Splitter datumed [YES=0|NO=1]?
+cc:spltEngCyclic	CCSPECY	Never	LONG	0/1	Ignore limits for Beam Splitter [YES=0|NO=1]?
+cc:spltEngMax	CCSPEMX	Never	LONG	ustep	Maximum position of Beam Splitter (motor microsteps)
+cc:spltEngMin	CCSPEMN	Never	LONG	ustep	Minimum position of Beam Splitter (motor microsteps)
+cc:spltEngName	CCSPENM	Start	STRING		Engineering name of Beam Splitter position
+cc:spltEngPos	CCSPEPS	Start	LONG	ustep	Position of Beam Splitter (motor microsteps)
+cc:spltHallHealth	CCSPHLH	Never	STRING		Health: Beam Splitter Hall sensor [GOOD|WARNING|BAD]
+cc:spltHealth	CCSPHLT	Never	STRING		Health: Beam Splitter (combined) [GOOD|WARNING|BAD]
+cc:spltLabel	CCSPLBL	Never	STRING		The FDSC field describes the Beam Splitter
+cc:spltMax	CCSPMAX	Never	DOUBLE	user units	Maximum position of Beam Splitter (user units)
+cc:spltMin	CCSPMIN	Never	DOUBLE	user units	Minimum position of Beam Splitter (user units)
+cc:spltModuleHealth	CCSPMDH	Never	STRING		Health: Beam Splitter driver [GOOD|WARNING|BAD]
+cc:spltName	CCSPNAM	Start	STRING		User name of Beam Splitter position
+cc:spltParked	CCSPPRK	Never	LONG	0/1	Is Beam Splitter parked [YES=0|NO=1]?
+cc:spltPos	CCSPPOS	Start	DOUBLE	user units	Position of Beam Splitter position (user units)
+cc:spltPosErrHealth	CCSPPEH	Never	STRING		Health: Beam Splitter backlash corrected [GOOD|WARNING|BAD]
+cc:spltRdtmVal	CCSPRDT	Never	LONG	ustep	Returned value from Beam Splitter redatum command
+cc:spltReject	CCSPREJ	Never	LONG	0/-1	Combined Beam Splitter CAR state [GOOD=0|REJECT=-1]
+cc:spltSnlHealth	CCSPSNH	Never	STRING		Health: Beam Splitter SNL [GOOD|WARNING|BAD]
+cc:spltState	CCSPSTE	Never	STRING		Beam Splitter SNL state
+cc:spltUnits	CCSPUNT	Start	STRING		Definition of user units for Beam Splitter
+cc:state	CCSTATE	Never	STRING		Inst. state [BOOTING|INITIALIZING|RUNNING|CONFIGURING]
+cc:ster1DatumHealth	CCST1DTH	Never	STRING		Health: Steering Mirror 1 is datumed [GOOD|WARNING|BAD]
+cc:ster1Datumed	CCST1DTM	Never	LONG	0/1	Is Steering Mirror 1 datumed [YES=0|NO=1]?
+cc:ster1EngCyclic	CCST1ECY	Never	LONG	0/1	Ignore limits for Steering Mirror 1 [YES=0|NO=1]?
+cc:ster1EngMax	CCST1EMX	Never	LONG	ustep	Maximum position of Steering Mirror 1 (motor microsteps)
+cc:ster1EngMin	CCST1EMN	Never	LONG	ustep	Minimum position of Steering Mirror 1 (motor microsteps)
+cc:ster1EngName	CCST1ENM	Start	STRING		Engineering name of Steering Mirror 1 position
+cc:ster1EngPos	CCST1EPS	Start	LONG	ustep	Position of Steering Mirror 1 (motor microsteps)
+cc:ster1HallHealth	CCST1HLH	Never	STRING		Health: Steering Mirror 1 Hall sensor [GOOD|WARNING|BAD]
+cc:ster1Health	CCST1HLT	Never	STRING		Health: Steering Mirror 1 (combined) [GOOD|WARNING|BAD]
+cc:ster1Label	CCST1LBL	Never	STRING		The FDSC field describes the Steering Mirror 1
+cc:ster1Max	CCST1MAX	Never	DOUBLE	user units	Maximum position of Steering Mirror 1 (user units)
+cc:ster1Min	CCST1MIN	Never	DOUBLE	user units	Minimum position of Steering Mirror 1 (user units)
+cc:ster1ModuleHealth	CCST1MDH	Never	STRING		Health: Steering Mirror 1 driver [GOOD|WARNING|BAD]
+cc:ster1Name	CCST1NAM	Start	STRING		User name of Steering Mirror 1 position
+cc:ster1Parked	CCST1PRK	Never	LONG	0/1	Is Steering Mirror 1 parked [YES=0|NO=1]?
+cc:ster1Pos	CCST1POS	Start	DOUBLE	user units	Position of Steering Mirror 1 position (user units)
+cc:ster1PosErrHealth	CCST1PEH	Never	STRING		Health: Steering Mirror 1 backlash corrected [GOOD|WARNING|BAD]
+cc:ster1RdtmVal	CCST1RDT	Never	LONG	ustep	Returned value from Steering Mirror 1 redatum command
+cc:ster1Reject	CCST1REJ	Never	LONG	0/-1	Combined Steering Mirror 1 CAR state [GOOD=0|REJECT=-1]
+cc:ster1SnlHealth	CCST1SNH	Never	STRING		Health: Steering Mirror 1 SNL [GOOD|WARNING|BAD]
+cc:ster1State	CCST1STE	Never	STRING		Steering Mirror 1 SNL state
+cc:ster1Units	CCST1UNT	Start	STRING		Definition of user units for Steering Mirror 1
+cc:ster2DatumHealth	CCST2DTH	Never	STRING		Health: Steering Mirror 2 is datumed [GOOD|WARNING|BAD]
+cc:ster2Datumed	CCST2DTM	Never	LONG	0/1	Is Steering Mirror 2 datumed [YES=0|NO=1]?
+cc:ster2EngCyclic	CCST2ECY	Never	LONG	0/1	Ignore limits for Steering Mirror 2 [YES=0|NO=1]?
+cc:ster2EngMax	CCST2EMX	Never	LONG	ustep	Maximum position of Steering Mirror 2 (motor microsteps)
+cc:ster2EngMin	CCST2EMN	Never	LONG	ustep	Minimum position of Steering Mirror 2 (motor microsteps)
+cc:ster2EngName	CCST2ENM	Start	STRING		Engineering name of Steering Mirror 2 position
+cc:ster2EngPos	CCST2EPS	Start	LONG	ustep	Position of Steering Mirror 2 (motor microsteps)
+cc:ster2HallHealth	CCST2HLH	Never	STRING		Health: Steering Mirror 2 Hall sensor [GOOD|WARNING|BAD]
+cc:ster2Health	CCST2HLT	Never	STRING		Health: Steering Mirror 2 (combined) [GOOD|WARNING|BAD]
+cc:ster2Label	CCST2LBL	Never	STRING		The FDSC field describes the Steering Mirror 2
+cc:ster2Max	CCST2MAX	Never	DOUBLE	user units	Maximum position of Steering Mirror 2 (user units)
+cc:ster2Min	CCST2MIN	Never	DOUBLE	user units	Minimum position of Steering Mirror 2 (user units)
+cc:ster2ModuleHealth	CCST2MDH	Never	STRING		Health: Steering Mirror 2 driver [GOOD|WARNING|BAD]
+cc:ster2Name	CCST2NAM	Start	STRING		User name of Steering Mirror 2 position
+cc:ster2Parked	CCST2PRK	Never	LONG	0/1	Is Steering Mirror 2 parked [YES=0|NO=1]?
+cc:ster2Pos	CCST2POS	Start	DOUBLE	user units	Position of Steering Mirror 2 position (user units)
+cc:ster2PosErrHealth	CCST2PEH	Never	STRING		Health: Steering Mirror 2 backlash corrected [GOOD|WARNING|BAD]
+cc:ster2RdtmVal	CCST2RDT	Never	LONG	ustep	Returned value from Steering Mirror 2 redatum command
+cc:ster2Reject	CCST2REJ	Never	LONG	0/-1	Combined Steering Mirror 2 CAR state [GOOD=0|REJECT=-1]
+cc:ster2SnlHealth	CCST2SNH	Never	STRING		Health: Steering Mirror 2 SNL [GOOD|WARNING|BAD]
+cc:ster2State	CCST2STE	Never	STRING		Steering Mirror 2 SNL state
+cc:ster2Units	CCST2UNT	Start	STRING		Definition of user units for Steering Mirror 2
+cc:sterDatumed	CCSTDTM	Never	LONG	0/1	Is/Are Steering Mirrors datumed [YES=0|NO=1]?
+cc:sterHealth	CCSTHLT	Never	STRING		Health: Steering Mirrors (combined)
+cc:sterLabel	CCSTLBL	Never	STRING		The FDSC field describes the Steering Mirrors
+cc:sterName	CCSTNAM	Start	STRING		Steering Mirrors name of current position
+cc:sterParked	CCSTPRK	Never	LONG	0/1	Is/Are Steering Mirrors parked [YES=0|NO=1]?
+cc:sterReject	CCSTREJ	Never	LONG	0/1	Combined reject state for Steering Mirrors
+cc:sys1Health	CCSY1HLT	Never	STRING		Health: System 1 (combined)
+cc:sys2Health	CCHLT	Never	STRING		Health: System 2 (combined)
+cc:sysHealth	CCSYHLT	Never	STRING		Health: Health 2 (combined)
+cc:tmpC1Health	CCTPC1H	Never	STRING		Health: Temperature controller [GOOD|WARNING|BAD]
+cc:tmpC1Setp	CCTPC1S	Start	DOUBLE	K	Temperature set point
+cc:tmpC1Tmp	CCTPC1T	Never	DOUBLE	K	Temperature
+cc:tmpC2Health	CCTPC2H	Never	STRING		Health: Temperature controller [GOOD|WARNING|BAD]
+cc:tmpC2Setp	CCTPC2S	Start	DOUBLE	K	Temperature set point
+cc:tmpC2Tmp	CCTPC2T	Never	DOUBLE	K	Temperature
+cc:tmpC3Health	CCTPC3H	Never	STRING		Health: Temperature controller [GOOD|WARNING|BAD]
+cc:tmpC3Setp	CCTPC3S	Start	DOUBLE	K	Temperature set point
+cc:tmpC3Tmp	CCTPC3T	Never	DOUBLE	K	Temperature
+cc:tmpCoolBusy	CCTPCBY	Never	STRING		Cooling motor activity
+cc:tmpCoolHealth	CCTPCLH	Never	STRING		Health: Cooling motor on [GOOD|WARNING|BAD]
+cc:tmpCoolModeHealth	CCTPCMH	Never	STRING		Health: Cooling motor on/off [GOOD|WARNING|BAD]
+cc:tmpCoolName	CCTPCNM	Never	STRING		Cooling motor rate
+cc:tmpCoolRate1	CCTPCR1	Never	DOUBLE	ustep / s	Cooling motor 1 rate
+cc:tmpCoolRate2	CCTPCR2	Never	DOUBLE	ustep / s	Cooling motor 2 rate
+cc:tmpHealth	CCTPHLT	Never	STRING		Health: temperature (combined) [GOOD|WARNING|BAD]
+cc:tmpLabel	CCTPLBL	Never	STRING		The FDSC field describes the Temperature Subsystem
+cc:tmpModeHealth	CCTPMDH	Never	STRING		Health: Heater / motor mode [GOOD|WARNING|BAD]
+cc:tmpS1Health	CCTPS1H	Never	STRING		Health: Temperature-sensor [GOOD|WARNING|BAD]
+cc:tmpS1Tmp1	CCTPST1	Never	DOUBLE	K	Temperature at top of strap
+cc:tmpS1Tmp2	CCTPST2	Never	DOUBLE	K	Temperature at bottom of strap
+cc:tmpS1Tmp3	CCTPST3	Never	DOUBLE	K	Engineering test point temperature
+cc:tmpS1Tmp4	CCTPST4	Never	DOUBLE	K	Temperature at cold-plate edge
+cc:tmpS1Tmp5	CCTPST5	Never	DOUBLE	K	Temperature sensor unused channel (5)
+cc:tmpS1Tmp6	CCTPST6	Never	DOUBLE	K	Temperature sensor unused channel (6)
+cc:tmpS1Tmp7	CCTPST7	Never	DOUBLE	K	Temperature sensor unused channel (7)
+cc:tmpS1Tmp8	CCTPST8	Never	DOUBLE	K	Temperature sensor unused channel (8)
+cc:tmpState	CCTPSTE	Never	STRING		Temperature Subsystem state
+cc:tmpTmpCheckHealth	CCTPTCH	Never	STRING		Health: Temperature in range [GOOD|WARNING|BAD]
+cc:wfsBeam	CCWFSBM	Start	LONG	0/1	Is the WFS detector unobstructed [YES=0|NO=1]?

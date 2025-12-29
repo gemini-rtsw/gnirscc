@@ -1,0 +1,16 @@
+[symbol2]
+bbox -352 -112 240 176
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+a 0 -72 36 -20 -92 360
+l 100 0 0 84 56 EPICS records
+l 100 0 0 80 24 ==========>
+l 100 0 0 -348 56 CAD outputs
+l 100 0 0 -352 24 ==========>
+l 150 0 0 -44 76 Task
+l 150 0 0 -180 76 Control
+l 150 0 0 -128 116 VxWorks
+[comments]

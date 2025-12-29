@@ -1,0 +1,41 @@
+PROC = 
+include ../com.make
+
+OBJS = $(COMMON_OBJS) $(OPTIONAL_OBJS)
+
+all: $(OBJS)
+
+clean:
+	/bin/rm -rf $(OBJS)
+
+install: all
+
+include ../util.make
+# DO NOT DELETE THIS LINE -- make depend depends on it.
+
+control.trl: /dlirim0/gn.4/tptools/bin/../include/conc.h
+control.trl: /dlirim0/gn.4/tptools/bin/../include/stdio.h common.h
+control.trl: ../../include/shared.h
+debug.trl: /dlirim0/gn.4/tptools/bin/../include/conc.h
+debug.trl: /dlirim0/gn.4/tptools/bin/../include/stdio.h
+debug.trl: /dlirim0/gn.4/tptools/bin/../include/stdarg.h
+debug.trl: /dlirim0/gn.4/tptools/bin/../include/string.h common.h
+debug.trl: ../../include/shared.h
+mem.trl: /dlirim0/gn.4/tptools/bin/../include/stdio.h
+mem.trl: /dlirim0/gn.4/tptools/bin/../include/stdlib.h
+mem.trl: /dlirim0/gn.4/tptools/bin/../include/string.h common.h
+mem.trl: /dlirim0/gn.4/tptools/bin/../include/conc.h ../../include/shared.h
+message.trl: common.h /dlirim0/gn.4/tptools/bin/../include/conc.h
+monitor.trl: common.h /dlirim0/gn.4/tptools/bin/../include/conc.h
+proc.trl: /dlirim0/gn.4/tptools/bin/../include/conc.h common.h
+queue.trl: /dlirim0/gn.4/tptools/bin/../include/stdlib.h common.h
+queue.trl: /dlirim0/gn.4/tptools/bin/../include/conc.h
+talk.trl: /dlirim0/gn.4/tptools/bin/../include/stdio.h
+talk.trl: /dlirim0/gn.4/tptools/bin/../include/stdlib.h
+talk.trl: /dlirim0/gn.4/tptools/bin/../include/conc.h common.h
+talk.trl: ../../include/shared.h
+var.trl: common.h /dlirim0/gn.4/tptools/bin/../include/conc.h
+var_sr.trl: /dlirim0/gn.4/tptools/bin/../include/string.h
+var_sr.trl: /dlirim0/gn.4/tptools/bin/../include/conc.h
+var_sr.trl: /dlirim0/gn.4/tptools/bin/../include/stdlib.h common.h
+var_sr.trl: /dlirim0/gn.4/tptools/bin/../include/stdio.h

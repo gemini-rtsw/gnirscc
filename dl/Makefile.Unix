@@ -1,0 +1,11 @@
+
+include Target.include
+include .applTop/config/CONFIG
+
+# List of display (*.dl) files
+ADL2DL = $(EPICS_EXTENSIONS)/bin/$(HOST_ARCH)/adl2dl2.4
+
+DATA    = gmColors.dl template.dl $(wildcard ../*.dl) \
+          $(patsubst ../%.adl, %.dl, $(wildcard ../*.adl ../*.bit ../*.tk ../*.sh))
+
+include .applTop/config/RULES.Build

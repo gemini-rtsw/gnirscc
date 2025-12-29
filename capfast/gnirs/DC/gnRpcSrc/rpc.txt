@@ -1,0 +1,39 @@
+2.1.3.3
+The rpc code is split into two distinct areas, client and server.  Each of 
+these is loaded on a different computer.  The client side is the computer 
+that is running EPICS, while the server side is the one that controls
+the datacube.  When an rpc routine is run on the client side, the corresponding
+routine is run on the server side.  
+
+Before an rpc task can be run, rpcTaskInit must be run.  This is a vxWorks 
+function that sets up some data areas that the rpc routines need.  The next
+step is to find the server that is to be connected to.  A function called 
+dqRpcGetClient is used to handle this.  Once these two setup routines are run,
+we can run the rpc with the clnt_call function.  This initiates the rpc and
+waits for it to finish.
+
+There are two main functions that are handled in rpc, observe, and 
+abort.  The setup routine tells the datacube the size of the data coming in, 
+and the type of code that is being run in the transputers.  This allows the
+ datacube to set up the surfaces and processing rectangles and runs the 
+propper routine when an observe is received.  The only function of the 
+observe routine is to start taking data.  
+
+
+
+
+2.2.6
+The server rpc must be registered on the computer it is running on before it can
+be invoked by another computer.  First we must create the rpc transport, 
+register it with the operating system, and then run.  Registering the rpc tells
+the operating system the program number, the version number, the name of
+the routine to run and the transfer protocol. 
+
+There are three main functions that are handled in rpc, setup, observe, and 
+abort.  When setup is done, all parameters are checked in gnGetGNAACParams.  If
+any have changed since the previous setup, or it hasn't been setup yet, the
+setup is run, otherwise, it returns.  What the setup does is dependent on which
+microcode is being run.  TEST, SEP and STARE are the three possibilities in the
+system at this time.  Each has its own task that is initiated by giving up the
+apropriate semaphore.  When the task is done it releases the semSetup semaphore
+telling the rpc routine that it is done.

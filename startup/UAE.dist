@@ -1,0 +1,19 @@
+
+HOSTS = ( ${DIST_HOST} )
+
+FILES1 = ( ${APPLIC_INSTALL}/bin/${T_A} )
+FILES3 = ( ${APPLIC_INSTALL}/data )
+FILES4 = ( ${APPLIC_INSTALL}/include )
+FILES5 = ( ${APPLIC_INSTALL}/RELEASE.NOTES )
+
+(${FILES1}) -> (${HOSTS})
+	install -R ${DIST_PATH}/bin/${T_A};
+
+(${FILES3}) -> (${HOSTS})
+	install -R ${DIST_PATH}/data;
+
+(${FILES4}) -> (${HOSTS})
+	install -R ${DIST_PATH}/include;
+
+(${FILES5}) -> (${HOSTS})
+	install -R ${DIST_PATH}/RELEASE.NOTES;

@@ -1,0 +1,167 @@
+
+
+debug.c:void send_debug(char *format, ...)
+
+/repos2/NAACsrc/tp/common/
+mem.c
+    sprintf(buf, "node %d: ", _node_number);
+    for (i = 0; i < (mem_size / MEM_BLOCK_SIZE); i++) {
+        switch(mem_use[i]) {
+            case MEM_FREE:
+                strcat(buf, "F");
+                break;
+            case MEM_IN_USE:
+                strcat(buf, "U");
+                break;
+            case MEM_END:
+                strcat(buf, "E");
+                break;
+            default:
+                strcat(buf, "?");
+                break;
+ send_debug(buf);
+ send_debug(buf);
+
+proc.c
+ send_debug("Telling it to bite the dust.");
+ send_debug("Said it was dead.");
+ send_debug("Stopped.");
+/* send_debug("starting...\n"); */
+ SEND_DEBUG = send_debug;
+/* send_debug("alloc'd"); */
+  send_debug("running");
+
+
+arr_ctrl.c 
+
+      sprintf(pbuf, "Array %d is too warm to activate, ", anum + 1);
+      sprintf(pbuf, "Array %d activated, ", anum + 1);
+      sprintf(pbuf, "Array %d deactivated, ", anum + 1);
+
+if (err)
+  send_debug(pbuf);
+return (err)
+  send_debug("Invalid array or D/A, ");
+  send_debug("Value %6.3f outside range for %s %d"
+            " (%6.3f to %6.3f allowed)",
+                 (double) rvalue,
+                 inst.array[anum].D2A_names[d2agrp], d2aidx,
+                 (double)d2adesc->min, (double)d2adesc->max);
+            return ERROR;
+
+arr_ctrl.c:   send_debug(stdbuf);
+arr_ctrl.c:   send_debug("Array %d, %s %d FAILED, requested %6.3f got %6.3f",
+           anum, inst.array[anum].D2A_names[d2agrp],
+                         d2anum, (double)value, (double)hkval1);
+                return ERROR;
+
+arr_ctrl.c:   send_debug("Array %d, %s %d set to %6.3f", 
+                    anum, 
+                    inst.array[anum].D2A_names[d2agrp],
+                    d2anum,
+                    (double)hkval1);	
+arr_ctrl.c:   send_debug("Array %d, %s %d did not set. Requested %6.3f got "
+                    "%6.3f", 
+                    anum,
+                    inst.array[anum].D2A_names[d2agrp],
+                    d2aidx, 
+                    (double)value, 
+                    (double)fabs(hkval2 - hkval1));
+            return ERROR;
+
+arr_ctrl.c:   send_debug("Array %d, %s %d set to %6.3f", 
+                 anum,
+                 inst.array[anum].D2A_names[d2agrp],
+                 d2aidx,
+                 (double)fabs(hkval2 - hkval1));
+
+cmnd_funcs.c: send_debug("%s now = %6.3f, out of tolerance by = %6.3f",
+                 inst.array[j].rail_names[i], 
+                 (double) gotv,
+                 (double) gotv_err)
+cmnd_funcs.c: send_debug("%s now = %6.3f, out of tolerance by = %6.3f",
+                 inst.array[j].D2A_names[i], 
+                 (double) gotv, 
+                 (double) gotv_err);
+cmnd_funcs.c: send_debug("All hardware-determined voltages are within tolerance.\n");
+cmnd_funcs.c:/*    send_debug("Instrument forwarded START msg to do_pics");*
+
+ctio_devs.c
+    send_debug("sd1: servo %d returned error %d, data=0x%8.8x",i ,err, res);
+    send_debug("sd2: servo %d returned error %d, data=0x%8.8x",i ,err, res);  
+    send_debug("sd3: servo %d returned error %d, data=0x%8.8x",i ,err, res);
+    send_debug("up: servo %d returned error %d, data=0x%8.8x",i , err, res);
+    send_debug("Servo %d is not a solenoid.");
+
+dev_funcs.c
+  send_debug("servo %d returned error %d, data=0x%8.8x",i ,err, res);
+  send_debug("servo %d returned error %d, data=0x%8.8x",i ,err, res);
+  send_debug("sd: servo %d returned error %d, data=0x%8.8x",i ,err, res);
+  send_debug("up: servo %d returned error %d, data=0x%8.8x",i , err, res);
+  send_debug("Servo %d is not a motor/encoder pair.");
+  send_debug("me_servo_cmd: addr %8.8x, board %d, dev %d, cmd %8.8x, fval %d",
+      servo_addr, 
+      sr->mjrdev, sr->mnrdev, 
+      cmd, 
+      *fval);
+  send_debug("me_servo_cmd: addr %8.8x, board %d, dev %d, cmd %8.8x, fval %d",
+      servo_addr, 
+      sr->mjrdev, 
+      sr->mnrdev, 
+      cmd, 
+      *fval);
+  send_debug("me_servo_cmd: mjr %d, dev %d, cmd %8.8x, data 0x%08x ",
+      sr->mjrdev, 
+      sr->mnrdev, 
+      cmd,  
+      data);
+  send_debug("me_servo_cmd: error %d, num %d, dev %8.8x, data 0x%08x ",
+      SERVO_ERROR(data), 
+      SERVO_NUMBER(data), 
+      sr->mnrdev &0x03, 
+      data);
+  send_debug("Servo %d is not a solenoid.");
+  send_debug("sol_servo_cmd: addr %8.8x, board %d, dev %d, cmd %8.8x, fval %d",
+      servo_addr, 
+      sr->mjrdev, 
+      sr->mnrdev, 
+      cmd, 
+      *fval);
+inst_ctrl.c: send_debug("here1");        
+inst_hdw.c:  send_debug("Invalid spad_mode value %d.",value);
+inst_main.c: send_debug("started processes");
+inst_main.c: send_debug("Allocation error in inst_main, status_report = %d",
+      status_report);
+
+inst_setvars.c: send_debug("Variable is read only no set possible.");
+inst_setvars.c: send_debug("D/A operations squelched.");
+inst_setvars.c: send_debug("No controllable devices in Sqiid.");
+inst_setvars.c: send_debug("%d", (value & 0x1FFF));
+inst_setvars.c: send_debug("%d", (value & 0xFFFFFF));
+inst_setvars.c: send_debug("Servo movement timed out");
+inst_setvars.c: send_debug("Wrong servo responded,(mtr = %d, error = %d)", 
+      ((uint)((err)>>13) & 0x3), 
+      err & 0x03);
+inst_setvars.c: send_debug("Servo %d failed: JAMMED.", servo); 
+inst_setvars.c: send_debug("Servo %d failed: POSITION TOO LOW.",servo); 
+inst_setvars.c: send_debug("Servo %d failed: POSITION TOO HIGH.",servo); 
+inst_setvars.c: send_debug("Servo %d failed: NO POSITION RECEIVED.",servo); 
+inst_setvars.c: send_debug("Servo %d failed: GRATING NOT IN DETENT POSITION.",servo); 
+inst_setvars.c: send_debug("Servo %d failed: GRATING IN SHORT WAVE LENGTH STOP.",servo); 
+inst_setvars.c: send_debug("Servo %d failed: GRATING IN LONG WAVE LENGTH STOP.",servo); 
+inst_setvars.c: send_debug("Servo %d failed: error %8.8x.", servo,err); 
+inst_setvars.c: send_debug("Servo command completed.");
+inst_setvars.c: send_debug("ERROR: Servo command failed with error %8.8x!", err);
+inst_setvars.c: send_debug("Solenoid %d energized successfully for %d ms.",
+      servo, 
+      value );
+inst_setvars.c: send_debug("ERROR: Solenoid %d failed with error %8.8x.", servo, err);
+inst_setvars.c: send_debug("Lamp %d turned %s.", 
+      inst.servos[servo].mnrdev,
+      ((value) ? "on" : "off"));
+inst_setvars.c: send_debug("ERROR: lamp %d failed with error %8.8x.", 
+      inst.servos[servo].mnrdev, 
+      err);
+inst_setvars.c: send_debug("Solenoid Servo command completed.");
+inst_setvars.c: send_debug("ERROR: Servo command failed! with error %8.8x ",err);
+inst_setvars.c: send_debug("ERROR: Switches are not implemented!");

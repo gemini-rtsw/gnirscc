@@ -1,0 +1,17 @@
+#! /bin/sh
+
+# $Id: niriEngStart,v 1.2 2009/05/27 19:33:57 fkraemer Exp $
+
+if [ "$NIRI_ENGDIR" = "" ]; then
+	1>&2 echo "NIRI_ENGDIR is not in your current environment.  Please execute"
+	1>&2 echo "your local version of the 'niriLogin' script to add it."
+	exit 1
+fi
+
+if [ "$HOST_ARCH" = "" ]; then
+	1>&2 echo "HOST_ARCH is not in your current environment.  Please execute"
+	1>&2 echo "your local version of the 'niriLogin' script to add it."
+	exit 1
+fi
+
+exec ${NIRI_ENGDIR}/bin/${HOST_ARCH}/niriEngStart

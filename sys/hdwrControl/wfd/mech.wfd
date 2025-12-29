@@ -1,0 +1,734 @@
+/*
+ * Copyright 2001 Association of Universities for Research in Astronomy, Inc.
+ * See the file COPYRIGHT for more details.
+ *
+ * FILENAME:
+ * mech.c
+ *
+ * FUNCTION NAME(S):
+ *  dumpFilters   -   Display filter information 
+ *  dumpMech   -   Print information about the mechanisms 
+ *  filterDescInit   -   Initialize the filter descriptor software structures 
+ *  finishFiltersConfig   -   Verify filter naming as consistent 
+ *  finishMechConfig   -   Complete configuration process
+ *  fsAcq   -   Return the focus shift due to the acquisition mirror. 
+ *  fsCamera   -   Returns the focus shift due to the camera 
+ *  fsCover   -   Calculates the focus shift due to the cover. 
+ *  fsDecker   -   Returns a focus shift due to the decker. 
+ *  fsFW1   -   Calculates the focus shift due to the filter wheel 1. 
+ *  fsFW2   -   Calculates the focus shift due to the filter wheel 2. 
+ *  fsFocus   -   Returns the focus shift due to the focus mechanism, if any. 
+ *  fsGrating   -   Returns the focus shift due to the grating 
+ *  fsSlit   -   Returns a focus shift due to the slit. 
+ *  fsXdisp   -   Returns the focus shift due to the cross disperser. 
+ *  makeNode   -   Create a node for the linked lists 
+ *  mechDescInit   -   Initialize the mechanism software structures. 
+ *  nodeLookup   -   Look up a node, possibly append to list if not found. 
+ *  setFilters   -   Parse a filter "alias" command and store the data. 
+ *
+ *INDENT-OFF*
+ * $Log: mech.wfd,v $
+ * Revision 1.2  2009/05/27 19:32:11  fkraemer
+ * fkraemer - copied my complete working dir over trunk
+ *
+ *INDENT-ON*
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * mechDescInit
+ *
+ * INVOCATION:
+ * mechDescInit()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Initialize the mechanism software structures.
+ *
+ * DESCRIPTION:
+ * Each mechanism has a set of named positions which are stored in a
+ * linked list.  Set up these linked lists.  Use the VxWorks
+ * doubly linked list since it's there (the double linked-ness is not
+ * useful for this application).
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * makeNode
+ *
+ * INVOCATION:
+ * makeNode(type)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) type (int)
+ *
+ * FUNCTION VALUE:
+ * (NODE*) Returns a linked list node
+ *
+ * PURPOSE:
+ * Create a node for the linked lists
+ *
+ * DESCRIPTION:
+ * Just allocates space suitable for a node in one of the linked lists
+ * of positions.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * nodeLookup
+ *
+ * INVOCATION:
+ * nodeLookup(item, pList, append)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) item (char *)        Item to look up
+ * (>) pList (compHead *)   List in which to look
+ * (>) append (int)         Append item if not found and flag is true
+ *
+ * FUNCTION VALUE:
+ * (NODE*) Returns the node, if found, or NULL
+ *
+ * PURPOSE:
+ * Look up a node, possibly append to list if not found.
+ *
+ * DESCRIPTION:
+ * Look up an item in a given linked list.  The lookup is based on
+ * a simple string comparison of names.  Names are stored mixed case
+ * as given, but are compared as lower case.  This makes the lists
+ * of names appear as the user entered them, but the comparison is
+ * done lower-cased to minimize user errors.
+ *
+ * If the append flag is true and the item does not exist in the list,
+ * a new node is made into which the item is placed.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * finishMechConfig
+ *
+ * INVOCATION:
+ * finishMechConfig()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Complete configuration process
+ *
+ * DESCRIPTION:
+ * Once the configuration file is completely read, there is some
+ * consistency checking that is needed, and some static information
+ * that is desired by the EPICS engineering screens.  This routine handles
+ * those chores.
+ *
+ * The consistency checking is to verify that there are no two filters
+ * in either of the filter wheels with the same names.
+ *
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * dumpMech
+ *
+ * INVOCATION:
+ * dumpMech(mech)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) mech (int)
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Print information about the mechanisms
+ *
+ * DESCRIPTION:
+ * Print out the mechanism name, the number of the motor that drives it,
+ * and the list of (name, position) pairs for each mechanism.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * fsCover
+ *
+ * INVOCATION:
+ * fsCover()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (focusType) Returns a focus shift
+ *
+ * PURPOSE:
+ * Calculates the focus shift due to the cover.
+ *
+ * DESCRIPTION:
+ * The cover does not induce a static focus sift, so the return value
+ * is always zero.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * fsFW1
+ *
+ * INVOCATION:
+ * fsFW1()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (focusType) Returns the focus shirt
+ *
+ * PURPOSE:
+ * Calculates the focus shift due to the filter wheel 1.
+ *
+ * DESCRIPTION:
+ * Calculates the focus shift due to the first filter wheel.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * fsFW2
+ *
+ * INVOCATION:
+ * fsFW2()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (focusType) Returns the focus shift
+ *
+ * PURPOSE:
+ * Calculates the focus shift due to the filter wheel 2.
+ *
+ * DESCRIPTION:
+ * Calculates the focus shift due to the second filter wheel.
+ *
+ * DESCRIPTION:
+ * If any filter induces a focus shift, that can be accounted for here.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * fsSlit
+ *
+ * INVOCATION:
+ * fsSlit()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (focusType) Returns a focus shift.
+ *
+ * PURPOSE:
+ * Returns a focus shift due to the slit.
+ *
+ * DESCRIPTION:
+ * A focus shift due to the slit mechanism can be adjusted for here.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * fsDecker
+ *
+ * INVOCATION:
+ * fsDecker()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (focusType) Returns the focus shift attributed to the decker.
+ *
+ * PURPOSE:
+ * Returns a focus shift due to the decker.
+ *
+ * DESCRIPTION:
+ * A focus shift due to the decker mechanism can be adjusted for here.
+ *
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * fsAcq
+ *
+ * INVOCATION:
+ * fsAcq()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (focusType) Returns the focus shift.
+ *
+ * PURPOSE:
+ * Return the focus shift due to the acquisition mirror.
+ *
+ * DESCRIPTION:
+ * A focus shift due to the acquisition mirror mechanism can be
+ * adjusted for here. (unlikely)
+ *
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * fsXdisp
+ *
+ * INVOCATION:
+ * fsXdisp()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (focusType) Returns the focus shift
+ *
+ * PURPOSE:
+ * Returns the focus shift due to the cross disperser.
+ *
+ * DESCRIPTION:
+ * A focus shift due to the cross disperser is calculated here.
+ *
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * fsGrating
+ *
+ * INVOCATION:
+ * fsGrating()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (focusType) Returns the focus shift
+ *
+ * PURPOSE:
+ * Returns the focus shift due to the grating
+ *
+ * DESCRIPTION:
+ * A focus shift due to the grating is calculated here.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * fsCamera
+ *
+ * INVOCATION:
+ * fsCamera()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (focusType) Returns the focus shift
+ *
+ * PURPOSE:
+ * Returns the focus shift due to the camera
+ *
+ * DESCRIPTION:
+ * A focus shift due to the grating is calculated here.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * fsFocus
+ *
+ * INVOCATION:
+ * fsFocus()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (focusType) Returns the focus shift.
+ *
+ * PURPOSE:
+ * Returns the focus shift due to the focus mechanism, if any.
+ *
+ * DESCRIPTION:
+ * A focus shift due to the focus mechanism is calculated here.
+ * 
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * filterDescInit
+ *
+ * INVOCATION:
+ * filterDescInit()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Initialize the filter descriptor software structures
+ *
+ * DESCRIPTION:
+ * Build the linked list that holds the filter combination names.
+ * Each "filter" is comprised of a name plus two names one of
+ * which refers to a filter in filter wheel one while the other picks
+ * out a filter in filter wheel two.
+ *
+ * Not needed when EPICS handles this.
+ * 
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * setFilters
+ *
+ * INVOCATION:
+ * setFilters(start, rhs, orig)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) start (char *)
+ * (>) rhs (char *)
+ * (>) orig (char *)
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Parse a filter "alias" command and store the data.
+ *
+ * DESCRIPTION:
+ * Parse each line in the configuration file that is an 'alias'.  Each
+ * alias points to two filters names, one in each filter wheel.  These latter
+ * associations have been read in by the configuration process prior
+ * to reading this configuration file.
+ * 
+ * format is  alias = "abc" as "kmn" and "rst"
+ * or         alias = "abc" as 101 and 205
+ * 
+ * The numbers are treated as strings, but are included so, if wanted,
+ * small numbers can be used to "indicies".
+ *
+ * Not needed when EPICS handles the alias capability.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * dumpFilters
+ *
+ * INVOCATION:
+ * dumpFilters()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Display filter information
+ *
+ * DESCRIPTION:
+ * Prints the correspondence between "alias" names and those of
+ * the two filters that make up that alias.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * finishFiltersConfig
+ *
+ * INVOCATION:
+ * finishFiltersConfig()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Verify filter naming as consistent
+ *
+ * DESCRIPTION:
+ * Check that each of the filter pairs in a composite 'filter' points to
+ * a named position on a wheel and that the two named positions are on
+ * different wheels.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */

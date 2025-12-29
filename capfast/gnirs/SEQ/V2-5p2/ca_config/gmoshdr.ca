@@ -1,0 +1,58 @@
+status dhshdr::gmos
+{
+   inport      ag:port:gmos                     0 Number of ISS port where GMOS was located
+   gmoscc      gm:sad:cc:name                   0 GMOS components controller s/w
+   maskid      gm:sad:cc:mskID                  0 Barcode of mask or IFU in beam
+   maskname    gm:mskPos.A                      0 Mask name
+   masktyp     gm:sad:cc:mskFP                  0 Mask/IFU type (0=none/-1=IFU/1=mask)
+   maskloc     gm:sad:cc:mskLoc                 0 Mask/IFU location (-1=unknown/0=FP/1=cassette)
+   filter1     gm:sad:filtName1                 0 Filter 1 name
+   filtid1     gm:sad:cc:fltID1                 0 Filter 1 barcode
+   filter2     gm:sad:filtName2                 0 Filter 2 name
+   filtid2     gm:sad:cc:fltID2                 0 Filter 2 barcode
+   grating     gm:sad:grName                    0 Grating name
+   gratid      gm:sad:cc:grID                   0 Grating barcode
+   grwlen      gm:sad:grWavelen                 0 Grating central wavelength (nm)
+   grorder     gm:sad:grOrder                   0 Grating order
+   grtilt      gm:sad:cc:grTilt                 0 Grating tilt (degrees)
+   adcused     gm:sad:cc:atmPresent             0 ADC used? (1=yes/0=no)
+   adcenpst    gm:sad:atmEnpStart               0 Start entrance prism angle of ADC
+   adcenpen    gm:sad:atmEnpEnd                 0 End entrance prism angle of ADC
+   adcenpme    gm:sad:atmEnpMean                0 Mean entrance prism angle of ADC
+   adcexpst    gm:sad:atmExpStart               0 Start exit prism angle of ADC
+   adcexpen    gm:sad:atmExpEnd                 0 End exit prism angle of ADC
+   adcexpme    gm:sad:atmExpMean                0 Mean exit prism angle of ADC
+   adcwlen1    gm:sad:atmWavelen1               0 Lower wavelength for ADC calculation
+   adcwlen2    gm:sad:atmWavelen2               0 Upper wavelength for ADC calculation
+   dtax        gm:sad:cc:dtaX                   0 Detector translation X pos (microns)
+   dtay        gm:sad:cc:dtaY                   0 Detector translation Y pos (microns)
+   dtaz        gm:sad:cc:dtaZ                   0 Detector translation Z pos (microns)
+   dtazst      gm:sad:dtaZEnd                   0 Focus at obs start (microns)
+   dtazen      gm:sad:dtaZEnd                   0 Focus at obs end (microns)
+   dtazme      gm:sad:dtaZMean                  0 Mean focus during obs (microns)
+   dtmode      gm:dtaTrack.VALA                 0 Detector translation stage mode
+   adcmode     gm:atmTrack.VALA                 0 ADC mode
+   gmosdc      gm:sad:dc:name                   0 GMOS detector controller s/w
+   dettype     gm:sad:dc:detType                0 Detector array type
+   detid       gm:sad:dc:detId                  0 Chip IDs
+   exposure    gm:sad:dc:exposedRQ              0 Requested exposure time in seconds
+   detnroi     gm:sad:dc:roiCnt                 0 No. regions of interest
+   detro1x     gm:dc:roi.VALB              0 ROI 1 X start
+   detro1xs    gm:dc:roi.VALD              0 ROI 1 X size
+   detro1y     gm:dc:roi.VALC              0 ROI 1 Y start
+   detro1ys    gm:dc:roi.VALE              0 ROI 1 Y size
+   detro2x     gm:dc:roi.VALF              0 ROI 2 X start
+   detro2xs    gm:dc:roi.VALH              0 ROI 2 X size
+   detro2y     gm:dc:roi.VALG              0 ROI 2 Y start
+   detro2ys    gm:dc:roi.VALI              0 ROI 2 Y size
+   detro3x     gm:dc:roi.VALJ              0 ROI 3 X start
+   detro3xs    gm:dc:roi.VALL              0 ROI 3 X size
+   detro3y     gm:dc:roi.VALK              0 ROI 3 Y start
+   detro3ys    gm:dc:roi.VALM              0 ROI 3 Y size
+   detro4x     gm:dc:roi.VALN              0 ROI 4 X start
+   detro4xs    gm:dc:roi.VALP              0 ROI 4 X size
+   detro4y     gm:dc:roi.VALO              0 ROI 4 Y start
+   detro4ys    gm:dc:roi.VALQ              0 ROI 4 Y size
+   aexpcount   gm:sad:dc:AExpCount         0 Actual number of non-shuffled exposures begun
+   bexpcount   gm:sad:dc:BExpCount         0 Actual number of shuffled exposures begun
+}

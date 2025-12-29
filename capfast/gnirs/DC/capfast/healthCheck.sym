@@ -1,0 +1,15 @@
+[symbol2]
+bbox 64 64 320 256
+port 220 172 100 0 healthOut symbol 2 320 160 0
+uniq 178
+[tools]
+[attributes]
+p 68 56 65 1536 1 set1:top xxx
+[layers]
+<symbol>
+l 100 0 0 76 228 healthChk
+r 0 64 64 192 256
+v 0 192 160
+320 160
+_
+[comments]

@@ -1,0 +1,17 @@
+T_MODE      DC $800000 ;11 Readout Mode Register:
+
+                     ;   bit 0 = Output underscanpixels
+                     ;   bit 1 = Simulated Data
+                     ;   bit 2 = Enable sync mode
+                     ;   bits 3-11= Reserved for CCD WFS
+
+                     ;   bit 16 = IR WFS Idle Mode Enable
+                     ;   bit 17 = IR WFS Unused
+                     ;   bit 18 = IR WFS Fixed-pattern Subtraction Enable
+                     ;   bit 19 = IR WFS Capture Fixed-pattern Noise Frame
+
+                     ;   Note- Bits 20 thru 23 = 0 for One Spot Mode
+                     ;   bit 20 = IR WFS Shack-Hartman Mode (two 8x8s)
+                     ;   bit 21 = IR WFS Alignment Mode (40x40) 
+                     ;   bit 22 = IR WFS Alignment Mode (80x80)
+                     ;   bit 23 = IR WFS Full Array Mode (one 5125x512 Quad)

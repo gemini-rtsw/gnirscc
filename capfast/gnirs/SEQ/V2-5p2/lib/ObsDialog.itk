@@ -1,0 +1,108 @@
+#+
+#  ObsDialog <- iwidgets::Dialog
+#
+#  An ObsDialog widget is a dialog with a listbox for selecting an
+#  observation from the current session.
+#
+#  Options:
+#           -session  The name of the OcsSession object that implements
+#                     ocs session.
+#
+#  Methods:
+#           get   returns the xml of the selected observation.
+#
+#  D Terrett 24 October 2002
+#
+#  Copyright CCLRC
+#-
+
+itcl::class ObsDialog {
+   inherit iwidgets::Dialog
+   constructor args {}
+   itk_option define -session session Session {} refresh
+   public {
+      method get {}
+      method refresh {}
+   }
+   private {
+      method select {}
+      variable obslist {}
+   }
+}
+
+itk::usual ObsDialog {
+   keep -activebackground -activerelief -background -borderwidth -cursor \
+         -elementborderwidth -foreground -highlightcolor -highlightthickness \
+         -insertbackground -insertborderwidth -insertofftime -insertontime \
+         -insertwidth -jump -labelfont -modality -selectbackground \
+         -selectborderwidth -textbackground -textfont 
+}
+
+option add *ObsDialog.borderWidth 2 widgetDefault
+option add *ObsDialog.height 380 widgetDefault
+option add *ObsDialog.width 350 widgetDefault
+option add *ObsDialog.master "." widgetDefault
+option add *ObsDialog.title "Sequence Import Dialog" widgetDefault
+
+itcl::body ObsDialog::constructor {args} {
+
+   set w $itk_interior
+
+# List box for all the observations in the queue.
+   itk_component add obslist {
+      listbox $w.obslist -listvar [itcl::scope obslist] -selectmode single
+   }
+
+# Entry field for entering the observation to fetch.
+   itk_component add progid {
+      iwidgets::entryfield $w.progid -labeltext "Program ID:" -width 20
+   }
+
+# Bind listbox selection to a command that copies the selection into the
+# entry field.
+   bind $itk_component(obslist) <<ListboxSelect>> [itcl::code $this select]
+
+# Bind a double click to OK.
+   bind $itk_component(obslist) <Double-Button-1> [itcl::code $this invoke OK]
+
+# Bind <Return> in the entry widget to the OK button. This causes the apply
+# function to be executed twice. Wierd Huh!
+#   bind [$itk_component(progid) component entry] <Return> \
+#         [itcl::code $this invoke OK]
+
+# Configure buttons.
+   hide Apply
+   buttonconfigure Help -text Update -command [itcl::code $this refresh]
+   pack $itk_component(obslist) -fill both -expand yes -pady 10
+   pack $itk_component(progid) -fill x -pady 10
+
+   eval itk_initialize $args
+}
+
+
+itcl::body ObsDialog::get {} {
+
+# Get the observation id.
+   set obsid [$itk_component(progid) get]
+   if { [string is space $obsid] } {
+      set ind [$itk_component(obslist) curselection]
+      if { ! [string equal $ind ""] } {
+         set obsid [$itk_component(obslist) get $ind]
+      }
+   }
+   return $obsid
+}
+
+itcl::body ObsDialog::refresh {} {
+   if { ! [string equal $itk_option(-session) ""] } {
+      set obslist [$itk_option(-session) listObs]
+   }
+}
+
+itcl::body ObsDialog::select {} {
+   $itk_component(progid) delete 0 end
+   set ind [$itk_component(obslist) curselection]
+   if { ! [string equal $ind ""] } {
+      $itk_component(progid) insert end [$itk_component(obslist) get $ind]
+   }
+}

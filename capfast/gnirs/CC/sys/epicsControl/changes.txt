@@ -1,0 +1,13 @@
+The image name is currently taken from an EPICS variable with the name "IM_NAME "
+(defined in epCommon.h).
+
+You can use this variable in your dataBase or add the name to the invocation 
+(dcImSave).
+
+A pointer to the data and headers seems to be passed in the invocation, so you'll only
+need to format it correctly.  The headers are created in the file you created a while 
+back (crFitsHeaders.c). The data is just a 2 dimensional array (assembled in 
+gnSaveData.c)   I'll include the extra files that prepare the data just so you can 
+refer to them, but I doubt you'll want to use any major portion of them.
+
+Peter Ruckle (8384)

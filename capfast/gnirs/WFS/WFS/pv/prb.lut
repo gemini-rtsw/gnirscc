@@ -1,0 +1,39 @@
+# $Id: prb.lut,v 1.2 2009/05/27 19:35:01 fkraemer Exp $
+
+#
+# Names for NIRI gimbal mirror combinations
+#
+# List the most common name for a position first, followed by alternate
+# names.
+#
+
+# name     nval    ster1    lowtol    hightol   ster2    lowtol    hightol
+
+Neutral    2       Neutral  0         0    Neutral  0    0
+Minimum    2       Minimum  0         0    Minimum  0    0
+Maximum    2       Maximum  0         0    Maximum  0    0
+MinMax     2       Minimum  0         0    Maximum  0    0
+MaxMin     2       Maximum  0         0    Minimum  0    0
+MinNeu     2       Minimum  0         0    Neutral  0    0
+MaxNeu     2       Maximum  0         0    Neutral  0    0
+NeuMin     2       Neutral  0         0    Minimum  0    0
+NeuMax     2       Neutral  0         0    Maximum  0    0
+
+# Don't touch these
+
+pos00      2       pos00    0         0    pos00    0    0
+pos01      2       pos01    0         0    pos01    0    0
+pos02      2       pos02    0         0    pos02    0    0
+
+datum      2       datum    0         0    datum    0    0
+home       2       home     0         0    home     0    0
+
+park       2       park     0         0    park     0    0
+
+#
+# For this mechanism, an INVALID position is not a problem.  Unfortunately,
+# I can't list all possible combinations, because a lutin / lutout
+# record only supports 30 entries.
+#
+
+Undefined  2       Undefined 0         0  Undefined 0    0

@@ -1,0 +1,260 @@
+		CHANGES TO GNAAC
+		================
+
+Changes by S.M.Beard to the GNAAC VSM simulator, as received on 4 June
+1997. Also problems noted if a change is not appropriate.
+
+UNFIXED PROBLEMS ARE IDENTIFIED WITH "***".
+
+04 Jun 1997: A "gnaacSetup" script was added as a reminder of the
+             arguments required by the "applSetup" command.
+
+04 Jun 1997: Prefix changed from "jest:dc:" to "niri:dc" in
+             "startup/startup.vws", "capfast/naacTop.sch", "dl/start"
+             script, "src/epCommon.h" and "src/monvars" script.
+
+05 Jun 1997: Fixed a bug in the "setBias.sch" schematic. The lower CALC
+             record had a ")" which should have been a "}".
+
+06 Jun 1997: Default ucode cmd file directory in "src/testVals.par"
+             changed from "./data" to "./GNAAC/data" (for use with NIRI).
+
+             NOTE: I have now created two versions of this file:
+             testVals.par_GNAAC - stand-alone GNAAC version.
+             testVals.par_NIRI  - NIRI version.
+
+             At any one time one of these versions is renamed to
+             "testVals.par".
+
+             The same thing is done with "src/initVals.par".
+
+09 Jun 1997: Edited "sysCad.c" to prevent the "pause" and "continue"
+             commands being rejected. This seems to have solved the
+             problem with the APPLY record seeming to remember old errors.
+             (I think the APPLY was remembering the old message and
+             displaying it when the pause command returned a reject).
+
+09 Jun 1997: A "gnaacDc.adl" top level dm screen was added, so the GNAAC
+             screens can be called up from the NIRI simulator.
+
+10 Jun 1997: Modified "capfast/Makefile.Unix" to use CAPDIR environment
+             variable (because the location of Capfast has changed).
+
+10 Jun 1997: I have discovered a problem with the "diagFuncs.sch"
+             schematic. Its "mosub" record calls a routine "i" which
+             does not exist and generates a "Task not found" error at
+             the IocInit stage. No changes made.                        ***
+
+10 Jun 1997: Modified "noOpCad.sch" and "noopCad.c" and removed the pause
+             and continue commands. Installed those commands in
+             "stateCad.sch" and "stateCad.c" instead. Added the
+             "endObserve" command to "noOpCad.sch" and "noopCad.c".
+             Added a "(cmd)C" CAR record to each noop command and a
+             "noOpCar.sch" schematic to combine these together.
+             "parkC" CAR record included - activated by "park"
+             command.
+
+11 Jun 1997: "cadSad.adl" screen modified to reflect the fact that the
+             pause and continue commands are members of the "state" set
+             rather than the "noop" set. "endObserve" added to the "noop"
+             menu.
+
+11 Jun 1997: "hdwrNEngFuncs.sch" schematic modified. "state", "heartBeat",
+             and "health" records changed to "naacState", "naacHeartBeat"
+             and "naacHealth" to avoid any clash with the Status Alarm
+             Database. "ai" record changed to "ao" so that information can
+             be forwarded to the Status Alarm Database. "stringout" added
+             to forward the health to the SAD.
+
+11 Jun 1997: "naacSadTop" and "naacSad.sch" schematics added for Status
+             Alarm Database. "startup.vws" modified to load this database.
+
+11 Jun 1997: "gnaacSetup.adl" screen added to allow easier setup of GNAAC
+             from an observer's point of view.
+
+12 Jun 1997: I have noticed that in "stateTasks.c" the doStop and doAbort
+             tasks do not communicate with "doObserve", so the observation
+             does not actually terminate is response to a STOP or ABORT
+             command. I have been told not to fix this problem, so I have
+             not.                                                       ***
+
+13 Jun 1997: "naacSad.sch" expanded to include all the Status Alarm
+             Database labelled as compulsory in ICD 1.9/3.1 (Science
+             Instrument to Observatory Control System).
+             "hdwrNEngFuncs.sch" and "observeCad" schematics modified to
+             connect to these SAD records where possible. A lot of the
+             records are still not connected, but I am hoping you can
+             do this when the interface with the lower levels becomes
+             clearer.
+
+13 Jun 1997: hdwrNEngFuncs.sch" schematic modified to add the $(top)
+             prefix to the "DevSup" records, as required by the Gemini
+             programming standards. Without this change there would have
+             been record name clashes when an attempt is made to load two 
+             copies of the GNAAC controller for NIRI and GNIRS.
+
+13 Jun 1997: Modified "src/Makefile.Unix" so that the ".par" files
+             are installed in the "data" directory on a "gmake.
+
+16 Jun 1997: References to "observation ID" in Capfast schematics and
+             "dm" screens changed to "data label".
+
+16 Jun 1997: Modified "epCommon.h" to include SADTOP definition.
+             Replaced "cicsConst.h" with a more up to date version.
+             Added function "putDaqFlags" into "epCommon.c" to set
+             the three standard data acquisition flags - PREP, ACQ
+             and RDOUT. Modified "stateTasks.c" and changed the
+             "doObserve" task so the three flags are toggled as the
+             observation progresses.
+
+             Note: I noticed the compiler generated some warnings while
+             attempting to compile "epCommon.c", suggesting that
+             additional parentheses should be used in some places which
+             are not my code. I have not changed these.                 ***
+
+17 Jun 1997: Modified "Makefile" so that "gmake release" does not include
+             the files in "include/rec" but does include "colors.adl" and
+             "template.adl" (I prefer to keep these files with the release
+             in case I have added any extra private colour rules).
+
+             Renamed the script "dl/start" to "dl/gnaacStart" (to avoid
+             name clashes with other systems). Modified "dl/Makefile.Unix"
+             so that "gnaacStart" is installed in the "bin" directory as a
+             script. "gnaacStart" modified to use the GNAAC environment
+             variables, so it may be executed from any directory.
+
+             Created a "gnaacLogin" script, and "gnaacLogin_IGPO" specific
+             for IGPO. This script sets up all the environment variable
+             needed by GNAAC at login. It also adds the GNAAC directories
+             to the PATH, so that GNAAC may be started by typing
+             "gnaacStart" from any directory.
+
+             Enhanced the "gnaacSetup" script so that it checks for the
+             correct environment variables. It now calls up the
+             "applSetup" script with all the arguments necessary to get at
+             the TIMELIB, SLALIB and DHS libraries. It should now be
+             possible to set up a new GNAAC release in just four commands
+             (or three if the second one is done automatically at login):
+
+                gunzip <GNAAC.tar.gz | tar -xvf -
+                source ./gnaacLogin[_IGPO]
+                ./gnaacSetup
+                gmake
+
+17 Jun 1997: Merged Janet Tvedt's version of "cicsLib" with the CICS
+             version. In the combined version the use of a semaphore
+             is optional and is started by executing "cicsInitLogging"
+             (which has been renamed to keep the "cics" as a prefix).
+             "nosource/cicsLib.o" replaced with the new version and
+             "startup/startup.vws" modified to use "cicsInitLogging".
+
+17-20 Jun 1997: Created "dataHandling.c", to contain all the functions for
+                interfacing to the DHS server. During this period I
+                found several problems with the DHS library. The client
+                side crashes frequently with access faults, connecting
+                to the DHS server can hang up the startup script, and the
+                DHS server needs to be restarted each time the IOC is
+                rebooted.
+
+                "startup.vws" modified to start the IMP tasks. A call to
+                "dataInit" added but commented out (since it sometimes
+                hangs up the script). This call needs to be entered
+                manually after the startup script has finished. If the
+                shell hangs the IOC needs rebooting and the DHS server
+                restarting. (I don't think this is an acceptable state of
+                affairs for instrument development, but I can do nothing
+                about it).
+
+                "stateTasks,c" modified so that the "doObserve" function
+                calls "dataObserve" to generate and save the fake data.
+                "doObserve" also modified to extract the arguments from
+                the "observe" CAD record and pass then to "dataObserve".
+
+                The "dataObserve" function (contained in dataHandling.c)
+                can do one of two things:
+
+                1) If "dataInit" has been called and the DHS is connected
+                   it will attempt to send the fake data to the DHS.
+
+                2) If the DHS is not connected it can save data to your
+                   own file. (I will leave a placeholder here so you can
+                   see where to put this).
+
+                "dhsConnected" record added to the Status Alarm Database
+                and displayed on the "dm" screens. This record indicates
+                whether the DHS is connected.
+
+26 Jun 1997: I have given up attempting to debug the DHS library.
+             A list of bugs has been mailed to everyone concerned.
+             Function calls which cause the DHS library to crash
+             have been commented out in "dataHandling.c".
+             I have split "dataObserve" into two parts, because it
+             looks like this is how the DHS library is intended to
+             be used:
+
+             dataObserveStart is called at the start of an observation
+             to create the dataset, add some header items, and allocate
+             memory buffers to contain the intensity data, variance data
+             and quality data. The data accumulated during an observation
+             may be written to these buffers. (Due to bugs in the DHS
+             library, not all the dataset attributes are created).
+
+             dataObserveEnd is called at the end of an observation and
+             transmits the data to the DHS. (Due to bugs in the DHS
+             library, the function does not wait for the data transfer
+             to finish, so the data transfer is reported as failing).
+                                                                        ***
+
+		THINGS OUTSTANDING
+		==================
+
+1) I have not solved the problems with the DHS library. I have only tracked
+   the problems down and identified which DHS functions to comment out to
+   make the DHS interface safe. While the DHS library is being fixed, it
+   sounds like GNAAC will need to use its own data server to store data.
+
+   The DHS interface I have included is only an example. It may need to
+   be modified (e.g. adding more attributes or data structures) depending
+   on the exact nature of the data generated by GNAAC.
+
+   There are still some huge memory leaks in the DHS code, and the memory
+   will run out after two, or maybe three, observations. The GNAAC system
+   will be more reliable if you test it or demonstrate it without
+   attempting to connect to the DHS server.
+
+   Bret Goodrich is still working on the DHS problems. See him for the
+   latest information.
+
+2) I have created a Status Alarm Database containing at least all the
+   compulsory records described in ICD 1.9/3.1. I have connected these records
+   to the GNAAC main database where I can, but there are still some records
+   which cannot be connected because there is no equivalent information in
+   the GNAAC main database (for example "nexpRQ", "nexp", "utstart" and
+   "utend" etc...).
+
+3) I have modified the GNAAC system to update the "prep", "acq" and "rdout"
+   flags in the Status Alarm Database while observing, as required by
+   ICD 1a. I have done this using the database access functions in
+   "epCommon.c". It works, but the Status Alarm Database should really be
+   updated using Channel Access. I have developed some equivalent functions
+   using Channel Access in "cicsLib2.c" but I have not used these because
+   I am not yet happy with them. They seem to be too inefficient for what
+   they do. They can be used as a starting point.
+
+   Another deficiency is that the update of the "prep", "acq" and "rdout"
+   flags should really be done simultaneously (in the same way Pvload writes
+   channels simultaneously when you group them together). At the moment I
+   update them one after the other.
+
+4) The result of my work is a VMS simulator which interfaces to NIRI.
+   I think there is still a lot of work needing to be done interfacing
+   this top level database to the underlying GNAAC control software.
+   My DHS interface needs to be replaced by the API worked out between
+   Bret and Nick.
+
+   The "doObserve", "doStop" and "doAbort" functions needs to be modified
+   so they work together and communicate with the underlying control system.
+   A "stop" should stop the observation and cause the data to be saved
+   immediately, and an "abort" should do the same but throw away the data.
+   "pause" and "continue" can be left as they are. They are rejected, but
+   they are available for a possible future upgrade.

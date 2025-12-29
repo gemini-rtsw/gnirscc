@@ -1,0 +1,11 @@
+*%
+.applTop
+.epics
+.version
+config
+epics
+data
+include
+bin
+config.par
+Distfile

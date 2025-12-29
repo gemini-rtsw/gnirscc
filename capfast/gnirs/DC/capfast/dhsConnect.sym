@@ -1,0 +1,14 @@
+[symbol2]
+bbox -416 192 -256 352
+port -400 280 100 0 CLID symbol 1 -416 288 0
+port -272 288 100 2048 MESS symbol 2 -256 288 0
+port -272 320 100 2048 VAL symbol 2 -256 320 0
+port -400 320 100 1536 DIR symbol 1 -416 320 0
+uniq 2
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 7 0 -336 208 dhsConnect
+r 0 -416 192 -256 352
+[comments]

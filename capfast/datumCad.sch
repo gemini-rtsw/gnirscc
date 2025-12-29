@@ -1,0 +1,56 @@
+[schematic2]
+uniq 323
+[tools]
+[detail]
+w 4858 2779 100 0 n#321 ecars.datumC.FLNK 4800 2768 4976 2768 outhier.c#312.p
+w 3632 3392 -100 0 VAL outhier.VAL.p 3712 3476 3616 3476 3616 3312 3584 3312 ecad4.datum.VAL
+w 3772 3357 100 0 MESS ecad4.datum.MESS 3584 3280 3680 3280 3680 3312 3776 3312 outhier.c#314.p
+w 4872 2843 100 0 c#313 ecars.datumC.OMSS 4800 2928 4832 2928 4832 2832 4960 2832 outhier.c#313.p
+w 3864 3219 100 0 n#288 ecad4.datum.OCID 3584 3216 4192 3216 4192 2960 4480 2960 ecars.datumC.ICID
+w 4472 2683 100 0 n#287 elongouts.datumCar.OUT 4656 2448 4736 2448 4736 2672 4256 2672 4256 2992 4480 2992 ecars.datumC.IVAL
+w 4472 2651 100 0 n#286 elongouts.datumCar.FLNK 4656 2512 4704 2512 4704 2640 4288 2640 4288 2800 4480 2800 ecars.datumC.SLNK
+w 4856 2899 100 0 c#308 bihier.c#308.p 4960 2896 4880 2896 4880 2960 4800 2960 ecars.datumC.CLID
+w 4376 2523 100 0 n#284 elongouts.datumCar.DOL 4400 2512 4400 2512 hwin.hwin#319.in
+w 3816 2707 100 0 n#283 ecad4.datum.STLK 3584 2704 4096 2704 4096 2480 4400 2480 elongouts.datumCar.SLNK
+w 4856 2995 100 0 c#311 ecars.datumC.VAL 4800 2992 4960 2992 outhier.c#311.p
+w 3234 2907 100 0 n#174 hwin.hwin#173.in 3264 2896 3264 2896 ecad4.datum.INPD
+w 3066 3291 100 0 CLID ecad4.datum.ICID 3264 3280 2928 3280 inhier.CLID.P
+w 3228 3373 100 0 n#2 inhier.DIR.P 3136 3444 3232 3444 3232 3312 3264 3312 ecad4.datum.DIR
+[cell use]
+use hwin 4208 2471 100 0 hwin#319
+xform 0 4304 2512
+p 4211 2504 100 0 -1 val(in):$(CAR_BUSY)
+use hwin 3072 2855 100 0 hwin#173
+xform 0 3168 2896
+p 2784 2880 100 0 -1 val(in):nirs:motionDisable.VAL
+use outhier 3744 3271 100 0 c#314
+xform 0 3760 3312
+use outhier 4928 2791 100 0 c#313
+xform 0 4944 2832
+use outhier 4944 2727 100 0 c#312
+xform 0 4960 2768
+use outhier 4928 2951 100 0 c#311
+xform 0 4944 2992
+use outhier 3680 3435 100 0 VAL
+xform 0 3696 3476
+use ecars 4480 2711 100 0 datumC
+xform 0 4640 2880
+use elongouts 4400 2391 100 0 datumCar
+xform 0 4528 2480
+use bihier 4944 2855 100 0 c#308
+xform 0 4960 2896
+use eborderC 2368 1495 100 0 eborderC#295
+xform 0 4048 2800
+use inhier 2912 3239 100 0 CLID
+xform 0 2928 3280
+use inhier 3120 3403 100 0 DIR
+xform 0 3136 3444
+use ecad4 3356 3368 100 0 datum
+xform 0 3424 2992
+p 3360 3120 100 0 1 FTVA:LONG
+p 3360 3088 100 0 1 FTVB:STRING
+p 3200 2288 100 0 0 INAM:datumCad
+p 3312 2576 100 0 1 SNAM:datumCad
+p 3408 2592 100 1024 1 name:$(top)$(I)
+p 3584 2714 75 0 -1 pproc(STLK):NPP
+[comments]

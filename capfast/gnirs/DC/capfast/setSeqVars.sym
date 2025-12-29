@@ -1,0 +1,27 @@
+[symbol2]
+bbox -64 64 160 384
+port -104 164 100 0 {numCoAdds} symbol 1 -64 160 0
+port -76 260 100 0 {numLNRs} symbol 1 -64 256 0
+port -76 328 100 0 {numDAgs} symbol 1 -64 320 0
+port -76 104 100 0 {numPics} symbol 1 -64 96 0
+uniq 267
+[tools]
+[attributes]
+p 40 52 65 1536 1 set1:top $(top)
+[layers]
+<symbol>
+l 100 0 0 40 332 setSeqVars
+r 0 32 64 160 384
+v 0 -64 96
+32 96
+_
+v 0 -64 160
+32 160
+_
+v 0 -64 256
+32 256
+_
+v 0 -64 320
+32 320
+_
+[comments]

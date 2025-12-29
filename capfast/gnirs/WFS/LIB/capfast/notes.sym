@@ -1,0 +1,29 @@
+[symbol2]
+bbox 64 64 576 416
+uniq 136
+[tools]
+[attributes]
+p 64 32 100 768 0 author:Hubert Yamada
+p 80 352 100 768 -1 comment0:
+p 80 318 100 768 -1 comment1:
+p 80 286 100 768 -1 comment2:
+p 80 256 100 768 -1 comment3:
+p 80 224 100 768 -1 comment4:
+p 80 192 100 768 -1 comment5:
+p 80 160 100 768 -1 comment6:
+p 80 128 100 768 -1 comment7:
+p 80 96 100 768 -1 comment8:
+p 80 64 100 768 -1 comment9:
+p 320 384 100 1024 -1 title:
+[layers]
+<symbol>
+v 0 64 416
+64 64
+576 64
+576 416
+64 416
+_
+v 0 64 384
+576 384
+_
+[comments]

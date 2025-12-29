@@ -1,0 +1,34 @@
+                 README: Motorola MVME162 (mv162)
+
+This file contains board-specific information for the Motorola MVME162,
+MVME162FX, and the Motorola MVME162LX target boards.  
+Specifically, this file contains information on any BSP interface changes 
+from previous software or hardware versions, and contains caveats that the 
+user must be aware of before using this BSP.  Additionally, the target board's 
+manual page entry (i.e., man mv162) provides board-specific information 
+necessary to run VxWorks, and should be read before this BSP is used.
+
+--------------------------------------------------------------------------------
+
+RELEASE 1.0/0 of MVME162LX and 1.0/2 of MVME162
+
+    This BSP supports all the MVME162 boards (MVME162, MVME162FX, and 
+    MVME162LX).  Although the default configuration will run on all the
+    target boards, only two serial ports will be available on the MVME162LX.
+
+    To properly configure the MVME162LX's four on-board serial I/O channels, 
+    the MVME162LX pre-processor directive must be defined in config.h.
+    Simply change the #if statement above the MVME162LX macro to TRUE,
+    then re-build the VxWorks image.
+
+    Due to the snooping problems with the Test And Set (TAS) command over the 
+    VME, the shared memory pool for the backplane driver is defined in the low
+    memory and marked as non-cacheable. Bus snooping the VME accesses has been 
+    turned off due to this problem. This will not effect the cache and snooping
+    for the on-board devices such as ethernet and SCSI as snooping will be 
+    turned on for these devices. Memory from 0x2000 to 0x20000 has been 
+    allocated for shared memory. The RAM_LOW_ADRS for this reason has been 
+    raised from 0x1000 to 0x20000. These changes would be in effect until 
+    the snooping problems with TAS instruction are fixed on the hardware.
+    For more information read target.nr.
+

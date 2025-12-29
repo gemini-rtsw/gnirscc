@@ -1,0 +1,4 @@
+#
+string nirs:focus:loadFocusConf.A = "ALL-imaging";
+string nirs:focus:loadFocusConf.DIR = "START";
+

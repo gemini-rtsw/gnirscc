@@ -1,0 +1,8 @@
+4.5.3
+cfitsio
+
+This directory contains the source files for the fits library that the saver uses
+to save fits images.  No changes have been made to these files. The library is compiled
+for solaris and is also in this file.  It is currently only used in the solaris side
+of the dhs.  Once the actual dhs is implemented, this will probably be unnecessary.
+

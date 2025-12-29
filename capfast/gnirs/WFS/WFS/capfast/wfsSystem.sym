@@ -1,0 +1,28 @@
+[symbol2]
+bbox -384 64 384 256
+port -368 192 100 1536 DIR symbol 3 -384 192 0
+port -368 160 100 1536 CLID symbol 3 -384 160 0
+port -368 128 100 1536 VAL symbol 3 -384 128 0
+port -368 96 100 1536 MESS symbol 3 -384 96 0
+uniq 4
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 3 0 -176 224 wfsSystem
+l 75 5 0 272 224 System-Wide Records
+v 1 -192 224
+-192 256
+288 256
+_
+v 0 -384 256
+-384 64
+384 64
+384 256
+288 256
+288 224
+-288 224
+-288 256
+-384 256
+_
+[comments]

@@ -1,0 +1,19 @@
+# $Id: decker.lut,v 1.1 2008/04/24 16:16:48 gemvx Exp $
+
+#
+# Filters loaded on NIRI filter wheel 1.
+#
+# List the most common name for a position first, followed by alternate
+#Filter Wheel 1
+
+#number name		pos		lowtol	hightol
+1		a			a1		0		0
+2		b			b1		0		0
+3		c			c1		0		0
+4		d			d1		0		0
+5		e			e1		0		0
+6		f			f1		0		0
+7		g			g1		0		0
+8		h			h1		0		0
+9		i			i1		0		0
+

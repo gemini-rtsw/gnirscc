@@ -1,0 +1,9 @@
+DIRS += ascii
+DIRS += capfast
+DIRS += dl
+DIRS += pv
+DIRS += globals
+DIRS += startup
+DIRS += utilSource
+DIRS += omega
+

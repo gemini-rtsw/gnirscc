@@ -1,0 +1,31 @@
+[symbol2]
+bbox -448 0 160 128
+port 144 64 100 2048 HOMSS symbol 3 160 64 0
+port 144 96 100 2048 HVAL symbol 3 160 96 0
+port 144 16 100 1280 HFLNK symbol 2 160 32 0
+uniq 4
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 75 5 0 48 96 follow command SAD
+l 100 3 0 -240 96 folSad
+v 0 -352 96
+-352 128
+-448 128
+-448 0
+160 0
+160 128
+64 128
+64 96
+-352 96
+_
+v 0 -256 96
+64 96
+64 128
+_
+v 0 -256 96
+-256 128
+64 128
+_
+[comments]

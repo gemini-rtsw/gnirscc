@@ -1,0 +1,55 @@
+##########################
+# GNIRS Filter Configuration file
+#
+# Read with readConfig("gnirsFilters")
+#
+# '#' marks the beginning of a comment; everything in the remainder of the
+# line is ignored.
+# Blank lines are ignored.
+#
+#  '[...]' Marks the beginning of a section, and the end of the previous one.
+#
+# Commas are optional when there are multiple values per line; for
+# strings (ie, names), the enclosing '"' are required.
+#
+# Define filter information only in this file (That's to keep it all in
+# one place, and to avoid possibly corrupting the other config files.)
+#
+# 2017-Aug-21, astephens, swap positions of Dark and RightMask in FW1
+# 2022-Jun-13, ema farina and brian lemaux, swap positions of few 
+#              filters in FW1
+# 2022-Jun-30, ema farina, hyewon suh, brian lemaux, subtracted 100
+#              eng steps from all FW1 positions based on vignetting 
+#              test
+# 2022-Jul-01, ema farina, hyewon suh, brian lemaus, and andy
+#              updated the value of the PV of FW1 to avoid vignetting
+# NOTE: DO NOT WRITE COMMENTS THAT ARE TOO LONG, FILE WILL
+#       NOT LOAD PROPERLY
+##########################
+
+#---------name - position - Focus shift
+
+[mechanism filter wheel 1]
+position = "a1"    -100,      0		"Open"	
+position = "b1"    4160,      0		"PupilViewer_G0529"
+position = "c1"    8220,      0		"ND100X_G0532"
+position = "d1"   12380,      0		"YPHOT_G0544"
+position = "e1"   16540,      0		"JPHOT_G0545"
+position = "f1"   20700,      0		"KPHOT_G0546"
+position = "g1"   24860,      0		"Vacant"
+position = "h1"   29020,      0		"RightMask_G0531"
+position = "i1"   33195,      0		"LeftMask_G0530"
+position = "j1"   37355,      0		"Dark_G0511"
+
+[mechanism filter wheel 2]
+position = "a2"       20,      0	"Open"
+position = "b2"     4200,      0	"PAH_G0524"
+position = "c2"     8350,      0        "M_G0514"
+position = "d2"    12500,      0        "L_G0527"
+position = "e2"    16500,      0        "X_G0518"
+position = "f2"   -20800,      0        "J_G0517"
+position = "g2"   -16650,      0        "K_G0515"
+position = "h2"   -12450,      0        "H_G0516"
+position = "i2"    -8250,      0        "XD_G0526"          
+position = "j2"    -4150,      0        "H2_G0522"
+

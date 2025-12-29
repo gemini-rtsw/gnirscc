@@ -1,0 +1,99 @@
+#! /bin/echo Source
+
+#########################################################################
+# $Id: niriLogin_IFA,v 1.2 2009/05/27 19:33:55 fkraemer Exp $
+#
+# An example script for setting up EPICS and all the environment variables
+# needed by the Gemini Near Infrared Imager (NIRI).
+#
+# NOTE: THIS SCRIPT IS SPECIFIC TO THE UNIVERSITY OF HAWAII, INSTITUTE
+# FOR ASTRONOMY.  IT WILL NEED TO BE EDITED FOR YOUR OWN SITE.
+#
+# NOTE: THIS FILE MUST BE SOURCED, NOT EXECUTED!
+#
+# Steven M Beard, Hubert Yamada
+# 29 Jan 1997: CICS version.
+# 27 May 1997: NIRI version.
+#########################################################################
+
+#
+# If EPICS has not already been set up, execute the Gemini EPICS startup
+# script if it exists.
+#
+
+if ( ${?EPICS} == 0 ) then
+
+#
+# EDIT THE FOLLOWING FOR THE LOCATION OF EPICS AT YOUR OWN SITE.
+#
+
+    if ( -e /usr/local/epics/config/epics.csh ) then  
+
+        source /usr/local/epics/config/epics.csh
+
+    else
+
+        echo "*** EPICS startup script not found."
+        exit
+    endif
+endif
+
+#########################################################################
+# Define the environment variables required by NIRI.
+#
+# These variables are defined in detail in niri_hty_006.fm, the Release
+# Notes and Installation Guide.
+#########################################################################
+
+#
+# Always check these, to make sure that they match your local
+# directory structure
+#
+
+setenv NIRI_DIR         /home/polaris/yamada/prj/xiri
+setenv NIRI_DCPKGDIR    /gemini/gnaac/gnaacSrc
+setenv NIRI_TIMELIBDIR  /gemini/timelib
+setenv NIRI_SLALIBDIR   /gemini/slalib
+setenv NIRI_ASTLIBDIR   /gemini/astlib
+
+#
+# Adjust these as needed
+#
+
+setenv NIRI_PREFIX      xiri:
+setenv NIRI_SADPREFIX   ${NIRI_PREFIX}
+setenv NIRI_DCPREFIX    xiri:
+setenv NIRI_DCSADPREFIX ${NIRI_DCPREFIX}
+setenv NIRI_NAME        XIRI
+setenv NIRI_TMPSCAN     "Passive"
+setenv NIRI_TMPVAR      0 
+setenv NIRI_TMPHB       0 
+
+#
+# These are useful for debugging, but will cause inproper behavior
+# if incorrectly set.
+#
+
+setenv NIRI_AGPREFIX    ${NIRI_PREFIX}
+setenv NIRI_USEVXTIME   0
+setenv NIRI_USEBANCOMM  1
+
+#
+# These should not need to be changed
+#
+
+setenv NIRI_TARGETS     mv167
+
+setenv NIRI_CCDIR       ${NIRI_DIR}/CC
+setenv NIRI_DCDIR       ${NIRI_DIR}/DC
+setenv NIRI_ENGDIR      ${NIRI_DIR}/ENG
+setenv NIRI_ISDIR       ${NIRI_DIR}/IS
+setenv NIRI_LIBDIR      ${NIRI_DIR}/LIB
+setenv NIRI_WCSDIR      ${NIRI_DIR}/WCS
+setenv NIRI_WFSDIR      ${NIRI_DIR}/WFS
+
+#
+# Add the necessary NIRI directories to your PATH
+#
+
+setenv PATH ${PATH}:${NIRI_DIR}:${NIRI_ENGDIR}/bin/${HOST_ARCH}

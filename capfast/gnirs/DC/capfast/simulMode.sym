@@ -1,0 +1,65 @@
+[symbol2]
+bbox -48 -48 272 240
+port 192 228 100 0 simulating symbol 2 268 224 0
+port 192 168 100 0 isVsm symbol 2 268 160 0
+port 196 136 100 0 notVsm symbol 2 268 128 0
+port 196 104 100 0 isFast symbol 2 268 96 0
+port 196 68 100 0 notFast symbol 2 268 64 0
+port 196 40 100 0 isFull symbol 2 268 32 0
+port 200 8 100 0 notFull symbol 2 268 0 0
+port -60 200 100 0 simModeIn symbol 1 -48 192 0
+port -48 -26 100 0 SLNK symbol 1 -48 -32 0
+uniq 125
+[tools]
+[attributes]
+p 48 -60 65 1536 1 set1:top $(top)
+[layers]
+<symbol>
+l 100 0 0 62 187 simulMode
+r 0 48 -48 176 240
+v 0 176 224
+272 224
+_
+v 0 176 160
+268 160
+_
+v 0 176 128
+268 128
+_
+v 0 176 96
+268 96
+_
+v 0 176 64
+272 64
+_
+v 0 176 32
+268 32
+_
+v 0 176 0
+268 0
+_
+v 0 268 160
+272 160
+_
+v 0 268 128
+272 128
+_
+v 0 268 96
+272 96
+_
+v 0 264 64
+272 64
+_
+v 0 268 32
+272 32
+_
+v 0 268 0
+272 0
+_
+v 0 -48 192
+48 192
+_
+v 0 -48 -32
+48 -32
+_
+[comments]

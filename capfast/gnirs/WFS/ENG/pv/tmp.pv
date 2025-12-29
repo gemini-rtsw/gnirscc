@@ -1,0 +1,12 @@
+# $Id: tmp.pv,v 1.2 2009/05/27 19:34:09 fkraemer Exp $
+
+# Maximum is 58333
+
+group {
+	long $(top)eng:tmpCool.HISP = 55000;
+	long $(top)eng:tmpCool.LOSP = 30000;
+	long $(top)eng:tmpCool.STEP = 125;
+	long $(top)eng:tmpTimer.VAL = 1;
+	long $(top)eng:tmpMotor1.PWR = 2;
+	long $(top)eng:tmpMotor2.PWR = 2;
+};

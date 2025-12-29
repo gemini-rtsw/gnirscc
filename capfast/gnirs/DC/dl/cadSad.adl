@@ -1,0 +1,1876 @@
+file {
+	name="cadSad.dl"
+}
+display {
+	magic="305419896"
+	majv="2"
+	mnrv="4"
+	ndyng="0"
+	npc="3"
+	nstr="169"
+	ndynamic="2"
+	nplot="0"
+	nrd="11"
+	nes="0"
+	nkd="1"
+	npd="0"
+	npo="0"
+	object {
+		x="0"
+		y="0"
+		width="696"
+		height="458"
+	}
+	clr="1"
+	bclr="13"
+	nwords_dspy="4198"
+	nwords_sta="388"
+	nwords_cmap="0"
+	nwords_crules="0"
+	odyng="2294"
+	osta="1906"
+	odynamic="2294"
+	oplot="2426"
+	ord="2426"
+	oes="4186"
+	okd="4186"
+	opd="4198"
+	opo="4198"
+	opc="68"
+	ostr="96"
+	ocmap="1906"
+	ocrules="1906"
+	style="solid"
+	fill="outline"
+	width="0"
+	clrmod="static"
+	vismod="static"
+	precision="-1"
+	clrrule="alarm"
+	pv=""
+	cmap="gmColors.dl"
+	pixwid="1152"
+	pixht="900"
+	mmwid="325"
+	mmht="254"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="106"
+		y="13"
+		width="559"
+		height="30"
+		groupid="0"
+	}
+	textix="NAAC CAD/CAR/SAD Test Screen"
+	align="horiz. left"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="4"
+	}
+}
+"line" {
+	object {
+		x="93"
+		y="46"
+		width="548"
+		height="1"
+		groupid="0"
+	}
+	npoints="2"
+	point[0] {
+		x="93"
+		y="47"
+	}
+	point[1] {
+		x="641"
+		y="46"
+	}
+	orgpoint[0] {
+		x="0"
+		y="1000"
+	}
+	orgpoint[1] {
+		x="1000"
+		y="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="12"
+		style="solid"
+		fill="outline"
+		width="2"
+	}
+}
+"rectangle" {
+	object {
+		x="32"
+		y="78"
+		width="264"
+		height="295"
+		groupid="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="12"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="46"
+		y="112"
+		width="253"
+		height="18"
+		groupid="0"
+	}
+	textix="Select a command ..."
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="61"
+		y="82"
+		width="237"
+		height="26"
+		groupid="0"
+	}
+	textix="CAD/CAR Tests"
+	align="horiz. left"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="12"
+		style="solid"
+		fill="outline"
+		width="2"
+	}
+}
+"rectangle" {
+	object {
+		x="335"
+		y="78"
+		width="274"
+		height="96"
+		groupid="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="12"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="355"
+		y="110"
+		width="257"
+		height="18"
+		groupid="0"
+	}
+	textix="Select a record set ..."
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="386"
+		y="81"
+		width="238"
+		height="26"
+		groupid="0"
+	}
+	textix="SAD Records"
+	align="horiz. left"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="12"
+		style="solid"
+		fill="outline"
+		width="2"
+	}
+}
+"rectangle" {
+	object {
+		x="337"
+		y="200"
+		width="334"
+		height="67"
+		groupid="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="12"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="347"
+		y="233"
+		width="90"
+		height="20"
+		groupid="0"
+	}
+	textix="Current:"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="348"
+		y="204"
+		width="238"
+		height="26"
+		groupid="0"
+	}
+	textix="Debug Mode"
+	align="horiz. left"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="12"
+		style="solid"
+		fill="outline"
+		width="2"
+	}
+}
+"rectangle" {
+	object {
+		x="335"
+		y="292"
+		width="333"
+		height="69"
+		groupid="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="12"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="343"
+		y="327"
+		width="96"
+		height="18"
+		groupid="0"
+	}
+	textix="Current:"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="345"
+		y="295"
+		width="249"
+		height="26"
+		groupid="0"
+	}
+	textix="Simulation Mode"
+	align="horiz. left"
+}
+"text update" {
+	object {
+		x="441"
+		y="234"
+		width="104"
+		height="18"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)debugMode.VAL"
+		clr="12"
+		bclr="13"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. left"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="435"
+		y="324"
+		width="108"
+		height="18"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)simulMode.VAL"
+		clr="12"
+		bclr="13"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. left"
+	format="decimal"
+}
+"related display" {
+	object {
+		x="37"
+		y="254"
+		width="250"
+		height="25"
+		groupid="0"
+	}
+	selfkill="off"
+	display[0] {
+		label="debug"
+		name="choice1Cad.dl"
+		args="T=$(T),S=$(S),N=sys,M=debug,R=gSysC"
+	}
+	display[1] {
+		label="init"
+		name="choice1Cad.dl"
+		args="T=$(T),S=$(S),N=sys,M=init,R=initC"
+	}
+	display[2] {
+		label="reboot"
+		name="cad0.dl"
+		args="T=$(T),S=$(S),N=sys,M=reboot,R=applyC"
+	}
+	display[3] {
+		label="setDhsInfo"
+		name="cad1.dl"
+		args="T=$(T),S=$(S),N=sys,M=setDhsInfo,R=gSysC,P1=QLS"
+	}
+	display[4] {
+		label="wcsCad"
+		name="wcsCad.dl"
+		args="T=$(T),S=$(S),N=sys,M=setWcs,R=gSysC"
+	}
+	display[5] {
+		label="test"
+		name="cad0.dl"
+		args="T=$(T),S=$(S),N=sys,M=test,R=testC"
+	}
+	display[6] {
+		label=""
+		name=""
+		args=""
+	}
+	display[7] {
+		label=""
+		name=""
+		args=""
+	}
+	display[8] {
+		label=""
+		name=""
+		args=""
+	}
+	display[9] {
+		label=""
+		name=""
+		args=""
+	}
+	display[10] {
+		label=""
+		name=""
+		args=""
+	}
+	display[11] {
+		label=""
+		name=""
+		args=""
+	}
+	display[12] {
+		label=""
+		name=""
+		args=""
+	}
+	display[13] {
+		label=""
+		name=""
+		args=""
+	}
+	display[14] {
+		label=""
+		name=""
+		args=""
+	}
+	display[15] {
+		label=""
+		name=""
+		args=""
+	}
+	display[16] {
+		label=""
+		name=""
+		args=""
+	}
+	display[17] {
+		label=""
+		name=""
+		args=""
+	}
+	display[18] {
+		label=""
+		name=""
+		args=""
+	}
+	display[19] {
+		label=""
+		name=""
+		args=""
+	}
+	display[20] {
+		label=""
+		name=""
+		args=""
+	}
+	display[21] {
+		label=""
+		name=""
+		args=""
+	}
+	display[22] {
+		label=""
+		name=""
+		args=""
+	}
+	display[23] {
+		label=""
+		name=""
+		args=""
+	}
+	clr="0"
+	bclr="6"
+	menu_title="System Commands"
+	decorate="none"
+}
+"related display" {
+	object {
+		x="37"
+		y="292"
+		width="250"
+		height="25"
+		groupid="0"
+	}
+	selfkill="off"
+	display[0] {
+		label="abort"
+		name="cad0.dl"
+		args="T=$(T),N=act,M=abort,R=observeC"
+	}
+	display[1] {
+		label="observe"
+		name="cad2.dl"
+		args="T=$(T),N=act,M=observe"
+	}
+	display[2] {
+		label="park"
+		name="cad0.dl"
+		args="T=$(T),N=act,M=park,R=parkC"
+	}
+	display[3] {
+		label="stop"
+		name="cad2.dl"
+		args="T=$(T),N=act,M=stop"
+	}
+	display[4] {
+		label="pause"
+		name="cad0.dl"
+		args="T=$(T),N=act,M=pause,R=observeC"
+	}
+	display[5] {
+		label="continue"
+		name="cad0.dl"
+		args="T=$(T),N=act,M=continue,R=observeC"
+	}
+	display[6] {
+		label=""
+		name=""
+		args=""
+	}
+	display[7] {
+		label=""
+		name=""
+		args=""
+	}
+	display[8] {
+		label=""
+		name=""
+		args=""
+	}
+	display[9] {
+		label=""
+		name=""
+		args=""
+	}
+	display[10] {
+		label=""
+		name=""
+		args=""
+	}
+	display[11] {
+		label=""
+		name=""
+		args=""
+	}
+	display[12] {
+		label=""
+		name=""
+		args=""
+	}
+	display[13] {
+		label=""
+		name=""
+		args=""
+	}
+	display[14] {
+		label=""
+		name=""
+		args=""
+	}
+	display[15] {
+		label=""
+		name=""
+		args=""
+	}
+	display[16] {
+		label=""
+		name=""
+		args=""
+	}
+	display[17] {
+		label=""
+		name=""
+		args=""
+	}
+	display[18] {
+		label=""
+		name=""
+		args=""
+	}
+	display[19] {
+		label=""
+		name=""
+		args=""
+	}
+	display[20] {
+		label=""
+		name=""
+		args=""
+	}
+	display[21] {
+		label=""
+		name=""
+		args=""
+	}
+	display[22] {
+		label=""
+		name=""
+		args=""
+	}
+	display[23] {
+		label=""
+		name=""
+		args=""
+	}
+	clr="0"
+	bclr="6"
+	menu_title="State Commands "
+	decorate="none"
+}
+"related display" {
+	object {
+		x="37"
+		y="144"
+		width="250"
+		height="25"
+		groupid="0"
+	}
+	selfkill="off"
+	display[0] {
+		label=""
+		name="arSetupCad.dl"
+		args="T=$(T),M=arSetup"
+	}
+	display[1] {
+		label=""
+		name=""
+		args=""
+	}
+	display[2] {
+		label=""
+		name=""
+		args=""
+	}
+	display[3] {
+		label=""
+		name=""
+		args=""
+	}
+	display[4] {
+		label=""
+		name=""
+		args=""
+	}
+	display[5] {
+		label=""
+		name=""
+		args=""
+	}
+	display[6] {
+		label=""
+		name=""
+		args=""
+	}
+	display[7] {
+		label=""
+		name=""
+		args=""
+	}
+	display[8] {
+		label=""
+		name=""
+		args=""
+	}
+	display[9] {
+		label=""
+		name=""
+		args=""
+	}
+	display[10] {
+		label=""
+		name=""
+		args=""
+	}
+	display[11] {
+		label=""
+		name=""
+		args=""
+	}
+	display[12] {
+		label=""
+		name=""
+		args=""
+	}
+	display[13] {
+		label=""
+		name=""
+		args=""
+	}
+	display[14] {
+		label=""
+		name=""
+		args=""
+	}
+	display[15] {
+		label=""
+		name=""
+		args=""
+	}
+	display[16] {
+		label=""
+		name=""
+		args=""
+	}
+	display[17] {
+		label=""
+		name=""
+		args=""
+	}
+	display[18] {
+		label=""
+		name=""
+		args=""
+	}
+	display[19] {
+		label=""
+		name=""
+		args=""
+	}
+	display[20] {
+		label=""
+		name=""
+		args=""
+	}
+	display[21] {
+		label=""
+		name=""
+		args=""
+	}
+	display[22] {
+		label=""
+		name=""
+		args=""
+	}
+	display[23] {
+		label=""
+		name=""
+		args=""
+	}
+	clr="0"
+	bclr="6"
+	menu_title="arSetup        "
+	decorate="none"
+}
+"related display" {
+	object {
+		x="37"
+		y="181"
+		width="250"
+		height="25"
+		groupid="0"
+	}
+	selfkill="off"
+	display[0] {
+		label=""
+		name="obsSetupCad.dl"
+		args="T=$(T),M=obsSetup"
+	}
+	display[1] {
+		label=""
+		name=""
+		args=""
+	}
+	display[2] {
+		label=""
+		name=""
+		args=""
+	}
+	display[3] {
+		label=""
+		name=""
+		args=""
+	}
+	display[4] {
+		label=""
+		name=""
+		args=""
+	}
+	display[5] {
+		label=""
+		name=""
+		args=""
+	}
+	display[6] {
+		label=""
+		name=""
+		args=""
+	}
+	display[7] {
+		label=""
+		name=""
+		args=""
+	}
+	display[8] {
+		label=""
+		name=""
+		args=""
+	}
+	display[9] {
+		label=""
+		name=""
+		args=""
+	}
+	display[10] {
+		label=""
+		name=""
+		args=""
+	}
+	display[11] {
+		label=""
+		name=""
+		args=""
+	}
+	display[12] {
+		label=""
+		name=""
+		args=""
+	}
+	display[13] {
+		label=""
+		name=""
+		args=""
+	}
+	display[14] {
+		label=""
+		name=""
+		args=""
+	}
+	display[15] {
+		label=""
+		name=""
+		args=""
+	}
+	display[16] {
+		label=""
+		name=""
+		args=""
+	}
+	display[17] {
+		label=""
+		name=""
+		args=""
+	}
+	display[18] {
+		label=""
+		name=""
+		args=""
+	}
+	display[19] {
+		label=""
+		name=""
+		args=""
+	}
+	display[20] {
+		label=""
+		name=""
+		args=""
+	}
+	display[21] {
+		label=""
+		name=""
+		args=""
+	}
+	display[22] {
+		label=""
+		name=""
+		args=""
+	}
+	display[23] {
+		label=""
+		name=""
+		args=""
+	}
+	clr="0"
+	bclr="6"
+	menu_title="obsSetup       "
+	decorate="none"
+}
+"related display" {
+	object {
+		x="37"
+		y="328"
+		width="250"
+		height="25"
+		groupid="0"
+	}
+	selfkill="off"
+	display[0] {
+		label="datum"
+		name="cad0.dl"
+		args="T=$(T),N=noop,M=datum,R=noopC"
+	}
+	display[1] {
+		label="guide"
+		name="cad0.dl"
+		args="T=$(T),N=noop,M=guide,R=noopC"
+	}
+	display[2] {
+		label="endGuide"
+		name="cad0.dl"
+		args="T=$(T),N=noop,M=endGuide,R=noopC"
+	}
+	display[3] {
+		label="verify"
+		name="cad0.dl"
+		args="T=$(T),N=noop,M=verify,R=noopC"
+	}
+	display[4] {
+		label="endVerify"
+		name="cad0.dl"
+		args="T=$(T),N=noop,M=endVerify,R=noopC"
+	}
+	display[5] {
+		label="endObserve"
+		name="cad0.dl"
+		args="T=$(T),N=noop,M=endObserve,R=noopC"
+	}
+	display[6] {
+		label=""
+		name=""
+		args=""
+	}
+	display[7] {
+		label=""
+		name=""
+		args=""
+	}
+	display[8] {
+		label=""
+		name=""
+		args=""
+	}
+	display[9] {
+		label=""
+		name=""
+		args=""
+	}
+	display[10] {
+		label=""
+		name=""
+		args=""
+	}
+	display[11] {
+		label=""
+		name=""
+		args=""
+	}
+	display[12] {
+		label=""
+		name=""
+		args=""
+	}
+	display[13] {
+		label=""
+		name=""
+		args=""
+	}
+	display[14] {
+		label=""
+		name=""
+		args=""
+	}
+	display[15] {
+		label=""
+		name=""
+		args=""
+	}
+	display[16] {
+		label=""
+		name=""
+		args=""
+	}
+	display[17] {
+		label=""
+		name=""
+		args=""
+	}
+	display[18] {
+		label=""
+		name=""
+		args=""
+	}
+	display[19] {
+		label=""
+		name=""
+		args=""
+	}
+	display[20] {
+		label=""
+		name=""
+		args=""
+	}
+	display[21] {
+		label=""
+		name=""
+		args=""
+	}
+	display[22] {
+		label=""
+		name=""
+		args=""
+	}
+	display[23] {
+		label=""
+		name=""
+		args=""
+	}
+	clr="0"
+	bclr="6"
+	menu_title="Noop Commands  "
+	decorate="none"
+}
+"related display" {
+	object {
+		x="345"
+		y="143"
+		width="250"
+		height="26"
+		groupid="0"
+	}
+	selfkill="off"
+	display[0] {
+		label="system"
+		name="sad4.dl"
+		args="S=$(S),N=system,M1=name,M2=state,M3=health,M4=heartBeat"
+	}
+	display[1] {
+		label="health"
+		name="healthSad.dl"
+		args="S=$(S),M1=health"
+	}
+	display[2] {
+		label="detector"
+		name="sad3.dl"
+		args="S=$(S),N=detector,M1=detType,M2=detID,M3=detState"
+	}
+	display[3] {
+		label="observation flags"
+		name="sad3.dl"
+		args="S=$(S),N=obsflags,M1=prep,M2=acq,M3=rdout"
+	}
+	display[4] {
+		label="region of interest"
+		name="sad4.dl"
+		args="S=$(S),N=ROI,M1=detMaxCol,M2=detMaxRow,M3=detCurMaxCol,M4=detCurMaxRow"
+	}
+	display[5] {
+		label="data handling"
+		name="dhsSad.dl"
+		args="S=$(S)"
+	}
+	display[6] {
+		label="time information"
+		name="sad3.dl"
+		args="S=$(S),N=time,M1=utnow,M2=utstart,M3=utend"
+	}
+	display[7] {
+		label="exposure information"
+		name="exposureSad.dl"
+		args="S=$(S)"
+	}
+	display[8] {
+		label=""
+		name=""
+		args=""
+	}
+	display[9] {
+		label=""
+		name=""
+		args=""
+	}
+	display[10] {
+		label=""
+		name=""
+		args=""
+	}
+	display[11] {
+		label=""
+		name=""
+		args=""
+	}
+	display[12] {
+		label=""
+		name=""
+		args=""
+	}
+	display[13] {
+		label=""
+		name=""
+		args=""
+	}
+	display[14] {
+		label=""
+		name=""
+		args=""
+	}
+	display[15] {
+		label=""
+		name=""
+		args=""
+	}
+	display[16] {
+		label=""
+		name=""
+		args=""
+	}
+	display[17] {
+		label=""
+		name=""
+		args=""
+	}
+	display[18] {
+		label=""
+		name=""
+		args=""
+	}
+	display[19] {
+		label=""
+		name=""
+		args=""
+	}
+	display[20] {
+		label=""
+		name=""
+		args=""
+	}
+	display[21] {
+		label=""
+		name=""
+		args=""
+	}
+	display[22] {
+		label=""
+		name=""
+		args=""
+	}
+	display[23] {
+		label=""
+		name=""
+		args=""
+	}
+	clr="0"
+	bclr="6"
+	menu_title="SAD Records          "
+	decorate="none"
+}
+"related display" {
+	object {
+		x="554"
+		y="221"
+		width="111"
+		height="35"
+		groupid="0"
+	}
+	selfkill="off"
+	display[0] {
+		label="Set debug level"
+		name="setDebug.dl"
+		args="T=$(T)"
+	}
+	display[1] {
+		label=""
+		name=""
+		args=""
+	}
+	display[2] {
+		label=""
+		name=""
+		args=""
+	}
+	display[3] {
+		label=""
+		name=""
+		args=""
+	}
+	display[4] {
+		label=""
+		name=""
+		args=""
+	}
+	display[5] {
+		label=""
+		name=""
+		args=""
+	}
+	display[6] {
+		label=""
+		name=""
+		args=""
+	}
+	display[7] {
+		label=""
+		name=""
+		args=""
+	}
+	display[8] {
+		label=""
+		name=""
+		args=""
+	}
+	display[9] {
+		label=""
+		name=""
+		args=""
+	}
+	display[10] {
+		label=""
+		name=""
+		args=""
+	}
+	display[11] {
+		label=""
+		name=""
+		args=""
+	}
+	display[12] {
+		label=""
+		name=""
+		args=""
+	}
+	display[13] {
+		label=""
+		name=""
+		args=""
+	}
+	display[14] {
+		label=""
+		name=""
+		args=""
+	}
+	display[15] {
+		label=""
+		name=""
+		args=""
+	}
+	display[16] {
+		label=""
+		name=""
+		args=""
+	}
+	display[17] {
+		label=""
+		name=""
+		args=""
+	}
+	display[18] {
+		label=""
+		name=""
+		args=""
+	}
+	display[19] {
+		label=""
+		name=""
+		args=""
+	}
+	display[20] {
+		label=""
+		name=""
+		args=""
+	}
+	display[21] {
+		label=""
+		name=""
+		args=""
+	}
+	display[22] {
+		label=""
+		name=""
+		args=""
+	}
+	display[23] {
+		label=""
+		name=""
+		args=""
+	}
+	clr="0"
+	bclr="6"
+	menu_title="SET          "
+	decorate="none"
+}
+"related display" {
+	object {
+		x="555"
+		y="319"
+		width="109"
+		height="35"
+		groupid="0"
+	}
+	selfkill="off"
+	display[0] {
+		label="Set simulation level"
+		name="setSim.dl"
+		args=""
+	}
+	display[1] {
+		label=""
+		name=""
+		args=""
+	}
+	display[2] {
+		label=""
+		name=""
+		args=""
+	}
+	display[3] {
+		label=""
+		name=""
+		args=""
+	}
+	display[4] {
+		label=""
+		name=""
+		args=""
+	}
+	display[5] {
+		label=""
+		name=""
+		args=""
+	}
+	display[6] {
+		label=""
+		name=""
+		args=""
+	}
+	display[7] {
+		label=""
+		name=""
+		args=""
+	}
+	display[8] {
+		label=""
+		name=""
+		args=""
+	}
+	display[9] {
+		label=""
+		name=""
+		args=""
+	}
+	display[10] {
+		label=""
+		name=""
+		args=""
+	}
+	display[11] {
+		label=""
+		name=""
+		args=""
+	}
+	display[12] {
+		label=""
+		name=""
+		args=""
+	}
+	display[13] {
+		label=""
+		name=""
+		args=""
+	}
+	display[14] {
+		label=""
+		name=""
+		args=""
+	}
+	display[15] {
+		label=""
+		name=""
+		args=""
+	}
+	display[16] {
+		label=""
+		name=""
+		args=""
+	}
+	display[17] {
+		label=""
+		name=""
+		args=""
+	}
+	display[18] {
+		label=""
+		name=""
+		args=""
+	}
+	display[19] {
+		label=""
+		name=""
+		args=""
+	}
+	display[20] {
+		label=""
+		name=""
+		args=""
+	}
+	display[21] {
+		label=""
+		name=""
+		args=""
+	}
+	display[22] {
+		label=""
+		name=""
+		args=""
+	}
+	display[23] {
+		label=""
+		name=""
+		args=""
+	}
+	clr="0"
+	bclr="6"
+	menu_title="SET          "
+	decorate="none"
+}
+"related display" {
+	object {
+		x="36"
+		y="217"
+		width="250"
+		height="25"
+		groupid="0"
+	}
+	selfkill="off"
+	display[0] {
+		label=""
+		name="drRoiSetCad.dl"
+		args="T=$(T),M=drRoiSet"
+	}
+	display[1] {
+		label=""
+		name=""
+		args=""
+	}
+	display[2] {
+		label=""
+		name=""
+		args=""
+	}
+	display[3] {
+		label=""
+		name=""
+		args=""
+	}
+	display[4] {
+		label=""
+		name=""
+		args=""
+	}
+	display[5] {
+		label=""
+		name=""
+		args=""
+	}
+	display[6] {
+		label=""
+		name=""
+		args=""
+	}
+	display[7] {
+		label=""
+		name=""
+		args=""
+	}
+	display[8] {
+		label=""
+		name=""
+		args=""
+	}
+	display[9] {
+		label=""
+		name=""
+		args=""
+	}
+	display[10] {
+		label=""
+		name=""
+		args=""
+	}
+	display[11] {
+		label=""
+		name=""
+		args=""
+	}
+	display[12] {
+		label=""
+		name=""
+		args=""
+	}
+	display[13] {
+		label=""
+		name=""
+		args=""
+	}
+	display[14] {
+		label=""
+		name=""
+		args=""
+	}
+	display[15] {
+		label=""
+		name=""
+		args=""
+	}
+	display[16] {
+		label=""
+		name=""
+		args=""
+	}
+	display[17] {
+		label=""
+		name=""
+		args=""
+	}
+	display[18] {
+		label=""
+		name=""
+		args=""
+	}
+	display[19] {
+		label=""
+		name=""
+		args=""
+	}
+	display[20] {
+		label=""
+		name=""
+		args=""
+	}
+	display[21] {
+		label=""
+		name=""
+		args=""
+	}
+	display[22] {
+		label=""
+		name=""
+		args=""
+	}
+	display[23] {
+		label=""
+		name=""
+		args=""
+	}
+	clr="0"
+	bclr="6"
+	menu_title="drRoiSet       "
+	decorate="none"
+}
+"related display" {
+	object {
+		x="295"
+		y="399"
+		width="114"
+		height="31"
+		groupid="0"
+	}
+	selfkill="off"
+	display[0] {
+		label="marked cads"
+		name="mark.dl"
+		args="T=$(T)"
+	}
+	display[1] {
+		label=""
+		name=""
+		args=""
+	}
+	display[2] {
+		label=""
+		name=""
+		args=""
+	}
+	display[3] {
+		label=""
+		name=""
+		args=""
+	}
+	display[4] {
+		label=""
+		name=""
+		args=""
+	}
+	display[5] {
+		label=""
+		name=""
+		args=""
+	}
+	display[6] {
+		label=""
+		name=""
+		args=""
+	}
+	display[7] {
+		label=""
+		name=""
+		args=""
+	}
+	display[8] {
+		label=""
+		name=""
+		args=""
+	}
+	display[9] {
+		label=""
+		name=""
+		args=""
+	}
+	display[10] {
+		label=""
+		name=""
+		args=""
+	}
+	display[11] {
+		label=""
+		name=""
+		args=""
+	}
+	display[12] {
+		label=""
+		name=""
+		args=""
+	}
+	display[13] {
+		label=""
+		name=""
+		args=""
+	}
+	display[14] {
+		label=""
+		name=""
+		args=""
+	}
+	display[15] {
+		label=""
+		name=""
+		args=""
+	}
+	display[16] {
+		label=""
+		name=""
+		args=""
+	}
+	display[17] {
+		label=""
+		name=""
+		args=""
+	}
+	display[18] {
+		label=""
+		name=""
+		args=""
+	}
+	display[19] {
+		label=""
+		name=""
+		args=""
+	}
+	display[20] {
+		label=""
+		name=""
+		args=""
+	}
+	display[21] {
+		label=""
+		name=""
+		args=""
+	}
+	display[22] {
+		label=""
+		name=""
+		args=""
+	}
+	display[23] {
+		label=""
+		name=""
+		args=""
+	}
+	clr="1"
+	bclr="13"
+	menu_title=""
+	decorate="none"
+}
+"related display" {
+	object {
+		x="449"
+		y="391"
+		width="108"
+		height="30"
+		groupid="0"
+	}
+	selfkill="off"
+	display[0] {
+		label="Car values"
+		name="carVals.dl"
+		args="T=$(T)"
+	}
+	display[1] {
+		label=""
+		name=""
+		args=""
+	}
+	display[2] {
+		label=""
+		name=""
+		args=""
+	}
+	display[3] {
+		label=""
+		name=""
+		args=""
+	}
+	display[4] {
+		label=""
+		name=""
+		args=""
+	}
+	display[5] {
+		label=""
+		name=""
+		args=""
+	}
+	display[6] {
+		label=""
+		name=""
+		args=""
+	}
+	display[7] {
+		label=""
+		name=""
+		args=""
+	}
+	display[8] {
+		label=""
+		name=""
+		args=""
+	}
+	display[9] {
+		label=""
+		name=""
+		args=""
+	}
+	display[10] {
+		label=""
+		name=""
+		args=""
+	}
+	display[11] {
+		label=""
+		name=""
+		args=""
+	}
+	display[12] {
+		label=""
+		name=""
+		args=""
+	}
+	display[13] {
+		label=""
+		name=""
+		args=""
+	}
+	display[14] {
+		label=""
+		name=""
+		args=""
+	}
+	display[15] {
+		label=""
+		name=""
+		args=""
+	}
+	display[16] {
+		label=""
+		name=""
+		args=""
+	}
+	display[17] {
+		label=""
+		name=""
+		args=""
+	}
+	display[18] {
+		label=""
+		name=""
+		args=""
+	}
+	display[19] {
+		label=""
+		name=""
+		args=""
+	}
+	display[20] {
+		label=""
+		name=""
+		args=""
+	}
+	display[21] {
+		label=""
+		name=""
+		args=""
+	}
+	display[22] {
+		label=""
+		name=""
+		args=""
+	}
+	display[23] {
+		label=""
+		name=""
+		args=""
+	}
+	clr="1"
+	bclr="13"
+	menu_title=""
+	decorate="none"
+}
+"kill display" {
+	object {
+		x="13"
+		y="6"
+		width="80"
+		height="35"
+		groupid="0"
+	}
+	label="EXIT"
+	clr="1"
+	bclr="23"
+	decorate="outward"
+}

@@ -1,0 +1,10 @@
+[symbol2]
+bbox -224 -224 224 224
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -64 -192 tempSad
+r 0 -224 -224 224 224
+[comments]

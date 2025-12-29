@@ -1,0 +1,20 @@
+[symbol2]
+bbox -384 96 64 288
+uniq 0
+[tools]
+[attributes]
+p -368 192 100 768 1 set1:top xxxx:eng:global
+p -368 160 100 768 1 set2:name XXXX Global control
+[layers]
+<symbol>
+l 100 4 0 -160 256 Global
+v 0 -384 288
+-384 96
+64 96
+64 288
+-384 288
+_
+v 0 -384 240
+64 240
+_
+[comments]

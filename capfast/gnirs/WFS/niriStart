@@ -1,0 +1,107 @@
+#! /bin/sh
+
+#########################################################################
+# Script for starting the stand-alone Components Controller control
+# screens for the Near Infra-Red Imager.  (Derived from the
+# Steven Beard's CICS startup scripts, by Hubert Yamada.)
+#########################################################################
+
+#########################################################################
+# History:
+#
+# Original script written by Steven Beard, Based on the corresponding
+# CICS script.
+#
+# Rewritten for NIRI and converted to use the Bourne Shell, by Hubert
+# Yamada.
+#
+# $Log: niriStart,v $
+# Revision 1.2  2009/05/27 19:33:56  fkraemer
+# fkraemer - copied my complete working dir over trunk
+#
+# Revision 1.15  1999/11/13 06:31:21  yamada
+# Release 1.00 alpha 06.
+#
+# Revision 1.14  1999/11/13 06:27:46  yamada
+# Release 1.00 alpha 06.
+#
+# Revision 1.13  1999/11/12 09:55:43  yamada
+# Moved the GNAAC package to the end of the DM path, because it was
+# messing up my color table.
+#
+# Revision 1.12  1999/11/12 08:12:19  yamada
+# Got rid of the NN macro.  Now all screens get their titles from the
+# database.
+#
+# Revision 1.11  1999/11/12 03:25:19  yamada
+# Simplified engineering startup scripts and made the names more similar to
+# the names for the system-wide startup scripts.  Final rearrangement of
+# directory structure.  Final cleanup for release 1.00 alpha 6.
+#
+# Revision 1.10  1999/11/11 01:06:38  yamada
+# Fixed some path problems.
+#
+# Revision 1.9  1999/11/10 21:10:59  yamada
+# Rewrote configuration files to be more uniform.  Moved common startup
+# files from the IS directory into the root directory.
+#
+#########################################################################
+
+#########################################################################
+# Configuration parameters
+#########################################################################
+
+dm=dm2.4
+
+#########################################################################
+# Check that the EPICS startup file has been sourced.
+#########################################################################
+
+if [ "${EPICS}" = "" ]; then
+	echo 'EPICS environment variables have not been defined. Please source'
+	echo 'your local EPICS setup script.  (The EPICS startup script is'
+	echo 'normally sourced by "niriLogin".)'
+	exit
+fi
+
+if [ "${NIRI_DIR}" = "" ]; then
+	echo 'NIRI environment variables have not been defined. Please source'
+	echo 'your local EPICS setup script, e.g., "niriLogin".'
+	exit
+fi
+
+if [ "`echo ${PATH} | grep -c ENG`" -eq 0 ]; then
+   echo "The ENG directory is not in your current PATH. Please execute" 
+   echo "your local version of the 'niriLogin' script to add it."
+   exit
+fi
+
+#########################################################################
+# If a search path for the display screens has already been defined,
+# Add the current directory and "data" subdirectories in front of
+# the search path for display screens, creating a path if necessary.
+#########################################################################
+
+if [ "${EPICS_DISPLAY_PATH}" = "" ]; then
+	EPICS_DISPLAY_PATH=${NIRI_DCPKGDIR}/data
+else
+	EPICS_DISPLAY_PATH=${NIRI_DCPKGDIR}/data:${EPICS_DISPLAY_PATH}
+fi
+EPICS_DISPLAY_PATH=${NIRI_DIR}/data:${EPICS_DISPLAY_PATH}
+EPICS_DISPLAY_PATH=${NIRI_LIBDIR}/data:${EPICS_DISPLAY_PATH}
+EPICS_DISPLAY_PATH=${NIRI_CCDIR}/data:${EPICS_DISPLAY_PATH}
+EPICS_DISPLAY_PATH=${NIRI_WFSDIR}/data:${EPICS_DISPLAY_PATH}
+EPICS_DISPLAY_PATH=${NIRI_GNAACDIR}/data:${EPICS_DISPLAY_PATH}
+EPICS_DISPLAY_PATH=${NIRI_ENGDIR}/data:${EPICS_DISPLAY_PATH}
+EPICS_DISPLAY_PATH=${NIRI_ISDIR}/data:${EPICS_DISPLAY_PATH}
+EPICS_DISPLAY_PATH=${NIRI_DCDIR}/data:${EPICS_DISPLAY_PATH}
+EPICS_DISPLAY_PATH=.:${EPICS_DISPLAY_PATH}
+export EPICS_DISPLAY_PATH
+
+#########################################################################
+# Finally, start the display screens in the background. The macros T,
+# S, DT, and DS define the prefixes used for the EPICS record names.
+#########################################################################
+
+echo "Starting NIRI top level control screens..."
+$dm niri.dl "T=$NIRI_PREFIX, S=$NIRI_SADPREFIX, DT=$NIRI_DCPREFIX, DS=$NIRI_DCSADPREFIX" &

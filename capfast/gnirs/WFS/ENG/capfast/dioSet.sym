@@ -1,0 +1,15 @@
+[symbol2]
+bbox -448 -192 160 448
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 4 0 -144 192 dioSet
+v 0 -448 448
+-448 -192
+160 -192
+160 448
+-448 448
+_
+[comments]

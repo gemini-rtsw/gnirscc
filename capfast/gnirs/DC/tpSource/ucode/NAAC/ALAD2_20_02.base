@@ -1,0 +1,620 @@
+/******************************************************************************
+ * Sequence:	Baracuda 512^2 Code for the APAV2A Pre-Amp, the
+ *		Aladdin II Precision Reference card, and 
+ *		ASPAD with 4 Analog Inputs per  A/D 
+ *	
+ * Author:	A. M. Fowler
+ *              2/18/97
+ *       	Made from ALADII_20_01.c code
+ *
+ * Revised:	Modified to change timing tin the wave rdpixel to 
+ * 		reduce A/D settling noise?? 2/21/97 amf
+ *		
+ *              
+ *              
+ *****************************************************************************/
+#include "ALAD2_WFire.h"
+
+extern void *_heapend;
+
+#define TRUE	1
+#define FALSE	0
+
+
+int firstpx;
+GLOBAL_CLK(1);			/*  speed 25 MHz - 40 ns clock time */
+
+start()
+{
+    int i, j, c;
+    int fs, fms;
+
+/* startup defaults for testing */
+cntrl_reg = 0;
+Int_Time_MilliSecs = 20;
+Int_Time_Seconds = 0;
+FInt_Time_MilliSecs = 0;
+FInt_Time_Seconds = 0;
+lnr = 1;
+coadds = 1;
+quadrant = 1;
+
+    ProcToHigh();
+
+    TITLE("Aladdin II Code for APAV2 D and APRV2 2/18/97- amf");
+
+    reset_fifo(0x0000);
+
+    DEFAULT( );
+
+    CLK_SPEED(1);   /* 40ns */
+
+    wave(onems,100)
+    {
+	wait(250);
+    };
+    
+
+    wave(row_sr_init)
+/* Initialize the Row SR to reset all the row disable FF's */
+
+   {
+	wait( 1 );
+	set(RowCntlClks, 0x11);
+	wait( 1 );
+	toggle_hi(M_Clk, 2);
+	wait( 1 );
+	set(RowCntlClks, 0x00);
+	toggle_hi(PhiDes, 250);
+	set(RowCntlClks, 0x01);
+	wait( 1 );
+	toggle_hi(M_Clk, 2);
+	wait( 1 );
+	set(RowCntlClks, 0x00);
+	wait( 1 );
+    };
+	
+    
+    start_fifo();
+
+    while (TRUE)
+    {
+
+	switch (quadrant)
+	{
+	    case 0:             /* inhibit mux  */
+	      wave( no_quad_setup)
+	      { 
+		wait( 1 );
+		set( MuxSel, 0x01 );
+		wait( 1 );
+		toggle_hi( M_Clk,2 );
+		set( MuxSel, 0x00 );
+		wait( 1 );
+	      };
+              break ;
+	    case 1:            /* select quad 1  */
+	      wave( quad1_setup)
+	      { 
+		wait( 1 );
+		set( MuxSel, 0x03 );
+		wait( 1 );
+		toggle_hi( M_Clk,2 );
+		set( MuxSel, 0x00 );
+		wait( 1 );
+	      };
+              break ;
+	    case 2:            /* select quad 2  */
+	      wave( quad2_setup)
+	      { 
+		wait( 1 );
+		set( MuxSel, 0x05 );
+		wait( 1 );
+		toggle_hi( M_Clk,2 );
+		set( MuxSel, 0x00 );
+		wait( 1 );
+	      };
+              break ;
+	    case 3:            /* select quad 3  */
+	      wave( quad3_setup)
+	      { 
+		wait( 1 );
+		set( MuxSel, 0x09 );
+		wait( 1 );
+		toggle_hi( M_Clk,2 );
+		set( MuxSel, 0x00 );
+		wait( 1 );
+	      };
+              break ;
+	    case 4:            /* select quad 4  */
+	      wave( quad4_setup)
+	      { 
+		wait( 1 );
+		set( MuxSel, 0x0f );
+		wait( 1 );
+		toggle_hi( M_Clk,2 );
+		set( MuxSel, 0x00 );
+		wait( 1 );
+	      };
+              break ;
+	}
+
+	if ( cntrl_reg & DIE )
+	    suicide();
+
+	if ( cntrl_reg & IDLE_FLAG )
+	    continue;
+
+	if ( cntrl_reg & Read_Flag )
+	{
+	    for (i = 0; i < coadds; i ++)
+	    {
+		inst_state = RESETING;
+		access_array();
+		wave(onems);
+		wave(onems);
+
+		for(j=0; j<lnr; j++)
+		{
+		    firstpx = 1;
+		    inst_state = READ1;
+		    access_array();
+		    wave(onems);
+		    wave(onems);
+		}
+		
+		integrate();
+		
+		for(j=0; j<lnr; j++)
+		{
+		    firstpx = 1;
+		    inst_state = READ2;
+		    access_array();
+		    wave(onems);
+		    wave(onems);
+		}
+	    }
+	    
+	    if (!(cntrl_reg & 256)) 
+	    {
+		cntrl_reg &= ~ Read_Flag;
+	    }
+	}
+	else
+	{
+	    inst_state = RESETING;
+	    access_array();
+	    fdelay();
+	    wave(onems);
+	}
+    }
+}
+
+access_array()
+{
+    int i;
+
+    DEFAULT( );
+
+    /* Clamp= to _1 levels, VrstG=VrstR=Vrstoff, VrowOn=VrenOff */
+    wave( Clamp_and_Reset_setup )
+    {
+	  wait( 1 );
+	  set( CandR, 0x01);
+	  wait( 1 );
+	  toggle_hi( M_Clk, 2 );
+	  set( CandR, 0x00);
+	  wait( 1 );
+    };
+
+    switch (inst_state )
+    {
+      case RESETING:
+	wave( rsarray )
+	{
+	    toggle_hi( Actv & RstLoopSync, 1 );
+	    wait ( 10 );
+	};
+
+/* Global Reset - Cycle  VrstG  */
+
+	wave( Global_Reset)
+	{
+	    wait ( 1);
+	    set(CandR, 0x09);
+	    wait( 1 );
+	    toggle_hi( M_Clk, 2 );
+	    wait( 1 );
+	    set(CandR, 0x00);
+	    wait( 500 );
+	    set(CandR, 0x01);
+	    wait( 1 );
+	    toggle_hi( M_Clk, 2 );
+	    wait( 1 );
+	    set(CandR, 0x00);
+	    wait( 74 );
+	};
+
+	return (0);
+
+
+      case READ1:
+	wave( rd1array )
+	{
+	    wait( 1 );
+	    toggle_hi( Read1Sync , 1 );
+	    wait( 1 );
+	};
+	break;
+      case READ2:
+	wave( rd2array )
+	{
+	    wait( 1 );
+	    toggle_hi( Read2Sync , 1 );
+	    wait( 1 );
+	};
+	break;
+    }
+
+    DEFAULT( );
+/* Arm Slow SR, Clamp=_2 level */
+
+    wave (ar_start)
+    {
+	wait(1);
+	set(RowCntlClks, 0x11);
+	set(FastClks, 0x9);
+	wait( 1 );
+	toggle_hi(M_Clk, 2);
+	wait( 5 );
+	set(RowCntlClks, 0x01);
+	set(FastClks, 0x1);
+	wait( 1 );	
+	toggle_hi(M_Clk, 2);
+	wait( 1 );
+	set(RowCntlClks, 0x03);
+	set(FastClks, 0x0);
+	wait ( 1 );
+	toggle_hi( M_Clk , 2);
+	wait( 5 );
+	set(RowCntlClks, 0x01);
+	wait ( 1 );
+	toggle_hi(M_Clk, 2);
+	wait( 1 );
+	set(RowCntlClks, 0x00);
+        set( CandR, 0x03);
+        wait( 1 );
+	toggle_hi( M_Clk, 2 );
+	wait( 1 );
+	set( CandR, 0x00);
+	wait ( 1 );
+    };
+
+    for(i=0; i<512; i++)
+    {
+	Do_row( i );
+    }
+
+    if (inst_state == READ1)
+    {
+/* Clamp= _1 level */
+	wave ( lastpx1 )
+	{
+	    wait( 1 );
+	    set(CandR, 0x01);
+	    wait( 1 );
+	    toggle_hi(M_Clk,2);
+	    set( CandR, 0x00);
+	    wait( 1 );
+	};
+    }
+    else if(inst_state == READ2)
+    {
+/* Clamp= _1 level */
+	wave ( lastpx2 )
+	{
+	    wait( 1 );
+	    set(CandR, 0x01);
+	    wait( 1 );
+	    toggle_hi(M_Clk,2);
+	    set( CandR, 0x00);
+	    wait( 1 );
+	};
+    }
+
+/* Reset both the Fast and Slow SR's  */
+    wave(ar_end)
+    {
+        wait ( 1 );
+	set(RowCntlClks, 0x11);
+	set(FastClks, 0x9);
+	wait ( 1 );
+	toggle_hi(M_Clk,2);
+	wait ( 1 );
+	set(RowCntlClks, 0x01);
+	set(FastClks, 0x1);
+	wait( 7 );
+	toggle_hi(M_Clk,2);
+	wait( 1 );
+	set(RowCntlClks, 0x00);
+	set(FastClks, 0x0);
+	wait ( 1 );
+    };
+
+    wave(onems);
+}
+
+
+Do_row(row)
+int row;
+{
+    int i;
+    int *fifo_read = (int *) 0xe0000000;
+    int *fifo_write = (int *) 0xa0000000;
+
+    i = row % 4;
+    DEFAULT( );
+
+    switch (i)
+    {
+      case 0: /* Odd Row Pair, Odd Row */
+
+	  wave( row00 )
+	  {
+	      wait( 1 );
+	      set(RowCntlClks, 0x05);
+	      wait ( 1 );
+	      toggle_hi(RowLoopSync & M_Clk , 2);
+	      wait ( 1 );
+	      set(RowCntlClks, 0x00);
+	      set(CandR, 0x13);
+	      wait ( 1 );
+	      toggle_hi(M_Clk, 2);
+	      wait( 1 );
+	      set(CandR, 0x00);
+	      wait( 50 );
+
+	  };
+
+	break;
+
+      case 1: /* Odd Row Pair, Even Row */
+	  wave( row01 )
+	  {
+	      wait( 1 );
+	      set(RowCntlClks, 0x0d);
+	      wait ( 1 );
+	      toggle_hi( M_Clk , 2);
+	      wait ( 1 );
+	      set(RowCntlClks, 0x00);
+	      set(CandR, 0x13);
+	      wait ( 1 );
+	      toggle_hi(M_Clk, 2);
+	      wait( 1 );
+	      set(CandR, 0x00);
+	      wait ( 50 );
+	  };
+	break;
+
+      case 2: /* Even Row Pair, Odd Row */
+
+	  wave( row10 )
+	  {
+	      wait( 1 );
+	      set(RowCntlClks, 0x03);
+	      wait ( 1 );
+	      toggle_hi(RowLoopSync & M_Clk , 2);
+	      wait ( 1 );
+	      set(RowCntlClks, 0x00);
+	      set(CandR, 0x13);
+	      wait ( 1 );
+	      toggle_hi(M_Clk, 2);
+	      wait( 1 );
+	      set(CandR, 0x00);
+	      wait ( 50 );
+	  };
+
+	break;
+      case 3: /* Even Row Pair, Even Row */
+
+	  wave( row11 )
+	  {
+	      wait( 1 );
+	      set(RowCntlClks, 0x0b);
+	      wait ( 1 );
+	      toggle_hi(RowLoopSync & M_Clk , 2);
+	      wait ( 1 );
+	      set(RowCntlClks, 0x00);
+	      set(CandR, 0x13);
+	      wait ( 1 );
+	      toggle_hi(M_Clk, 2);
+	      wait( 1 );
+	      set(CandR, 0x00);
+	      wait ( 50 );
+	  };
+
+	  break;
+    };
+
+    switch (inst_state)
+    {
+      case READ1:
+      case READ2:
+	  wave( arm_fsr )
+	  {
+	      wait( 1 );
+	      set(FastClks, 0x9);
+	      wait( 1 );
+	      toggle_hi(M_Clk, 2 );
+	      wait( 1 );
+	      set(FastClks, 0x1);
+	      wait( 1 );
+	      toggle_hi(M_Clk, 2 );
+	      wait( 1 );
+	      set(FastClks, 0x3);
+	      wait( 1 );
+	      toggle_hi(M_Clk, 2 );
+	      wait( 1 );
+	      set(FastClks, 0x1);
+	      wait( 1 );
+	      toggle_hi(M_Clk, 2 );
+	      set(FastClks, 0x0);
+	      wait( 100 );
+	  };
+
+	  for (i=0; i<32; i++)
+	  {
+	      wave( rdpixel )
+	      {
+		  wait( 1 );
+		  set( FastClks, 0x5);
+		  wait( 1 );
+		  toggle_hi( PxlSync & M_Clk, 2 );
+		  wait( 510 );
+		  on( CTC, 1);
+		  set(Channel, 1);
+		  wait( 1 ) ;
+		  off( CTC );
+		  wait( 9 );
+		  toggle_hi( DxFr0, 2 );
+		  wait( 5 );
+		  on( CTC, 1);
+		  set(Channel, 3);
+		  wait( 1 ) ;
+		  off( CTC );
+		  wait( 9 );
+		  toggle_hi( DxFr1, 2 );
+		  wait( 5 );
+		  on( CTC, 1);
+		  set(Channel, 2);
+		  wait( 1 ) ;
+		  off( CTC );
+		  wait( 9 );
+		  toggle_hi( DxFr2, 2 );
+		  wait( 5 );
+		  on( CTC, 1);
+		  set(Channel, 0);
+		  wait( 1 ) ;
+		  off( CTC );
+		  wait( 9 );
+		  toggle_hi( DxFr3, 2 );
+		  wait( 5 );
+		  set( FastClks, 0x1);
+		  wait( 1 );
+		  toggle_hi( M_Clk, 2 );
+		  wait( 1 );
+		  set( FastClks, 0x3);
+		  wait( 1 );
+		  toggle_hi( M_Clk, 2 );
+		  wait( 510 );
+		  on( CTC, 1);
+		  set(Channel, 1);
+		  wait( 1 ) ;
+		  off( CTC );
+		  wait( 9 );
+		  toggle_hi( DxFr0, 2 );
+		  wait( 5 );
+		  on( CTC, 1);
+		  set(Channel, 3);
+		  wait( 1 ) ;
+		  off( CTC );
+		  wait( 9 );
+		  toggle_hi( DxFr1, 2 );
+		  wait( 5 );
+		  on( CTC, 1);
+		  set(Channel, 2);
+		  wait( 1 ) ;
+		  off( CTC );
+		  wait( 9 );
+		  toggle_hi( DxFr2, 2 );
+		  wait( 5 );
+		  on( CTC, 1);
+		  set(Channel, 0);
+		  wait( 1 ) ;
+		  off( CTC );
+		  wait( 9 );
+		  toggle_hi( DxFr3, 2 );
+		  wait( 5 );
+		  set( FastClks, 0x1);
+		  wait( 1 );
+		  toggle_hi( M_Clk, 2 );
+		  wait( 1 );
+	      };
+	}
+	break;
+    }
+    wave( close_row )
+    {
+	 wait( 1 );
+	 set( CandR, 0x01);
+	 wait( 1 );
+	 toggle_hi( M_Clk, 2 );
+	 wait( 1 );
+	 set( CandR, 0x0 );
+	 wait( 50 );
+    };
+	
+}
+    
+
+/******************************************************************************
+ * Integration Time Routines for sequences.
+ * Author: Nick C. Buchholz
+ * Copyright:	26-Apr-1991 - Aura Inc. - All Rights Reserved
+ *
+ *****************************************************************************/
+
+integrate()
+{
+    int i;
+    int secs, msecs;
+    DEFAULT( );
+
+    secs = Int_Time_Seconds;
+    msecs = Int_Time_MilliSecs;
+
+    while (secs--)
+    {
+	one_second();
+    }
+
+    wave(onems);
+
+    while (msecs--)
+    {
+	wave(onems);
+    }
+
+}
+
+one_second()
+{
+    int i;
+
+    for(i=0; i<1000; i++)
+	wave(onems);
+}
+
+fdelay()
+{
+    int i;
+    int secs, msecs;
+    DEFAULT( );
+
+    secs = FInt_Time_Seconds;
+    msecs = FInt_Time_MilliSecs;
+
+    while (secs--)
+    {
+	one_second();
+    }
+
+    wave(onems);
+    while ( msecs-- )
+    {
+	wave(onems);
+    }
+
+}
+
+

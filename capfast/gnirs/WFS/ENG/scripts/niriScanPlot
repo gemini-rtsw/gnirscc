@@ -1,0 +1,73 @@
+#! /bin/sh
+
+#
+# Plots a scan-data file
+#
+
+while [ $# -gt 0 ]; do
+	case $1 in
+	--args)
+		if [ $# -lt 2 ]; then
+			1>&2 echo '--args missing argument'
+			exit 1
+		fi
+		args="$2"
+		shift 2
+		;;
+	--printer)
+		if [ $# -lt 2 ]; then
+			1>&2 echo '--printer missing argument'
+			exit 1
+		fi
+		printer=-P$2
+		shift 2
+		;;
+	-*)
+		1>&2 echo Unknown option $1
+		exit 1
+		;;
+	*)
+		break
+	esac
+done
+
+if [ $# -le 0 ]; then
+	1>&2 echo `basename $0`: `basename $0` '[--printer PRINTER] [--args ARGS] FILE ...'
+	exit 1
+fi
+files=$@
+
+plot() {
+	file=$1
+	col=$2
+	title=$3
+
+	grep -v '^#' $file | grep 'f$' | awk "{print \$1, \$$col}" > /tmp/forward.$$
+	grep -v '^#' $file | grep 'r$' | awk "{print \$1, \$$col}" > /tmp/reverse.$$
+	
+	gnuplot << _EOF_
+		set grid
+		set title '$file $title'
+		set terminal postscript color 12
+		set output '/tmp/$$.ps'
+		plot $args '/tmp/forward.$$','/tmp/reverse.$$'
+_EOF_
+	
+	lpr $printer /tmp/$$.ps
+	
+	rm /tmp/$$.ps
+}
+
+for file in $files; do
+	echo processing $file
+
+	echo $file > /tmp/info.$$
+	grep '^#' $file >> /tmp/info.$$
+	lpr $printer /tmp/info.$$
+	rm /tmp/info.$$
+
+	plot $file 2 1P
+	plot $file 3 1B
+	plot $file 4 2P
+	plot $file 5 2B
+done

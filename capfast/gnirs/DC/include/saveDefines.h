@@ -1,0 +1,4 @@
+
+#define END_HEAD "ENDHEAD"
+#define COPY_ARRAY
+#define MAX_DMA 1048575

@@ -1,0 +1,9 @@
+[symbol2]
+bbox 32 32 192 288
+uniq 5
+[tools]
+[attributes]
+[layers]
+<symbol>
+r 0 32 32 192 288
+l 100 0 0 46 155 tempBdCntrl

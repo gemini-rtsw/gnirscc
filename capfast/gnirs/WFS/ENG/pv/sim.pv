@@ -1,0 +1,9 @@
+# $Id: sim.pv,v 1.2 2009/05/27 19:34:09 fkraemer Exp $
+
+#
+# Set a flag to indicate that this is a simulation
+#
+
+group {
+	long $(top)eng:shsSim = 1;
+}

@@ -1,0 +1,127 @@
+#!/bin/sh
+# the next line restarts using ocswish \
+exec $HLPG_INSTALL_BASE/bin/solaris/ocswish "$0" "$@"
+
+#set auto_path [concat /gemini/packages/lib $auto_path]
+   package require Itcl
+   package require Iwidgets
+   package require xml
+   package require Ocspkg
+   package require cmdline
+
+# Define location of local support packages.
+   set dirname [file dirname [info script]]
+   lappend auto_path [file join $dirname lib]
+
+# Define location of ocssupport packages.
+   global env
+   if [catch { lappend auto_path $env(OCSSUPPORT_BASE) }] {
+      puts stdout "OCSSUPPORT_BASE not defined, exiting"
+      exit
+   }
+
+# Define the root directory for locating libraries and applications.
+   set ROOT [file dirname [info script]]
+   if { [string compare [file pathtype $ROOT] relative] == 0 } {
+      set ROOT [file join [pwd] $ROOT]
+   }
+
+# Add the sequencer specific library
+   lappend auto_path $ROOT/lib
+
+# Force the Sequence class to be loaded so that its class common variables
+# are defined.
+   Sequence
+
+# Process the command line options.
+   set opts [list \
+      [list traceseq "Trace seqexec execution"] \
+      [list tracetcs "Trace commands sent to TCS"] \
+      [list traceinst "Trace commands sent to instrument"] \
+      [list tracedhs "Trace commands sent to DHS"] \
+      [list tracegcal "Trace commands sent to GCAL"] \
+      [list tracegpol "Trace commands sent to GPOL"] \
+      [list simtcs "Simulate TCS"] \
+      [list siminst "Simulate instrument"] \
+      [list simdhs "Simulate DHS"] \
+      [list simgcal "Simulate GCAL"] \
+      [list simgpol "Simulate GPOL"] \
+      [list simniri "Simulate sending commands to NIRI"] \
+      [list simgmos "Simulate sending commands to GMOS"] \
+      [list simac "Simulate sending commands to Acquisition Camera"]]
+   if { [catch {set argvals [cmdline::getoptions argv $opts]} msg] } {
+      puts $msg
+      exit
+   }
+   array set Flags $argvals
+
+# Set the name of the epics service configuration file.
+   if { [info exists env(TCC_TCSNAME)] } {
+      puts "Using TCC_TCSNAME $env(TCC_TCSNAME)"
+      set ext [string toupper .$env(TCC_TCSNAME)]
+   } else {
+      set ext ""
+   }
+
+# Load ocssupport packages.
+   package require Seq 2.0
+
+# reminder of the current setup
+   set site [lindex [array get env OCSSUPPORT_SITE] 1]
+   puts "Using OCSSUPPORT_SITE: $site"
+   puts "Using OBSERVER: [lindex [array get env OBSERVER] 1]"
+   puts "Using SSA: [lindex [array get env SSA] 1]"
+
+   appData add configPath $ROOT
+   appData add configFile seqexec.ca$ext
+   appData add appName seqexectest
+   appData add appKind ocs
+
+# EPICS service must be loaded before Dhshdr package(s) can be loaded
+   service epics
+
+# Create principle systems for subsystems.
+   seq::PrincipalSystem tcs tcsApply -debug $Flags(tracetcs)
+
+# Force the RealTcs class to be loaded so that its class common variables
+# are defined.
+   RealTcs
+   if { [info exists env(OCSTCSFUDGE)] } {
+      puts "Using OCSTCSFUDGE $env(OCSTCSFUDGE)"
+      tcs configure -delay $env(OCSTCSFUDGE)
+   } else {
+      puts "Using OCSTCSFUDGE 1000"
+      tcs configure -delay 1000
+   }
+
+# tell RealTcs what's the default tcs delay to handle problematic sfold
+   set RealTcs::defaultdelay [tcs cget -delay]
+   package require Dhshdr
+   set dhshdr::debug $Flags(tracedhs)
+      
+# set some defaults
+   set dhshdr::ssa [lindex [array get env SSA] 1]
+   set dhshdr::observer [lindex [array get env OBSERVER] 1]
+      
+# Set the name of the dataserver
+   if { [info exists env(OCSSUPPORT_DATASERVER)] } {
+      puts "Using OCSSUPPORT_DATASERVER: $env(OCSSUPPORT_DATASERVER)"
+      set dhshdr::destination $env(OCSSUPPORT_DATASERVER)
+   } else {
+      set dhshdr::destination reggie:dataServerSS
+   }
+
+# Define the site so the Sequence can create correct GMOS name.
+   set Sequence::site $site
+
+# Create the user interface.
+   set top [SeqExec .x -debug $Flags(traceseq)]
+   [$top component header] config -site $site
+   pack $top -expand 1 -fill both
+
+puts "$argv [llength $argv] [file exists $argv]"
+
+# if a file was provided at startup, open it now
+   if { [llength $argv] == 1  && [file exists $argv] } {
+      $top getfileseq $argv nodshuffleloop
+      }

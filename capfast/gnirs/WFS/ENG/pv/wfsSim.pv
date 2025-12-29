@@ -1,0 +1,33 @@
+# $Id: wfsSim.pv,v 1.2 2009/05/27 19:34:10 fkraemer Exp $
+
+#######################################################################
+# This is loaded _after_ the default wfs.pv, to override the defaults.
+#######################################################################
+
+group {
+
+	###################################################################
+	# The WFS-Focusing Stage (wfs:foc)
+	###################################################################
+
+	int $(top)eng:wfs:focHallstep.DOFP = 0;
+	int $(top)eng:wfs:focHallstep.DOFB = 0;
+
+	##################################################################
+	# The Gimbal X-Axis (wfs:prbx)
+	##################################################################
+
+	int $(top)eng:wfs:prbxHallstep.DOFP = 0;
+	int $(top)eng:wfs:prbxHallstep.DOFB = 0;
+	int $(top)eng:wfs:prbxHallstep.DOF1 = 0;
+	int $(top)eng:wfs:prbxHallstep.ZERO = 0;
+
+	######################################################################
+	# The Gimbal Y-Axis (wfs:prby)
+	######################################################################
+
+	int $(top)eng:wfs:prbyHallstep.DOFP = 0;
+	int $(top)eng:wfs:prbyHallstep.DOFB = 0;
+	int $(top)eng:wfs:prbyHallstep.DOF1 = 0;
+	int $(top)eng:wfs:prbyHallstep.ZERO = 0;
+};

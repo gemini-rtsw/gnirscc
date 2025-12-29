@@ -1,0 +1,21 @@
+/*
+ * Copyright 2001 Association of Universities for Research in Astronomy, Inc.
+ * See the file COPYRIGHT for more details.
+ *
+ * FILENAME:
+ * globals.c
+ *
+ * DESCRIPTION:
+ * Contains all the global declarations that are used in the low level, i.e.,
+ * non-EPICS, code.  The only globals used in this C code that are not
+ * found in this file are those used to provide status information to the
+ * EPICS layer; they are to be found in ....CC/control/sys/global/global.c
+ *
+ *INDENT-OFF*
+ * $Log: globals.wfd,v $
+ * Revision 1.2  2009/05/27 19:32:11  fkraemer
+ * fkraemer - copied my complete working dir over trunk
+ *
+ *INDENT-ON*
+ *-
+ */

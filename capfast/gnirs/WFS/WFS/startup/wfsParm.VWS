@@ -1,0 +1,16 @@
+# NIRI/CICS On Instrument Wavefront Sensor parameters
+
+pvload "$(version)/WFS/data/sys1.pv","top=@(prefix)wfs:,sadtop=@(sadprefix)wfs:"
+
+pvload "$(version)/WFS/data/debug.pv","top=@(prefix)wfs:,sadtop=@(sadprefix)wfs:"
+
+pvload "$(version)/WFS/data/filt.pv","top=@(prefix)wfs:,sadtop=@(sadprefix)wfs:"
+pvload "$(version)/WFS/data/foc.pv","top=@(prefix)wfs:,sadtop=@(sadprefix)wfs:"
+pvload "$(version)/WFS/data/prb.pv","top=@(prefix)wfs:,sadtop=@(sadprefix)wfs:"
+pvload "$(version)/WFS/data/lockCfg.pv","top=@(prefix)wfs:,sadtop=@(sadprefix)wfs:"
+pvload "$(version)/WFS/data/lockGen.pv","top=@(prefix)wfs:,sadtop=@(sadprefix)wfs:"
+pvload "$(version)/WFS/data/lockObs.pv","top=@(prefix)wfs:,sadtop=@(sadprefix)wfs:"
+pvload "$(version)/WFS/data/lockTmp.pv","top=@(prefix)wfs:,sadtop=@(sadprefix)wfs:"
+pvload "$(version)/WFS/data/fol.pv","top=@(prefix)wfs:,sadtop=@(sadprefix)wfs:"
+
+pvload "$(version)/WFS/data/sys2.pv","top=@(prefix)wfs:,sadtop=@(sadprefix)wfs:"

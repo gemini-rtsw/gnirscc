@@ -1,0 +1,59 @@
+#+
+# PubVarClassWidget <- itk::Widget
+#
+# An PubVarClassWidget gives a visual representation for all public variable
+# of a given object. The intent here is to use it for the following classes:
+#     RealTcs
+#     RealGcal
+#     RealGpol
+#     <any>Inst
+#
+# Methods:
+#
+#         highlight ?index?       Highlights a step
+#
+#+
+
+itcl::class PubVarClassWidget {
+   inherit itk::Widget
+   constructor {title object args} {}
+   public {
+   }
+}
+
+
+namespace eval PubVarClassWidget {
+   }
+
+
+
+itk::usual PubVarClassWidget {
+   keep -selectbackground
+}
+
+itcl::body PubVarClassWidget::constructor {title class args} {
+# top widget
+   itk_component add main {
+      iwidgets::Labeledframe $itk_interior.main\
+         -labeltext $title -ipadx 5 -ipady 5
+   }
+   pack $itk_component(main)
+   set w [$itk_component(main) childsite]
+
+# bring over that namespace
+$class dummy
+# get known variable
+   foreach var [lsort [dummy configure]] {
+      set varname [string range [lindex $var 0] 1 end]
+      itk_component add $varname {
+         iwidgets::entryfield $w.$varname\
+            -labelpos w -labeltext $varname
+      }
+      pack $itk_component($varname)
+      lappend lw $itk_component($varname)
+      }
+itcl::delete object dummy
+      
+   eval iwidgets::Labeledwidget::alignlabels $lw
+   eval itk_initialize $args
+}

@@ -1,0 +1,8 @@
+
+include Target.include
+include .applTop/config/CONFIG
+
+# The resource.def will be placed in the data data directory
+SCRIPTS	= niriEngStart niriScanSplit niriEtWish niriScanPlot niriEngAtod niriEngDio
+
+include .applTop/config/RULES.Build

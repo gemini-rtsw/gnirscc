@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sequence PUBLIC "-//Gemini Observatory//DTD for OT Science Program Sequence//EN" "Seq.dtd">
+<sequence version="0.1">
+  <step name="step 1">
+      <system name="nodshuffle">
+         <param name="nsIter" value="2" />
+         <param name="nsRows" value="70" />
+      </system>
+    <system name="instrument">
+      <param name="disperser" value="Mirror" />
+      <param name="ccdYBinning" value="1" />
+      <param name="version" value="2002A.1" />
+      <param name="posAngle" value="0" />
+      <param name="gainSetting" value="2" />
+      <param name="ampCount" value="Three" />
+      <param name="filter" value="i_G0302" />
+      <param name="stageMode" value="Follow in XY" />
+      <param name="adc" value="No Correction" />
+      <param name="fpuMode" value="Custom Mask" />
+      <param name="port" value="side-looking" />
+      <param name="instrument" value="GMOS" />
+      <param name="ampReadMode" value="Slow" />
+      <param name="gainChoice" value="Low" />
+      <param name="exposureTime" value="30.0" />
+      <param name="ccdXBinning" value="1" />
+      <param name="fpuCustomMask" value="GN2002A-Q-89-8" />
+      <param name="posAngleMode" value="Set Value" />
+    </system>
+    <system name="telescope">
+      <param name="version" value="2002A.0" />
+      <param name="guideWithOIWFS" value="OIWFS-1" />
+      <param name="q" value="1.5" />
+      <param name="p" value="0.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="30.0" />
+      <param name="observeType" value="OBJECT" />
+    </system>
+  </step>
+  <step name="step 2">
+    <system name="telescope">
+      <param name="q" value="-1.5" />
+      <param name="p" value="0.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="30.0" />
+      <param name="observeType" value="OBJECT" />
+    </system>
+  </step>
+</sequence>
+

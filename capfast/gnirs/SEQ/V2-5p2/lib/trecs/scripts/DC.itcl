@@ -1,0 +1,56 @@
+#+
+#  Trecs::DC
+#
+#  Implements the Acquisition camera detector controller class. 
+#
+#  Options:
+#
+#  Methods:
+#          apply args    Applies the configuration to the Acquisition 
+#                        camera by setting the values of the command
+#                        parameters. Any arguments are ignored.
+#
+#          init          Returns the object to its initial state.
+#
+#          save file     Writes the values of the configuration
+#                        to the channel identifier "file".
+#
+#
+#  Matthieu Bec - 19 November 2002
+#
+#+
+
+itcl::class Trecs::DC {
+   public {
+      method calcTimeout {}
+   }
+   public {
+      method apply args
+      method init
+      method save chan
+      method configDCaction { action } { set dcaction $action }
+      method configDClogcommand { logcommand } { set dclogcommand $logcommand }
+   }
+   private {
+      method log {cs}
+      variable dclogcommand ""
+      variable dcaction
+   }
+}
+
+itcl::body Trecs::DC::apply args {
+   after idle [$dcaction cget -onok]
+}
+
+itcl::body Trecs::DC::log {cs} {
+   if { ![string is space $dclogcommand] } {
+      uplevel #0 $dclogcommand $cs
+   }
+}
+#==============================================================================
+# calcTimeout
+#==============================================================================
+itcl::body Trecs::DC::calcTimeout {} {
+   # do something clever
+   return 10000
+   }

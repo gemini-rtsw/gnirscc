@@ -1,0 +1,13 @@
+# $Id: grating.lut,v 1.1 2008/04/24 16:16:51 gemvx Exp $
+
+#
+# Filters loaded on NIRI filter wheel 1.
+#
+# List the most common name for a position first, followed by alternate
+#Filter Wheel 1
+
+#number name				pos	
+0	Mirror			a	
+1	Grating_one		b
+2	Grating_two		c
+3	Grating_three	d

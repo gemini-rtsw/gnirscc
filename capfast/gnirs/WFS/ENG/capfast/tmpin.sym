@@ -1,0 +1,24 @@
+[symbol2]
+bbox 128 64 608 288
+port 176 224 100 1024 inp0 symbol 1 128 224 0
+uniq 22
+[tools]
+[attributes]
+p 240 192 100 768 -1 set1:top $(top)
+p 240 160 100 768 -1 set2:atod Soft Channel
+[layers]
+<symbol>
+l 100 4 0 416 256 Temperature Sensor
+v 0 224 240
+608 240
+_
+v 0 224 288
+224 64
+608 64
+608 288
+224 288
+_
+v 0 128 224
+224 224
+_
+[comments]

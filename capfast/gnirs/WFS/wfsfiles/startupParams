@@ -1,0 +1,11 @@
+boot device          : ei
+processor number     : 0 
+host name            : ace
+file name            : /vw/config/mv167/vxWorks
+inet on ethernet (e) : 140.252.31.234:ffffff00
+host inet (h)        : 140.252.31.42
+gateway inet (g)     : 140.252.31.41
+user (u)             : irlab
+flags (f)            : 0x8 
+target name (tn)     : pancake
+startup script (s)   : /home/gnirs/control/WFS/bin/mv167/startupSim

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sequence PUBLIC "-//Gemini Observatory//DTD for OT Science Program Sequence//EN" "Seq.dtd">
+<sequence version="0.1">
+  <step name="step 0">
+    <system name="instrument">
+       <param name="instrument" value="NIRI"/>
+      </system>
+    <system name="gpol">
+       <param name="modulator" value="Thermal IR"/>
+       <param name="calibrator" value="UV polaroid"/>
+       <param name="angle" value="0.0"/>
+      </system>
+  </step>
+  <step name="step 1">
+    <system name="instrument">
+       <param name="instrument" value="NIRI"/>
+      </system>
+    <system name="gpol">
+       <param name="modulator" value="Thermal IR"/>
+       <param name="angle" value="22.5"/>
+      </system>
+  </step>
+  <step name="step 2">
+    <system name="instrument">
+       <param name="instrument" value="NIRI"/>
+      </system>
+    <system name="gpol">
+       <param name="modulator" value="Thermal IR"/>
+       <param name="angle" value="45.0"/>
+      </system>
+  </step>
+  <step name="step 3">
+    <system name="instrument">
+       <param name="instrument" value="NIRI"/>
+      </system>
+    <system name="gpol">
+       <param name="modulator" value="Thermal IR"/>
+       <param name="angle" value="67.5"/>
+      </system>
+  </step>
+  <step name="step 4">
+    <system name="instrument">
+       <param name="instrument" value="NIRI"/>
+      </system>
+    <system name="gpol">
+       <param name="calibrator" value="None"/>
+       <param name="modulator" value="Thermal IR"/>
+       <param name="angle" value="0.0"/>
+      </system>
+  </step>
+  <step name="step 5">
+    <system name="instrument">
+       <param name="instrument" value="NIRI"/>
+      </system>
+    <system name="gpol">
+       <param name="modulator" value="Thermal IR"/>
+       <param name="angle" value="22.5"/>
+      </system>
+  </step>
+  <step name="step 6">
+    <system name="instrument">
+       <param name="instrument" value="NIRI"/>
+      </system>
+    <system name="gpol">
+       <param name="modulator" value="Thermal IR"/>
+       <param name="angle" value="45.0"/>
+      </system>
+  </step>
+  <step name="step 7">
+    <system name="instrument">
+       <param name="instrument" value="NIRI"/>
+      </system>
+    <system name="gpol">
+       <param name="modulator" value="Thermal IR"/>
+       <param name="angle" value="67.5"/>
+      </system>
+  </step>
+  <step name="step 8">
+    <system name="instrument">
+       <param name="instrument" value="NIRI"/>
+      </system>
+    <system name="gpol">
+       <param name="modulator" value="None"/>
+       <param name="calibrator" value="Wire-grid"/>
+       <param name="angle" value="0.0"/>
+      </system>
+  </step>
+  <step name="step 9">
+    <system name="instrument">
+       <param name="instrument" value="NIRI"/>
+      </system>
+    <system name="gpol">
+       <param name="modulator" value="Thermal IR"/>
+       <param name="angle" value="22.5"/>
+      </system>
+  </step>
+  <step name="step 10">
+    <system name="instrument">
+       <param name="instrument" value="NIRI"/>
+      </system>
+    <system name="gpol">
+       <param name="modulator" value="Thermal IR"/>
+       <param name="angle" value="45.0"/>
+      </system>
+  </step>
+  <step name="step 11">
+    <system name="instrument">
+       <param name="instrument" value="NIRI"/>
+      </system>
+    <system name="gpol">
+       <param name="modulator" value="Thermal IR"/>
+       <param name="angle" value="67.5"/>
+      </system>
+  </step>
+</sequence>

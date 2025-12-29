@@ -1,0 +1,41 @@
+[symbol2]
+bbox 160 -128 768 288
+port 752 32 100 2048 TVAL symbol 3 768 32 0
+port 752 0 100 2048 TFLNK symbol 2 768 0 0
+port 752 -32 100 2048 HVAL symbol 3 768 -32 0
+port 752 -64 100 2048 HOMSS symbol 2 768 -64 0
+port 752 224 100 2048 DVAL symbol 3 768 224 0
+port 752 192 100 2048 DFLNK symbol 2 768 192 0
+port 752 160 100 2048 PVAL symbol 3 768 160 0
+port 752 128 100 2048 PFLNK symbol 2 768 128 0
+port 752 96 100 2048 NVAL symbol 3 768 96 0
+port 752 64 100 2048 NFLNK symbol 2 768 64 0
+port 752 -96 100 2048 HFLNK symbol 2 768 -96 0
+port 752 256 100 2048 SFLNK symbol 2 768 256 0
+uniq 167
+[tools]
+[attributes]
+p 240 64 100 768 1 set0:mech $(mech)
+p 240 32 100 768 1 set1:desc $(desc)
+p 240 0 100 768 1 set2:mech1 $(mech1)
+p 240 -32 100 768 1 set3:desc1 $(desc1)
+p 240 -64 100 768 1 set4:mech2 $(mech2)
+p 240 -96 100 768 1 set5:desc2 $(desc2)
+[layers]
+<symbol>
+l 100 4 0 480 192 prbSad
+v 0 768 288
+672 288
+672 256
+256 256
+256 288
+160 288
+160 -128
+256 -128
+256 -96
+672 -96
+672 -128
+768 -128
+768 288
+_
+[comments]

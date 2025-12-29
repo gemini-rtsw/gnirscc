@@ -1,0 +1,36 @@
+[symbol2]
+bbox -416 160 352 352
+port 336 224 100 2048 CVAL symbol 3 352 224 0
+port 336 192 100 2048 CFLNK symbol 2 352 192 0
+port -400 288 100 1536 DIR symbol 3 -416 288 0
+port -400 256 100 1536 CLID symbol 3 -416 256 0
+port -400 224 100 1536 VAL symbol 3 -416 224 0
+port -400 192 100 1536 MESS symbol 3 -416 192 0
+uniq 16
+[tools]
+[attributes]
+p -336 224 100 768 1 set0:alt
+p -336 192 100 768 1 set1:prefix
+[layers]
+<symbol>
+l 100 3 0 -208 320 comp2mCadAlt
+l 75 5 0 240 320 Alternate-Coord CAD Record
+v 0 -320 320
+-320 352
+-416 352
+-416 160
+-320 160
+-320 192
+256 192
+256 160
+352 160
+352 352
+256 352
+256 320
+-320 320
+_
+v 1 -224 320
+-224 352
+256 352
+_
+[comments]

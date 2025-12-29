@@ -1,0 +1,51 @@
+#+
+#  SequenceFactory.itcl
+#
+#  A SequenceFactory namespace with utility to create Sequence objects.
+#  Right now, we only parse xml data and put it into a generic
+#  seqparse::sequence object.
+#  Based on the value read for the parameter 'type' of the xml
+#  'sequence' attribute, the getSequenceFromXml builds the appropriate
+#  Sequence.
+#
+#  Matthieu Bec - 19 November 2002
+#
+#+
+
+namespace eval SequenceFactory {
+   proc getSequenceFromXml {name xml} {}
+}
+
+proc SequenceFactory::getSequenceFromXml {name xml} {
+
+# Create a sequence object and a parser for parsing the XML.
+   set seqobj [namespace current]::[itcl::local seqparse::sequence #auto]
+   
+   set parser [xml::parser\
+         -elementstartcommand [itcl::code $seqobj elementstart] \
+         -elementendcommand [itcl::code $seqobj elementend]]
+
+# Parse the XML.
+   $parser parse $xml
+   
+# Free? doesn't work - are we leaking something
+    # $parser free
+    # rename $parser {}
+
+   switch [$seqobj cget -type] {
+      nodshuffle {
+         SequenceNSloop $name
+         $name parse $seqobj
+         }
+      nodtrecs {
+         SequenceTrecs $name
+         $name parse $seqobj
+         }
+      standard -
+      classic -
+      default {   
+         Sequence $name
+         $name parse $seqobj
+         }
+      }
+}

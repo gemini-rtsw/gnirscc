@@ -1,0 +1,11 @@
+#! /bin/sh
+
+# $Id: niriIsStart,v 1.2 2009/05/27 19:33:55 fkraemer Exp $
+
+if [ "$NIRI_ISDIR" = "" ]; then
+	1>&2 echo "NIRI_ISDIR is not in your current environment.  Please execute"
+	1>&2 echo "your local version of the 'niriLogin' script to add it."
+	exit 1
+fi
+
+exec ${NIRI_ISDIR}/niriIsStart

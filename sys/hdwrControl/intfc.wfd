@@ -1,0 +1,411 @@
+/*
+ * Copyright 2001 Association of Universities for Research in Astronomy, Inc.
+ * See the file COPYRIGHT for more details.
+ *
+ * FILENAME:
+ * intfc.c
+ *
+ * FUNCTION NAME(S):
+ *  gnirsInit   -   Do the repeatable parts of the initialization 
+ *  gnirsMotor0IntHndlr   -   Handle interrupt from OMS motor control card 
+ *  gnirsMotor1IntHndlr   -   Handle interrupt from OMS motor control card 
+ *  gnirsMotor2IntHndlr   -   Handle interrupt from OMS motor control card 
+ *  motorDriverInit   -   Set up motor driver card. 
+ *  motorIntHandler   -   Handles interrupts from the OMS motor control cards. 
+ *  testHardware   -   Test hardware for proper functioning 
+ *  vmeBoardInit   -   Initialize hardware 
+ *  vmeInit   -   Initialize the (non-EPICS) software 
+ *
+ *INDENT-OFF*
+ * $Log: intfc.wfd,v $
+ * Revision 1.2  2009/05/27 19:32:05  fkraemer
+ * fkraemer - copied my complete working dir over trunk
+ *
+ *INDENT-ON*
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * vmeInit
+ *
+ * INVOCATION:
+ * vmeInit()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Initialize the (non-EPICS) software
+ *
+ * DESCRIPTION:
+ * Initializes certain variables and tasks, connects interrupts to their
+ * handlers, enables interrupts, calls gnirsInit() for additional
+ * initialization, sets global status variables, and returns.  This
+ * routine must be called once before any other calls to the VxWorks C
+ * software.  It may be called more than once, but the tasks it handles
+ * are done only once.  The usefully repeatable parts of the initialization
+ * efforts are in gnirsInit().
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * gnirsInit
+ *
+ * INVOCATION:
+ * gnirsInit()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Do the repeatable parts of the initialization
+ *
+ * DESCRIPTION:
+ * This routine may be run as often as desired.  In particular, it is
+ * the one to call if the configuration files have been changed.  It
+ * shuts down all the motors and mechanisms (in terms of software), then
+ * initializes the hardware, verifies the hardware, and builds the various
+ * software structures associated with motors and mechanisms using the
+ * three configuration files.  When that is done, the digital I/O bits
+ * are set according to the configuration information, the cryo head
+ * switches are read/set, and finally, if all the preceeding has
+ * been successful, the active motors are made available for use
+ * (via initMotors()).
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * vmeBoardInit
+ *
+ * INVOCATION:
+ * vmeBoardInit()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Initialize hardware
+ *
+ * DESCRIPTION:
+ * Initialize the hardware associated with motors, digital I/O,
+ * temperature monitoring boards and the pressure sensors.  This
+ * involves both configuring data structures and setting appropriate
+ * bits in the various registers associated with the VME boards.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * motorDriverInit
+ *
+ * INVOCATION:
+ * motorDriverInit()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Set up motor driver card.
+ *
+ * DESCRIPTION:
+ * Initializes each of the OMS motor driver cards and associated software.
+ * Semaphores needed by the software are set up, input and output ring
+ * buffers for communication with the OMS cards are created, and the
+ * hardware is cleared.  Once that is done, the status register is
+ * checked to be sure it did clear (no characters waiting to be read,
+ * no characters in the transmit [to the controller] buffer, no other
+ * errors).  If all is OK, interrupts are enabled, except for the
+ * transmit buffer empty interrupt which is enabled only when a character
+ * has been sent.
+ *
+ * The output ring buffer is used to hold characters waiting to be
+ * transmitted to the controller card.  The sent buffer is used to record
+ * what has been sent and is needed only for diagnostic purposes.
+ *
+ * The semOut semaphore is used to make sure that commands from multiple
+ * motors are not intermixed as they are inserted into the output ring
+ * buffer.  The semResponse semaphore is used to signal a task that a
+ * response to a command is available.  The semDone semaphores are used
+ * to signal a task that a DONE interrupt has been received: if md->waiting
+ * for the axis of interest is non-zero, the appropriate semDone should
+ * be given (in the interrupt routine).
+ *
+ * 
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * gnirsMotor0IntHndlr
+ *
+ * INVOCATION:
+ * gnirsMotor0IntHndlr(int)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) int ()
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Handle interrupt from OMS motor control card
+ *
+ * DESCRIPTION:
+ * Calls motorIntHandler with (the card number) 0 as argument.  Counts
+ * interrupts for diagnostic purposes only.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * gnirsMotor1IntHndlr
+ *
+ * INVOCATION:
+ * gnirsMotor1IntHndlr(dummy)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) dummy (int)
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Handle interrupt from OMS motor control card
+ *
+ * DESCRIPTION:
+ * Calls motorIntHandler with (the card number) 1 as argument.  Counts
+ * interrupts for diagnostic purposes only.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * gnirsMotor2IntHndlr
+ *
+ * INVOCATION:
+ * gnirsMotor2IntHndlr(dummy)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) dummy (int)
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Handle interrupt from OMS motor control card
+ *
+ * DESCRIPTION:
+ * Calls motorIntHandler with (the card number) 2 as argument.  Counts
+ * interrupts for diagnostic purposes only.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * motorIntHandler
+ *
+ * INVOCATION:
+ * motorIntHandler(who)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) who (int)            Which card interrupted
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Handles interrupts from the OMS motor control cards.
+ *
+ * DESCRIPTION:
+ * An interrupt has been received.
+ *
+ * First, check the status register.  If there are errors, arrange to have
+ * the register cleared later.  Count overtravel as it is not fatal in
+ * this application (could be ignored).  If the commands sent to the
+ * hardware caused trouble, arrange for the next status check (getMdStatus)
+ * to print the command sequence leading up to (and including) the
+ * error.
+ *
+ * If there is a DONE flag set in the done register, and there is a task
+ * waiting on that flag, signal the task by giving the semDone semaphore.
+ *
+ * If the transmit buffer is empty (MD_TBE_S set in the status register),
+ * a charcter may be sent.  If the status register needs to be cleared
+ * of an error, send that character in preference to any other.  Otherwise,
+ * get the next character from the output ring buffer.  If there are no
+ * characters to send, disable the transmitter empty interrupt.
+ *
+ * Finally, is there a character available to be read from the controller?
+ * If so, store it in the message area.  A small state machine keeps track
+ * of various LF and CR characters, discarding them while using their
+ * presence to detect start and end of the responses.  It's quite
+ * simple, maybe clever, but also fragile as there's no way to recover
+ * from an error.  At the end of the message, the semResponse semaphore
+ * is given to signal that the message is available; only one task is allowed
+ * to wait for a controller response message at a time.  Of course, all
+ * four axes can be waiting for DONE flags.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * testHardware
+ *
+ * INVOCATION:
+ * testHardware()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Test hardware for proper functioning
+ *
+ * DESCRIPTION:
+ * This command is intended to implement the Gemini 'test' command.
+ * It is a requirement that this command not cause any change of state
+ * of the system.  So the tests check for proper behavior for commands
+ * that typically request the hardware ID string; if the hardware is
+ * missing, or in the some gross way, not functioning, this test will
+ * fail.  This is, however, not a test for subtle problems.
+ *
+ * For the motors, it is assumed that the motors are not in operation
+ * when the test is requested (that would be foolish).  So turning the
+ * motor off is an acceptable null test (and judging from the software,
+ * it really is almost a total NOP, ie., pointless).
+ *
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */

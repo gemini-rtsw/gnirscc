@@ -1,0 +1,55 @@
+[symbol2]
+bbox -608 64 160 256
+port 144 128 100 2048 CVAL symbol 3 160 128 0
+port -592 96 100 1536 MESS symbol 3 -608 96 0
+port -592 128 100 1536 VAL symbol 3 -608 128 0
+port -592 192 100 1536 DIR symbol 3 -608 192 0
+port -592 160 100 1536 CLID symbol 3 -608 160 0
+port 144 96 100 2048 CFLNK symbol 2 160 96 0
+uniq 28
+[tools]
+[attributes]
+p -528 192 100 768 1 set0:cad NoName
+p -224 192 100 768 1 set1:op $(opStop)
+p -528 160 100 768 1 set2:inam CADcompInit
+p -224 160 100 768 1 set3:snam CADcompNop
+p -528 128 100 768 1 set4:ignore 0
+p -528 96 100 768 1 set5:desc $(desc) $(cad) record
+p -608 32 100 768 0 setim:inpm 0
+p -608 0 100 768 0 setin:inpn 0
+p -608 -32 100 768 0 setio:inpo 0
+p -608 -64 100 768 0 setip:inpp 0
+p -608 -96 100 768 0 setiq:inpq 0
+p -608 -128 100 768 0 setir:inpr 0
+p -608 -160 100 768 0 setis:inps 0
+p -608 -192 100 768 0 setit:inpt 0
+p -224 32 100 768 0 setom:outm 0
+p -224 0 100 768 0 seton:outn 0
+p -224 -32 100 768 0 setoo:outo 0
+p -224 -64 100 768 0 setop:outp 0
+p -224 -96 100 768 0 setoq:outq 0
+p -224 -128 100 768 0 setor:outr 0
+p -224 -160 100 768 0 setos:outs 0
+p -224 -192 100 768 0 setot:outt 0
+[layers]
+<symbol>
+l 75 5 0 48 224 1-Axis Command CAD Record
+l 100 3 0 -400 224 comp1mCadCmd
+v 0 -512 224
+-512 256
+-608 256
+-608 64
+160 64
+160 256
+64 256
+64 224
+-512 224
+_
+v 0 -448 224
+32 224
+_
+v 1 -416 224
+-416 256
+64 256
+_
+[comments]

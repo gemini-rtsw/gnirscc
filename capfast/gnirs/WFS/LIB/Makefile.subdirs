@@ -1,0 +1,5 @@
+DIRS += src
+DIRS += capfast
+DIRS += dl
+DIRS += startup
+

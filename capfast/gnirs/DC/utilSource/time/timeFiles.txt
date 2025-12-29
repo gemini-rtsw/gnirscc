@@ -1,0 +1,10 @@
+4.4.9.?
+
+All of the bc635VME related routines are located in bc350time.c.  It includes
+ 
+	reading the time from the network (getServerTime)
+	setting the time on the bc635VME card (initTime)
+	getting the current time (getTime)
+	getting the universal time (getUTime).  This is only valid
+		if the local time is loaded.  
+	printing the current time (printTime)

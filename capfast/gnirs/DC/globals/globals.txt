@@ -1,0 +1,5 @@
+4.4.4
+The soul purpose of the globals area is to have an area that any gloabal
+variables can be placed.  The globals.o file can be loaded into vxWorks before 
+anything else, thus avoiding any problems with variables not being defined 
+before they are used.

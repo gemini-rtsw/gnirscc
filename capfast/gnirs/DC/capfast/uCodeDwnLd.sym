@@ -1,0 +1,23 @@
+[symbol2]
+bbox -32 32 224 256
+port -52 168 100 0 cmdFile symbol 1 -32 160 0
+port -52 232 100 0 tldFile symbol 1 -32 224 0
+port 164 232 100 0 downLoaded symbol 2 220 224 0
+uniq 199
+[tools]
+[attributes]
+p 36 16 65 1536 1 set1:top $(top)
+[layers]
+<symbol>
+l 90 0 0 44 208 uCodeDwnLd
+r 0 32 32 160 256
+v 0 -32 160
+32 160
+_
+v 0 -32 224
+32 224
+_
+v 0 160 224
+224 224
+_
+[comments]

@@ -1,0 +1,4094 @@
+%!PS-Adobe-3.0
+%%BoundingBox: (atend)
+%%Pages: (atend)
+%%PageOrder: (atend)
+%%DocumentFonts: (atend)
+%%Creator: Frame 5.0
+%%DocumentData: Clean7Bit
+%%EndComments
+%%BeginProlog
+%
+% Frame ps_prolog 5.0, for use with Frame 5.0 products
+% This ps_prolog file is Copyright (c) 1986-1995 Frame Technology
+% Corporation.  All rights reserved.  This ps_prolog file may be
+% freely copied and distributed in conjunction with documents created
+% using FrameMaker, FrameMaker/SGML and FrameViewer as long as this 
+% copyright notice is preserved.
+%
+% FrameMaker users specify the proper paper size for each print job in the
+% "Print" dialog's "Printer Paper Size" "Width" and "Height~ fields.  If the
+% printer that the PS file is sent to does not support the requested paper
+% size, or if there is no paper tray of the proper size currently installed, 
+% then the job will not be printed.  The following flag, if set to true, will
+% cause the job to print on the default paper in such cases.
+/FMAllowPaperSizeMismatch            false def
+%
+% Frame products normally print colors as their true color on a color printer
+% or as shades of gray, based on luminance, on a black-and white printer. The
+% following flag, if set to true, forces all non-white colors to print as pure
+% black. This has no effect on bitmap images.
+/FMPrintAllColorsAsBlack             false def
+%
+% Frame products can either set their own line screens or use a printer's 
+% default settings. Three flags below control this separately for no 
+% separations, spot separations and process separations. If a flag
+% is true, then the default printer settings will not be changed. If it is
+% false, Frame products will use their own settings from a table based on
+% the printer's resolution.
+/FMUseDefaultNoSeparationScreen      true  def
+/FMUseDefaultSpotSeparationScreen    true  def
+/FMUseDefaultProcessSeparationScreen false def
+%
+% For any given PostScript printer resolution, Frame products have two sets of 
+% screen angles and frequencies for printing process separations, which are 
+% recomended by Adobe. The following variable chooses the higher frequencies
+% when set to true or the lower frequencies when set to false. This is only
+% effective if the appropriate FMUseDefault...SeparationScreen flag is false.
+/FMUseHighFrequencyScreens true def
+%
+% The following is a set of predefined optimal frequencies and angles for various
+% common dpi settings. This is taken from "Advances in Color Separation Using
+% PostScript Software Technology," from Adobe Systems (3/13/89 P.N. LPS 0043)
+% and corrolated with information which is in various PPD (4.0) files.
+%
+% The "dpiranges" figure is the minimum dots per inch device resolution which
+% can support this setting. The "low" and "high" values are controlled by the
+% setting of the FMUseHighFrequencyScreens flag above. The "TDot" flags control
+% the use of the "Yellow Triple Dot" feature whereby the frequency id divided by
+% three, but the dot function is "trippled" giving a block of 3x3 dots per cell.
+%
+% PatFreq is a compromise pattern frequency for ps Level 2 printers which is close
+% to the ideal WYSIWYG pattern frequency of 9 repetitions/inch but does not beat
+% (too badly) against the screen frequencies of any separations for that DPI.
+/dpiranges   [  2540    2400    1693     1270    1200     635      600      0      ] def
+/CMLowFreqs  [ 100.402  94.8683 89.2289 100.402  94.8683  66.9349  63.2456 47.4342 ] def
+/YLowFreqs   [  95.25   90.0    84.65    95.25   90.0     70.5556  66.6667 50.0    ] def
+/KLowFreqs   [  89.8026 84.8528 79.8088  89.8026 84.8528  74.8355  70.7107 53.033  ] def
+/CLowAngles  [  71.5651 71.5651 71.5651 71.5651  71.5651  71.5651  71.5651 71.5651 ] def
+/MLowAngles  [  18.4349 18.4349 18.4349 18.4349  18.4349  18.4349  18.4349 18.4349 ] def
+/YLowTDot    [  true    true    false    true    true     false    false   false   ] def
+/CMHighFreqs [ 133.87  126.491 133.843  108.503 102.523  100.402   94.8683 63.2456 ] def
+/YHighFreqs  [ 127.0   120.0   126.975  115.455 109.091   95.25    90.0    60.0    ] def
+/KHighFreqs  [ 119.737 113.137 119.713  128.289 121.218   89.8026  84.8528 63.6395 ] def
+/CHighAngles [  71.5651 71.5651 71.5651  70.0169 70.0169  71.5651  71.5651 71.5651 ] def
+/MHighAngles [  18.4349 18.4349 18.4349  19.9831 19.9831  18.4349  18.4349 18.4349 ] def
+/YHighTDot   [  false   false   true     false   false    true     true    false   ] def
+/PatFreq     [	10.5833 10.0     9.4055  10.5833 10.0	  10.5833  10.0	   9.375   ] def
+%
+% PostScript Level 2 printers contain an "Accurate Screens" feature which can
+% improve process separation rendering at the expense of compute time. This 
+% flag is ignored by PostScript Level 1 printers.
+/FMUseAcccurateScreens true def
+%
+% The following PostScript procedure defines the spot function that Frame
+% products will use for process separations. You may un-comment-out one of
+% the alternative functions below, or use your own.
+%
+% Dot function
+/FMSpotFunction {abs exch abs 2 copy add 1 gt 
+		{1 sub dup mul exch 1 sub dup mul add 1 sub }
+		{dup mul exch dup mul add 1 exch sub }ifelse } def
+%
+% Line function
+% /FMSpotFunction { pop } def
+%
+% Elipse function
+% /FMSpotFunction { dup 5 mul 8 div mul exch dup mul exch add 
+%		sqrt 1 exch sub } def
+%
+%
+/FMversion (5.0) def 
+/fMLevel1 /languagelevel where {pop languagelevel} {1} ifelse 2 lt def
+/FMPColor
+	fMLevel1 {
+		false
+		/colorimage where {pop pop true} if
+	} {
+		true
+	} ifelse
+def
+/FrameDict 400 dict def 
+systemdict /errordict known not {/errordict 10 dict def
+		errordict /rangecheck {stop} put} if
+% The readline in PS 23.0 doesn't recognize cr's as nl's on AppleTalk
+FrameDict /tmprangecheck errordict /rangecheck get put 
+errordict /rangecheck {FrameDict /bug true put} put 
+FrameDict /bug false put 
+mark 
+% Some PS machines read past the CR, so keep the following 3 lines together!
+currentfile 5 string readline
+00
+0000000000
+cleartomark 
+errordict /rangecheck FrameDict /tmprangecheck get put 
+FrameDict /bug get { 
+	/readline {
+		/gstring exch def
+		/gfile exch def
+		/gindex 0 def
+		{
+			gfile read pop 
+			dup 10 eq {exit} if 
+			dup 13 eq {exit} if 
+			gstring exch gindex exch put 
+			/gindex gindex 1 add def 
+		} loop
+		pop 
+		gstring 0 gindex getinterval true 
+		} bind def
+	} if
+/FMshowpage /showpage load def
+/FMquit /quit load def
+/FMFAILURE { 
+	dup = flush 
+	FMshowpage 
+	/Helvetica findfont 12 scalefont setfont
+	72 200 moveto show
+	72 220 moveto show
+	FMshowpage 
+	FMquit 
+	} def 
+/FMVERSION {
+	FMversion ne {
+		(Frame product version does not match ps_prolog!  Check installation;)
+		(also check ~/fminit and ./fminit for old versions) FMFAILURE
+		} if
+	} def 
+/FMBADEPSF { 
+	(Adobe's PostScript Language Reference Manual, 2nd Edition, section H.2.4)
+	(says your EPS file is not valid, as it calls X              )
+	dup dup (X) search pop exch pop exch pop length 
+	5 -1 roll 
+	putinterval 
+	FMFAILURE
+	} def
+/fmConcatProcs
+	{
+	/proc2 exch cvlit def/proc1 exch cvlit def/newproc proc1 length proc2 length add array def
+	newproc 0 proc1 putinterval newproc proc1 length proc2 putinterval newproc cvx
+}def
+FrameDict begin [
+	/ALDsave
+	/FMdicttop
+	/FMoptop
+	/FMpointsize
+	/FMsaveobject
+	/b
+	/bitmapsave
+	/blut
+	/bpside
+	/bs
+	/bstring
+	/bwidth
+	/c
+	/cf
+	/cs
+	/cynu
+	/depth
+	/edown
+	/fh
+	/fillvals
+	/fw
+	/fx
+	/fy
+	/g
+	/gfile
+	/gindex
+	/grnt
+	/gryt
+	/gstring
+	/height
+	/hh
+	/i
+	/im
+	/indx
+	/is
+	/k
+	/kk
+	/landscape
+	/lb
+	/len
+	/llx
+	/lly
+	/m
+	/magu
+	/manualfeed
+	/n
+	/offbits
+	/onbits
+	/organgle
+	/orgbangle
+	/orgbfreq
+	/orgbproc
+	/orgbxfer
+	/orgfreq
+	/orggangle
+	/orggfreq
+	/orggproc
+	/orggxfer
+	/orgmatrix
+	/orgproc
+	/orgrangle
+	/orgrfreq
+	/orgrproc
+	/orgrxfer
+	/orgxfer
+	/pagesave
+	/paperheight
+	/papersizedict
+	/paperwidth
+	/pos
+	/pwid
+	/r
+	/rad
+	/redt
+	/sl
+	/str
+	/tran
+	/u
+	/urx
+	/ury
+	/val
+	/width
+	/width
+	/ws
+	/ww
+	/x
+	/x1
+	/x2
+	/xindex
+	/xpoint
+	/xscale
+	/xx
+	/y
+	/y1
+	/y2
+	/yelu
+	/yindex
+	/ypoint
+	/yscale
+	/yy
+] { 0 def } forall
+/FmBD {bind def} bind def
+systemdict /pdfmark known {
+	/fMAcrobat true def
+	
+	/FmPD /pdfmark load def
+	
+	
+	/FmPT /show load def
+	
+	
+	currentdistillerparams /CoreDistVersion get 2000 ge {
+	
+		
+		/FmPD2 /pdfmark load def
+		
+		
+		
+		
+		
+		/FmPA { mark exch /Dest exch 5 3 roll 
+				/View [ /XYZ null 6 -2 roll FmDC exch pop null] /DEST FmPD 
+		}FmBD
+	} {
+		
+		/FmPD2 /cleartomark load def
+		/FmPA {pop pop pop}FmBD
+	} ifelse
+} {
+	
+	/fMAcrobat false def
+	/FmPD /cleartomark load def
+	/FmPD2 /cleartomark load def
+	/FmPT /pop load def
+	/FmPA {pop pop pop}FmBD
+} ifelse
+/FmDC {
+	transform fMDefaultMatrix itransform cvi exch cvi exch
+}FmBD
+/FmBx {
+	dup 3 index lt {3 1 roll exch} if 
+	1 index 4 index lt {4 -1 roll 3 1 roll exch 4 1 roll} if
+}FmBD
+/FMnone 0 def
+/FMcyan 1 def
+/FMmagenta 2 def
+/FMyellow 3 def
+/FMblack 4 def
+/FMcustom 5 def
+/fMNegative false def 
+/FrameSepIs FMnone def 
+/FrameSepBlack 0 def
+/FrameSepYellow 0 def
+/FrameSepMagenta 0 def
+/FrameSepCyan 0 def
+/FrameSepRed 1 def
+/FrameSepGreen 1 def
+/FrameSepBlue 1 def
+/FrameCurGray 1 def
+/FrameCurPat null def
+/FrameCurColors [ 0 0 0 1 0 0 0 ] def 
+/FrameColorEpsilon .001 def	
+/eqepsilon {		
+	sub dup 0 lt {neg} if
+	FrameColorEpsilon le
+} bind def
+/FrameCmpColorsCMYK { 
+	2 copy 0 get exch 0 get eqepsilon {
+		2 copy 1 get exch 1 get eqepsilon {
+			2 copy 2 get exch 2 get eqepsilon {
+				3 get exch 3 get eqepsilon
+			} {pop pop false} ifelse
+		}{pop pop false} ifelse
+	} {pop pop false} ifelse
+} bind def
+/FrameCmpColorsRGB { 
+	2 copy 4 get exch 0 get eqepsilon {
+		2 copy 5 get exch 1 get eqepsilon {
+			6 get exch 2 get eqepsilon
+		}{pop pop false} ifelse
+	} {pop pop false} ifelse
+} bind def
+/RGBtoCMYK { 
+	1 exch sub 
+	3 1 roll 
+	1 exch sub 
+	3 1 roll 
+	1 exch sub 
+	3 1 roll 
+	3 copy 
+	2 copy 
+	le { pop } { exch pop } ifelse 
+	2 copy 
+	le { pop } { exch pop } ifelse 
+	dup dup dup 
+	6 1 roll 
+	4 1 roll 
+	7 1 roll 
+	sub 
+	6 1 roll 
+	sub 
+	5 1 roll 
+	sub 
+	4 1 roll 
+} bind def
+/CMYKtoRGB { 
+	dup dup 4 -1 roll add 						  
+	5 1 roll 3 -1 roll add 						  
+	4 1 roll add 								  
+	1 exch sub dup 0 lt {pop 0} if 3 1 roll 	  
+	1 exch sub dup 0 lt {pop 0} if exch 	      
+	1 exch sub dup 0 lt {pop 0} if exch	  		  
+} bind def
+/FrameSepInit {
+	1.0 RealSetgray
+} bind def
+/FrameSetSepColor { 
+	/FrameSepBlue exch def
+	/FrameSepGreen exch def
+	/FrameSepRed exch def
+	/FrameSepBlack exch def
+	/FrameSepYellow exch def
+	/FrameSepMagenta exch def
+	/FrameSepCyan exch def
+	/FrameSepIs FMcustom def
+	setCurrentScreen	
+} bind def
+/FrameSetCyan {
+	/FrameSepBlue 1.0 def
+	/FrameSepGreen 1.0 def
+	/FrameSepRed 0.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 1.0 def
+	/FrameSepIs FMcyan def
+	setCurrentScreen	
+} bind def
+ 
+/FrameSetMagenta {
+	/FrameSepBlue 1.0 def
+	/FrameSepGreen 0.0 def
+	/FrameSepRed 1.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 1.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMmagenta def
+	setCurrentScreen
+} bind def
+ 
+/FrameSetYellow {
+	/FrameSepBlue 0.0 def
+	/FrameSepGreen 1.0 def
+	/FrameSepRed 1.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 1.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMyellow def
+	setCurrentScreen
+} bind def
+ 
+/FrameSetBlack {
+	/FrameSepBlue 0.0 def
+	/FrameSepGreen 0.0 def
+	/FrameSepRed 0.0 def
+	/FrameSepBlack 1.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMblack def
+	setCurrentScreen
+} bind def
+ 
+/FrameNoSep { 
+	/FrameSepIs FMnone def
+	setCurrentScreen
+} bind def
+/FrameSetSepColors { 
+	FrameDict begin
+	[ exch 1 add 1 roll ]
+	/FrameSepColors  
+	exch def end
+	} bind def
+/FrameColorInSepListCMYK { 
+	FrameSepColors {  
+       		exch dup 3 -1 roll 
+       		FrameCmpColorsCMYK 
+       		{ pop true exit } if
+    	} forall 
+	dup true ne {pop false} if
+	} bind def
+/FrameColorInSepListRGB { 
+	FrameSepColors {  
+       		exch dup 3 -1 roll 
+       		FrameCmpColorsRGB 
+       		{ pop true exit } if
+    	} forall 
+	dup true ne {pop false} if
+	} bind def
+/RealSetgray /setgray load def
+/RealSetrgbcolor /setrgbcolor load def
+/RealSethsbcolor /sethsbcolor load def
+end 
+/setgray { 
+	FrameDict begin
+	FrameSepIs FMnone eq
+		{ RealSetgray } 
+		{ 
+		FrameSepIs FMblack eq 
+			{ RealSetgray } 
+			{ FrameSepIs FMcustom eq 
+			  FrameSepRed 0 eq and
+			  FrameSepGreen 0 eq and
+			  FrameSepBlue 0 eq and {
+			  	RealSetgray
+			  } {
+				1 RealSetgray pop 
+			  } ifelse
+			} ifelse
+		} ifelse
+	end
+} bind def
+/setrgbcolor { 
+	FrameDict begin
+	FrameSepIs FMnone eq
+	{  RealSetrgbcolor }
+	{
+		3 copy [ 4 1 roll ] 
+		FrameColorInSepListRGB
+		{
+				FrameSepBlue eq exch 
+			 	FrameSepGreen eq and exch 
+			 	FrameSepRed eq and
+			 	{ 0 } { 1 } ifelse
+		}
+		{
+			FMPColor {
+				RealSetrgbcolor
+				currentcmykcolor
+			} {
+				RGBtoCMYK
+			} ifelse
+			FrameSepIs FMblack eq
+			{1.0 exch sub 4 1 roll pop pop pop} {
+			FrameSepIs FMyellow eq
+			{pop 1.0 exch sub 3 1 roll pop pop} {
+			FrameSepIs FMmagenta eq
+			{pop pop 1.0 exch sub exch pop } {
+			FrameSepIs FMcyan eq
+			{pop pop pop 1.0 exch sub } 
+			{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+		} ifelse
+		RealSetgray
+	} 
+	ifelse
+	end
+} bind def
+/sethsbcolor {
+	FrameDict begin
+	FrameSepIs FMnone eq 
+	{ RealSethsbcolor } 
+	{
+		RealSethsbcolor 
+		currentrgbcolor  
+		setrgbcolor 
+	} 
+	ifelse
+	end
+} bind def
+FrameDict begin
+/setcmykcolor where {
+	pop /RealSetcmykcolor /setcmykcolor load def
+} {
+	/RealSetcmykcolor {
+		4 1 roll
+		3 { 3 index add 0 max 1 min 1 exch sub 3 1 roll} repeat 
+		RealSetrgbcolor pop
+	} bind def
+} ifelse
+userdict /setcmykcolor { 
+		FrameDict begin
+		FrameSepIs FMnone eq
+		{ RealSetcmykcolor } 
+		{
+			4 copy [ 5 1 roll ]
+			FrameColorInSepListCMYK
+			{
+				FrameSepBlack eq exch 
+				FrameSepYellow eq and exch 
+				FrameSepMagenta eq and exch 
+				FrameSepCyan eq and 
+				{ 0 } { 1 } ifelse
+			}
+			{
+				FrameSepIs FMblack eq
+				{1.0 exch sub 4 1 roll pop pop pop} {
+				FrameSepIs FMyellow eq
+				{pop 1.0 exch sub 3 1 roll pop pop} {
+				FrameSepIs FMmagenta eq
+				{pop pop 1.0 exch sub exch pop } {
+				FrameSepIs FMcyan eq
+				{pop pop pop 1.0 exch sub } 
+				{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+			} ifelse
+			RealSetgray
+		}
+		ifelse
+		end
+	} bind put
+fMLevel1 { 
+	
+	
+	
+	/patScreenDict 7 dict dup begin
+		<0f1e3c78f0e1c387> [ 45  { pop } {exch pop} 		.5   2 sqrt] FmBD
+		<0f87c3e1f0783c1e> [ 135 { pop } {exch pop}			.5   2 sqrt] FmBD
+		<cccccccccccccccc> [ 0   { pop } dup				.5   2	   ] FmBD
+		<ffff0000ffff0000> [ 90  { pop } dup				.5   2	   ] FmBD
+		<8142241818244281> [ 45  { 2 copy lt {exch} if pop}	dup .75  2 sqrt] FmBD
+		<03060c183060c081> [ 45  { pop } {exch pop}			.875 2 sqrt] FmBD
+		<8040201008040201> [ 135 { pop } {exch pop}			.875 2 sqrt] FmBD
+	end def
+} { 
+	
+	/patProcDict 5 dict dup begin
+		<0f1e3c78f0e1c387> { 3 setlinewidth -1 -1 moveto 9 9 lineto stroke 
+											4 -4 moveto 12 4 lineto stroke
+											-4 4 moveto 4 12 lineto stroke} bind def
+		<0f87c3e1f0783c1e> { 3 setlinewidth -1 9 moveto 9 -1 lineto stroke 
+											-4 4 moveto 4 -4 lineto stroke
+											4 12 moveto 12 4 lineto stroke} bind def
+		<8142241818244281> { 1 setlinewidth -1 9 moveto 9 -1 lineto stroke
+											-1 -1 moveto 9 9 lineto stroke } bind def
+		<03060c183060c081> { 1 setlinewidth -1 -1 moveto 9 9 lineto stroke 
+											4 -4 moveto 12 4 lineto stroke
+											-4 4 moveto 4 12 lineto stroke} bind def
+		<8040201008040201> { 1 setlinewidth -1 9 moveto 9 -1 lineto stroke 
+											-4 4 moveto 4 -4 lineto stroke
+											4 12 moveto 12 4 lineto stroke} bind def
+	end def
+	/patDict 15 dict dup begin
+		/PatternType 1 def		
+		/PaintType 2 def		
+		/TilingType 3 def		
+		/BBox [ 0 0 8 8 ] def 	
+		/XStep 8 def			
+		/YStep 8 def			
+		/PaintProc {
+			begin
+			patProcDict bstring known {
+				patProcDict bstring get exec
+			} {
+				8 8 true [1 0 0 -1 0 8] bstring imagemask
+			} ifelse
+			end
+		} bind def
+	end def
+} ifelse
+/combineColor {
+    FrameSepIs FMnone eq
+	{
+		graymode fMLevel1 or not {
+			
+			[/Pattern [/DeviceCMYK]] setcolorspace
+			FrameCurColors 0 4 getinterval aload pop FrameCurPat setcolor
+		} {
+			FrameCurColors 3 get 1.0 ge {
+				FrameCurGray RealSetgray
+			} {
+				fMAcrobat not FMPColor graymode and and {
+					0 1 3 { 
+						FrameCurColors exch get
+						1 FrameCurGray sub mul
+					} for
+					RealSetcmykcolor
+				} {
+					4 1 6 {
+						FrameCurColors exch get
+						graymode {
+							1 exch sub 1 FrameCurGray sub mul 1 exch sub
+						} {
+							1.0 lt {FrameCurGray} {1} ifelse
+						} ifelse
+					} for
+					RealSetrgbcolor
+				} ifelse
+			} ifelse
+		} ifelse
+	} { 
+		FrameCurColors 0 4 getinterval aload
+		FrameColorInSepListCMYK {
+			FrameSepBlack eq exch 
+			FrameSepYellow eq and exch 
+			FrameSepMagenta eq and exch 
+			FrameSepCyan eq and
+			FrameSepIs FMcustom eq and
+			{ FrameCurGray } { 1 } ifelse
+		} {
+			FrameSepIs FMblack eq
+			{FrameCurGray 1.0 exch sub mul 1.0 exch sub 4 1 roll pop pop pop} {
+			FrameSepIs FMyellow eq
+			{pop FrameCurGray 1.0 exch sub mul 1.0 exch sub 3 1 roll pop pop} {
+			FrameSepIs FMmagenta eq
+			{pop pop FrameCurGray 1.0 exch sub mul 1.0 exch sub exch pop } {
+			FrameSepIs FMcyan eq
+			{pop pop pop FrameCurGray 1.0 exch sub mul 1.0 exch sub } 
+			{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+		} ifelse
+		graymode fMLevel1 or not {
+			
+			[/Pattern [/DeviceGray]] setcolorspace
+			FrameCurPat setcolor
+		} { 
+			graymode not fMLevel1 and {
+				
+				dup 1 lt {pop FrameCurGray} if
+			} if
+			RealSetgray
+		} ifelse
+	} ifelse
+} bind def
+/savematrix {
+	orgmatrix currentmatrix pop
+	} bind def
+/restorematrix {
+	orgmatrix setmatrix
+	} bind def
+/fMDefaultMatrix matrix defaultmatrix def
+/fMatrix2 matrix def
+/dpi    72 0 fMDefaultMatrix dtransform
+    dup mul exch   dup mul add   sqrt def
+	
+/freq dpi dup 72 div round dup 0 eq {pop 1} if 8 mul div def
+/sangle 1 0 fMDefaultMatrix dtransform exch atan def
+	sangle fMatrix2 rotate 
+	fMDefaultMatrix fMatrix2 concatmatrix 
+	dup 0 get /sflipx exch def
+	    3 get /sflipy exch def
+/screenIndex {
+	0 1 dpiranges length 1 sub { dup dpiranges exch get 1 sub dpi le {exit} {pop} ifelse } for
+} bind def
+/getCyanScreen {
+	FMUseHighFrequencyScreens { CHighAngles CMHighFreqs} {CLowAngles CMLowFreqs} ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get /FMSpotFunction load
+} bind def
+/getMagentaScreen {
+	FMUseHighFrequencyScreens { MHighAngles CMHighFreqs } {MLowAngles CMLowFreqs} ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get /FMSpotFunction load
+} bind def
+/getYellowScreen {
+	FMUseHighFrequencyScreens { YHighTDot YHighFreqs} { YLowTDot YLowFreqs } ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get { 3 div
+			{2 { 1 add 2 div 3 mul dup floor sub 2 mul 1 sub exch} repeat
+			FMSpotFunction } } {/FMSpotFunction load } ifelse
+			0.0 exch
+} bind def
+/getBlackScreen  {
+	FMUseHighFrequencyScreens { KHighFreqs } { KLowFreqs } ifelse
+		screenIndex get 45.0 /FMSpotFunction load 
+} bind def
+/getSpotScreen {
+	getBlackScreen
+} bind def
+/getCompositeScreen {
+	getBlackScreen
+} bind def
+/FMSetScreen 
+	fMLevel1 { /setscreen load 
+	}{ {
+		8 dict begin
+		/HalftoneType 1 def
+		/SpotFunction exch def
+		/Angle exch def
+		/Frequency exch def
+		/AccurateScreens FMUseAcccurateScreens def
+		currentdict end sethalftone
+	} bind } ifelse
+def
+/setDefaultScreen {
+	FMPColor {
+		orgrxfer cvx orggxfer cvx orgbxfer cvx orgxfer cvx setcolortransfer
+	}
+	{
+		orgxfer cvx settransfer
+	} ifelse
+	orgfreq organgle orgproc cvx setscreen
+} bind def
+/setCurrentScreen {
+	FrameSepIs FMnone eq {
+		FMUseDefaultNoSeparationScreen {
+			setDefaultScreen
+		} {
+			getCompositeScreen FMSetScreen
+		} ifelse
+	} {
+		FrameSepIs FMcustom eq {
+			FMUseDefaultSpotSeparationScreen {
+				setDefaultScreen
+			} {
+				getSpotScreen FMSetScreen
+			} ifelse
+		} {
+			FMUseDefaultProcessSeparationScreen {
+				setDefaultScreen
+			} {
+				FrameSepIs FMcyan eq {
+					getCyanScreen FMSetScreen
+				} {
+					FrameSepIs FMmagenta eq {
+						getMagentaScreen FMSetScreen
+					} {
+						FrameSepIs FMyellow eq {
+							getYellowScreen FMSetScreen
+						} {
+							getBlackScreen FMSetScreen
+						} ifelse
+					} ifelse
+				} ifelse
+			} ifelse
+		} ifelse
+	} ifelse 
+} bind def
+end
+	
+/FMDOCUMENT { 
+	array /FMfonts exch def 
+	/#copies exch def
+	FrameDict begin
+	0 ne /manualfeed exch def
+	/paperheight exch def
+	/paperwidth exch def
+	0 ne /fMNegative exch def 
+	0 ne /edown exch def 
+	/yscale exch def
+	/xscale exch def
+	fMLevel1 {
+		manualfeed {setmanualfeed} if
+		/FMdicttop countdictstack 1 add def 
+		/FMoptop count def 
+		setpapername 
+		manualfeed {true} {papersize} ifelse 
+		{manualpapersize} {false} ifelse 
+		{desperatepapersize} {false} ifelse 
+		{papersizefailure} if
+		count -1 FMoptop {pop pop} for
+		countdictstack -1 FMdicttop {pop end} for 
+		}
+		{2 dict
+		 dup /PageSize [paperwidth paperheight] put
+		 manualfeed {dup /ManualFeed manualfeed put} if
+		 {setpagedevice} stopped {papersizefailure} if
+		}
+	ifelse 
+	
+	FMPColor {
+		currentcolorscreen
+			cvlit /orgproc exch def
+				  /organgle exch def 
+				  /orgfreq exch def
+			cvlit /orgbproc exch def
+				  /orgbangle exch def 
+				  /orgbfreq exch def
+			cvlit /orggproc exch def
+				  /orggangle exch def 
+				  /orggfreq exch def
+			cvlit /orgrproc exch def
+				  /orgrangle exch def 
+				  /orgrfreq exch def
+			currentcolortransfer 
+			fMNegative {
+				1 1 4 { 
+					pop { 1 exch sub } fmConcatProcs 4 1 roll
+				} for
+				4 copy
+				setcolortransfer
+			} if
+			cvlit /orgxfer exch def
+			cvlit /orgbxfer exch def
+			cvlit /orggxfer exch def
+			cvlit /orgrxfer exch def
+	} {
+		currentscreen 
+			cvlit /orgproc exch def
+				  /organgle exch def 
+				  /orgfreq exch def
+				  
+		currenttransfer 
+		fMNegative {
+			{ 1 exch sub } fmConcatProcs
+			dup settransfer
+		} if 
+		cvlit /orgxfer exch def
+	} ifelse
+	end 
+} def 
+/FMBEGINPAGE { 
+	FrameDict begin 
+	/pagesave save def
+	3.86 setmiterlimit
+	/landscape exch 0 ne def
+	landscape { 
+		90 rotate 0 exch dup /pwid exch def neg translate pop 
+	}{
+		pop /pwid exch def
+	} ifelse
+	edown { [-1 0 0 1 pwid 0] concat } if
+	0 0 moveto paperwidth 0 lineto paperwidth paperheight lineto 
+	0 paperheight lineto 0 0 lineto 1 setgray fill
+	xscale yscale scale
+	/orgmatrix matrix def
+	gsave 
+} def 
+/FMENDPAGE {
+	grestore 
+	pagesave restore
+	end 
+	showpage
+	} def 
+/FMFONTDEFINE { 
+	FrameDict begin
+	findfont 
+	ReEncode 
+	1 index exch 
+	definefont 
+	FMfonts 3 1 roll 
+	put
+	end 
+	} def 
+/FMFILLS {
+	FrameDict begin dup
+	array /fillvals exch def
+	dict /patCache exch def
+	end 
+	} def 
+/FMFILL {
+	FrameDict begin
+	 fillvals 3 1 roll put
+	end 
+	} def 
+/FMNORMALIZEGRAPHICS { 
+	newpath
+	1 setlinewidth
+	0 setlinecap
+	0 0 0 sethsbcolor
+	0 setgray 
+	} bind def
+/FMBEGINEPSF { 
+	end 
+	/FMEPSF save def 
+	/showpage {} def 
+% See Adobe's "PostScript Language Reference Manual, 2nd Edition", page 714.
+% "...the following operators MUST NOT be used in an EPS file:" (emphasis ours)
+	/banddevice {(banddevice) FMBADEPSF} def
+	/clear {(clear) FMBADEPSF} def
+	/cleardictstack {(cleardictstack) FMBADEPSF} def 
+	/copypage {(copypage) FMBADEPSF} def
+	/erasepage {(erasepage) FMBADEPSF} def
+	/exitserver {(exitserver) FMBADEPSF} def
+	/framedevice {(framedevice) FMBADEPSF} def
+	/grestoreall {(grestoreall) FMBADEPSF} def
+	/initclip {(initclip) FMBADEPSF} def
+	/initgraphics {(initgraphics) FMBADEPSF} def
+	/quit {(quit) FMBADEPSF} def
+	/renderbands {(renderbands) FMBADEPSF} def
+	/setglobal {(setglobal) FMBADEPSF} def
+	/setpagedevice {(setpagedevice) FMBADEPSF} def
+	/setshared {(setshared) FMBADEPSF} def
+	/startjob {(startjob) FMBADEPSF} def
+	/lettertray {(lettertray) FMBADEPSF} def
+	/letter {(letter) FMBADEPSF} def
+	/lettersmall {(lettersmall) FMBADEPSF} def
+	/11x17tray {(11x17tray) FMBADEPSF} def
+	/11x17 {(11x17) FMBADEPSF} def
+	/ledgertray {(ledgertray) FMBADEPSF} def
+	/ledger {(ledger) FMBADEPSF} def
+	/legaltray {(legaltray) FMBADEPSF} def
+	/legal {(legal) FMBADEPSF} def
+	/statementtray {(statementtray) FMBADEPSF} def
+	/statement {(statement) FMBADEPSF} def
+	/executivetray {(executivetray) FMBADEPSF} def
+	/executive {(executive) FMBADEPSF} def
+	/a3tray {(a3tray) FMBADEPSF} def
+	/a3 {(a3) FMBADEPSF} def
+	/a4tray {(a4tray) FMBADEPSF} def
+	/a4 {(a4) FMBADEPSF} def
+	/a4small {(a4small) FMBADEPSF} def
+	/b4tray {(b4tray) FMBADEPSF} def
+	/b4 {(b4) FMBADEPSF} def
+	/b5tray {(b5tray) FMBADEPSF} def
+	/b5 {(b5) FMBADEPSF} def
+	FMNORMALIZEGRAPHICS 
+	[/fy /fx /fh /fw /ury /urx /lly /llx] {exch def} forall 
+	fx fw 2 div add fy fh 2 div add  translate
+	rotate
+	fw 2 div neg fh 2 div neg translate
+	fw urx llx sub div fh ury lly sub div scale 
+	llx neg lly neg translate 
+	/FMdicttop countdictstack 1 add def 
+	/FMoptop count def 
+	} bind def
+/FMENDEPSF {
+	count -1 FMoptop {pop pop} for 
+	countdictstack -1 FMdicttop {pop end} for 
+	FMEPSF restore
+	FrameDict begin 
+	} bind def
+FrameDict begin 
+/setmanualfeed {
+%%BeginFeature *ManualFeed True
+	 statusdict /manualfeed true put
+%%EndFeature
+	} bind def
+/max {2 copy lt {exch} if pop} bind def
+/min {2 copy gt {exch} if pop} bind def
+/inch {72 mul} def
+/pagedimen { 
+	paperheight sub abs 16 lt exch 
+	paperwidth sub abs 16 lt and
+	{/papername exch def} {pop} ifelse
+	} bind def
+/setpapername { 
+	/papersizedict 14 dict def 
+	papersizedict begin
+	/papername /unknown def 
+		/Letter 8.5 inch 11.0 inch pagedimen
+		/LetterSmall 7.68 inch 10.16 inch pagedimen
+		/Tabloid 11.0 inch 17.0 inch pagedimen
+		/Ledger 17.0 inch 11.0 inch pagedimen
+		/Legal 8.5 inch 14.0 inch pagedimen
+		/Statement 5.5 inch 8.5 inch pagedimen
+		/Executive 7.5 inch 10.0 inch pagedimen
+		/A3 11.69 inch 16.5 inch pagedimen
+		/A4 8.26 inch 11.69 inch pagedimen
+		/A4Small 7.47 inch 10.85 inch pagedimen
+		/B4 10.125 inch 14.33 inch pagedimen
+		/B5 7.16 inch 10.125 inch pagedimen
+	end
+	} bind def
+/papersize {
+	papersizedict begin
+		/Letter {lettertray letter} def
+		/LetterSmall {lettertray lettersmall} def
+		/Tabloid {11x17tray 11x17} def
+		/Ledger {ledgertray ledger} def
+		/Legal {legaltray legal} def
+		/Statement {statementtray statement} def
+		/Executive {executivetray executive} def
+		/A3 {a3tray a3} def
+		/A4 {a4tray a4} def
+		/A4Small {a4tray a4small} def
+		/B4 {b4tray b4} def
+		/B5 {b5tray b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	statusdict begin stopped end 
+	} bind def
+/manualpapersize {
+	papersizedict begin
+		/Letter {letter} def
+		/LetterSmall {lettersmall} def
+		/Tabloid {11x17} def
+		/Ledger {ledger} def
+		/Legal {legal} def
+		/Statement {statement} def
+		/Executive {executive} def
+		/A3 {a3} def
+		/A4 {a4} def
+		/A4Small {a4small} def
+		/B4 {b4} def
+		/B5 {b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	stopped 
+	} bind def
+/desperatepapersize {
+	statusdict /setpageparams known
+		{
+		paperwidth paperheight 0 1 
+		statusdict begin
+		{setpageparams} stopped 
+		end
+		} {true} ifelse 
+	} bind def
+/papersizefailure {
+	FMAllowPaperSizeMismatch not
+		{
+(The requested paper size is not available in any currently-installed tray)
+(Edit the PS file to "FMAllowPaperSizeMismatch true" to use default tray)
+		 FMFAILURE } if
+	} def
+/DiacriticEncoding [
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /space /exclam /quotedbl
+/numbersign /dollar /percent /ampersand /quotesingle /parenleft
+/parenright /asterisk /plus /comma /hyphen /period /slash /zero /one
+/two /three /four /five /six /seven /eight /nine /colon /semicolon
+/less /equal /greater /question /at /A /B /C /D /E /F /G /H /I /J /K
+/L /M /N /O /P /Q /R /S /T /U /V /W /X /Y /Z /bracketleft /backslash
+/bracketright /asciicircum /underscore /grave /a /b /c /d /e /f /g /h
+/i /j /k /l /m /n /o /p /q /r /s /t /u /v /w /x /y /z /braceleft /bar
+/braceright /asciitilde /.notdef /Adieresis /Aring /Ccedilla /Eacute
+/Ntilde /Odieresis /Udieresis /aacute /agrave /acircumflex /adieresis
+/atilde /aring /ccedilla /eacute /egrave /ecircumflex /edieresis
+/iacute /igrave /icircumflex /idieresis /ntilde /oacute /ograve
+/ocircumflex /odieresis /otilde /uacute /ugrave /ucircumflex
+/udieresis /dagger /.notdef /cent /sterling /section /bullet
+/paragraph /germandbls /registered /copyright /trademark /acute
+/dieresis /.notdef /AE /Oslash /.notdef /.notdef /.notdef /.notdef
+/yen /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/ordfeminine /ordmasculine /.notdef /ae /oslash /questiondown
+/exclamdown /logicalnot /.notdef /florin /.notdef /.notdef
+/guillemotleft /guillemotright /ellipsis /.notdef /Agrave /Atilde
+/Otilde /OE /oe /endash /emdash /quotedblleft /quotedblright
+/quoteleft /quoteright /.notdef /.notdef /ydieresis /Ydieresis
+/fraction /currency /guilsinglleft /guilsinglright /fi /fl /daggerdbl
+/periodcentered /quotesinglbase /quotedblbase /perthousand
+/Acircumflex /Ecircumflex /Aacute /Edieresis /Egrave /Iacute
+/Icircumflex /Idieresis /Igrave /Oacute /Ocircumflex /.notdef /Ograve
+/Uacute /Ucircumflex /Ugrave /dotlessi /circumflex /tilde /macron
+/breve /dotaccent /ring /cedilla /hungarumlaut /ogonek /caron
+] def
+/ReEncode { 
+	dup 
+	length 
+	dict begin 
+	{
+	1 index /FID ne 
+		{def} 
+		{pop pop} ifelse 
+	} forall 
+	0 eq {/Encoding DiacriticEncoding def} if 
+	currentdict 
+	end 
+	} bind def
+FMPColor 
+	
+	{
+	/BEGINBITMAPCOLOR { 
+		BITMAPCOLOR} def
+	/BEGINBITMAPCOLORc { 
+		BITMAPCOLORc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUECOLOR } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUECOLORc } def
+	/BEGINBITMAPCMYK { 
+		BITMAPCMYK } def
+	/BEGINBITMAPCMYKc { 
+		BITMAPCMYKc } def
+	}
+	
+	{
+	/BEGINBITMAPCOLOR { 
+		BITMAPGRAY} def
+	/BEGINBITMAPCOLORc { 
+		BITMAPGRAYc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUEGRAY } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUEGRAYc } def
+	/BEGINBITMAPCMYK { 
+		BITMAPCMYKGRAY } def
+	/BEGINBITMAPCMYKc { 
+		BITMAPCMYKGRAYc } def
+	}
+ifelse
+/K { 
+	FMPrintAllColorsAsBlack {
+		dup 1 eq 2 index 1 eq and 3 index 1 eq and not
+			{7 {pop} repeat 0 0 0 1 0 0 0} if
+	} if 
+	FrameCurColors astore 
+	pop combineColor
+} bind def
+/graymode true def
+fMLevel1 {
+	/fmGetFlip {
+		fMatrix2 exch get mul 0 lt { -1 } { 1 } ifelse
+	} FmBD
+} if
+/setPatternMode {
+	fMLevel1 {
+		2 index patScreenDict exch known {
+			pop pop
+			patScreenDict exch get aload pop 
+			freq 								
+			mul									
+			5 2 roll							
+			fMatrix2 currentmatrix 1 get 0 ne {
+				3 -1 roll 90 add 3 1 roll 		
+				sflipx 1 fmGetFlip sflipy 2 fmGetFlip neg mul
+			} {  								
+				sflipx 0 fmGetFlip sflipy 3 fmGetFlip mul 
+			} ifelse
+			0 lt {exch pop} {pop} ifelse 		
+			fMNegative { 
+				{neg} fmConcatProcs 			
+			} if
+			bind
+			
+			
+			
+			systemdict /setscreen get exec		
+			/FrameCurGray exch def
+		} {
+			/bwidth  exch def
+			/bpside  exch def
+			/bstring exch def
+			/onbits 0 def  /offbits 0 def
+			freq sangle landscape {90 add} if 
+				{/ypoint exch def
+				 /xpoint exch def
+				 /xindex xpoint 1 add 2 div bpside mul cvi def
+				 /yindex ypoint 1 add 2 div bpside mul cvi def
+				 bstring yindex bwidth mul xindex 8 idiv add get
+				 1 7 xindex 8 mod sub bitshift and 0 ne fMNegative {not} if
+				 {/onbits  onbits  1 add def 1}
+				 {/offbits offbits 1 add def 0}
+				 ifelse
+				}
+				setscreen
+			offbits offbits onbits add div fMNegative {1.0 exch sub} if
+			/FrameCurGray exch def
+		} ifelse
+	} { 
+		pop pop
+		dup patCache exch known {
+			patCache exch get
+		} { 
+			dup
+			patDict /bstring 3 -1 roll put
+			patDict 
+			9 PatFreq screenIndex get div dup matrix scale
+			makepattern
+			dup 
+			patCache 4 -1 roll 3 -1 roll put
+		} ifelse
+		/FrameCurGray 0 def
+		/FrameCurPat exch def
+	} ifelse
+	/graymode false def
+	combineColor
+} bind def
+/setGrayScaleMode {
+	graymode not {
+		/graymode true def
+		fMLevel1 {
+			setCurrentScreen
+		} if
+	} if
+	/FrameCurGray exch def
+	combineColor
+} bind def
+/normalize {
+	transform round exch round exch itransform
+	} bind def
+/dnormalize {
+	dtransform round exch round exch idtransform
+	} bind def
+/lnormalize { 
+	0 dtransform exch cvi 2 idiv 2 mul 1 add exch idtransform pop
+	} bind def
+/H { 
+	lnormalize setlinewidth
+	} bind def
+/Z {
+	setlinecap
+	} bind def
+	
+/PFill {
+	graymode fMLevel1 or not {
+		gsave 1 setgray eofill grestore
+	} if
+} bind def
+/PStroke {
+	graymode fMLevel1 or not {
+		gsave 1 setgray stroke grestore
+	} if
+	stroke
+} bind def
+/X { 
+	fillvals exch get
+	dup type /stringtype eq
+	{8 1 setPatternMode} 
+	{setGrayScaleMode}
+	ifelse
+	} bind def
+/V { 
+	PFill gsave eofill grestore
+	} bind def
+/Vclip {
+	clip
+	} bind def
+/Vstrk {
+	currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/N { 
+	PStroke
+	} bind def
+/Nclip {
+	strokepath clip newpath
+	} bind def
+/Nstrk {
+	currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/M {newpath moveto} bind def
+/E {lineto} bind def
+/D {curveto} bind def
+/O {closepath} bind def
+/L { 
+ 	/n exch def
+	newpath
+	normalize
+	moveto 
+	2 1 n {pop normalize lineto} for
+	} bind def
+/Y { 
+	L 
+	closepath
+	} bind def
+/R { 
+	/y2 exch def
+	/x2 exch def
+	/y1 exch def
+	/x1 exch def
+	x1 y1
+	x2 y1
+	x2 y2
+	x1 y2
+	4 Y 
+	} bind def
+/rarc 
+	{rad 
+	 arcto
+	} bind def
+/RR { 
+	/rad exch def
+	normalize
+	/y2 exch def
+	/x2 exch def
+	normalize
+	/y1 exch def
+	/x1 exch def
+	mark
+	newpath
+	{
+	x1 y1 rad add moveto
+	x1 y2 x2 y2 rarc
+	x2 y2 x2 y1 rarc
+	x2 y1 x1 y1 rarc
+	x1 y1 x1 y2 rarc
+	closepath
+	} stopped {x1 y1 x2 y2 R} if 
+	cleartomark
+	} bind def
+/RRR { 
+	/rad exch def
+	normalize /y4 exch def /x4 exch def
+	normalize /y3 exch def /x3 exch def
+	normalize /y2 exch def /x2 exch def
+	normalize /y1 exch def /x1 exch def
+	newpath
+	normalize moveto 
+	mark
+	{
+	x2 y2 x3 y3 rarc
+	x3 y3 x4 y4 rarc
+	x4 y4 x1 y1 rarc
+	x1 y1 x2 y2 rarc
+	closepath
+	} stopped
+	 {x1 y1 x2 y2 x3 y3 x4 y4 newpath moveto lineto lineto lineto closepath} if
+	cleartomark
+	} bind def
+/C { 
+	grestore
+	gsave
+	R 
+	clip
+	setCurrentScreen
+} bind def
+/CP { 
+	grestore
+	gsave
+	Y 
+	clip
+	setCurrentScreen
+} bind def
+/F { 
+	FMfonts exch get
+	FMpointsize scalefont
+	setfont
+	} bind def
+/Q { 
+	/FMpointsize exch def
+	F 
+	} bind def
+/T { 
+	moveto show
+	} bind def
+/RF { 
+	rotate
+	0 ne {-1 1 scale} if
+	} bind def
+/TF { 
+	gsave
+	moveto 
+	RF
+	show
+	grestore
+	} bind def
+/P { 
+	moveto
+	0 32 3 2 roll widthshow
+	} bind def
+/PF { 
+	gsave
+	moveto 
+	RF
+	0 32 3 2 roll widthshow
+	grestore
+	} bind def
+/S { 
+	moveto
+	0 exch ashow
+	} bind def
+/SF { 
+	gsave
+	moveto
+	RF
+	0 exch ashow
+	grestore
+	} bind def
+/B { 
+	moveto
+	0 32 4 2 roll 0 exch awidthshow
+	} bind def
+/BF { 
+	gsave
+	moveto
+	RF
+	0 32 4 2 roll 0 exch awidthshow
+	grestore
+	} bind def
+/G { 
+	gsave
+	newpath
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	PFill fill
+	grestore
+	} bind def
+/Gstrk {
+	savematrix
+    newpath
+    2 index 2 div add exch 3 index 2 div sub exch 
+    normalize 2 index 2 div sub exch 3 index 2 div add exch 
+    translate
+    scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    restorematrix
+    currentlinewidth exch setlinewidth PStroke setlinewidth
+    } bind def
+/Gclip { 
+	newpath
+	savematrix
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	clip newpath
+	restorematrix
+	} bind def
+/GG { 
+	gsave
+	newpath
+	normalize translate 0.0 0.0 moveto 
+	rotate 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath
+	PFill
+	fill
+	grestore
+	} bind def
+/GGclip { 
+	savematrix
+	newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath
+	clip newpath
+	restorematrix
+	} bind def
+/GGstrk { 
+	savematrix
+    newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath 
+	restorematrix
+    currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/A { 
+	gsave
+	savematrix
+	newpath
+	2 index 2 div add exch 3 index 2 div sub exch 
+	normalize 2 index 2 div sub exch 3 index 2 div add exch 
+	translate 
+	scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	restorematrix
+	PStroke
+	grestore
+	} bind def
+/Aclip {
+	newpath
+	savematrix
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	strokepath clip newpath
+	restorematrix
+} bind def
+/Astrk {
+	Gstrk
+} bind def
+/AA { 
+	gsave
+	savematrix
+	newpath
+	
+	3 index 2 div add exch 4 index 2 div sub exch 
+	
+	normalize 3 index 2 div sub exch 4 index 2 div add exch
+	translate 
+	rotate 
+	scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	restorematrix
+	PStroke
+	grestore
+	} bind def
+/AAclip {
+	savematrix
+	newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath
+	strokepath clip newpath
+	restorematrix
+} bind def
+/AAstrk {
+	GGstrk
+} bind def
+/BEGINPRINTCODE { 
+	/FMdicttop countdictstack 1 add def 
+	/FMoptop count 7 sub def 
+	/FMsaveobject save def
+	userdict begin 
+	/showpage {} def 
+	FMNORMALIZEGRAPHICS 
+	3 index neg 3 index neg translate
+	} bind def
+/ENDPRINTCODE {
+	count -1 FMoptop {pop pop} for 
+	countdictstack -1 FMdicttop {pop end} for 
+	FMsaveobject restore 
+	} bind def
+/gn { 
+	0 
+	{	46 mul 
+		cf read pop 
+		32 sub 
+		dup 46 lt {exit} if 
+		46 sub add 
+		} loop
+	add 
+	} bind def
+/cfs { 
+	/str sl string def 
+	0 1 sl 1 sub {str exch val put} for 
+	str def 
+	} bind def
+/ic [ 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0
+	{0 hx} {1 hx} {2 hx} {3 hx} {4 hx} {5 hx} {6 hx} {7 hx} {8 hx} {9 hx}
+	{10 hx} {11 hx} {12 hx} {13 hx} {14 hx} {15 hx} {16 hx} {17 hx} {18 hx}
+	{19 hx} {gn hx} {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12}
+	{13} {14} {15} {16} {17} {18} {19} {gn} {0 wh} {1 wh} {2 wh} {3 wh}
+	{4 wh} {5 wh} {6 wh} {7 wh} {8 wh} {9 wh} {10 wh} {11 wh} {12 wh}
+	{13 wh} {14 wh} {gn wh} {0 bl} {1 bl} {2 bl} {3 bl} {4 bl} {5 bl} {6 bl}
+	{7 bl} {8 bl} {9 bl} {10 bl} {11 bl} {12 bl} {13 bl} {14 bl} {gn bl}
+	{0 fl} {1 fl} {2 fl} {3 fl} {4 fl} {5 fl} {6 fl} {7 fl} {8 fl} {9 fl}
+	{10 fl} {11 fl} {12 fl} {13 fl} {14 fl} {gn fl}
+	] def
+/ms { 
+	/sl exch def 
+	/val 255 def 
+	/ws cfs 
+	/im cfs 
+	/val 0 def 
+	/bs cfs 
+	/cs cfs 
+	} bind def
+400 ms 
+/ip { 
+	is 
+	0 
+	cf cs readline pop 
+	{	ic exch get exec 
+		add 
+		} forall 
+	pop 
+	
+	} bind def
+/rip { 
+	   
+	  
+	  bis ris copy pop 
+      is
+      0
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop 
+	  ris gis copy pop 
+	  dup is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  gis bis copy pop 
+	  dup add is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+      pop 
+      
+      } bind def
+/rip4 { 
+	   
+	  
+	  kis cis copy pop 
+      is
+      0
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop 
+	  cis mis copy pop 
+	  dup is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  mis yis copy pop 
+	  dup dup add is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  yis kis copy pop 
+	  3 mul is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+      pop 
+      
+      } bind def
+/wh { 
+	/len exch def 
+	/pos exch def 
+	ws 0 len getinterval im pos len getinterval copy pop
+	pos len 
+	} bind def
+/bl { 
+	/len exch def 
+	/pos exch def 
+	bs 0 len getinterval im pos len getinterval copy pop
+	pos len 
+	} bind def
+/s1 1 string def
+/fl { 
+	/len exch def 
+	/pos exch def 
+	/val cf s1 readhexstring pop 0 get def
+	pos 1 pos len add 1 sub {im exch val put} for
+	pos len 
+	} bind def
+/hx { 
+	3 copy getinterval 
+	cf exch readhexstring pop pop 
+	} bind def
+/wbytes { 
+      dup dup
+      8 gt { pop 8 idiv mul }
+      { 8 eq {pop} {1 eq {7 add 8 idiv} {3 add 4 idiv} ifelse} ifelse } ifelse
+	} bind def
+/BEGINBITMAPBWc { 
+	1 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAPGRAYc { 
+	8 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAP2BITc { 
+	2 {} COMMONBITMAPc
+	} bind def
+/COMMONBITMAPc { 
+		 
+	/cvtProc exch def
+	/depth exch def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+	cvtProc                
+	/is im 0 lb getinterval def 
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height depth [width 0 0 height neg 0 height] 
+	{ip} image 
+	bitmapsave restore 
+	grestore
+	} bind def
+/BEGINBITMAPBW { 
+	1 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAPGRAY { 
+	8 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAP2BIT { 
+	2 {} COMMONBITMAP
+	} bind def
+/COMMONBITMAP { 
+	/cvtProc exch def
+	/depth exch def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/bitmapsave save def 
+	cvtProc              
+	/is width depth wbytes string def
+	/cf currentfile def 
+	width height depth [width 0 0 height neg 0 height] 
+	{cf is readhexstring pop} image
+	bitmapsave restore 
+	grestore
+	} bind def
+/ngrayt 256 array def
+/nredt 256 array def
+/nbluet 256 array def
+/ngreent 256 array def
+fMLevel1 {
+/colorsetup {
+	currentcolortransfer
+	/gryt exch def
+	/blut exch def
+	/grnt exch def
+	/redt exch def
+	0 1 255 {
+		/indx exch def
+		/cynu 1 red indx get 255 div sub def
+		/magu 1 green indx get 255 div sub def
+		/yelu 1 blue indx get 255 div sub def
+		/kk cynu magu min yelu min def
+		/u kk currentundercolorremoval exec def
+%		/u 0 def
+		nredt indx 1 0 cynu u sub max sub redt exec put
+		ngreent indx 1 0 magu u sub max sub grnt exec put
+		nbluet indx 1 0 yelu u sub max sub blut exec put
+		ngrayt indx 1 kk currentblackgeneration exec sub gryt exec put
+	} for
+	{255 mul cvi nredt exch get}
+	{255 mul cvi ngreent exch get}
+	{255 mul cvi nbluet exch get}
+	{255 mul cvi ngrayt exch get}
+	setcolortransfer
+	{pop 0} setundercolorremoval
+	{} setblackgeneration
+	} bind def
+}
+{
+/colorSetup2 {
+	[ /Indexed /DeviceRGB 255 
+		{dup red exch get 255 div 
+		 exch dup green exch get 255 div 
+		 exch blue exch get 255 div}
+	] setcolorspace
+} bind def
+} ifelse
+/fakecolorsetup {
+	/tran 256 string def
+	0 1 255 {/indx exch def 
+		tran indx
+		red indx get 77 mul
+		green indx get 151 mul
+		blue indx get 28 mul
+		add add 256 idiv put} for
+	currenttransfer
+	{255 mul cvi tran exch get 255.0 div}
+	exch fmConcatProcs settransfer
+} bind def
+/BITMAPCOLOR { 
+	/depth 8 def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/bitmapsave save def
+	fMLevel1 {	
+		colorsetup
+		/is width depth wbytes string def
+		/cf currentfile def 
+		width height depth [width 0 0 height neg 0 height] 
+		{cf is readhexstring pop} {is} {is} true 3 colorimage 
+	} {
+		colorSetup2
+		/is width depth wbytes string def
+		/cf currentfile def 
+		7 dict dup begin
+			/ImageType 1 def
+			/Width width def
+			/Height height def
+			/ImageMatrix [width 0 0 height neg 0 height] def
+			/DataSource {cf is readhexstring pop} bind def
+			/BitsPerComponent depth def
+			/Decode [0 255] def
+		end image	
+	} ifelse
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPCOLORc { 
+	/depth 8 def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+	fMLevel1 {	
+		colorsetup
+		/is im 0 lb getinterval def 
+		ws 0 lb getinterval is copy pop 
+		/cf currentfile def 
+		width height depth [width 0 0 height neg 0 height] 
+		{ip} {is} {is} true 3 colorimage
+	} {
+		colorSetup2
+		/is im 0 lb getinterval def 
+		ws 0 lb getinterval is copy pop 
+		/cf currentfile def 
+		7 dict dup begin
+			/ImageType 1 def
+			/Width width def
+			/Height height def
+			/ImageMatrix [width 0 0 height neg 0 height] def
+			/DataSource {ip} bind def
+			/BitsPerComponent depth def
+			/Decode [0 255] def
+		end image	
+	} ifelse
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPTRUECOLORc { 
+	/depth 24 def
+        gsave
+ 	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/ris im 0 width getinterval def	
+	/gis im width width getinterval def	
+	/bis im width 2 mul width getinterval def 
+        
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height 8 [width 0 0 height neg 0 height] 
+	{width rip pop ris} {gis} {bis} true 3 colorimage
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPCMYKc { 
+	/depth 32 def
+        gsave
+ 	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/cis im 0 width getinterval def	
+	/mis im width width getinterval def	
+	/yis im width 2 mul width getinterval def 
+	/kis im width 3 mul width getinterval def 
+        
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height 8 [width 0 0 height neg 0 height] 
+	{width rip4 pop cis} {mis} {yis} {kis} true 4 colorimage
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPTRUECOLOR { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /gis width string def
+        /bis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop } 
+        { cf gis readhexstring pop } 
+        { cf bis readhexstring pop } 
+        true 3 colorimage 
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYK { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /mis width string def
+        /yis width string def
+        /kis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop } 
+        { cf mis readhexstring pop } 
+        { cf yis readhexstring pop } 
+        { cf kis readhexstring pop } 
+        true 4 colorimage 
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPTRUEGRAYc { 
+	/depth 24 def
+        gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+        /bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/ris im 0 width getinterval def	
+	/gis im width width getinterval def	
+	/bis im width 2 mul width getinterval def 
+        ws 0 lb getinterval is copy pop 
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        {width rip pop ris gis bis width gray} image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYKGRAYc { 
+	/depth 32 def
+        gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+        /bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/cis im 0 width getinterval def	
+	/mis im width width getinterval def	
+	/yis im width 2 mul width getinterval def 
+	/kis im width 3 mul width getinterval def 
+        ws 0 lb getinterval is copy pop 
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        {width rip pop cis mis yis kis width cgray} image
+        bitmapsave restore 
+        grestore
+        } bind def
+/cgray { 
+        /ww exch def
+        /k exch def
+        /y exch def
+        /m exch def
+        /c exch def
+        0 1 ww 1 sub { /i exch def c i get m i get y i get k i get CMYKtoRGB
+				.144 mul 3 1 roll .587 mul 3 1 roll .299 mul add add
+				c i 3 -1 roll floor cvi put } for
+        c
+ 		} bind def
+/gray { 
+        /ww exch def
+        /b exch def
+        /g exch def
+        /r exch def
+        0 1 ww 1 sub { /i exch def r i get .299 mul g i get .587 mul
+			b i get .114 mul add add r i 3 -1 roll floor cvi put } for
+        r
+        } bind def
+/BITMAPTRUEGRAY { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /gis width string def
+        /bis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop 
+          cf gis readhexstring pop 
+          cf bis readhexstring pop width gray}  image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYKGRAY { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /yis width string def
+        /mis width string def
+        /kis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop 
+          cf mis readhexstring pop 
+          cf yis readhexstring pop 
+          cf kis readhexstring pop width cgray}  image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPGRAY { 
+	8 {fakecolorsetup} COMMONBITMAP
+	} bind def
+/BITMAPGRAYc { 
+	8 {fakecolorsetup} COMMONBITMAPc
+	} bind def
+/ENDBITMAP {
+	} bind def
+end 
+	/ALDmatrix matrix def ALDmatrix currentmatrix pop
+/StartALD {
+	/ALDsave save def
+	 savematrix
+	 ALDmatrix setmatrix
+	} bind def
+/InALD {
+	 restorematrix
+	} bind def
+/DoneALD {
+	 ALDsave restore
+	} bind def
+/I { setdash } bind def
+/J { [] 0 setdash } bind def
+%%EndProlog
+%%BeginSetup
+(5.0) FMVERSION
+1 1 0 0 612 792 0 1 10 FMDOCUMENT
+0 0 /Helvetica-Bold FMFONTDEFINE
+1 0 /Times-Bold FMFONTDEFINE
+2 0 /Times-Roman FMFONTDEFINE
+3 0 /Helvetica FMFONTDEFINE
+4 0 /Courier-Bold FMFONTDEFINE
+32 FMFILLS
+0 0 FMFILL
+1 0.1 FMFILL
+2 0.3 FMFILL
+3 0.5 FMFILL
+4 0.7 FMFILL
+5 0.9 FMFILL
+6 0.97 FMFILL
+7 1 FMFILL
+8 <0f1e3c78f0e1c387> FMFILL
+9 <0f87c3e1f0783c1e> FMFILL
+10 <cccccccccccccccc> FMFILL
+11 <ffff0000ffff0000> FMFILL
+12 <8142241818244281> FMFILL
+13 <03060c183060c081> FMFILL
+14 <8040201008040201> FMFILL
+16 1 FMFILL
+17 0.9 FMFILL
+18 0.7 FMFILL
+19 0.5 FMFILL
+20 0.3 FMFILL
+21 0.1 FMFILL
+22 0.03 FMFILL
+23 0 FMFILL
+24 <f0e1c3870f1e3c78> FMFILL
+25 <f0783c1e0f87c3e1> FMFILL
+26 <3333333333333333> FMFILL
+27 <0000ffff0000ffff> FMFILL
+28 <7ebddbe7e7dbbd7e> FMFILL
+29 <fcf9f3e7cf9f3f7e> FMFILL
+30 <7fbfdfeff7fbfdfe> FMFILL
+%%EndSetup
+%%Page: "1" 1
+%%BeginPaperSize: Letter
+%%EndPaperSize
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+J
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.68 558 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Created:J) 72 741 T
+(ul) 113.33 741 T
+(y 27, 1999) 121.19 741 T
+72 885/G297553 FmPA
+(Modi\336ed:October 23, 1999) 72 730 T
+72 874/G297557 FmPA
+72 444.68 558 444.68 2 L
+2 Z
+N
+72 62.08 558 62.08 2 L
+0.25 H
+N
+(Near IR Ima) 72 47.11 T
+(g) 121.43 47.11 T
+(er \050NIRI\051 Software\321Pr) 127.02 47.11 T
+(oject Histor) 220.85 47.11 T
+(y Document) 270.45 47.11 T
+( niri_hty_010) 414.08 47.11 T
+0 10 Q
+(/) 469.1 47.11 T
+0 9 Q
+(02) 471.88 47.11 T
+0 10 Q
+(1) 513.96 47.11 T
+0 9 Q
+( of) 519.52 47.11 T
+0 10 Q
+(8) 533.02 47.11 T
+72 191/G297576 FmPA
+72 468 198 720 R
+V
+0 0 0 0 1 1 1 K
+0 0 0 1 0 0 0 K
+72 852/G297577 FmPA
+0 0 0 0 1 1 1 K
+1 20 Q
+7 X
+0 0 0 0 1 1 1 K
+(Gemini) 81 684.67 T
+0 0 0 1 0 0 0 K
+72 829/G297578 FmPA
+0 0 0 0 1 1 1 K
+1 18 Q
+(Near) 81 662 T
+0 0 0 1 0 0 0 K
+0 0 0 0 1 1 1 K
+(Infra-Red) 81 640 T
+0 0 0 1 0 0 0 K
+0 0 0 0 1 1 1 K
+(Imager) 81 618 T
+0 0 0 1 0 0 0 K
+0 0 0 0 1 1 1 K
+(and) 81 596 T
+0 0 0 1 0 0 0 K
+72 740/G311717 FmPA
+0 0 0 0 1 1 1 K
+(W) 81 574 T
+(a) 97.83 574 T
+(v) 106.38 574 T
+(efr) 115.2 574 T
+(ont) 136.85 574 T
+0 0 0 1 0 0 0 K
+0 0 0 0 1 1 1 K
+(Sensor) 81 552 T
+0 0 0 1 0 0 0 K
+108 513 135 540 R
+4 X
+0 0 0 1 0 0 0 K
+V
+0.5 H
+0 X
+N
+135 486 162 513 R
+4 X
+V
+135 513 162 540 R
+3 X
+V
+108 486 135 513 R
+V
+1 1 0 0 0 0 1 K
+0 14 Q
+0 X
+1 1 0 0 0 0 1 K
+(NIRI) 120.5 511.95 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+108 486 162 540 R
+3 H
+1 X
+0 0 0 1 0 0 0 K
+N
+0 0 0 1 0 0 0 K
+1 1 0 0 0 0 1 K
+0 X
+1 1 0 0 0 0 1 K
+(OIWFS) 111.55 497.95 T
+0 0 0 1 0 0 0 K
+2 24 Q
+0 0 0 1 0 0 0 K
+-0.17 (Near IR Imager \050NIRI\051 Softw) 207 704 S
+-0.17 (are\321) 487.53 704 S
+207 848/G309480 FmPA
+207 651.6 558 666 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+207 658.8 675 658.8 2 L
+1.5 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+2 24 Q
+0 X
+0 0 0 1 0 0 0 K
+-0.17 (Project History Document) 207 674 S
+1 12 Q
+(Hubert Y) 207 627.6 T
+(amada) 254.98 627.6 T
+207 772/G264991 FmPA
+3 11 Q
+(nir) 207 603.27 T
+(i_hty_010 / 02 / 1999-10-23) 219.39 603.27 T
+207 747/G264998 FmPA
+0 10 Q
+(This repor) 207 562.93 T
+(t is a description of lessons learned while de) 256.1 562.93 T
+(veloping the) 468.25 562.93 T
+207 707/G265293 FmPA
+(NIRI software) 207 549.93 T
+(.) 271.1 549.93 T
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+72 411 558 420 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171 420 549 420 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 420 162 420 2 L
+0 Z
+N
+0 0 612 792 C
+1 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(1) 156 424 T
+(Intr) 171 424 T
+(oduction) 191.45 424 T
+72 568/G297440 FmPA
+2 10 Q
+(This report is a summary of lessons learned during the process of de) 171.21 390.33 T
+(v) 443.69 390.33 T
+(eloping the NIRI softw) 448.54 390.33 T
+(are.) 540.93 390.33 T
+72 534/G297967 FmPA
+(This report w) 171.21 366.33 T
+(as hea) 224.99 366.33 T
+(vily in\337uenced by [34].) 249.5 366.33 T
+72 510/G312472 FmPA
+1 12 Q
+(1.1) 147 332 T
+(Pur) 171 332 T
+(pose of the document) 190.21 332 T
+72 476/G274043 FmPA
+2 10 Q
+(This report is a summary of useful information that w) 171.21 307.33 T
+(as learned during the de) 385.81 307.33 T
+(v) 481.09 307.33 T
+(elopment of the) 485.94 307.33 T
+72 451/G297657 FmPA
+(NIRI softw) 171.21 295.33 T
+(are. It is pro) 216.38 295.33 T
+(vided here as a guide to future projects that may choose to use NIRI as a) 264.55 295.33 T
+(basis for project de) 171.21 283.33 T
+(v) 247.33 283.33 T
+(elopment.) 252.18 283.33 T
+(The intended audience of this document is:) 171.21 259.33 T
+72 403/G276475 FmPA
+4 11 Q
+(\245) 171.21 240.67 T
+2 10 Q
+(the Gemini instrument de) 185.39 240.67 T
+(v) 287.08 240.67 T
+(elopment community;) 291.93 240.67 T
+72 385/G299922 FmPA
+4 11 Q
+(\245) 171.21 224.67 T
+2 10 Q
+(the Gemini Controls group.) 185.39 224.67 T
+72 369/G299923 FmPA
+1 12 Q
+(1.2) 147 190 T
+(Scope) 171 190 T
+72 334/G297669 FmPA
+2 10 Q
+(No softw) 171.21 172.33 T
+(are project will be de) 208.05 172.33 T
+(v) 292.22 172.33 T
+(eloped from this document.) 297.07 172.33 T
+72 316/G297633 FmPA
+1 12 Q
+(1.3) 147 138 T
+(De\336nitions, Acr) 171 138 T
+(onyms and Ab) 251.45 138 T
+(br) 325.34 138 T
+(e) 337.13 138 T
+(viations) 342.28 138 T
+72 282/G309334 FmPA
+2 10 Q
+(See \322Near IR Imager \050NIRI\051\321De\336nitions, Abbre) 171.21 120.33 T
+(viations, and References\323.) 369.24 120.33 T
+72 264/G309335 FmPA
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/Creator(FrameMaker xm5.0.1P1j)/DOCINFO FmPD2
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.1/DEST FmPD2
+207 864/M9.61531.ReportTitle.Document.Title FmPA
+207 864/I1.309477 FmPA
+[/Rect[324 363 341 373]/Border[0 0 0]/Dest/M9.34394.Doclist.34.cicssmb045.CICS..Project.History.Document.Steven.Beard.Royal.Observa/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Title(A)/Rect[198 459 567 729]/ARTICLE FmPD2
+[/Title(A)/Rect[63 67 567 441]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "1" 1
+%%Page: "2" 2
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.68 540 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Ca) 114.8 733.66 T
+(veats) 126.17 733.66 T
+54 878/G297473 FmPA
+54 726.98 540 726.98 2 L
+0.25 H
+N
+52.58 54.99 538.58 54.99 2 L
+2 Z
+N
+0 10 Q
+(2) 52.58 38.89 T
+0 9 Q
+( of) 58.14 38.89 T
+0 10 Q
+( 8) 69.14 38.89 T
+0 9 Q
+( niri_hty_010) 113.39 38.89 T
+0 10 Q
+(/) 168.41 38.89 T
+0 9 Q
+(02) 171.19 38.89 T
+(Near IR Ima) 271.9 38.89 T
+(g) 321.33 38.89 T
+(er \050NIRI\051 Software\321Pr) 326.92 38.89 T
+(oject Histor) 420.75 38.89 T
+(y Document) 470.35 38.89 T
+53 183/G297492 FmPA
+1 12 Q
+(1.4) 129 679.33 T
+(Stylistic Con) 153 679.33 T
+(v) 217.52 679.33 T
+(entions) 223.4 679.33 T
+54 823/G309336 FmPA
+2 10 Q
+(References to documents in Section) 153.21 661.66 T
+(1.5, \322References,) 299.02 661.66 T
+(\323 on page) 367.18 661.66 T
+(2 of \322Near IR Imager) 408 661.66 T
+54 806/G309340 FmPA
+(\050NIRI\051\321De\336nitions, Abbre) 153.21 649.66 T
+(viations, and References\323 are gi) 264.61 649.66 T
+(v) 391.82 649.66 T
+(en lik) 396.67 649.66 T
+(e this; [1].) 419.07 649.66 T
+1 12 Q
+(1.5) 129 615.33 T
+(Refer) 153 615.33 T
+(ences) 181.43 615.33 T
+54 759/G298174 FmPA
+2 10 Q
+(See \322Near IR Imager \050NIRI\051\321De\336nitions, Abbre) 153.21 597.66 T
+(viations, and References\323.) 351.24 597.66 T
+54 742/G309373 FmPA
+54 548.33 523.28 557.33 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+153 557.33 531 557.33 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+54 557.33 144 557.33 2 L
+0 Z
+N
+0 0 612 792 C
+1 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2) 138 561.33 T
+(Ca) 153 561.33 T
+(v) 167.36 561.33 T
+(eats) 173.24 561.33 T
+54 705/G299611 FmPA
+2 10 Q
+(At this point in time, the NIRI softw) 153.21 531.66 T
+(are de) 298.67 531.66 T
+(v) 322.57 531.66 T
+(elopers feel that NIRI, as implemented, is not a) 327.42 531.66 T
+54 676/G298150 FmPA
+-0.31 (good choice as a starting point for other softw) 153.21 519.66 P
+-0.31 (are projects. There are some se) 334.48 519.66 P
+-0.31 (v) 456.5 519.66 P
+-0.31 (ere \337a) 461.35 519.66 P
+-0.31 (ws in the) 485.6 519.66 P
+(current design that should not be propag) 153.21 507.66 T
+(ated to other instrument projects.) 314.25 507.66 T
+(This document is not intended to be a criticism of the designers and implementers of the) 153.21 483.66 T
+54 628/G312575 FmPA
+(CICS and NIRI softw) 153.21 471.66 T
+(are. It is recognized that there were se) 240.05 471.66 T
+(v) 391.41 471.66 T
+(ere design constraints which) 396.26 471.66 T
+-0.38 (were placed on them at an early stage, which forced some unwise design decisions. Although) 153.21 459.66 P
+(man) 153.21 447.66 T
+(y of these constraints were later lifted, it w) 170.28 447.66 T
+(as too late to correct the implementation of) 340.98 447.66 T
+(the softw) 153.21 435.66 T
+(are.) 190.05 435.66 T
+54 386.33 523.28 395.33 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+153 395.33 531 395.33 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+54 395.33 144 395.33 2 L
+0 Z
+N
+0 0 612 792 C
+1 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(3) 138 399.33 T
+(History) 153 399.33 T
+54 543/G312609 FmPA
+2 10 Q
+(The softw) 153.21 369.66 T
+(are design for NIRI be) 193.38 369.66 T
+(g) 283.2 369.66 T
+(an in the early part of 1997; NIRI is e) 288.15 369.66 T
+(xpected to be deli) 438.25 369.66 T
+(v-) 508.82 369.66 T
+54 514/G312610 FmPA
+(ered in late 1999. During this time, the design of NIRI has changed signi\336cantly for man) 153.21 357.66 T
+(y) 507.74 357.66 T
+(reasons.) 153.21 345.66 T
+1 12 Q
+(3.1) 129 311.33 T
+(Early attempts) 153 311.33 T
+54 455/G312736 FmPA
+2 10 Q
+(Originally) 153.21 286.66 T
+(, the NIRI de) 193.67 286.66 T
+(v) 245.63 286.66 T
+(elopers were told that v) 250.48 286.66 T
+(ery little softw) 344.2 286.66 T
+(are de) 402.43 286.66 T
+(v) 426.33 286.66 T
+(elopment w) 431.18 286.66 T
+(ould be) 478.02 286.66 T
+54 431/G312622 FmPA
+-0.05 (necessary) 153.21 274.66 P
+-0.05 (. The CICS w) 191.43 274.66 P
+-0.05 (as a prototype system which w) 246.18 274.66 P
+-0.05 (ould be pro) 368.86 274.66 P
+-0.05 (vided for use as a template) 414.16 274.66 P
+-0.36 (for the instrument, which could easily be customized to \336t the NIRI mechanisms. It w) 153.21 262.66 P
+-0.36 (as to be) 491.32 262.66 P
+(the simple process of rearranging a fe) 153.21 250.66 T
+(w capf) 303.47 250.66 T
+(ast diagrams, and adding links to e) 330.3 250.66 T
+(xisting) 468.75 250.66 T
+(records, to pro) 153.21 238.66 T
+(vide the actual mechanism control. At that time, the design for NIRI seemed) 211.1 238.66 T
+(quite straightforw) 153.21 226.66 T
+(ard. V) 224.49 226.66 T
+(ery little time had been b) 248.37 226.66 T
+(udgeted for softw) 347.88 226.66 T
+(are de) 418.32 226.66 T
+(v) 442.22 226.66 T
+(elopment, on the) 447.07 226.66 T
+(belief that the design w) 153.21 214.66 T
+(ould be tri) 246.43 214.66 T
+(vial, based lar) 287.29 214.66 T
+(gely on an e) 342.93 214.66 T
+(xisting design. The implementa-) 391.38 214.66 T
+(tion w) 153.21 202.66 T
+(as also e) 178.39 202.66 T
+(xpected to be a relati) 212.12 202.66 T
+(v) 295.18 202.66 T
+(ely simple task, since it w) 300.03 202.66 T
+(as e) 403.26 202.66 T
+(xpected to be a minor) 418.38 202.66 T
+(modi\336cation of an e) 153.21 190.66 T
+(xisting implementation.) 233.33 190.66 T
+-0.33 (At that early stage, the only task for the NIRI softw) 153.21 166.66 P
+-0.33 (are de) 355.58 166.66 P
+-0.33 (v) 379.15 166.66 P
+-0.33 (elopers w) 384 166.66 P
+-0.33 (as to learn EPICS, which) 422.17 166.66 P
+54 311/G312645 FmPA
+(appeared to be a relati) 153.21 154.66 T
+(v) 241.26 154.66 T
+(ely simple task. At that time, no attention w) 246.11 154.66 T
+(as paid to the process of) 421.01 154.66 T
+(record de) 153.21 142.66 T
+(v) 190.44 142.66 T
+(elopment, indeed, to an) 195.29 142.66 T
+(y of the mechanisms for embedding C code within an) 288.74 142.66 T
+(EPICS system. Simple EPICS databases were b) 153.21 130.66 T
+(uilt. From this early e) 343.84 130.66 T
+(xperience, it seemed) 430.08 130.66 T
+(that b) 153.21 118.66 T
+(uilding a mechanism-control database w) 175.51 118.66 T
+(ould be a f) 337.05 118.66 T
+(airly simple task.) 379.44 118.66 T
+(A cop) 153.21 94.66 T
+(y of the CICS w) 177.27 94.66 T
+(as obtained f) 242.17 94.66 T
+(airly quickly) 293.17 94.66 T
+(. Unfortunately) 343.35 94.66 T
+(, this w) 403.8 94.66 T
+(as not the \336nal CICS) 432.87 94.66 T
+54 239/G312642 FmPA
+-0.23 (release, nor w) 153.21 82.66 P
+-0.23 (ould the \336nal release be a) 208.47 82.66 P
+-0.23 (v) 309.05 82.66 P
+-0.23 (ailable for some time, because the CICS project w) 313.8 82.66 P
+-0.23 (as) 512.67 82.66 P
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.2/DEST FmPD2
+[/Rect[267 658 413 669]/Border[0 0 0]/Dest/M9.40713.Heading2.15.References/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Rect[446 646 457 657]/Border[0 0 0]/Dest/M9.25768.Doclist1.1.nirihty000fm.obsolete.superseded.by.this.document.and.by.2.NIRI.Optical/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Title(A)/Rect[45 60 532 696]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "2" 2
+%%Page: "3" 3
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.68 558 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Histor) 132.8 733.66 T
+(y) 158.89 733.66 T
+72 878/G297507 FmPA
+72 726.98 558 726.98 2 L
+0.25 H
+N
+72 62.08 558 62.08 2 L
+2 Z
+N
+(Near IR Ima) 72 45.45 T
+(g) 121.43 45.45 T
+(er \050NIRI\051 Software\321Pr) 127.02 45.45 T
+(oject Histor) 220.85 45.45 T
+(y Document) 270.45 45.45 T
+( niri_hty_010) 414.08 45.45 T
+0 10 Q
+(/) 469.1 45.45 T
+0 9 Q
+(02) 471.88 45.45 T
+0 10 Q
+(3) 516.65 45.45 T
+0 9 Q
+( of) 522.21 45.45 T
+0 10 Q
+(8) 535.71 45.45 T
+72 189/G297526 FmPA
+2 F
+(e) 171.21 680.66 T
+(xperiencing une) 175.5 680.66 T
+(xpected delays. The CICS turned out to be quite a bit lar) 239.5 680.66 T
+(ger and more com-) 464.85 680.66 T
+(plicated than e) 171.21 668.66 T
+(xpected; ho) 229.38 668.66 T
+(we) 275.51 668.66 T
+(v) 286.92 668.66 T
+(er) 291.77 668.66 T
+(, at the time, this did not seem to be a major problem,) 299.14 668.66 T
+-0.17 (because it w) 171.21 656.66 P
+-0.17 (as belie) 220.21 656.66 P
+-0.17 (v) 250.06 656.66 P
+-0.17 (ed that it w) 254.91 656.66 P
+-0.17 (ould not be necessary to deal with most of the comple) 299.02 656.66 P
+-0.17 (xity of) 512.72 656.66 P
+(the system. It w) 171.21 644.66 T
+(as thought that the b) 234.44 644.66 T
+(ulk of the implementation could be treated as \322black) 315.35 644.66 T
+(box) 171.21 632.66 T
+(es,) 186.06 632.66 T
+(\323 not requiring understanding of the details.) 196.19 632.66 T
+(The \336rst task seemed ob) 171.21 608.66 T
+(vious: Customize the CICS to produce a w) 268.27 608.66 T
+(orking prototype for the) 439 608.66 T
+72 753/G312660 FmPA
+-0.09 (NIRI system. It w) 171.21 596.66 P
+-0.09 (as felt that the w) 242.51 596.66 P
+-0.09 (orking prototype w) 308.17 596.66 P
+-0.09 (ould be updated when the \336nal v) 384.55 596.66 P
+-0.09 (ersion) 514.42 596.66 P
+(of the CICS w) 171.21 584.66 T
+(as pro) 228.61 584.66 T
+(vided, and it w) 252.62 584.66 T
+(as belie) 311.96 584.66 T
+(v) 341.98 584.66 T
+(ed that the prototype could tri) 346.83 584.66 T
+(vially be modi\336ed) 465.18 584.66 T
+-0.03 (to control actual motors. Although it w) 171.21 572.66 P
+-0.03 (as realized that this w) 326.76 572.66 P
+-0.03 (as an early release of the CICS,) 413.19 572.66 P
+(it w) 171.21 560.66 T
+(as thought that it w) 186.39 560.66 T
+(ould be f) 262.96 560.66 T
+(airly easy to upgrade the system to a ne) 298.41 560.66 T
+(w CICS release,) 455.91 560.66 T
+(because the b) 171.21 548.66 T
+(ulk of the implementation w) 224.88 548.66 T
+(ould be left untouched.) 338.11 548.66 T
+(Unfortunately) 171.21 524.66 T
+(, it w) 226.66 524.66 T
+(as found that the CICS w) 246.84 524.66 T
+(as f) 347.57 524.66 T
+(ar more dif) 361.63 524.66 T
+(\336cult to modify than e) 405.81 524.66 T
+(xpected.) 494.55 524.66 T
+72 669/G312701 FmPA
+(W) 171.21 512.66 T
+(eaknesses of capf) 179.85 512.66 T
+(ast became ob) 249.72 512.66 T
+(vious, and the e) 306.22 512.66 T
+(xtremely lar) 368.84 512.66 T
+(ge number of connections) 417.26 512.66 T
+(required were found to be quite unwieldy) 171.21 500.66 T
+(. Furthermore, the e) 336.08 500.66 T
+(xisting diagrams had not been) 415.08 500.66 T
+(designed with room for e) 171.21 488.66 T
+(xpansion, requiring a signi\336cant amount of ef) 271.6 488.66 T
+(fort to increase the) 453.83 488.66 T
+(number of mechanisms from the small number that were present in the simulated database.) 171.21 476.66 T
+(Furthermore, the diagrams were e) 171.21 464.66 T
+(xtremely dif) 306.3 464.66 T
+(\336cult to understand. It took considerable time) 355.21 464.66 T
+(to \336gure out precisely what each mechanism w) 171.21 452.66 T
+(as doing. \050In later releases, comments the) 359.13 452.66 T
+(CICS de) 171.21 440.66 T
+(v) 205.13 440.66 T
+(elopers added comments, which reduced the amount of ef) 209.98 440.66 T
+(fort required to under-) 440.51 440.66 T
+-0.01 (stand the diagram.\051 Ultimately) 171.21 428.66 P
+-0.01 (, ho) 292.73 428.66 P
+-0.01 (we) 307.46 428.66 P
+-0.01 (v) 318.87 428.66 P
+-0.01 (er) 323.72 428.66 P
+-0.01 (, a w) 331.09 428.66 P
+-0.01 (orking prototype for the NIRI mechanisms w) 350.12 428.66 P
+-0.01 (as) 530.46 428.66 P
+(completed, and the NIRI de) 171.21 416.66 T
+(v) 281.77 416.66 T
+(elopers had de) 286.62 416.66 T
+(v) 344.13 416.66 T
+(eloped a much better understanding of the w) 348.98 416.66 T
+(ay) 526.9 416.66 T
+(that the CICS w) 171.21 404.66 T
+(ork) 235.28 404.66 T
+(ed.) 248.51 404.66 T
+(Soon after) 171.21 380.66 T
+(, ho) 212.19 380.66 T
+(we) 226.94 380.66 T
+(v) 238.35 380.66 T
+(er) 243.2 380.66 T
+(, a ne) 250.57 380.66 T
+(w v) 271.7 380.66 T
+(ersion of the CICS w) 286.27 380.66 T
+(as released. This too, w) 370.61 380.66 T
+(as not the \336nal) 464.38 380.66 T
+72 525/G312704 FmPA
+-0.25 (release. It w) 171.21 368.66 P
+-0.25 (as immediately ob) 219.21 368.66 P
+-0.25 (vious that there w) 291.9 368.66 P
+-0.25 (as a problem. Minor changes had been made) 362.45 368.66 P
+(throughout the entire system. A shortcoming of capf) 171.21 356.66 T
+(ast suddenly became painfully visible:) 380.53 356.66 T
+-0.37 (e) 171.21 344.66 P
+-0.37 (v) 175.4 344.66 P
+-0.37 (en the most tri) 180.25 344.66 P
+-0.37 (vial changes in a capf) 236.4 344.66 P
+-0.37 (ast diagram made signi\336cant changes in the underlying) 321.47 344.66 P
+-0.01 (schematic \336les. Although the \336les were te) 171.21 332.66 P
+-0.01 (xt-based, trying to compare the ne) 338.48 332.66 P
+-0.01 (w v) 474.81 332.66 P
+-0.01 (ersion to the) 489.37 332.66 P
+(older v) 171.21 320.66 T
+(ersion w) 199.11 320.66 T
+(as fruitless. It w) 233.17 320.66 T
+(as clear that the prototype w) 296.95 320.66 T
+(ould ha) 409.88 320.66 T
+(v) 439.4 320.66 T
+(e to be re-implemented) 444.25 320.66 T
+(using the ne) 171.21 308.66 T
+(wer v) 219.29 308.66 T
+(ersion of the CICS. Because this w) 241.63 308.66 T
+(as not the \336nal v) 381.24 308.66 T
+(ersion of the CICS, it) 447.2 308.66 T
+-0.23 (w) 171.21 296.66 P
+-0.23 (as felt that an) 178.33 296.66 P
+-0.23 (y time spent in de) 231.1 296.66 P
+-0.23 (v) 301.04 296.66 P
+-0.23 (eloping a CICS-based prototype w) 305.89 296.66 P
+-0.23 (ould be w) 443.19 296.66 P
+-0.23 (asted, so w) 482.07 296.66 P
+-0.23 (ork) 525.67 296.66 P
+(w) 171.21 284.66 T
+(as temporarily suspended on the public interf) 178.33 284.66 T
+(ace to NIRI.) 358.76 284.66 T
+(While the w) 171.21 260.66 T
+(ork on the prototype w) 219.99 260.66 T
+(as taking place, early prototype mechanisms were being) 310.99 260.66 T
+72 405/G312711 FmPA
+(designed and f) 171.21 248.66 T
+(abricated, and motors were a) 229.43 248.66 T
+(v) 344.47 248.66 T
+(ailable for testing. Simple databases were cre-) 349.22 248.66 T
+-0.05 (ated, and, in surprisingly short time, it w) 171.21 236.66 P
+-0.05 (as possible to create a database to control the motor) 332.96 236.66 P
+(using the steppermotor record. It w) 171.21 224.66 T
+(as also quite easy to read out the v) 311.64 224.66 T
+(alues from the Hall) 448.59 224.66 T
+(ef) 171.21 212.66 T
+(fect sensors. This early success w) 178.73 212.66 T
+(as to pro) 313.04 212.66 T
+(v) 347.33 212.66 T
+(e misleading, ho) 352.18 212.66 T
+(we) 417.76 212.66 T
+(v) 429.17 212.66 T
+(er) 434.02 212.66 T
+(, because further testing) 441.39 212.66 T
+-0.37 (sho) 171.21 200.66 P
+-0.37 (wed the steppermotor record to be quite unreliable. It took quite a bit of time to isolate the) 184.85 200.66 P
+(problems with the steppermotor record, and at the time the NIRI de) 171.21 188.66 T
+(v) 440.36 188.66 T
+(elopers disco) 445.21 188.66 T
+(v) 497.55 188.66 T
+(ered f) 502.4 188.66 T
+(ar) 525.34 188.66 T
+(more about the inner w) 171.21 176.66 T
+(orkings of EPICS than w) 263.87 176.66 T
+(as desired; though this kno) 363.77 176.66 T
+(wledge w) 470.74 176.66 T
+(ould) 509.24 176.66 T
+(e) 171.21 164.66 T
+(v) 175.4 164.66 T
+(entually turn out to be quite handy) 180.25 164.66 T
+(. The steppermotor record w) 317.37 164.66 T
+(as ne) 430.85 164.66 T
+(v) 450.87 164.66 T
+(er completely reli-) 455.72 164.66 T
+(able, though.) 171.21 152.66 T
+-0.04 (At this point, an attempt w) 171.21 128.66 P
+-0.04 (as made to implement the proposed home \336nding algorithm. This) 277.56 128.66 P
+72 273/G312716 FmPA
+(required the Hall ef) 171.21 116.66 T
+(fect sensors to be read, while mo) 248.99 116.66 T
+(ving the motor) 380.2 116.66 T
+(. When the strongest sig-) 438.54 116.66 T
+(nal w) 171.21 104.66 T
+(as read from the sensor) 193.05 104.66 T
+(, that w) 285.4 104.66 T
+(ould be the motor home position. It w) 315.02 104.66 T
+(as realized that a) 466.03 104.66 T
+(more sophisticated algorithm w) 171.21 92.66 T
+(ould be needed for the \336nal system, b) 297.49 92.66 T
+(ut that this w) 447.27 92.66 T
+(ould be) 499.12 92.66 T
+(suf) 171.21 80.66 T
+(\336cient for an early prototype.) 183.18 80.66 T
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.3/DEST FmPD2
+[/Title(A)/Rect[63 60 550 696]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "3" 3
+%%Page: "4" 4
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.68 540 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Histor) 114.8 733.66 T
+(y) 140.89 733.66 T
+54 878/G297473 FmPA
+54 726.98 540 726.98 2 L
+0.25 H
+N
+52.58 54.99 538.58 54.99 2 L
+2 Z
+N
+0 10 Q
+(4) 52.58 38.89 T
+0 9 Q
+( of) 58.14 38.89 T
+0 10 Q
+( 8) 69.14 38.89 T
+0 9 Q
+( niri_hty_010) 113.39 38.89 T
+0 10 Q
+(/) 168.41 38.89 T
+0 9 Q
+(02) 171.19 38.89 T
+(Near IR Ima) 271.9 38.89 T
+(g) 321.33 38.89 T
+(er \050NIRI\051 Software\321Pr) 326.92 38.89 T
+(oject Histor) 420.75 38.89 T
+(y Document) 470.35 38.89 T
+53 183/G297492 FmPA
+2 10 Q
+(At this time, the NIRI de) 153.21 680.66 T
+(v) 252.4 680.66 T
+(elopers were constrained by the requirement\321v) 257.25 680.66 T
+(erbally presented,) 449.55 680.66 T
+54 825/G312719 FmPA
+-0.26 (b) 153.21 668.66 P
+-0.26 (ut apparently mandatory) 158.01 668.66 P
+-0.26 (, and not ne) 254.6 668.66 P
+-0.26 (gotiable\321that e) 300.33 668.66 P
+-0.26 (v) 363.98 668.66 P
+-0.26 (erything be done using capf) 368.83 668.66 P
+-0.26 (ast and the) 478.79 668.66 P
+(standard EPICS records. The subroutine record had e) 153.21 656.66 T
+(xplicitly been discouraged, though it) 365.79 656.66 T
+-0.05 (might be allo) 153.21 644.66 P
+-0.05 (wed to be used. A signi\336cant amount of ef) 205.65 644.66 P
+-0.05 (fort w) 374.72 644.66 P
+-0.05 (as e) 398.74 644.66 P
+-0.05 (xpended in trying to create) 413.81 644.66 P
+(a search algorithm using these tools. Ev) 153.21 632.66 T
+(entually) 312.21 632.66 T
+(, a diagram w) 343.78 632.66 T
+(as created that w) 398.11 632.66 T
+(as able to per-) 464.93 632.66 T
+(form the necessary functions, to some e) 153.21 620.66 T
+(xtent. Ho) 311.64 620.66 T
+(we) 348.61 620.66 T
+(v) 360.02 620.66 T
+(er) 364.87 620.66 T
+(, it w) 372.24 620.66 T
+(as clear from the comple) 392.42 620.66 T
+(xity of) 491.13 620.66 T
+(the system that implemented the simplest possible algorithm, that the ef) 153.21 608.66 T
+(fort required in) 439.9 608.66 T
+(implementing an) 153.21 596.66 T
+(y re\336nements w) 220.56 596.66 T
+(ould be prohibiti) 284.34 596.66 T
+(v) 350.76 596.66 T
+(e.) 355.61 596.66 T
+(At that time, the NIRI de) 153.21 572.66 T
+(v) 252.95 572.66 T
+(elopers were still attempting to ful\336l the all requirements, both) 257.8 572.66 T
+54 717/G312732 FmPA
+(written and v) 153.21 560.66 T
+(erbal. Inspection of the CICS sho) 205.83 560.66 T
+(wed that the EPICS state notation language) 338.9 560.66 T
+(\050SNL\051 w) 153.21 548.66 T
+(as used e) 188.38 548.66 T
+(xtensi) 224.33 548.66 T
+(v) 247.97 548.66 T
+(ely) 252.82 548.66 T
+(, so it w) 264.39 548.66 T
+(as felt that SNL w) 295.96 548.66 T
+(as a permissible de) 368.63 548.66 T
+(v) 444.2 548.66 T
+(elopment tool.) 449.05 548.66 T
+(Implementing a simple search algorithm pro) 153.21 536.66 T
+(v) 330.54 536.66 T
+(ed to be relati) 335.39 536.66 T
+(v) 389.85 536.66 T
+(ely simple to implement. Ho) 394.7 536.66 T
+(w-) 508.62 536.66 T
+(e) 153.21 524.66 T
+(v) 157.4 524.66 T
+(er an) 162.25 524.66 T
+(y attempts to re\336ne the algorithm quickly e) 181.81 524.66 T
+(xposed weaknesses in SNL. In particular) 354.15 524.66 T
+(,) 517.05 524.66 T
+-0.09 (the lack of simple w) 153.21 512.66 P
+-0.09 (ays to preform more than the most tri) 233.84 512.66 P
+-0.09 (vial loops w) 382.1 512.66 P
+-0.09 (as a constant source of) 430.71 512.66 P
+(aggra) 153.21 500.66 T
+(v) 175.22 500.66 T
+(ation, as w) 179.97 500.66 T
+(as the poor support for code reuse. It w) 222.92 500.66 T
+(as clear that implementing an) 379.17 500.66 T
+(y sort) 496.78 500.66 T
+(of useful algorithm w) 153.21 488.66 T
+(ould require f) 239.49 488.66 T
+(ar more time and ef) 293.82 488.66 T
+(fort than w) 371.88 488.66 T
+(as a) 415.66 488.66 T
+(v) 430.73 488.66 T
+(ailable, and that the) 435.48 488.66 T
+(resulting system w) 153.21 476.66 T
+(ould be completely in\337e) 228.11 476.66 T
+(xible and impossible to maintain.) 324.9 476.66 T
+1 12 Q
+(3.2) 129 442.33 T
+(The \336rst w) 153 442.33 T
+(orking system.) 208.21 442.33 T
+54 586/G312737 FmPA
+2 10 Q
+(At this point, it w) 153.21 424.66 T
+(as clear that, as designed, the NIRI softw) 223.4 424.66 T
+(are w) 387.43 424.66 T
+(ould ne) 409.26 424.66 T
+(v) 438.73 424.66 T
+(er be b) 443.58 424.66 T
+(uilt. The) 470.59 424.66 T
+54 569/G312748 FmPA
+(a) 153.21 412.66 T
+(v) 157.45 412.66 T
+(ailable tools were simply insuf) 162.2 412.66 T
+(\336cient, and frustration w) 284.72 412.66 T
+(as b) 382.94 412.66 T
+(uilding. F) 398.57 412.66 T
+(ortunately) 437.32 412.66 T
+(, at this) 477.22 412.66 T
+(time the attitude at Gemini had been changing. Experience with actual systems, and lack of) 153.21 400.66 T
+(progress on the part of the softw) 153.21 388.66 T
+(are groups had led to a more liberal attitude. The arbitrary) 282.53 388.66 T
+-0.32 (restrictions on the use of the full EPICS tool set were quietly dropped, and we were informed) 153.21 376.66 P
+-0.2 (that we could use an) 153.21 364.66 P
+-0.2 (ything that we felt w) 233.91 364.66 P
+-0.2 (as necessary) 315.78 364.66 P
+-0.2 (, though Gemini did not w) 364.63 364.66 P
+-0.2 (ant to see the) 469.09 364.66 P
+(entire NIRI control system embedded within a single subroutine record.) 153.21 352.66 T
+(At that point, embedding the entire NIRI control system within a single subroutine record) 153.21 328.66 T
+54 473/G312749 FmPA
+(w) 153.21 316.66 T
+(as a v) 160.33 316.66 T
+(ery tempting prospect, b) 182.95 316.66 T
+(ut with a certain amount of re) 279.96 316.66 T
+(gret, it w) 398.12 316.66 T
+(as decided to tak) 433.85 316.66 T
+(e a) 500.68 316.66 T
+(more moderate approach. A single gensub \050generalized subroutine\051 record w) 153.21 304.66 T
+(ould be used to) 459.69 304.66 T
+(embed most of the control algorithms. This gensub record w) 153.21 292.66 T
+(ould be connected to the motor) 394.75 292.66 T
+-0.26 (record which w) 153.21 280.66 P
+-0.26 (ould control the motor and to analog input records which w) 214.8 280.66 P
+-0.26 (ould read the Hall) 449.88 280.66 P
+-0.24 (ef) 153.21 268.66 P
+-0.24 (fect sensor v) 160.73 268.66 P
+-0.24 (alues. It w) 210.55 268.66 P
+-0.24 (ould contain a subroutine which w) 251.35 268.66 P
+-0.24 (ould embed the necessary control) 388.1 268.66 P
+(functions. F) 153.21 256.66 T
+(or the \336rst time, it w) 200.84 256.66 T
+(as actually possible for a NIRI mechanism to \336nd its home) 282.41 256.66 T
+(position, using code that w) 153.21 244.66 T
+(as some) 260.61 244.66 T
+(what maintainable.) 292.3 244.66 T
+(Soon, it w) 153.21 220.66 T
+(as realized that the gensub record w) 193.95 220.66 T
+(as insuf) 337.14 220.66 T
+(\336cient. The NIRI control algorithms) 367.72 220.66 T
+54 365/G312760 FmPA
+(required a f) 153.21 208.66 T
+(air amount of control o) 199.2 208.66 T
+(v) 291.26 208.66 T
+(er the output links, and the gensub record w) 296.11 208.66 T
+(as not) 471.26 208.66 T
+(intended to pro) 153.21 196.66 T
+(vide this. Furthermore, there seemed to be no natural w) 213.61 196.66 T
+(ay to deal with slight) 434.86 196.66 T
+(v) 153.21 184.66 T
+(ariations between the dif) 157.96 184.66 T
+(ferent mechanisms, while taking adv) 256.3 184.66 T
+(antage of the similarity) 402.97 184.66 T
+(between the mechanisms.) 153.21 172.66 T
+-0.1 (T) 153.21 148.66 P
+-0.1 (o get around these problems, it w) 158.52 148.66 P
+-0.1 (as decided to create a ne) 290.83 148.66 P
+-0.1 (w) 387.52 148.66 P
+-0.1 (, custom EPICS record, the hall-) 394.09 148.66 P
+54 293/G312765 FmPA
+(step record, which w) 153.21 136.66 T
+(as based on the gensub record. Modifying the code within the record) 236.42 136.66 T
+(pro) 153.21 124.66 T
+(vided direct control o) 166.39 124.66 T
+(v) 252.06 124.66 T
+(er the outputs of the record. Dif) 256.91 124.66 T
+(ferent de) 383.02 124.66 T
+(vice types were de\336ned;) 418.03 124.66 T
+(each de) 153.21 112.66 T
+(vice type w) 183.22 112.66 T
+(ould control the idiosyncrasies of each class of mechanism. The hallstep) 229.22 112.66 T
+(record w) 153.21 100.66 T
+(ould pro) 188.37 100.66 T
+(vide a common interf) 221.83 100.66 T
+(ace to EPICS so that all mechanisms could be con-) 307.55 100.66 T
+(trolled in the same w) 153.21 88.66 T
+(ay) 236.99 88.66 T
+(. The hallstep record w) 245.78 88.66 T
+(as e) 337.6 88.66 T
+(xtended so that it could do a v) 352.72 88.66 T
+(ariety of) 472.74 88.66 T
+(tasks, not just \336nding the home position. Ev) 153.21 76.66 T
+(entually) 328.91 76.66 T
+(, the hallstep record became the control) 360.48 76.66 T
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.4/DEST FmPD2
+[/Title(A)/Rect[45 60 532 696]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "4" 4
+%%Page: "5" 5
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.68 558 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Histor) 132.8 733.66 T
+(y) 158.89 733.66 T
+72 878/G297507 FmPA
+72 726.98 558 726.98 2 L
+0.25 H
+N
+72 62.08 558 62.08 2 L
+2 Z
+N
+(Near IR Ima) 72 45.45 T
+(g) 121.43 45.45 T
+(er \050NIRI\051 Software\321Pr) 127.02 45.45 T
+(oject Histor) 220.85 45.45 T
+(y Document) 270.45 45.45 T
+( niri_hty_010) 414.08 45.45 T
+0 10 Q
+(/) 469.1 45.45 T
+0 9 Q
+(02) 471.88 45.45 T
+0 10 Q
+(5) 516.65 45.45 T
+0 9 Q
+( of) 522.21 45.45 T
+0 10 Q
+(8) 535.71 45.45 T
+72 189/G297526 FmPA
+2 F
+(point for the mechanism, containing all of the more complicated looping and testing func-) 171.21 680.66 T
+-0.2 (tions. A prototype control system w) 171.21 668.66 P
+-0.2 (as created which w) 313.44 668.66 P
+-0.2 (as capable of controlling all of the dif-) 389.1 668.66 P
+-0.09 (ferent mechanisms that were within NIRI. A mechanism simulator w) 171.21 656.66 P
+-0.09 (as written, which made) 446.37 656.66 P
+-0.19 (it possible to b) 171.21 644.66 P
+-0.19 (uild a complete, functional NIRI control system which w) 229.07 644.66 P
+-0.19 (as capable of control-) 455.48 644.66 P
+(ling tw) 171.21 632.66 T
+(o prototype mechanisms and a full compliment of simulated mechanisms.) 199.17 632.66 T
+(The problems with the steppermotor record continued to be a constant source of frustration,) 171.21 608.66 T
+72 753/G312777 FmPA
+(and time w) 171.21 596.66 T
+(as not a) 215.55 596.66 T
+(v) 245.9 596.66 T
+(ailable to \336x its problems. F) 250.65 596.66 T
+(ortunately) 362.73 596.66 T
+(, at this time, we were pro) 402.63 596.66 T
+(vided) 506.35 596.66 T
+(with a cop) 171.21 584.66 T
+(y of the motor record.   Unfortunately) 212.77 584.66 T
+(, the motor record w) 363.2 584.66 T
+(as not a simple drop-in) 444.47 584.66 T
+-0.11 (replacement for the steppermotor record, b) 171.21 572.66 P
+-0.11 (ut modifying the e) 341.54 572.66 P
+-0.11 (xisting system to use the motor) 414.68 572.66 P
+(record instead of the steppermotor record w) 171.21 560.66 T
+(as a relati) 346.06 560.66 T
+(v) 384.13 560.66 T
+(ely minor task.) 388.98 560.66 T
+(The process of replacing the steppermotor record as well as the process of re\336ning the main) 171.21 536.66 T
+72 681/G312787 FmPA
+(control diagram pointed out a serious weakness in the current system. There w) 171.21 524.66 T
+(as a separate) 485.22 524.66 T
+(capf) 171.21 512.66 T
+(ast diagram to control each mechanism type. Ev) 188.32 512.66 T
+(en the slightest change in a capf) 380.36 512.66 T
+(ast dia-) 508.01 512.66 T
+(gram had to be made manually in each diagram. It w) 171.21 500.66 T
+(as realized that proper use of capf) 381.9 500.66 T
+(ast) 516.75 500.66 T
+-0.32 (de\336nitions w) 171.21 488.66 P
+-0.32 (ould mak) 222.75 488.66 P
+-0.32 (e it possible to replace multiple diagrams with a single diagram, which) 259.83 488.66 P
+-0.15 (w) 171.21 476.66 P
+-0.15 (ould simplify the task of maintenance and modi\336cation. Although some symbols w) 178.33 476.66 P
+-0.15 (ould be) 509.36 476.66 P
+-0.15 (unused for particular mechanisms, the g) 171.21 464.66 P
+-0.15 (ain in ef) 330.39 464.66 P
+-0.15 (\336cienc) 362.61 464.66 P
+-0.15 (y f) 389.12 464.66 P
+-0.15 (ar out weighed the slight cost of an) 399.7 464.66 P
+(unused symbol.) 171.21 452.66 T
+1 12 Q
+(3.3) 147 418.33 T
+(Integration with the CICS) 171 418.33 T
+72 562/G312763 FmPA
+2 10 Q
+-0.19 (The Core Instrument Control system \050the CICS\051 w) 171.21 400.66 P
+-0.19 (as then inte) 372.3 400.66 P
+-0.19 (grated with the NIRI softw) 417.33 400.66 P
+-0.19 (are,) 524.25 400.66 P
+72 545/G312908 FmPA
+(with the assistance of Ste) 171.21 388.66 T
+(v) 272.06 388.66 T
+(en Beard. This inte) 276.91 388.66 T
+(gration w) 352.86 388.66 T
+(as a v) 390.81 388.66 T
+(ery smooth process, requiring) 413.43 388.66 T
+(only minor modi\336cations, with the CICS and the NIRI softw) 171.21 376.66 T
+(are. This w) 413.89 376.66 T
+(as a source of great) 458.5 376.66 T
+(comfort for the NIRI and CICS designers, and it w) 171.21 364.66 T
+(as felt that the remaining w) 373.86 364.66 T
+(ork for NIRI) 482.91 364.66 T
+(w) 171.21 352.66 T
+(as to re\336ne the control algorithms to w) 178.33 352.66 T
+(ork with each actual w) 332.94 352.66 T
+(orking mechanisms.   This) 423.37 352.66 T
+(early optimism w) 171.21 340.66 T
+(as soon to be found to be unjusti\336ed.) 241.11 340.66 T
+(It w) 171.21 316.66 T
+(as v) 186.94 316.66 T
+(ery quickly realize that the NIRI/CICS system took an e) 202.62 316.66 T
+(xcessi) 426.61 316.66 T
+(v) 450.8 316.66 T
+(e amount of time to) 455.65 316.66 T
+72 461/G312910 FmPA
+(boot. This w) 171.21 304.66 T
+(as a serious problem, and there w) 221.39 304.66 T
+(as no w) 354.87 304.66 T
+(ay to o) 385.32 304.66 T
+(v) 412.39 304.66 T
+(ercome it, without completely) 417.24 304.66 T
+-0.24 (re) 171.21 292.66 P
+-0.24 (writing the CICS or replacing it. In order to maintain a reasonable le) 178.73 292.66 P
+-0.24 (v) 449.14 292.66 P
+-0.24 (el of producti) 453.99 292.66 P
+-0.24 (vity) 507.13 292.66 P
+-0.24 (, the) 522.04 292.66 P
+-0.21 (NIRI de) 171.21 280.66 P
+-0.21 (v) 203.25 280.66 P
+-0.21 (elopers chose to continue de) 208.1 280.66 P
+-0.21 (v) 320.33 280.66 P
+-0.21 (eloping the NIRI softw) 325.18 280.66 P
+-0.21 (are with minimal testing of the) 416.96 280.66 P
+(NIRI/CICS inte) 171.21 268.66 T
+(grated system. This w) 234.12 268.66 T
+(as, on the whole, a good decision, and signi\336cantly) 321.79 268.66 T
+(increased the producti) 171.21 256.66 T
+(vity of the NIRI softw) 259.27 256.66 T
+(are. Unfortunately) 348.05 256.66 T
+(, it also caused se) 420.71 256.66 T
+(v) 490.17 256.66 T
+(eral inter-) 495.02 256.66 T
+-0.13 (f) 171.21 244.66 P
+-0.13 (ace issues to be postponed, which caused a signi\336cant underestimate of the time required to) 174.44 244.66 P
+(\336nish the system.) 171.21 232.66 T
+1 12 Q
+(3.4) 147 198.33 T
+(The interlock system) 171 198.33 T
+72 342/G312764 FmPA
+2 10 Q
+(At this point, w) 171.21 180.66 T
+(orking mechanisms were becoming a) 233.34 180.66 T
+(v) 382 180.66 T
+(ailable, and a great deal of time and) 386.75 180.66 T
+72 325/G312909 FmPA
+(ef) 171.21 168.66 T
+(fort were de) 178.73 168.66 T
+(v) 226.79 168.66 T
+(oted to getting the mechanism control re\336ned and to v) 231.59 168.66 T
+(erify correct operation) 447.81 168.66 T
+-0.18 (of the mechanisms. At this point, it w) 171.21 156.66 P
+-0.18 (as felt that the decision to postpone de) 320.15 156.66 P
+-0.18 (v) 471.69 156.66 P
+-0.18 (elopment of the) 476.54 156.66 P
+(o) 171.21 144.66 T
+(v) 176.06 144.66 T
+(erall system w) 180.91 144.66 T
+(as a sound one. Unfortunately) 238.58 144.66 T
+(, this meant that se) 357.63 144.66 T
+(v) 432.1 144.66 T
+(eral user interf) 436.95 144.66 T
+(ace ele-) 495.16 144.66 T
+(ments had to be b) 171.21 132.66 T
+(uilt into the NIRI lo) 241.56 132.66 T
+(w-le) 320.76 132.66 T
+(v) 338.28 132.66 T
+(el support system. V) 343.13 132.66 T
+(arious interlocks to pre) 424.24 132.66 T
+(v) 515.92 132.66 T
+(ent) 520.77 132.66 T
+(operation of the motors at critical times were added \050partly at the request of the GNIRS) 171.21 120.66 T
+-0.07 (de) 171.21 108.66 P
+-0.07 (v) 180.4 108.66 P
+-0.07 (elopers\051. It w) 185.25 108.66 P
+-0.07 (as felt that the interlocks should be implemented in the lo) 238.06 108.66 P
+-0.07 (wer) 466.55 108.66 P
+-0.07 (-le) 481.34 108.66 P
+-0.07 (v) 491.64 108.66 P
+-0.07 (el code, so) 496.49 108.66 P
+(that the implementation w) 171.21 96.66 T
+(ould be simple to v) 275.83 96.66 T
+(erify by inspection.) 352.35 96.66 T
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.5/DEST FmPD2
+[/Title(A)/Rect[63 60 550 696]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "5" 5
+%%Page: "6" 6
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.68 540 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Histor) 114.8 733.66 T
+(y) 140.89 733.66 T
+54 878/G297473 FmPA
+54 726.98 540 726.98 2 L
+0.25 H
+N
+52.58 54.99 538.58 54.99 2 L
+2 Z
+N
+0 10 Q
+(6) 52.58 38.89 T
+0 9 Q
+( of) 58.14 38.89 T
+0 10 Q
+( 8) 69.14 38.89 T
+0 9 Q
+( niri_hty_010) 113.39 38.89 T
+0 10 Q
+(/) 168.41 38.89 T
+0 9 Q
+(02) 171.19 38.89 T
+(Near IR Ima) 271.9 38.89 T
+(g) 321.33 38.89 T
+(er \050NIRI\051 Software\321Pr) 326.92 38.89 T
+(oject Histor) 420.75 38.89 T
+(y Document) 470.35 38.89 T
+53 183/G297492 FmPA
+2 10 Q
+-0.13 (Getting the interlocks to w) 153.21 680.66 P
+-0.13 (ork with the CICS code turned out to be an une) 259.24 680.66 P
+-0.13 (xpected challenge.) 446.62 680.66 P
+54 825/G312923 FmPA
+-0.23 (Since there w) 153.21 668.66 P
+-0.23 (as no intrinsic support for state v) 207.08 668.66 P
+-0.23 (ariables in the CICS, it w) 336.54 668.66 P
+-0.23 (as felt that the easiest) 436.39 668.66 P
+(approach w) 153.21 656.66 T
+(as to treat the interlock v) 199.48 656.66 T
+(ariables as a simple tw) 298.38 656.66 T
+(o-position mechanism. Since the) 388.82 656.66 T
+-0.12 (interlocks were all interrelated, it w) 153.21 644.66 P
+-0.12 (as felt that the interlocks could easily be treated as a four) 294.72 644.66 P
+(axis mechanism. It w) 153.21 632.66 T
+(as realized that this approach w) 238.1 632.66 T
+(ould lead to a more complicated imple-) 363.8 632.66 T
+-0.2 (mentation, b) 153.21 620.66 P
+-0.2 (ut w) 202.81 620.66 P
+-0.2 (ould permit lar) 220.01 620.66 P
+-0.2 (ge amounts of the CICS code to be used unmodi\336ed. In retro-) 278.86 620.66 P
+(spect, this pro) 153.21 608.66 T
+(v) 208.89 608.66 T
+(ed to be a v) 213.74 608.66 T
+(ery bad decision, possibly the w) 259.69 608.66 T
+(orst decision that the NIRI) 387.91 608.66 T
+(de) 153.21 596.66 T
+(v) 162.4 596.66 T
+(elopers made on the project.) 167.25 596.66 T
+(Expanding the e) 153.21 572.66 T
+(xisting tw) 218.05 572.66 T
+(o-axis discreet mechanism to support a four) 257.68 572.66 T
+(-axis mechanism w) 432.45 572.66 T
+(as) 509.56 572.66 T
+54 717/G312934 FmPA
+-0.04 (found to be rather challenging. It required a surprising amount of rearrangement of the e) 153.21 560.66 P
+-0.04 (xist-) 505.49 560.66 P
+-0.2 (ing diagrams, to add the ne) 153.21 548.66 P
+-0.2 (w ax) 260.27 548.66 P
+-0.2 (es. Furthermore, in order to support all of the \336elds that were) 279.08 548.66 P
+-0.12 (required by the SNL code, it w) 153.21 536.66 P
+-0.12 (as necessary to add a lar) 275.96 536.66 P
+-0.12 (ge number of dummy \336eld, including) 372.08 536.66 P
+(a completion \336eld which w) 153.21 524.66 T
+(ould toggle immediately \050since the \337ags could be set instantly\051.) 261.99 524.66 T
+(Ultimately) 153.21 500.66 T
+(, when it became necessary to mak) 195.34 500.66 T
+(e major modi\336cations to the mechanism-con-) 334.37 500.66 T
+54 645/G312941 FmPA
+(trol \050described belo) 153.21 488.66 T
+(w\051 it w) 230.72 488.66 T
+(as decided that it w) 258.95 488.66 T
+(as a w) 336.06 488.66 T
+(aste of ef) 360.95 488.66 T
+(fort to mak) 397.35 488.66 T
+(e the same changes) 441.69 488.66 T
+-0.08 (to the pseudo mechanisms. At that point, the code w) 153.21 476.66 P
+-0.08 (as copied \050unfortunately) 361.5 476.66 P
+-0.08 (, no simple w) 457.88 476.66 P
+-0.08 (ay) 511.42 476.66 P
+-0.14 (to share common code w) 153.21 464.66 P
+-0.14 (as found\051, and the supporting code for the interlocks w) 252.55 464.66 P
+-0.14 (as simpli\336ed.) 470.07 464.66 P
+-0.15 (The apparent simpli\336cations that arose from making a \337ag look lik) 153.21 440.66 P
+-0.15 (e a mechanism turned out) 418.78 440.66 P
+54 585/G312946 FmPA
+(to be illusory) 153.21 428.66 T
+(, and actually ended up w) 205.34 428.66 T
+(asting f) 307.44 428.66 T
+(ar more time and ef) 337.06 428.66 T
+(fort than it sa) 415.12 428.66 T
+(v) 467.97 428.66 T
+(ed.) 472.82 428.66 T
+1 12 Q
+(3.5) 129 394.33 T
+(The NIRI temperatur) 153 394.33 T
+(e contr) 264.1 394.33 T
+(ol system) 299.53 394.33 T
+54 538/G312968 FmPA
+2 10 Q
+-0.25 (The lo) 153.21 376.66 P
+-0.25 (w le) 178.54 376.66 P
+-0.25 (v) 194.98 376.66 P
+-0.25 (el control system w) 199.83 376.66 P
+-0.25 (as made to function by writing a custom record to interf) 277.02 376.66 P
+-0.25 (ace to) 497.68 376.66 P
+54 521/G312969 FmPA
+(the of) 153.21 364.66 T
+(f-the-shelf temperature controllers. The mechanisms were supported using a custom) 176.01 364.66 T
+(record, which communicated with the b) 153.21 352.66 T
+(uilt-in serial ports on the CPU and a XYCOM serial) 311.87 352.66 T
+(I/O interf) 153.21 340.66 T
+(ace board, which w) 190.6 340.66 T
+(as chosen because of pre) 268.25 340.66 T
+(vious e) 366.85 340.66 T
+(xperience with the board. The) 395.31 340.66 T
+(e) 153.21 328.66 T
+(xisting EPICS serial control softw) 157.5 328.66 T
+(are w) 294.07 328.66 T
+(as not used, because the control task w) 315.9 328.66 T
+(as quite sim-) 470.77 328.66 T
+(ple. In retrospect, some time might ha) 153.21 316.66 T
+(v) 304.66 316.66 T
+(e been sa) 309.51 316.66 T
+(v) 345.96 316.66 T
+(ed by using the e) 350.81 316.66 T
+(xisting softw) 418.43 316.66 T
+(are, and) 470.28 316.66 T
+(choosing a board with e) 153.21 304.66 T
+(xisting EPICS support.) 248.6 304.66 T
+(The NIRI temperature control system had man) 153.21 280.66 T
+(y of the problems in interf) 339.69 280.66 T
+(acing to the CICS) 444.3 280.66 T
+54 425/G312972 FmPA
+-0.21 (that the interlock system had. The initial attempt at controlling the system w) 153.21 268.66 P
+-0.21 (as made by treat-) 455.31 268.66 P
+(ing the temperature control as a three axis mechanism. The dif) 153.21 256.66 T
+(\336culties which plagued the) 402.63 256.66 T
+(interlock system also plagued the temperature control system, and ultimately) 153.21 244.66 T
+(, the tempera-) 459.75 244.66 T
+-0.34 (ture control system w) 153.21 232.66 P
+-0.34 (as unable to share much code with the mechanism control system; most) 238.48 232.66 P
+(of the capf) 153.21 220.66 T
+(ast diagrams had to be replicated and customized.) 195.87 220.66 T
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.6/DEST FmPD2
+[/Title(A)/Rect[45 60 532 696]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "6" 6
+%%Page: "7" 7
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.68 558 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(CICS) 132.8 733.66 T
+72 878/G297507 FmPA
+72 726.98 558 726.98 2 L
+0.25 H
+N
+72 62.08 558 62.08 2 L
+2 Z
+N
+(Near IR Ima) 72 45.45 T
+(g) 121.43 45.45 T
+(er \050NIRI\051 Software\321Pr) 127.02 45.45 T
+(oject Histor) 220.85 45.45 T
+(y Document) 270.45 45.45 T
+( niri_hty_010) 414.08 45.45 T
+0 10 Q
+(/) 469.1 45.45 T
+0 9 Q
+(02) 471.88 45.45 T
+0 10 Q
+(7) 516.65 45.45 T
+0 9 Q
+( of) 522.21 45.45 T
+0 10 Q
+(8) 535.71 45.45 T
+72 189/G297526 FmPA
+1 12 Q
+(3.6) 147 679.33 T
+(The NIRI diagnostic functions) 171 679.33 T
+72 823/G312947 FmPA
+(3.7) 147 644.33 T
+(The NIRI v) 171 644.33 T
+(eri\336cation functions) 229.55 644.33 T
+72 788/G312948 FmPA
+72 594.33 541.28 603.33 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171 603.33 549 603.33 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 603.33 162 603.33 2 L
+0 Z
+N
+0 0 612 792 C
+1 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(4) 156 607.33 T
+(CICS) 171 607.33 T
+72 751/G312617 FmPA
+(4.1) 147 563.33 T
+(Successful elements of the CICS) 171 563.33 T
+72 707/G312600 FmPA
+2 10 Q
+(The CICS pro) 171.21 545.66 T
+(vides all of the necessary ICD compliant e) 227.17 545.66 T
+(xternal interf) 396.71 545.66 T
+(aces.) 448.54 545.66 T
+72 690/G312788 FmPA
+1 12 Q
+(4.2) 147 511.33 T
+(Pr) 171 511.33 T
+(oblems with the CICS) 183.44 511.33 T
+72 655/G312602 FmPA
+2 10 Q
+-0.02 (The CICS is v) 171.21 493.66 P
+-0.02 (ery slo) 227.95 493.66 P
+-0.02 (w to reboot, and dif) 254.62 493.66 P
+-0.02 (\336cult to modify) 332.89 493.66 P
+-0.02 (. There are a lar) 394.43 493.66 P
+-0.02 (ge number of nearly-) 457.2 493.66 P
+72 638/G312789 FmPA
+(identical diagrams, all of which must be modi\336ed in order to mak) 171.21 481.66 T
+(e an) 433.31 481.66 T
+(y changes to the sys-) 449.54 481.66 T
+(tem. It assumes that all mechanisms are handled in an identical f) 171.21 469.66 T
+(ashion, and requires a lar) 428.85 469.66 T
+(ge) 528.92 469.66 T
+(number of diagrams to be duplicated if one mechanism must be handled dif) 171.21 457.66 T
+(ferently) 473.14 457.66 T
+(.) 503.59 457.66 T
+72 408.33 541.28 417.33 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171 417.33 549 417.33 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 417.33 162 417.33 2 L
+0 Z
+N
+0 0 612 792 C
+1 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(5) 156 421.33 T
+(The NIRI softwar) 171 421.33 T
+(e) 262.1 421.33 T
+72 565/G312592 FmPA
+(5.1) 147 377.33 T
+(Successful elements of NIRI) 171 377.33 T
+72 521/G312601 FmPA
+2 10 Q
+(The strong separation of the higher) 171.21 359.66 T
+(-le) 311.26 359.66 T
+(v) 321.56 359.66 T
+(el interf) 326.41 359.66 T
+(ace from the lo) 357.69 359.66 T
+(w-le) 417.7 359.66 T
+(v) 435.22 359.66 T
+(el mechanism-control) 440.07 359.66 T
+72 504/G312681 FmPA
+(database has turned out to be v) 171.21 347.66 T
+(ery useful. This has made it possible to rapidly de) 294.37 347.66 T
+(v) 492.99 347.66 T
+(elop cus-) 497.84 347.66 T
+(tomized mechanism controls, without w) 171.21 335.66 T
+(orries about meeting interf) 331.38 335.66 T
+(ace speci\336cations. It has) 437.65 335.66 T
+(streamlined the de) 171.21 323.66 T
+(v) 244.28 323.66 T
+(elopment c) 249.13 323.66 T
+(ycle, by reducing the time w) 293.14 323.66 T
+(asted w) 406.91 323.66 T
+(aiting for the system to) 437.08 323.66 T
+(reboot. It made it possible to replace the mechanism implementation with a simulation, so) 171.21 311.66 T
+(that the public interf) 171.21 299.66 T
+(aces could be tested and deb) 252.49 299.66 T
+(ugged long before the actual mechanisms) 365.87 299.66 T
+(were a) 171.21 287.66 T
+(v) 197.38 287.66 T
+(ailable.) 202.13 287.66 T
+(Using identical capf) 171.21 263.66 T
+(ast diagrams for all mechanisms has turned out to be a tremendous time) 251.65 263.66 T
+72 408/G312696 FmPA
+(sa) 171.21 251.66 T
+(v) 179.34 251.66 T
+(er) 184.19 251.66 T
+(.) 191.41 251.66 T
+-0.09 (Using the same custom record for all mechanisms, with custom de) 171.21 227.66 P
+-0.09 (vice support for the dif) 435.82 227.66 P
+-0.09 (fer-) 526.84 227.66 P
+72 372/G312697 FmPA
+(ent de) 171.21 215.66 T
+(vice types has been quite useful in reducing the amount of w) 195.12 215.66 T
+(ork in) 437.48 215.66 T
+(v) 460.69 215.66 T
+(olv) 465.49 215.66 T
+(ed. Being able) 478.12 215.66 T
+(to replace the dri) 171.21 203.66 T
+(v) 238.44 203.66 T
+(ers with simulated mechanisms has insured that the simulation is able to) 243.29 203.66 T
+(reproduce the w) 171.21 191.66 T
+(orking system with a high de) 235.53 191.66 T
+(gree of accurac) 351.21 191.66 T
+(y) 412.13 191.66 T
+(. This has allo) 416.48 191.66 T
+(wed much de) 472.34 191.66 T
+(v) 525.41 191.66 T
+(el-) 530.26 191.66 T
+(opment and deb) 171.21 179.66 T
+(ugging to be carried out before the mechanisms were a) 234.89 179.66 T
+(v) 453.8 179.66 T
+(ailable.) 458.55 179.66 T
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.7/DEST FmPD2
+[/Title(A)/Rect[63 60 550 696]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "7" 7
+%%Page: "8" 8
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.68 540 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Lessons learned) 114.8 733.66 T
+54 878/G297473 FmPA
+54 726.98 540 726.98 2 L
+0.25 H
+N
+52.58 54.99 538.58 54.99 2 L
+2 Z
+N
+0 10 Q
+(8) 52.58 38.89 T
+0 9 Q
+( of) 58.14 38.89 T
+0 10 Q
+( 8) 69.14 38.89 T
+0 9 Q
+( niri_hty_010) 113.39 38.89 T
+0 10 Q
+(/) 168.41 38.89 T
+0 9 Q
+(02) 171.19 38.89 T
+(Near IR Ima) 271.9 38.89 T
+(g) 321.33 38.89 T
+(er \050NIRI\051 Software\321Pr) 326.92 38.89 T
+(oject Histor) 420.75 38.89 T
+(y Document) 470.35 38.89 T
+53 183/G297492 FmPA
+1 12 Q
+(5.2) 129 679.33 T
+(Pr) 153 679.33 T
+(oblems with NIRI) 165.44 679.33 T
+54 823/G312603 FmPA
+54 629.33 523.28 638.33 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+153 638.33 531 638.33 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+54 638.33 144 638.33 2 L
+0 Z
+N
+0 0 612 792 C
+1 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(6) 138 642.33 T
+(Lessons lear) 153 642.33 T
+(ned) 215.82 642.33 T
+54 786/G312593 FmPA
+4 11 Q
+(\245) 153.21 611.99 T
+2 10 Q
+-0.32 (If a template is to be pro) 167.39 611.99 P
+-0.32 (vided, the initial implementation should be completed before an) 263.04 611.99 P
+-0.32 (y) 516.1 611.99 P
+54 756/G312669 FmPA
+(of the softw) 167.39 599.66 T
+(are which is to be deri) 215.06 599.66 T
+(v) 303.4 599.66 T
+(ed from it is complete.) 308.25 599.66 T
+4 11 Q
+(\245) 153.21 583.99 T
+2 10 Q
+(T) 167.39 583.99 T
+(ime should be allocated to re-implement the template after e) 173.15 583.99 T
+(xperience with w) 413.79 583.99 T
+(orking) 482.55 583.99 T
+54 728/G312675 FmPA
+(systems.) 167.39 571.66 T
+4 11 Q
+(\245) 153.21 555.99 T
+2 10 Q
+(T) 167.39 555.99 T
+(ime should be allocated to re-implement the w) 173.15 555.99 T
+(orking systems, after the template has) 358.86 555.99 T
+54 700/G312678 FmPA
+(been modi\336ed.) 167.39 543.66 T
+4 11 Q
+(\245) 153.21 527.99 T
+2 10 Q
+(If the template is complicated, then the w) 167.39 527.99 T
+(orking systems will be v) 332.82 527.99 T
+(ery complicated.) 430.45 527.99 T
+54 672/G312679 FmPA
+4 11 Q
+(\245) 153.21 511.99 T
+2 10 Q
+(If the template is dif) 167.39 511.99 T
+(\336cult to maintain, then the w) 248.24 511.99 T
+(orking systems will be impossible to) 363.14 511.99 T
+54 656/G312680 FmPA
+(maintain.) 167.39 499.66 T
+4 11 Q
+(\245) 153.21 483.99 T
+2 10 Q
+-0.17 (Arbitrarily restricting de) 167.39 483.99 P
+-0.17 (v) 264.56 483.99 P
+-0.17 (elopers to a subset of the a) 269.41 483.99 P
+-0.17 (v) 374.3 483.99 P
+-0.17 (ailable tools can lead to o) 379.05 483.99 P
+-0.17 (v) 479.99 483.99 P
+-0.17 (erly com-) 484.84 483.99 P
+54 628/G312730 FmPA
+(plicated designs.) 167.39 471.66 T
+4 11 Q
+(\245) 153.21 455.99 T
+2 10 Q
+-0.34 (Be careful about scaling problems. Designs that w) 167.39 455.99 P
+-0.34 (ork for simple test systems can become) 365.97 455.99 P
+54 600/G312731 FmPA
+(unmanageable for lar) 167.39 443.66 T
+(ger systems.) 252.18 443.66 T
+4 11 Q
+(\245) 153.21 427.99 T
+2 10 Q
+(It is better to ha) 167.39 427.99 T
+(v) 229.96 427.99 T
+(e unnecessary symbols in a diagram than to ha) 234.81 427.99 T
+(v) 420.69 427.99 T
+(e multiple nearly-identi-) 425.54 427.99 T
+54 572/G312790 FmPA
+(cal diagrams. Proper use of de\336nitions can combine nearly-identical diagrams.) 167.39 415.66 T
+54 366.33 523.28 375.33 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+153 375.33 531 375.33 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+54 375.33 144 375.33 2 L
+0 Z
+N
+0 0 612 792 C
+1 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(7) 138 379.33 T
+(Suggestions) 153 379.33 T
+54 523/G312666 FmPA
+54 320.33 523.28 329.33 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+153 329.33 531 329.33 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+54 329.33 144 329.33 2 L
+0 Z
+N
+0 0 612 792 C
+1 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(8) 138 333.33 T
+(Conclusion) 153 333.33 T
+54 477/G312692 FmPA
+2 10 Q
+-0.23 (At this point, the NIRI softw) 153.21 303.66 P
+-0.23 (are should be considered a quali\336ed success, in that it is capable) 266.95 303.66 P
+54 448/G312693 FmPA
+(of controlling the instrument and pro) 153.21 291.66 T
+(viding the required functions. Ho) 300.55 291.66 T
+(we) 433.34 291.66 T
+(v) 444.75 291.66 T
+(er) 449.6 291.66 T
+(, the implemen-) 456.97 291.66 T
+(tation is considerably more complicated than it needs to be, and is quite dif) 153.21 279.66 T
+(\336cult to modify) 452.93 279.66 T
+(.) 514.51 279.66 T
+-0.01 (The time that the system tak) 153.21 267.66 P
+-0.01 (es to reboot is a concern, because it mak) 266.09 267.66 P
+-0.01 (es it quite time consum-) 427.22 267.66 P
+(ing to \336x e) 153.21 255.66 T
+(v) 196.02 255.66 T
+(en the smallest b) 200.87 255.66 T
+(ugs. Insuf) 267.61 255.66 T
+(\336cient time w) 306.8 255.66 T
+(as a) 361.7 255.66 T
+(v) 376.77 255.66 T
+(ailable to re\336ne man) 381.52 255.66 T
+(y of the algo-) 463.3 255.66 T
+(rithms, particularly the algorithms which are used to \336nd the home position.) 153.21 243.66 T
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.8/DEST FmPD2
+[/Title(A)/Rect[45 60 532 696]/ARTICLE FmPD2
+[/Page 1/View[/XYZ null 207 864 FmDC exch pop null]/Title(Near IR Imager \(NIRI\) Software\204 Project History Do...)/Count 8/OUT FmPD
+[/Page 1/View[/XYZ null 171 576 FmDC exch pop null]/Title(1 Introduction)/Count 5/OUT FmPD
+[/Page 1/View[/XYZ null 171 484 FmDC exch pop null]/Title(1.1 Purpose of the document)/OUT FmPD
+[/Page 1/View[/XYZ null 171 342 FmDC exch pop null]/Title(1.2 Scope)/OUT FmPD
+[/Page 1/View[/XYZ null 171 290 FmDC exch pop null]/Title(1.3 Definitions, Acronyms and Abbreviations)/OUT FmPD
+[/Page 2/View[/XYZ null 153 831 FmDC exch pop null]/Title(1.4 Stylistic Conventions)/OUT FmPD
+[/Page 2/View[/XYZ null 153 767 FmDC exch pop null]/Title(1.5 References)/OUT FmPD
+[/Page 2/View[/XYZ null 153 713 FmDC exch pop null]/Title(2 Caveats)/OUT FmPD
+[/Page 2/View[/XYZ null 153 551 FmDC exch pop null]/Title(3 History)/Count 7/OUT FmPD
+[/Page 2/View[/XYZ null 153 463 FmDC exch pop null]/Title(3.1 Early attempts)/OUT FmPD
+[/Page 4/View[/XYZ null 153 594 FmDC exch pop null]/Title(3.2 The first working system.)/OUT FmPD
+[/Page 5/View[/XYZ null 171 570 FmDC exch pop null]/Title(3.3 Integration with the CICS)/OUT FmPD
+[/Page 5/View[/XYZ null 171 350 FmDC exch pop null]/Title(3.4 The interlock system)/OUT FmPD
+[/Page 6/View[/XYZ null 153 546 FmDC exch pop null]/Title(3.5 The NIRI temperature control system)/OUT FmPD
+[/Page 7/View[/XYZ null 171 831 FmDC exch pop null]/Title(3.6 The NIRI diagnostic functions)/OUT FmPD
+[/Page 7/View[/XYZ null 171 796 FmDC exch pop null]/Title(3.7 The NIRI verification functions)/OUT FmPD
+[/Page 7/View[/XYZ null 171 759 FmDC exch pop null]/Title(4 CICS)/Count 2/OUT FmPD
+[/Page 7/View[/XYZ null 171 715 FmDC exch pop null]/Title(4.1 Successful elements of the CICS)/OUT FmPD
+[/Page 7/View[/XYZ null 171 663 FmDC exch pop null]/Title(4.2 Problems with the CICS)/OUT FmPD
+[/Page 7/View[/XYZ null 171 573 FmDC exch pop null]/Title(5 The NIRI software)/Count 2/OUT FmPD
+[/Page 7/View[/XYZ null 171 529 FmDC exch pop null]/Title(5.1 Successful elements of NIRI)/OUT FmPD
+[/Page 8/View[/XYZ null 153 831 FmDC exch pop null]/Title(5.2 Problems with NIRI)/OUT FmPD
+[/Page 8/View[/XYZ null 153 794 FmDC exch pop null]/Title(6 Lessons learned)/OUT FmPD
+[/Page 8/View[/XYZ null 153 531 FmDC exch pop null]/Title(7 Suggestions)/OUT FmPD
+[/Page 8/View[/XYZ null 153 485 FmDC exch pop null]/Title(8 Conclusion)/OUT FmPD
+FMENDPAGE
+%%EndPage: "8" 8
+%%Trailer
+%%BoundingBox: 0 0 612 792
+%%PageOrder: Ascend
+%%Pages: 8
+%%DocumentFonts: Helvetica-Bold
+%%+ Times-Bold
+%%+ Times-Roman
+%%+ Helvetica
+%%+ Courier-Bold
+%%EOF

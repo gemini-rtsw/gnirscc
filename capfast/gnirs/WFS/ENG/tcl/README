@@ -1,0 +1,2 @@
+Don't forget to run ./index.sh after adding any new functions to the
+*.tcl files; also, edit index.sh whenever adding any new .tcl files.

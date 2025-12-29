@@ -1,0 +1,14 @@
+DIRS += annex
+DIRS += ascii
+DIRS += capfast
+#DIRS += dhs_temp
+DIRS += dl
+DIRS += pv
+DIRS += dqSocket
+DIRS += epicsCntrlSrc
+DIRS += globals
+DIRS += gnRpcSrc
+DIRS += startup
+DIRS += omega
+DIRS += utilSource
+

@@ -1,0 +1,59 @@
+   A quick reference for the ACE Temperature control board serial commands.
+
+Note that the commands ARE CASE SENSITIVE, enter them as shown!  The underscore
+represents a SINGLE space, do not enter the '_' character.
+
+----------------------------------------------------------------------------
+
+'s_<ctrl>'          En/disable servo loop calculations and updates.
+
+'T_<axis>'          Read the temperature DACs setting.
+
+'t_<axis>_<value>'  Set the temperature DACs.
+
+'G_<axis>'          Read proportional gain.
+
+'g_<axis>_<value>'  Set proportinal gain.
+
+'D_<axis>'          Read integral gain.
+
+'d_<axis>_<value>'  Set integral gain.
+
+'F_<axis>'          Read heater current feed back.
+
+'H_<axis>'          Read high gain input of sensor.
+
+'h_<axis>_<value>'  Set the heater DACs.
+
+'L_<axis>'          Read low gain input of sensor.
+
+'R_<axis>'          Read sensor reference (threshold) voltage.
+
+'V_<axis>'          Read integral servo error.
+
+'C_<axis>'          Read servo command.
+
+'N_<chnl>'          Read an analog mux channel.
+
+----------------------------------------------------------------------------
+
+Legends:
+
+    <axis> :    0 = foot
+                1 = mount
+
+    <value> :   0 - 4095
+
+    <ctrl> :    0 = on
+                1 = off 
+
+    <chnl> :    0 = foot sensor, hi gain
+                1 = foot sensor, lo gain
+                2 = mount sensor, hi gain
+                3 = mount sensor, lo gain
+                4 = foot heater current
+                5 = mount heater current
+                6 = foot temp. set point
+                7 = mount temp. set point
+
+----------------------------------------------------------------------------

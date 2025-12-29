@@ -1,0 +1,30 @@
+#! /bin/sh
+
+#
+# Start display to display all channels on an analog input board.
+#
+
+dm=dm2.4
+
+if [ "${NIRI_ENGDIR}" = "" ]; then
+	if [ "${NIRI_DIR}" = "" ]; then
+		1>&2 echo NIRI_DIR or NIRI_ENGDIR must be defined in your environment
+		exit 1
+	fi
+
+	export NIRI_ENGDIR
+	NIRI_ENGDIR=${NIRI_DIR}/ENG
+fi
+
+if [ "${NIRI_PREFIX}" = "" ]; then
+	1>&2 echo NIRI_PREFIX must be defined in your environment
+	exit 1
+fi
+
+export PATH
+PATH=${PATH}:${NIRI_ENGDIR}/bin/${HOST_ARCH}
+
+export EPICS_DISPLAY_PATH
+EPICS_DISPLAY_PATH=${NIRI_ENGDIR}/data
+
+exec $dm engAtod.dl "T=${NIRI_PREFIX}, C=eng:atod:"

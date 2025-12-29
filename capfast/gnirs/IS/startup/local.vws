@@ -1,0 +1,19 @@
+#
+# This file contains site-specific information
+# 
+
+# mv162 doesn't have logAuthority built in the kernel
+# taking lowest common factor 
+# < /gemini/external/vxWorks/vxUsers
+
+routeAdd "0.0.0.0" , "10.2.2.1"
+routeAdd "0.0.0.0" , "10.1.2.1"
+routeAdd "0.0.0.0" , "10.1.5.1"
+
+nfsMount "pisces-control", "/export/gemini", "/gemini"
+nfsMount "pisces-control", "/export/gemdata", "/gemdata"
+
+# Tell VxWorks the unix user ID and group ID of "gemvx",
+# so that file access over NFS works.
+
+nfsAuthUnixSet "pisces-control", 2966, 10, 0

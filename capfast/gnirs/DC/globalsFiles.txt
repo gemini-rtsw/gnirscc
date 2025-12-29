@@ -1,0 +1,4 @@
+4.4.4
+The globals.c file contains global definitions of files that can be externed from
+any file that is loaded after it.  This file is compiled into an object file and 
+loaded onto the 68040 board.  

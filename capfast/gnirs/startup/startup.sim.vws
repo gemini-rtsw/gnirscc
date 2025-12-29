@@ -1,0 +1,130 @@
+#
+# VxWorks startup script to load and execute system (iocCore) software.
+#
+# First, vxWorks startup issues:
+
+# Make delete key work for backspace
+# tyBackspaceSet 0177
+
+# cd to application install directory (beware automounter problems)
+cd "$(install)"
+pwd
+
+# The local file contains site-specific information
+# such as the default router and the vxWorks password file.
+
+< $(install)/bin/$(arch)/local
+
+
+# Load EPICS core and record stuff
+ld < $(epics)/base/bin/$(arch)/iocCore
+ld < $(epics)/base/bin/$(arch)/drvSup
+ld < $(epics)/base/bin/$(arch)/recSup
+ld < $(epics)/base/bin/$(arch)/devSup
+
+#pvload program
+ld < $(epics)/extensions/bin/$(arch)/pvload
+
+# If using state programs, load the sequencer
+#ld < $(epics)/base/bin/$(arch)/seq
+
+# Load any application records, device support or drivers here,
+# or code for subroutine records
+ld < $(install)/epics/extensions/src/gemini/slalib/bin/$(arch)/slalib
+ld < $(install)/epics/extensions/src/gemini/timelib/bin/$(arch)/timelib
+ld < $(install)/epics/extensions/src/gemini/astlib/bin/$(arch)/astlib
+
+#gnirs controller code
+ld < $(install)/bin/$(arch)/ccGlobal.o
+#ld < $(install)/bin/$(arch)/mytimeLib.o
+ld < $(install)/bin/$(arch)/hdwrControl.o
+ld < $(install)/bin/$(arch)/epicsControl.o
+
+# instrument sequencer code
+ld < $(install)/bin/$(arch)/gmSeqAppl
+
+
+#timeClockInit (0,1,60,1,0)
+
+# Configure the Timestamp system, 1=Master IOC
+#TSconfigure 1, 0, 0, 0, 0, 0
+
+
+# Load one or more ASCII databases here
+dbLoad "$(install)/data/$(dctsdr).dctsdr"
+dbLoadRecords "$(install)/data/nirsCCTop.db"
+dbLoadRecords "$(install)/data/nirsCCSadTop.db"
+# is records
+dbLoadRecords "$(install)/data/nirsSeqTop.db"
+dbLoadRecords "$(install)/data/nirsSeqSadTop.db"
+
+# This turns off logging
+iocLogDisable=1
+
+# start epics
+iocInit "$(install)/data/resource.def"
+
+#load motor parameters
+
+ 
+#is variables
+
+pvload "$(version)/data/cadVals.pv","top=nirs:cc:, sadtop=nirs:sad:cc:"
+
+
+#start epics control tasks
+initTasks
+
+
+# Set debugging/logging level
+gnirsInitLogging
+gnirsSetDebug 3
+sendToMotorDebug=1
+
+# Read config file
+#sdsuReadConfig "$(install)/data/dcConfig"
+
+# save with fits or dhs
+#useFits 0
+# simulation = 0 for real use of DHS, =1 to fake it
+#useDHS "128.171.188.193", "dataServerNT", 0
+
+
+# Initialize GNIRS hardware interface
+#pvload "$(install)/data/cadInitVals.par","top=nirs:cc:,sadtop=nirs:cc:sad:"
+
+# # Simulation mode NOSIM:0  VSM:1  FASTSIM:2  FULLSIM:3
+setSimulation 3
+
+# Set flag if xycom board not present
+noXYCOM = 1
+
+
+# Set flag if temperature board not present
+noTempMon = 1
+
+
+
+# Set flag if SenTorr not present
+noSenTorr = 1
+
+# Read the motor configuration file and initialize the motors
+#readConfig "$(install)/data/gnirsConfig.seed"
+strncpy  &configDirectory, "$(install)/data/", 160
+
+pwd
+pvload "$(version)/data/gmSeq.pv","top=nirs:, sadtop=nirs:sad:"
+
+
+#ld < $(install)/bin/$(arch)/epicsCAInt.o
+# Trigger the initialisation of the instrument sequencer and components controller
+# disabling initdcCadMark to prevent the detector controller being initialised
+
+
+pvload "$(version)/data/startupCCSim.pv","top=nirs:,ccTop=nirs:cc:, sadtop=nirs:sad:cc:"
+sleep (5,0)
+pvload "$(version)/data/startup.pv","top=nirs:,ccTop=nirs:cc:, sadtop=nirs:sad:cc:"
+
+ld < $(install)/bin/$(arch)/pTest.o
+sleep(5,0)
+dbpf "nirs:apply.DIR","START"

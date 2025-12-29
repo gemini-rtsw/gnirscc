@@ -1,0 +1,11 @@
+# $Id: lockTmp.lut,v 1.2 2009/05/27 19:34:09 fkraemer Exp $
+
+#
+# Named positions for the NIRI interlocks.
+#
+
+# name    nval steps lowtol hightol
+INVALID   1    -1    0      0
+CHANGING  1    0     0      0
+COLD      1    1     0      0
+WARM      1    2     0      0

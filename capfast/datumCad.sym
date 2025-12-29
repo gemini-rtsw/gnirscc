@@ -1,0 +1,18 @@
+[symbol2]
+bbox -416 128 -256 336
+port -320 208 100 0 OMSS symbol 2 -256 224 0
+port -312 280 100 0 OCID symbol 3 -256 288 0
+port -312 248 100 0 FLNK symbol 2 -256 256 0
+port -408 280 100 0 CLID symbol 1 -416 288 0
+port -400 320 100 1536 DIR symbol 1 -416 320 0
+port -368 256 100 2048 VAL symbol 2 -416 256 0
+port -360 224 100 2048 MESS symbol 2 -416 224 0
+port -312 312 100 0 OVAL symbol 2 -256 320 0
+uniq 2
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 7 0 -352 144 datumCad
+r 0 -416 128 -256 336
+[comments]

@@ -1,0 +1,4577 @@
+%!PS-Adobe-3.0
+%%BoundingBox: (atend)
+%%Pages: (atend)
+%%PageOrder: (atend)
+%%DocumentFonts: (atend)
+%%Creator: Frame 5.0
+%%DocumentData: Clean7Bit
+%%EndComments
+%%BeginProlog
+%
+% Frame ps_prolog 5.0, for use with Frame 5.0 products
+% This ps_prolog file is Copyright (c) 1986-1995 Frame Technology
+% Corporation.  All rights reserved.  This ps_prolog file may be
+% freely copied and distributed in conjunction with documents created
+% using FrameMaker, FrameMaker/SGML and FrameViewer as long as this 
+% copyright notice is preserved.
+%
+% FrameMaker users specify the proper paper size for each print job in the
+% "Print" dialog's "Printer Paper Size" "Width" and "Height~ fields.  If the
+% printer that the PS file is sent to does not support the requested paper
+% size, or if there is no paper tray of the proper size currently installed, 
+% then the job will not be printed.  The following flag, if set to true, will
+% cause the job to print on the default paper in such cases.
+/FMAllowPaperSizeMismatch            false def
+%
+% Frame products normally print colors as their true color on a color printer
+% or as shades of gray, based on luminance, on a black-and white printer. The
+% following flag, if set to true, forces all non-white colors to print as pure
+% black. This has no effect on bitmap images.
+/FMPrintAllColorsAsBlack             false def
+%
+% Frame products can either set their own line screens or use a printer's 
+% default settings. Three flags below control this separately for no 
+% separations, spot separations and process separations. If a flag
+% is true, then the default printer settings will not be changed. If it is
+% false, Frame products will use their own settings from a table based on
+% the printer's resolution.
+/FMUseDefaultNoSeparationScreen      true  def
+/FMUseDefaultSpotSeparationScreen    true  def
+/FMUseDefaultProcessSeparationScreen false def
+%
+% For any given PostScript printer resolution, Frame products have two sets of 
+% screen angles and frequencies for printing process separations, which are 
+% recomended by Adobe. The following variable chooses the higher frequencies
+% when set to true or the lower frequencies when set to false. This is only
+% effective if the appropriate FMUseDefault...SeparationScreen flag is false.
+/FMUseHighFrequencyScreens true def
+%
+% The following is a set of predefined optimal frequencies and angles for various
+% common dpi settings. This is taken from "Advances in Color Separation Using
+% PostScript Software Technology," from Adobe Systems (3/13/89 P.N. LPS 0043)
+% and corrolated with information which is in various PPD (4.0) files.
+%
+% The "dpiranges" figure is the minimum dots per inch device resolution which
+% can support this setting. The "low" and "high" values are controlled by the
+% setting of the FMUseHighFrequencyScreens flag above. The "TDot" flags control
+% the use of the "Yellow Triple Dot" feature whereby the frequency id divided by
+% three, but the dot function is "trippled" giving a block of 3x3 dots per cell.
+%
+% PatFreq is a compromise pattern frequency for ps Level 2 printers which is close
+% to the ideal WYSIWYG pattern frequency of 9 repetitions/inch but does not beat
+% (too badly) against the screen frequencies of any separations for that DPI.
+/dpiranges   [  2540    2400    1693     1270    1200     635      600      0      ] def
+/CMLowFreqs  [ 100.402  94.8683 89.2289 100.402  94.8683  66.9349  63.2456 47.4342 ] def
+/YLowFreqs   [  95.25   90.0    84.65    95.25   90.0     70.5556  66.6667 50.0    ] def
+/KLowFreqs   [  89.8026 84.8528 79.8088  89.8026 84.8528  74.8355  70.7107 53.033  ] def
+/CLowAngles  [  71.5651 71.5651 71.5651 71.5651  71.5651  71.5651  71.5651 71.5651 ] def
+/MLowAngles  [  18.4349 18.4349 18.4349 18.4349  18.4349  18.4349  18.4349 18.4349 ] def
+/YLowTDot    [  true    true    false    true    true     false    false   false   ] def
+/CMHighFreqs [ 133.87  126.491 133.843  108.503 102.523  100.402   94.8683 63.2456 ] def
+/YHighFreqs  [ 127.0   120.0   126.975  115.455 109.091   95.25    90.0    60.0    ] def
+/KHighFreqs  [ 119.737 113.137 119.713  128.289 121.218   89.8026  84.8528 63.6395 ] def
+/CHighAngles [  71.5651 71.5651 71.5651  70.0169 70.0169  71.5651  71.5651 71.5651 ] def
+/MHighAngles [  18.4349 18.4349 18.4349  19.9831 19.9831  18.4349  18.4349 18.4349 ] def
+/YHighTDot   [  false   false   true     false   false    true     true    false   ] def
+/PatFreq     [	10.5833 10.0     9.4055  10.5833 10.0	  10.5833  10.0	   9.375   ] def
+%
+% PostScript Level 2 printers contain an "Accurate Screens" feature which can
+% improve process separation rendering at the expense of compute time. This 
+% flag is ignored by PostScript Level 1 printers.
+/FMUseAcccurateScreens true def
+%
+% The following PostScript procedure defines the spot function that Frame
+% products will use for process separations. You may un-comment-out one of
+% the alternative functions below, or use your own.
+%
+% Dot function
+/FMSpotFunction {abs exch abs 2 copy add 1 gt 
+		{1 sub dup mul exch 1 sub dup mul add 1 sub }
+		{dup mul exch dup mul add 1 exch sub }ifelse } def
+%
+% Line function
+% /FMSpotFunction { pop } def
+%
+% Elipse function
+% /FMSpotFunction { dup 5 mul 8 div mul exch dup mul exch add 
+%		sqrt 1 exch sub } def
+%
+%
+/FMversion (5.0) def 
+/fMLevel1 /languagelevel where {pop languagelevel} {1} ifelse 2 lt def
+/FMPColor
+	fMLevel1 {
+		false
+		/colorimage where {pop pop true} if
+	} {
+		true
+	} ifelse
+def
+/FrameDict 400 dict def 
+systemdict /errordict known not {/errordict 10 dict def
+		errordict /rangecheck {stop} put} if
+% The readline in PS 23.0 doesn't recognize cr's as nl's on AppleTalk
+FrameDict /tmprangecheck errordict /rangecheck get put 
+errordict /rangecheck {FrameDict /bug true put} put 
+FrameDict /bug false put 
+mark 
+% Some PS machines read past the CR, so keep the following 3 lines together!
+currentfile 5 string readline
+00
+0000000000
+cleartomark 
+errordict /rangecheck FrameDict /tmprangecheck get put 
+FrameDict /bug get { 
+	/readline {
+		/gstring exch def
+		/gfile exch def
+		/gindex 0 def
+		{
+			gfile read pop 
+			dup 10 eq {exit} if 
+			dup 13 eq {exit} if 
+			gstring exch gindex exch put 
+			/gindex gindex 1 add def 
+		} loop
+		pop 
+		gstring 0 gindex getinterval true 
+		} bind def
+	} if
+/FMshowpage /showpage load def
+/FMquit /quit load def
+/FMFAILURE { 
+	dup = flush 
+	FMshowpage 
+	/Helvetica findfont 12 scalefont setfont
+	72 200 moveto show
+	72 220 moveto show
+	FMshowpage 
+	FMquit 
+	} def 
+/FMVERSION {
+	FMversion ne {
+		(Frame product version does not match ps_prolog!  Check installation;)
+		(also check ~/fminit and ./fminit for old versions) FMFAILURE
+		} if
+	} def 
+/FMBADEPSF { 
+	(Adobe's PostScript Language Reference Manual, 2nd Edition, section H.2.4)
+	(says your EPS file is not valid, as it calls X              )
+	dup dup (X) search pop exch pop exch pop length 
+	5 -1 roll 
+	putinterval 
+	FMFAILURE
+	} def
+/fmConcatProcs
+	{
+	/proc2 exch cvlit def/proc1 exch cvlit def/newproc proc1 length proc2 length add array def
+	newproc 0 proc1 putinterval newproc proc1 length proc2 putinterval newproc cvx
+}def
+FrameDict begin [
+	/ALDsave
+	/FMdicttop
+	/FMoptop
+	/FMpointsize
+	/FMsaveobject
+	/b
+	/bitmapsave
+	/blut
+	/bpside
+	/bs
+	/bstring
+	/bwidth
+	/c
+	/cf
+	/cs
+	/cynu
+	/depth
+	/edown
+	/fh
+	/fillvals
+	/fw
+	/fx
+	/fy
+	/g
+	/gfile
+	/gindex
+	/grnt
+	/gryt
+	/gstring
+	/height
+	/hh
+	/i
+	/im
+	/indx
+	/is
+	/k
+	/kk
+	/landscape
+	/lb
+	/len
+	/llx
+	/lly
+	/m
+	/magu
+	/manualfeed
+	/n
+	/offbits
+	/onbits
+	/organgle
+	/orgbangle
+	/orgbfreq
+	/orgbproc
+	/orgbxfer
+	/orgfreq
+	/orggangle
+	/orggfreq
+	/orggproc
+	/orggxfer
+	/orgmatrix
+	/orgproc
+	/orgrangle
+	/orgrfreq
+	/orgrproc
+	/orgrxfer
+	/orgxfer
+	/pagesave
+	/paperheight
+	/papersizedict
+	/paperwidth
+	/pos
+	/pwid
+	/r
+	/rad
+	/redt
+	/sl
+	/str
+	/tran
+	/u
+	/urx
+	/ury
+	/val
+	/width
+	/width
+	/ws
+	/ww
+	/x
+	/x1
+	/x2
+	/xindex
+	/xpoint
+	/xscale
+	/xx
+	/y
+	/y1
+	/y2
+	/yelu
+	/yindex
+	/ypoint
+	/yscale
+	/yy
+] { 0 def } forall
+/FmBD {bind def} bind def
+systemdict /pdfmark known {
+	/fMAcrobat true def
+	
+	/FmPD /pdfmark load def
+	
+	
+	/FmPT /show load def
+	
+	
+	currentdistillerparams /CoreDistVersion get 2000 ge {
+	
+		
+		/FmPD2 /pdfmark load def
+		
+		
+		
+		
+		
+		/FmPA { mark exch /Dest exch 5 3 roll 
+				/View [ /XYZ null 6 -2 roll FmDC exch pop null] /DEST FmPD 
+		}FmBD
+	} {
+		
+		/FmPD2 /cleartomark load def
+		/FmPA {pop pop pop}FmBD
+	} ifelse
+} {
+	
+	/fMAcrobat false def
+	/FmPD /cleartomark load def
+	/FmPD2 /cleartomark load def
+	/FmPT /pop load def
+	/FmPA {pop pop pop}FmBD
+} ifelse
+/FmDC {
+	transform fMDefaultMatrix itransform cvi exch cvi exch
+}FmBD
+/FmBx {
+	dup 3 index lt {3 1 roll exch} if 
+	1 index 4 index lt {4 -1 roll 3 1 roll exch 4 1 roll} if
+}FmBD
+/FMnone 0 def
+/FMcyan 1 def
+/FMmagenta 2 def
+/FMyellow 3 def
+/FMblack 4 def
+/FMcustom 5 def
+/fMNegative false def 
+/FrameSepIs FMnone def 
+/FrameSepBlack 0 def
+/FrameSepYellow 0 def
+/FrameSepMagenta 0 def
+/FrameSepCyan 0 def
+/FrameSepRed 1 def
+/FrameSepGreen 1 def
+/FrameSepBlue 1 def
+/FrameCurGray 1 def
+/FrameCurPat null def
+/FrameCurColors [ 0 0 0 1 0 0 0 ] def 
+/FrameColorEpsilon .001 def	
+/eqepsilon {		
+	sub dup 0 lt {neg} if
+	FrameColorEpsilon le
+} bind def
+/FrameCmpColorsCMYK { 
+	2 copy 0 get exch 0 get eqepsilon {
+		2 copy 1 get exch 1 get eqepsilon {
+			2 copy 2 get exch 2 get eqepsilon {
+				3 get exch 3 get eqepsilon
+			} {pop pop false} ifelse
+		}{pop pop false} ifelse
+	} {pop pop false} ifelse
+} bind def
+/FrameCmpColorsRGB { 
+	2 copy 4 get exch 0 get eqepsilon {
+		2 copy 5 get exch 1 get eqepsilon {
+			6 get exch 2 get eqepsilon
+		}{pop pop false} ifelse
+	} {pop pop false} ifelse
+} bind def
+/RGBtoCMYK { 
+	1 exch sub 
+	3 1 roll 
+	1 exch sub 
+	3 1 roll 
+	1 exch sub 
+	3 1 roll 
+	3 copy 
+	2 copy 
+	le { pop } { exch pop } ifelse 
+	2 copy 
+	le { pop } { exch pop } ifelse 
+	dup dup dup 
+	6 1 roll 
+	4 1 roll 
+	7 1 roll 
+	sub 
+	6 1 roll 
+	sub 
+	5 1 roll 
+	sub 
+	4 1 roll 
+} bind def
+/CMYKtoRGB { 
+	dup dup 4 -1 roll add 						  
+	5 1 roll 3 -1 roll add 						  
+	4 1 roll add 								  
+	1 exch sub dup 0 lt {pop 0} if 3 1 roll 	  
+	1 exch sub dup 0 lt {pop 0} if exch 	      
+	1 exch sub dup 0 lt {pop 0} if exch	  		  
+} bind def
+/FrameSepInit {
+	1.0 RealSetgray
+} bind def
+/FrameSetSepColor { 
+	/FrameSepBlue exch def
+	/FrameSepGreen exch def
+	/FrameSepRed exch def
+	/FrameSepBlack exch def
+	/FrameSepYellow exch def
+	/FrameSepMagenta exch def
+	/FrameSepCyan exch def
+	/FrameSepIs FMcustom def
+	setCurrentScreen	
+} bind def
+/FrameSetCyan {
+	/FrameSepBlue 1.0 def
+	/FrameSepGreen 1.0 def
+	/FrameSepRed 0.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 1.0 def
+	/FrameSepIs FMcyan def
+	setCurrentScreen	
+} bind def
+ 
+/FrameSetMagenta {
+	/FrameSepBlue 1.0 def
+	/FrameSepGreen 0.0 def
+	/FrameSepRed 1.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 1.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMmagenta def
+	setCurrentScreen
+} bind def
+ 
+/FrameSetYellow {
+	/FrameSepBlue 0.0 def
+	/FrameSepGreen 1.0 def
+	/FrameSepRed 1.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 1.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMyellow def
+	setCurrentScreen
+} bind def
+ 
+/FrameSetBlack {
+	/FrameSepBlue 0.0 def
+	/FrameSepGreen 0.0 def
+	/FrameSepRed 0.0 def
+	/FrameSepBlack 1.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMblack def
+	setCurrentScreen
+} bind def
+ 
+/FrameNoSep { 
+	/FrameSepIs FMnone def
+	setCurrentScreen
+} bind def
+/FrameSetSepColors { 
+	FrameDict begin
+	[ exch 1 add 1 roll ]
+	/FrameSepColors  
+	exch def end
+	} bind def
+/FrameColorInSepListCMYK { 
+	FrameSepColors {  
+       		exch dup 3 -1 roll 
+       		FrameCmpColorsCMYK 
+       		{ pop true exit } if
+    	} forall 
+	dup true ne {pop false} if
+	} bind def
+/FrameColorInSepListRGB { 
+	FrameSepColors {  
+       		exch dup 3 -1 roll 
+       		FrameCmpColorsRGB 
+       		{ pop true exit } if
+    	} forall 
+	dup true ne {pop false} if
+	} bind def
+/RealSetgray /setgray load def
+/RealSetrgbcolor /setrgbcolor load def
+/RealSethsbcolor /sethsbcolor load def
+end 
+/setgray { 
+	FrameDict begin
+	FrameSepIs FMnone eq
+		{ RealSetgray } 
+		{ 
+		FrameSepIs FMblack eq 
+			{ RealSetgray } 
+			{ FrameSepIs FMcustom eq 
+			  FrameSepRed 0 eq and
+			  FrameSepGreen 0 eq and
+			  FrameSepBlue 0 eq and {
+			  	RealSetgray
+			  } {
+				1 RealSetgray pop 
+			  } ifelse
+			} ifelse
+		} ifelse
+	end
+} bind def
+/setrgbcolor { 
+	FrameDict begin
+	FrameSepIs FMnone eq
+	{  RealSetrgbcolor }
+	{
+		3 copy [ 4 1 roll ] 
+		FrameColorInSepListRGB
+		{
+				FrameSepBlue eq exch 
+			 	FrameSepGreen eq and exch 
+			 	FrameSepRed eq and
+			 	{ 0 } { 1 } ifelse
+		}
+		{
+			FMPColor {
+				RealSetrgbcolor
+				currentcmykcolor
+			} {
+				RGBtoCMYK
+			} ifelse
+			FrameSepIs FMblack eq
+			{1.0 exch sub 4 1 roll pop pop pop} {
+			FrameSepIs FMyellow eq
+			{pop 1.0 exch sub 3 1 roll pop pop} {
+			FrameSepIs FMmagenta eq
+			{pop pop 1.0 exch sub exch pop } {
+			FrameSepIs FMcyan eq
+			{pop pop pop 1.0 exch sub } 
+			{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+		} ifelse
+		RealSetgray
+	} 
+	ifelse
+	end
+} bind def
+/sethsbcolor {
+	FrameDict begin
+	FrameSepIs FMnone eq 
+	{ RealSethsbcolor } 
+	{
+		RealSethsbcolor 
+		currentrgbcolor  
+		setrgbcolor 
+	} 
+	ifelse
+	end
+} bind def
+FrameDict begin
+/setcmykcolor where {
+	pop /RealSetcmykcolor /setcmykcolor load def
+} {
+	/RealSetcmykcolor {
+		4 1 roll
+		3 { 3 index add 0 max 1 min 1 exch sub 3 1 roll} repeat 
+		RealSetrgbcolor pop
+	} bind def
+} ifelse
+userdict /setcmykcolor { 
+		FrameDict begin
+		FrameSepIs FMnone eq
+		{ RealSetcmykcolor } 
+		{
+			4 copy [ 5 1 roll ]
+			FrameColorInSepListCMYK
+			{
+				FrameSepBlack eq exch 
+				FrameSepYellow eq and exch 
+				FrameSepMagenta eq and exch 
+				FrameSepCyan eq and 
+				{ 0 } { 1 } ifelse
+			}
+			{
+				FrameSepIs FMblack eq
+				{1.0 exch sub 4 1 roll pop pop pop} {
+				FrameSepIs FMyellow eq
+				{pop 1.0 exch sub 3 1 roll pop pop} {
+				FrameSepIs FMmagenta eq
+				{pop pop 1.0 exch sub exch pop } {
+				FrameSepIs FMcyan eq
+				{pop pop pop 1.0 exch sub } 
+				{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+			} ifelse
+			RealSetgray
+		}
+		ifelse
+		end
+	} bind put
+fMLevel1 { 
+	
+	
+	
+	/patScreenDict 7 dict dup begin
+		<0f1e3c78f0e1c387> [ 45  { pop } {exch pop} 		.5   2 sqrt] FmBD
+		<0f87c3e1f0783c1e> [ 135 { pop } {exch pop}			.5   2 sqrt] FmBD
+		<cccccccccccccccc> [ 0   { pop } dup				.5   2	   ] FmBD
+		<ffff0000ffff0000> [ 90  { pop } dup				.5   2	   ] FmBD
+		<8142241818244281> [ 45  { 2 copy lt {exch} if pop}	dup .75  2 sqrt] FmBD
+		<03060c183060c081> [ 45  { pop } {exch pop}			.875 2 sqrt] FmBD
+		<8040201008040201> [ 135 { pop } {exch pop}			.875 2 sqrt] FmBD
+	end def
+} { 
+	
+	/patProcDict 5 dict dup begin
+		<0f1e3c78f0e1c387> { 3 setlinewidth -1 -1 moveto 9 9 lineto stroke 
+											4 -4 moveto 12 4 lineto stroke
+											-4 4 moveto 4 12 lineto stroke} bind def
+		<0f87c3e1f0783c1e> { 3 setlinewidth -1 9 moveto 9 -1 lineto stroke 
+											-4 4 moveto 4 -4 lineto stroke
+											4 12 moveto 12 4 lineto stroke} bind def
+		<8142241818244281> { 1 setlinewidth -1 9 moveto 9 -1 lineto stroke
+											-1 -1 moveto 9 9 lineto stroke } bind def
+		<03060c183060c081> { 1 setlinewidth -1 -1 moveto 9 9 lineto stroke 
+											4 -4 moveto 12 4 lineto stroke
+											-4 4 moveto 4 12 lineto stroke} bind def
+		<8040201008040201> { 1 setlinewidth -1 9 moveto 9 -1 lineto stroke 
+											-4 4 moveto 4 -4 lineto stroke
+											4 12 moveto 12 4 lineto stroke} bind def
+	end def
+	/patDict 15 dict dup begin
+		/PatternType 1 def		
+		/PaintType 2 def		
+		/TilingType 3 def		
+		/BBox [ 0 0 8 8 ] def 	
+		/XStep 8 def			
+		/YStep 8 def			
+		/PaintProc {
+			begin
+			patProcDict bstring known {
+				patProcDict bstring get exec
+			} {
+				8 8 true [1 0 0 -1 0 8] bstring imagemask
+			} ifelse
+			end
+		} bind def
+	end def
+} ifelse
+/combineColor {
+    FrameSepIs FMnone eq
+	{
+		graymode fMLevel1 or not {
+			
+			[/Pattern [/DeviceCMYK]] setcolorspace
+			FrameCurColors 0 4 getinterval aload pop FrameCurPat setcolor
+		} {
+			FrameCurColors 3 get 1.0 ge {
+				FrameCurGray RealSetgray
+			} {
+				fMAcrobat not FMPColor graymode and and {
+					0 1 3 { 
+						FrameCurColors exch get
+						1 FrameCurGray sub mul
+					} for
+					RealSetcmykcolor
+				} {
+					4 1 6 {
+						FrameCurColors exch get
+						graymode {
+							1 exch sub 1 FrameCurGray sub mul 1 exch sub
+						} {
+							1.0 lt {FrameCurGray} {1} ifelse
+						} ifelse
+					} for
+					RealSetrgbcolor
+				} ifelse
+			} ifelse
+		} ifelse
+	} { 
+		FrameCurColors 0 4 getinterval aload
+		FrameColorInSepListCMYK {
+			FrameSepBlack eq exch 
+			FrameSepYellow eq and exch 
+			FrameSepMagenta eq and exch 
+			FrameSepCyan eq and
+			FrameSepIs FMcustom eq and
+			{ FrameCurGray } { 1 } ifelse
+		} {
+			FrameSepIs FMblack eq
+			{FrameCurGray 1.0 exch sub mul 1.0 exch sub 4 1 roll pop pop pop} {
+			FrameSepIs FMyellow eq
+			{pop FrameCurGray 1.0 exch sub mul 1.0 exch sub 3 1 roll pop pop} {
+			FrameSepIs FMmagenta eq
+			{pop pop FrameCurGray 1.0 exch sub mul 1.0 exch sub exch pop } {
+			FrameSepIs FMcyan eq
+			{pop pop pop FrameCurGray 1.0 exch sub mul 1.0 exch sub } 
+			{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+		} ifelse
+		graymode fMLevel1 or not {
+			
+			[/Pattern [/DeviceGray]] setcolorspace
+			FrameCurPat setcolor
+		} { 
+			graymode not fMLevel1 and {
+				
+				dup 1 lt {pop FrameCurGray} if
+			} if
+			RealSetgray
+		} ifelse
+	} ifelse
+} bind def
+/savematrix {
+	orgmatrix currentmatrix pop
+	} bind def
+/restorematrix {
+	orgmatrix setmatrix
+	} bind def
+/fMDefaultMatrix matrix defaultmatrix def
+/fMatrix2 matrix def
+/dpi    72 0 fMDefaultMatrix dtransform
+    dup mul exch   dup mul add   sqrt def
+	
+/freq dpi dup 72 div round dup 0 eq {pop 1} if 8 mul div def
+/sangle 1 0 fMDefaultMatrix dtransform exch atan def
+	sangle fMatrix2 rotate 
+	fMDefaultMatrix fMatrix2 concatmatrix 
+	dup 0 get /sflipx exch def
+	    3 get /sflipy exch def
+/screenIndex {
+	0 1 dpiranges length 1 sub { dup dpiranges exch get 1 sub dpi le {exit} {pop} ifelse } for
+} bind def
+/getCyanScreen {
+	FMUseHighFrequencyScreens { CHighAngles CMHighFreqs} {CLowAngles CMLowFreqs} ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get /FMSpotFunction load
+} bind def
+/getMagentaScreen {
+	FMUseHighFrequencyScreens { MHighAngles CMHighFreqs } {MLowAngles CMLowFreqs} ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get /FMSpotFunction load
+} bind def
+/getYellowScreen {
+	FMUseHighFrequencyScreens { YHighTDot YHighFreqs} { YLowTDot YLowFreqs } ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get { 3 div
+			{2 { 1 add 2 div 3 mul dup floor sub 2 mul 1 sub exch} repeat
+			FMSpotFunction } } {/FMSpotFunction load } ifelse
+			0.0 exch
+} bind def
+/getBlackScreen  {
+	FMUseHighFrequencyScreens { KHighFreqs } { KLowFreqs } ifelse
+		screenIndex get 45.0 /FMSpotFunction load 
+} bind def
+/getSpotScreen {
+	getBlackScreen
+} bind def
+/getCompositeScreen {
+	getBlackScreen
+} bind def
+/FMSetScreen 
+	fMLevel1 { /setscreen load 
+	}{ {
+		8 dict begin
+		/HalftoneType 1 def
+		/SpotFunction exch def
+		/Angle exch def
+		/Frequency exch def
+		/AccurateScreens FMUseAcccurateScreens def
+		currentdict end sethalftone
+	} bind } ifelse
+def
+/setDefaultScreen {
+	FMPColor {
+		orgrxfer cvx orggxfer cvx orgbxfer cvx orgxfer cvx setcolortransfer
+	}
+	{
+		orgxfer cvx settransfer
+	} ifelse
+	orgfreq organgle orgproc cvx setscreen
+} bind def
+/setCurrentScreen {
+	FrameSepIs FMnone eq {
+		FMUseDefaultNoSeparationScreen {
+			setDefaultScreen
+		} {
+			getCompositeScreen FMSetScreen
+		} ifelse
+	} {
+		FrameSepIs FMcustom eq {
+			FMUseDefaultSpotSeparationScreen {
+				setDefaultScreen
+			} {
+				getSpotScreen FMSetScreen
+			} ifelse
+		} {
+			FMUseDefaultProcessSeparationScreen {
+				setDefaultScreen
+			} {
+				FrameSepIs FMcyan eq {
+					getCyanScreen FMSetScreen
+				} {
+					FrameSepIs FMmagenta eq {
+						getMagentaScreen FMSetScreen
+					} {
+						FrameSepIs FMyellow eq {
+							getYellowScreen FMSetScreen
+						} {
+							getBlackScreen FMSetScreen
+						} ifelse
+					} ifelse
+				} ifelse
+			} ifelse
+		} ifelse
+	} ifelse 
+} bind def
+end
+	
+/FMDOCUMENT { 
+	array /FMfonts exch def 
+	/#copies exch def
+	FrameDict begin
+	0 ne /manualfeed exch def
+	/paperheight exch def
+	/paperwidth exch def
+	0 ne /fMNegative exch def 
+	0 ne /edown exch def 
+	/yscale exch def
+	/xscale exch def
+	fMLevel1 {
+		manualfeed {setmanualfeed} if
+		/FMdicttop countdictstack 1 add def 
+		/FMoptop count def 
+		setpapername 
+		manualfeed {true} {papersize} ifelse 
+		{manualpapersize} {false} ifelse 
+		{desperatepapersize} {false} ifelse 
+		{papersizefailure} if
+		count -1 FMoptop {pop pop} for
+		countdictstack -1 FMdicttop {pop end} for 
+		}
+		{2 dict
+		 dup /PageSize [paperwidth paperheight] put
+		 manualfeed {dup /ManualFeed manualfeed put} if
+		 {setpagedevice} stopped {papersizefailure} if
+		}
+	ifelse 
+	
+	FMPColor {
+		currentcolorscreen
+			cvlit /orgproc exch def
+				  /organgle exch def 
+				  /orgfreq exch def
+			cvlit /orgbproc exch def
+				  /orgbangle exch def 
+				  /orgbfreq exch def
+			cvlit /orggproc exch def
+				  /orggangle exch def 
+				  /orggfreq exch def
+			cvlit /orgrproc exch def
+				  /orgrangle exch def 
+				  /orgrfreq exch def
+			currentcolortransfer 
+			fMNegative {
+				1 1 4 { 
+					pop { 1 exch sub } fmConcatProcs 4 1 roll
+				} for
+				4 copy
+				setcolortransfer
+			} if
+			cvlit /orgxfer exch def
+			cvlit /orgbxfer exch def
+			cvlit /orggxfer exch def
+			cvlit /orgrxfer exch def
+	} {
+		currentscreen 
+			cvlit /orgproc exch def
+				  /organgle exch def 
+				  /orgfreq exch def
+				  
+		currenttransfer 
+		fMNegative {
+			{ 1 exch sub } fmConcatProcs
+			dup settransfer
+		} if 
+		cvlit /orgxfer exch def
+	} ifelse
+	end 
+} def 
+/FMBEGINPAGE { 
+	FrameDict begin 
+	/pagesave save def
+	3.86 setmiterlimit
+	/landscape exch 0 ne def
+	landscape { 
+		90 rotate 0 exch dup /pwid exch def neg translate pop 
+	}{
+		pop /pwid exch def
+	} ifelse
+	edown { [-1 0 0 1 pwid 0] concat } if
+	0 0 moveto paperwidth 0 lineto paperwidth paperheight lineto 
+	0 paperheight lineto 0 0 lineto 1 setgray fill
+	xscale yscale scale
+	/orgmatrix matrix def
+	gsave 
+} def 
+/FMENDPAGE {
+	grestore 
+	pagesave restore
+	end 
+	showpage
+	} def 
+/FMFONTDEFINE { 
+	FrameDict begin
+	findfont 
+	ReEncode 
+	1 index exch 
+	definefont 
+	FMfonts 3 1 roll 
+	put
+	end 
+	} def 
+/FMFILLS {
+	FrameDict begin dup
+	array /fillvals exch def
+	dict /patCache exch def
+	end 
+	} def 
+/FMFILL {
+	FrameDict begin
+	 fillvals 3 1 roll put
+	end 
+	} def 
+/FMNORMALIZEGRAPHICS { 
+	newpath
+	1 setlinewidth
+	0 setlinecap
+	0 0 0 sethsbcolor
+	0 setgray 
+	} bind def
+/FMBEGINEPSF { 
+	end 
+	/FMEPSF save def 
+	/showpage {} def 
+% See Adobe's "PostScript Language Reference Manual, 2nd Edition", page 714.
+% "...the following operators MUST NOT be used in an EPS file:" (emphasis ours)
+	/banddevice {(banddevice) FMBADEPSF} def
+	/clear {(clear) FMBADEPSF} def
+	/cleardictstack {(cleardictstack) FMBADEPSF} def 
+	/copypage {(copypage) FMBADEPSF} def
+	/erasepage {(erasepage) FMBADEPSF} def
+	/exitserver {(exitserver) FMBADEPSF} def
+	/framedevice {(framedevice) FMBADEPSF} def
+	/grestoreall {(grestoreall) FMBADEPSF} def
+	/initclip {(initclip) FMBADEPSF} def
+	/initgraphics {(initgraphics) FMBADEPSF} def
+	/quit {(quit) FMBADEPSF} def
+	/renderbands {(renderbands) FMBADEPSF} def
+	/setglobal {(setglobal) FMBADEPSF} def
+	/setpagedevice {(setpagedevice) FMBADEPSF} def
+	/setshared {(setshared) FMBADEPSF} def
+	/startjob {(startjob) FMBADEPSF} def
+	/lettertray {(lettertray) FMBADEPSF} def
+	/letter {(letter) FMBADEPSF} def
+	/lettersmall {(lettersmall) FMBADEPSF} def
+	/11x17tray {(11x17tray) FMBADEPSF} def
+	/11x17 {(11x17) FMBADEPSF} def
+	/ledgertray {(ledgertray) FMBADEPSF} def
+	/ledger {(ledger) FMBADEPSF} def
+	/legaltray {(legaltray) FMBADEPSF} def
+	/legal {(legal) FMBADEPSF} def
+	/statementtray {(statementtray) FMBADEPSF} def
+	/statement {(statement) FMBADEPSF} def
+	/executivetray {(executivetray) FMBADEPSF} def
+	/executive {(executive) FMBADEPSF} def
+	/a3tray {(a3tray) FMBADEPSF} def
+	/a3 {(a3) FMBADEPSF} def
+	/a4tray {(a4tray) FMBADEPSF} def
+	/a4 {(a4) FMBADEPSF} def
+	/a4small {(a4small) FMBADEPSF} def
+	/b4tray {(b4tray) FMBADEPSF} def
+	/b4 {(b4) FMBADEPSF} def
+	/b5tray {(b5tray) FMBADEPSF} def
+	/b5 {(b5) FMBADEPSF} def
+	FMNORMALIZEGRAPHICS 
+	[/fy /fx /fh /fw /ury /urx /lly /llx] {exch def} forall 
+	fx fw 2 div add fy fh 2 div add  translate
+	rotate
+	fw 2 div neg fh 2 div neg translate
+	fw urx llx sub div fh ury lly sub div scale 
+	llx neg lly neg translate 
+	/FMdicttop countdictstack 1 add def 
+	/FMoptop count def 
+	} bind def
+/FMENDEPSF {
+	count -1 FMoptop {pop pop} for 
+	countdictstack -1 FMdicttop {pop end} for 
+	FMEPSF restore
+	FrameDict begin 
+	} bind def
+FrameDict begin 
+/setmanualfeed {
+%%BeginFeature *ManualFeed True
+	 statusdict /manualfeed true put
+%%EndFeature
+	} bind def
+/max {2 copy lt {exch} if pop} bind def
+/min {2 copy gt {exch} if pop} bind def
+/inch {72 mul} def
+/pagedimen { 
+	paperheight sub abs 16 lt exch 
+	paperwidth sub abs 16 lt and
+	{/papername exch def} {pop} ifelse
+	} bind def
+/setpapername { 
+	/papersizedict 14 dict def 
+	papersizedict begin
+	/papername /unknown def 
+		/Letter 8.5 inch 11.0 inch pagedimen
+		/LetterSmall 7.68 inch 10.16 inch pagedimen
+		/Tabloid 11.0 inch 17.0 inch pagedimen
+		/Ledger 17.0 inch 11.0 inch pagedimen
+		/Legal 8.5 inch 14.0 inch pagedimen
+		/Statement 5.5 inch 8.5 inch pagedimen
+		/Executive 7.5 inch 10.0 inch pagedimen
+		/A3 11.69 inch 16.5 inch pagedimen
+		/A4 8.26 inch 11.69 inch pagedimen
+		/A4Small 7.47 inch 10.85 inch pagedimen
+		/B4 10.125 inch 14.33 inch pagedimen
+		/B5 7.16 inch 10.125 inch pagedimen
+	end
+	} bind def
+/papersize {
+	papersizedict begin
+		/Letter {lettertray letter} def
+		/LetterSmall {lettertray lettersmall} def
+		/Tabloid {11x17tray 11x17} def
+		/Ledger {ledgertray ledger} def
+		/Legal {legaltray legal} def
+		/Statement {statementtray statement} def
+		/Executive {executivetray executive} def
+		/A3 {a3tray a3} def
+		/A4 {a4tray a4} def
+		/A4Small {a4tray a4small} def
+		/B4 {b4tray b4} def
+		/B5 {b5tray b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	statusdict begin stopped end 
+	} bind def
+/manualpapersize {
+	papersizedict begin
+		/Letter {letter} def
+		/LetterSmall {lettersmall} def
+		/Tabloid {11x17} def
+		/Ledger {ledger} def
+		/Legal {legal} def
+		/Statement {statement} def
+		/Executive {executive} def
+		/A3 {a3} def
+		/A4 {a4} def
+		/A4Small {a4small} def
+		/B4 {b4} def
+		/B5 {b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	stopped 
+	} bind def
+/desperatepapersize {
+	statusdict /setpageparams known
+		{
+		paperwidth paperheight 0 1 
+		statusdict begin
+		{setpageparams} stopped 
+		end
+		} {true} ifelse 
+	} bind def
+/papersizefailure {
+	FMAllowPaperSizeMismatch not
+		{
+(The requested paper size is not available in any currently-installed tray)
+(Edit the PS file to "FMAllowPaperSizeMismatch true" to use default tray)
+		 FMFAILURE } if
+	} def
+/DiacriticEncoding [
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /space /exclam /quotedbl
+/numbersign /dollar /percent /ampersand /quotesingle /parenleft
+/parenright /asterisk /plus /comma /hyphen /period /slash /zero /one
+/two /three /four /five /six /seven /eight /nine /colon /semicolon
+/less /equal /greater /question /at /A /B /C /D /E /F /G /H /I /J /K
+/L /M /N /O /P /Q /R /S /T /U /V /W /X /Y /Z /bracketleft /backslash
+/bracketright /asciicircum /underscore /grave /a /b /c /d /e /f /g /h
+/i /j /k /l /m /n /o /p /q /r /s /t /u /v /w /x /y /z /braceleft /bar
+/braceright /asciitilde /.notdef /Adieresis /Aring /Ccedilla /Eacute
+/Ntilde /Odieresis /Udieresis /aacute /agrave /acircumflex /adieresis
+/atilde /aring /ccedilla /eacute /egrave /ecircumflex /edieresis
+/iacute /igrave /icircumflex /idieresis /ntilde /oacute /ograve
+/ocircumflex /odieresis /otilde /uacute /ugrave /ucircumflex
+/udieresis /dagger /.notdef /cent /sterling /section /bullet
+/paragraph /germandbls /registered /copyright /trademark /acute
+/dieresis /.notdef /AE /Oslash /.notdef /.notdef /.notdef /.notdef
+/yen /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/ordfeminine /ordmasculine /.notdef /ae /oslash /questiondown
+/exclamdown /logicalnot /.notdef /florin /.notdef /.notdef
+/guillemotleft /guillemotright /ellipsis /.notdef /Agrave /Atilde
+/Otilde /OE /oe /endash /emdash /quotedblleft /quotedblright
+/quoteleft /quoteright /.notdef /.notdef /ydieresis /Ydieresis
+/fraction /currency /guilsinglleft /guilsinglright /fi /fl /daggerdbl
+/periodcentered /quotesinglbase /quotedblbase /perthousand
+/Acircumflex /Ecircumflex /Aacute /Edieresis /Egrave /Iacute
+/Icircumflex /Idieresis /Igrave /Oacute /Ocircumflex /.notdef /Ograve
+/Uacute /Ucircumflex /Ugrave /dotlessi /circumflex /tilde /macron
+/breve /dotaccent /ring /cedilla /hungarumlaut /ogonek /caron
+] def
+/ReEncode { 
+	dup 
+	length 
+	dict begin 
+	{
+	1 index /FID ne 
+		{def} 
+		{pop pop} ifelse 
+	} forall 
+	0 eq {/Encoding DiacriticEncoding def} if 
+	currentdict 
+	end 
+	} bind def
+FMPColor 
+	
+	{
+	/BEGINBITMAPCOLOR { 
+		BITMAPCOLOR} def
+	/BEGINBITMAPCOLORc { 
+		BITMAPCOLORc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUECOLOR } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUECOLORc } def
+	/BEGINBITMAPCMYK { 
+		BITMAPCMYK } def
+	/BEGINBITMAPCMYKc { 
+		BITMAPCMYKc } def
+	}
+	
+	{
+	/BEGINBITMAPCOLOR { 
+		BITMAPGRAY} def
+	/BEGINBITMAPCOLORc { 
+		BITMAPGRAYc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUEGRAY } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUEGRAYc } def
+	/BEGINBITMAPCMYK { 
+		BITMAPCMYKGRAY } def
+	/BEGINBITMAPCMYKc { 
+		BITMAPCMYKGRAYc } def
+	}
+ifelse
+/K { 
+	FMPrintAllColorsAsBlack {
+		dup 1 eq 2 index 1 eq and 3 index 1 eq and not
+			{7 {pop} repeat 0 0 0 1 0 0 0} if
+	} if 
+	FrameCurColors astore 
+	pop combineColor
+} bind def
+/graymode true def
+fMLevel1 {
+	/fmGetFlip {
+		fMatrix2 exch get mul 0 lt { -1 } { 1 } ifelse
+	} FmBD
+} if
+/setPatternMode {
+	fMLevel1 {
+		2 index patScreenDict exch known {
+			pop pop
+			patScreenDict exch get aload pop 
+			freq 								
+			mul									
+			5 2 roll							
+			fMatrix2 currentmatrix 1 get 0 ne {
+				3 -1 roll 90 add 3 1 roll 		
+				sflipx 1 fmGetFlip sflipy 2 fmGetFlip neg mul
+			} {  								
+				sflipx 0 fmGetFlip sflipy 3 fmGetFlip mul 
+			} ifelse
+			0 lt {exch pop} {pop} ifelse 		
+			fMNegative { 
+				{neg} fmConcatProcs 			
+			} if
+			bind
+			
+			
+			
+			systemdict /setscreen get exec		
+			/FrameCurGray exch def
+		} {
+			/bwidth  exch def
+			/bpside  exch def
+			/bstring exch def
+			/onbits 0 def  /offbits 0 def
+			freq sangle landscape {90 add} if 
+				{/ypoint exch def
+				 /xpoint exch def
+				 /xindex xpoint 1 add 2 div bpside mul cvi def
+				 /yindex ypoint 1 add 2 div bpside mul cvi def
+				 bstring yindex bwidth mul xindex 8 idiv add get
+				 1 7 xindex 8 mod sub bitshift and 0 ne fMNegative {not} if
+				 {/onbits  onbits  1 add def 1}
+				 {/offbits offbits 1 add def 0}
+				 ifelse
+				}
+				setscreen
+			offbits offbits onbits add div fMNegative {1.0 exch sub} if
+			/FrameCurGray exch def
+		} ifelse
+	} { 
+		pop pop
+		dup patCache exch known {
+			patCache exch get
+		} { 
+			dup
+			patDict /bstring 3 -1 roll put
+			patDict 
+			9 PatFreq screenIndex get div dup matrix scale
+			makepattern
+			dup 
+			patCache 4 -1 roll 3 -1 roll put
+		} ifelse
+		/FrameCurGray 0 def
+		/FrameCurPat exch def
+	} ifelse
+	/graymode false def
+	combineColor
+} bind def
+/setGrayScaleMode {
+	graymode not {
+		/graymode true def
+		fMLevel1 {
+			setCurrentScreen
+		} if
+	} if
+	/FrameCurGray exch def
+	combineColor
+} bind def
+/normalize {
+	transform round exch round exch itransform
+	} bind def
+/dnormalize {
+	dtransform round exch round exch idtransform
+	} bind def
+/lnormalize { 
+	0 dtransform exch cvi 2 idiv 2 mul 1 add exch idtransform pop
+	} bind def
+/H { 
+	lnormalize setlinewidth
+	} bind def
+/Z {
+	setlinecap
+	} bind def
+	
+/PFill {
+	graymode fMLevel1 or not {
+		gsave 1 setgray eofill grestore
+	} if
+} bind def
+/PStroke {
+	graymode fMLevel1 or not {
+		gsave 1 setgray stroke grestore
+	} if
+	stroke
+} bind def
+/X { 
+	fillvals exch get
+	dup type /stringtype eq
+	{8 1 setPatternMode} 
+	{setGrayScaleMode}
+	ifelse
+	} bind def
+/V { 
+	PFill gsave eofill grestore
+	} bind def
+/Vclip {
+	clip
+	} bind def
+/Vstrk {
+	currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/N { 
+	PStroke
+	} bind def
+/Nclip {
+	strokepath clip newpath
+	} bind def
+/Nstrk {
+	currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/M {newpath moveto} bind def
+/E {lineto} bind def
+/D {curveto} bind def
+/O {closepath} bind def
+/L { 
+ 	/n exch def
+	newpath
+	normalize
+	moveto 
+	2 1 n {pop normalize lineto} for
+	} bind def
+/Y { 
+	L 
+	closepath
+	} bind def
+/R { 
+	/y2 exch def
+	/x2 exch def
+	/y1 exch def
+	/x1 exch def
+	x1 y1
+	x2 y1
+	x2 y2
+	x1 y2
+	4 Y 
+	} bind def
+/rarc 
+	{rad 
+	 arcto
+	} bind def
+/RR { 
+	/rad exch def
+	normalize
+	/y2 exch def
+	/x2 exch def
+	normalize
+	/y1 exch def
+	/x1 exch def
+	mark
+	newpath
+	{
+	x1 y1 rad add moveto
+	x1 y2 x2 y2 rarc
+	x2 y2 x2 y1 rarc
+	x2 y1 x1 y1 rarc
+	x1 y1 x1 y2 rarc
+	closepath
+	} stopped {x1 y1 x2 y2 R} if 
+	cleartomark
+	} bind def
+/RRR { 
+	/rad exch def
+	normalize /y4 exch def /x4 exch def
+	normalize /y3 exch def /x3 exch def
+	normalize /y2 exch def /x2 exch def
+	normalize /y1 exch def /x1 exch def
+	newpath
+	normalize moveto 
+	mark
+	{
+	x2 y2 x3 y3 rarc
+	x3 y3 x4 y4 rarc
+	x4 y4 x1 y1 rarc
+	x1 y1 x2 y2 rarc
+	closepath
+	} stopped
+	 {x1 y1 x2 y2 x3 y3 x4 y4 newpath moveto lineto lineto lineto closepath} if
+	cleartomark
+	} bind def
+/C { 
+	grestore
+	gsave
+	R 
+	clip
+	setCurrentScreen
+} bind def
+/CP { 
+	grestore
+	gsave
+	Y 
+	clip
+	setCurrentScreen
+} bind def
+/F { 
+	FMfonts exch get
+	FMpointsize scalefont
+	setfont
+	} bind def
+/Q { 
+	/FMpointsize exch def
+	F 
+	} bind def
+/T { 
+	moveto show
+	} bind def
+/RF { 
+	rotate
+	0 ne {-1 1 scale} if
+	} bind def
+/TF { 
+	gsave
+	moveto 
+	RF
+	show
+	grestore
+	} bind def
+/P { 
+	moveto
+	0 32 3 2 roll widthshow
+	} bind def
+/PF { 
+	gsave
+	moveto 
+	RF
+	0 32 3 2 roll widthshow
+	grestore
+	} bind def
+/S { 
+	moveto
+	0 exch ashow
+	} bind def
+/SF { 
+	gsave
+	moveto
+	RF
+	0 exch ashow
+	grestore
+	} bind def
+/B { 
+	moveto
+	0 32 4 2 roll 0 exch awidthshow
+	} bind def
+/BF { 
+	gsave
+	moveto
+	RF
+	0 32 4 2 roll 0 exch awidthshow
+	grestore
+	} bind def
+/G { 
+	gsave
+	newpath
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	PFill fill
+	grestore
+	} bind def
+/Gstrk {
+	savematrix
+    newpath
+    2 index 2 div add exch 3 index 2 div sub exch 
+    normalize 2 index 2 div sub exch 3 index 2 div add exch 
+    translate
+    scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    restorematrix
+    currentlinewidth exch setlinewidth PStroke setlinewidth
+    } bind def
+/Gclip { 
+	newpath
+	savematrix
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	clip newpath
+	restorematrix
+	} bind def
+/GG { 
+	gsave
+	newpath
+	normalize translate 0.0 0.0 moveto 
+	rotate 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath
+	PFill
+	fill
+	grestore
+	} bind def
+/GGclip { 
+	savematrix
+	newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath
+	clip newpath
+	restorematrix
+	} bind def
+/GGstrk { 
+	savematrix
+    newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath 
+	restorematrix
+    currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/A { 
+	gsave
+	savematrix
+	newpath
+	2 index 2 div add exch 3 index 2 div sub exch 
+	normalize 2 index 2 div sub exch 3 index 2 div add exch 
+	translate 
+	scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	restorematrix
+	PStroke
+	grestore
+	} bind def
+/Aclip {
+	newpath
+	savematrix
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	strokepath clip newpath
+	restorematrix
+} bind def
+/Astrk {
+	Gstrk
+} bind def
+/AA { 
+	gsave
+	savematrix
+	newpath
+	
+	3 index 2 div add exch 4 index 2 div sub exch 
+	
+	normalize 3 index 2 div sub exch 4 index 2 div add exch
+	translate 
+	rotate 
+	scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	restorematrix
+	PStroke
+	grestore
+	} bind def
+/AAclip {
+	savematrix
+	newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath
+	strokepath clip newpath
+	restorematrix
+} bind def
+/AAstrk {
+	GGstrk
+} bind def
+/BEGINPRINTCODE { 
+	/FMdicttop countdictstack 1 add def 
+	/FMoptop count 7 sub def 
+	/FMsaveobject save def
+	userdict begin 
+	/showpage {} def 
+	FMNORMALIZEGRAPHICS 
+	3 index neg 3 index neg translate
+	} bind def
+/ENDPRINTCODE {
+	count -1 FMoptop {pop pop} for 
+	countdictstack -1 FMdicttop {pop end} for 
+	FMsaveobject restore 
+	} bind def
+/gn { 
+	0 
+	{	46 mul 
+		cf read pop 
+		32 sub 
+		dup 46 lt {exit} if 
+		46 sub add 
+		} loop
+	add 
+	} bind def
+/cfs { 
+	/str sl string def 
+	0 1 sl 1 sub {str exch val put} for 
+	str def 
+	} bind def
+/ic [ 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0
+	{0 hx} {1 hx} {2 hx} {3 hx} {4 hx} {5 hx} {6 hx} {7 hx} {8 hx} {9 hx}
+	{10 hx} {11 hx} {12 hx} {13 hx} {14 hx} {15 hx} {16 hx} {17 hx} {18 hx}
+	{19 hx} {gn hx} {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12}
+	{13} {14} {15} {16} {17} {18} {19} {gn} {0 wh} {1 wh} {2 wh} {3 wh}
+	{4 wh} {5 wh} {6 wh} {7 wh} {8 wh} {9 wh} {10 wh} {11 wh} {12 wh}
+	{13 wh} {14 wh} {gn wh} {0 bl} {1 bl} {2 bl} {3 bl} {4 bl} {5 bl} {6 bl}
+	{7 bl} {8 bl} {9 bl} {10 bl} {11 bl} {12 bl} {13 bl} {14 bl} {gn bl}
+	{0 fl} {1 fl} {2 fl} {3 fl} {4 fl} {5 fl} {6 fl} {7 fl} {8 fl} {9 fl}
+	{10 fl} {11 fl} {12 fl} {13 fl} {14 fl} {gn fl}
+	] def
+/ms { 
+	/sl exch def 
+	/val 255 def 
+	/ws cfs 
+	/im cfs 
+	/val 0 def 
+	/bs cfs 
+	/cs cfs 
+	} bind def
+400 ms 
+/ip { 
+	is 
+	0 
+	cf cs readline pop 
+	{	ic exch get exec 
+		add 
+		} forall 
+	pop 
+	
+	} bind def
+/rip { 
+	   
+	  
+	  bis ris copy pop 
+      is
+      0
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop 
+	  ris gis copy pop 
+	  dup is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  gis bis copy pop 
+	  dup add is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+      pop 
+      
+      } bind def
+/rip4 { 
+	   
+	  
+	  kis cis copy pop 
+      is
+      0
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop 
+	  cis mis copy pop 
+	  dup is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  mis yis copy pop 
+	  dup dup add is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  yis kis copy pop 
+	  3 mul is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+      pop 
+      
+      } bind def
+/wh { 
+	/len exch def 
+	/pos exch def 
+	ws 0 len getinterval im pos len getinterval copy pop
+	pos len 
+	} bind def
+/bl { 
+	/len exch def 
+	/pos exch def 
+	bs 0 len getinterval im pos len getinterval copy pop
+	pos len 
+	} bind def
+/s1 1 string def
+/fl { 
+	/len exch def 
+	/pos exch def 
+	/val cf s1 readhexstring pop 0 get def
+	pos 1 pos len add 1 sub {im exch val put} for
+	pos len 
+	} bind def
+/hx { 
+	3 copy getinterval 
+	cf exch readhexstring pop pop 
+	} bind def
+/wbytes { 
+      dup dup
+      8 gt { pop 8 idiv mul }
+      { 8 eq {pop} {1 eq {7 add 8 idiv} {3 add 4 idiv} ifelse} ifelse } ifelse
+	} bind def
+/BEGINBITMAPBWc { 
+	1 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAPGRAYc { 
+	8 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAP2BITc { 
+	2 {} COMMONBITMAPc
+	} bind def
+/COMMONBITMAPc { 
+		 
+	/cvtProc exch def
+	/depth exch def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+	cvtProc                
+	/is im 0 lb getinterval def 
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height depth [width 0 0 height neg 0 height] 
+	{ip} image 
+	bitmapsave restore 
+	grestore
+	} bind def
+/BEGINBITMAPBW { 
+	1 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAPGRAY { 
+	8 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAP2BIT { 
+	2 {} COMMONBITMAP
+	} bind def
+/COMMONBITMAP { 
+	/cvtProc exch def
+	/depth exch def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/bitmapsave save def 
+	cvtProc              
+	/is width depth wbytes string def
+	/cf currentfile def 
+	width height depth [width 0 0 height neg 0 height] 
+	{cf is readhexstring pop} image
+	bitmapsave restore 
+	grestore
+	} bind def
+/ngrayt 256 array def
+/nredt 256 array def
+/nbluet 256 array def
+/ngreent 256 array def
+fMLevel1 {
+/colorsetup {
+	currentcolortransfer
+	/gryt exch def
+	/blut exch def
+	/grnt exch def
+	/redt exch def
+	0 1 255 {
+		/indx exch def
+		/cynu 1 red indx get 255 div sub def
+		/magu 1 green indx get 255 div sub def
+		/yelu 1 blue indx get 255 div sub def
+		/kk cynu magu min yelu min def
+		/u kk currentundercolorremoval exec def
+%		/u 0 def
+		nredt indx 1 0 cynu u sub max sub redt exec put
+		ngreent indx 1 0 magu u sub max sub grnt exec put
+		nbluet indx 1 0 yelu u sub max sub blut exec put
+		ngrayt indx 1 kk currentblackgeneration exec sub gryt exec put
+	} for
+	{255 mul cvi nredt exch get}
+	{255 mul cvi ngreent exch get}
+	{255 mul cvi nbluet exch get}
+	{255 mul cvi ngrayt exch get}
+	setcolortransfer
+	{pop 0} setundercolorremoval
+	{} setblackgeneration
+	} bind def
+}
+{
+/colorSetup2 {
+	[ /Indexed /DeviceRGB 255 
+		{dup red exch get 255 div 
+		 exch dup green exch get 255 div 
+		 exch blue exch get 255 div}
+	] setcolorspace
+} bind def
+} ifelse
+/fakecolorsetup {
+	/tran 256 string def
+	0 1 255 {/indx exch def 
+		tran indx
+		red indx get 77 mul
+		green indx get 151 mul
+		blue indx get 28 mul
+		add add 256 idiv put} for
+	currenttransfer
+	{255 mul cvi tran exch get 255.0 div}
+	exch fmConcatProcs settransfer
+} bind def
+/BITMAPCOLOR { 
+	/depth 8 def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/bitmapsave save def
+	fMLevel1 {	
+		colorsetup
+		/is width depth wbytes string def
+		/cf currentfile def 
+		width height depth [width 0 0 height neg 0 height] 
+		{cf is readhexstring pop} {is} {is} true 3 colorimage 
+	} {
+		colorSetup2
+		/is width depth wbytes string def
+		/cf currentfile def 
+		7 dict dup begin
+			/ImageType 1 def
+			/Width width def
+			/Height height def
+			/ImageMatrix [width 0 0 height neg 0 height] def
+			/DataSource {cf is readhexstring pop} bind def
+			/BitsPerComponent depth def
+			/Decode [0 255] def
+		end image	
+	} ifelse
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPCOLORc { 
+	/depth 8 def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+	fMLevel1 {	
+		colorsetup
+		/is im 0 lb getinterval def 
+		ws 0 lb getinterval is copy pop 
+		/cf currentfile def 
+		width height depth [width 0 0 height neg 0 height] 
+		{ip} {is} {is} true 3 colorimage
+	} {
+		colorSetup2
+		/is im 0 lb getinterval def 
+		ws 0 lb getinterval is copy pop 
+		/cf currentfile def 
+		7 dict dup begin
+			/ImageType 1 def
+			/Width width def
+			/Height height def
+			/ImageMatrix [width 0 0 height neg 0 height] def
+			/DataSource {ip} bind def
+			/BitsPerComponent depth def
+			/Decode [0 255] def
+		end image	
+	} ifelse
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPTRUECOLORc { 
+	/depth 24 def
+        gsave
+ 	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/ris im 0 width getinterval def	
+	/gis im width width getinterval def	
+	/bis im width 2 mul width getinterval def 
+        
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height 8 [width 0 0 height neg 0 height] 
+	{width rip pop ris} {gis} {bis} true 3 colorimage
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPCMYKc { 
+	/depth 32 def
+        gsave
+ 	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/cis im 0 width getinterval def	
+	/mis im width width getinterval def	
+	/yis im width 2 mul width getinterval def 
+	/kis im width 3 mul width getinterval def 
+        
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height 8 [width 0 0 height neg 0 height] 
+	{width rip4 pop cis} {mis} {yis} {kis} true 4 colorimage
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPTRUECOLOR { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /gis width string def
+        /bis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop } 
+        { cf gis readhexstring pop } 
+        { cf bis readhexstring pop } 
+        true 3 colorimage 
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYK { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /mis width string def
+        /yis width string def
+        /kis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop } 
+        { cf mis readhexstring pop } 
+        { cf yis readhexstring pop } 
+        { cf kis readhexstring pop } 
+        true 4 colorimage 
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPTRUEGRAYc { 
+	/depth 24 def
+        gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+        /bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/ris im 0 width getinterval def	
+	/gis im width width getinterval def	
+	/bis im width 2 mul width getinterval def 
+        ws 0 lb getinterval is copy pop 
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        {width rip pop ris gis bis width gray} image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYKGRAYc { 
+	/depth 32 def
+        gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+        /bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/cis im 0 width getinterval def	
+	/mis im width width getinterval def	
+	/yis im width 2 mul width getinterval def 
+	/kis im width 3 mul width getinterval def 
+        ws 0 lb getinterval is copy pop 
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        {width rip pop cis mis yis kis width cgray} image
+        bitmapsave restore 
+        grestore
+        } bind def
+/cgray { 
+        /ww exch def
+        /k exch def
+        /y exch def
+        /m exch def
+        /c exch def
+        0 1 ww 1 sub { /i exch def c i get m i get y i get k i get CMYKtoRGB
+				.144 mul 3 1 roll .587 mul 3 1 roll .299 mul add add
+				c i 3 -1 roll floor cvi put } for
+        c
+ 		} bind def
+/gray { 
+        /ww exch def
+        /b exch def
+        /g exch def
+        /r exch def
+        0 1 ww 1 sub { /i exch def r i get .299 mul g i get .587 mul
+			b i get .114 mul add add r i 3 -1 roll floor cvi put } for
+        r
+        } bind def
+/BITMAPTRUEGRAY { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /gis width string def
+        /bis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop 
+          cf gis readhexstring pop 
+          cf bis readhexstring pop width gray}  image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYKGRAY { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /yis width string def
+        /mis width string def
+        /kis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop 
+          cf mis readhexstring pop 
+          cf yis readhexstring pop 
+          cf kis readhexstring pop width cgray}  image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPGRAY { 
+	8 {fakecolorsetup} COMMONBITMAP
+	} bind def
+/BITMAPGRAYc { 
+	8 {fakecolorsetup} COMMONBITMAPc
+	} bind def
+/ENDBITMAP {
+	} bind def
+end 
+	/ALDmatrix matrix def ALDmatrix currentmatrix pop
+/StartALD {
+	/ALDsave save def
+	 savematrix
+	 ALDmatrix setmatrix
+	} bind def
+/InALD {
+	 restorematrix
+	} bind def
+/DoneALD {
+	 ALDsave restore
+	} bind def
+/I { setdash } bind def
+/J { [] 0 setdash } bind def
+%%EndProlog
+%%BeginSetup
+(5.0) FMVERSION
+1 1 0 0 612 792 0 1 10 FMDOCUMENT
+0 0 /Helvetica-Bold FMFONTDEFINE
+1 0 /Times-Bold FMFONTDEFINE
+2 0 /Times-Roman FMFONTDEFINE
+3 0 /Helvetica FMFONTDEFINE
+32 FMFILLS
+0 0 FMFILL
+1 0.1 FMFILL
+2 0.3 FMFILL
+3 0.5 FMFILL
+4 0.7 FMFILL
+5 0.9 FMFILL
+6 0.97 FMFILL
+7 1 FMFILL
+8 <0f1e3c78f0e1c387> FMFILL
+9 <0f87c3e1f0783c1e> FMFILL
+10 <cccccccccccccccc> FMFILL
+11 <ffff0000ffff0000> FMFILL
+12 <8142241818244281> FMFILL
+13 <03060c183060c081> FMFILL
+14 <8040201008040201> FMFILL
+16 1 FMFILL
+17 0.9 FMFILL
+18 0.7 FMFILL
+19 0.5 FMFILL
+20 0.3 FMFILL
+21 0.1 FMFILL
+22 0.03 FMFILL
+23 0 FMFILL
+24 <f0e1c3870f1e3c78> FMFILL
+25 <f0783c1e0f87c3e1> FMFILL
+26 <3333333333333333> FMFILL
+27 <0000ffff0000ffff> FMFILL
+28 <7ebddbe7e7dbbd7e> FMFILL
+29 <fcf9f3e7cf9f3f7e> FMFILL
+30 <7fbfdfeff7fbfdfe> FMFILL
+%%EndSetup
+%%Page: "1" 1
+%%BeginPaperSize: Letter
+%%EndPaperSize
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+J
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.68 558 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Created:J) 72 741 T
+(ul) 113.33 741 T
+(y 2, 2001) 121.19 741 T
+72 885/G915953 FmPA
+(Modi\336ed:J) 72 730 T
+(ul) 116.82 730 T
+(y 3, 2001) 124.69 730 T
+72 874/G915957 FmPA
+72 444.68 558 444.68 2 L
+2 Z
+N
+72 62.08 558 62.08 2 L
+0.25 H
+N
+(Summar) 72 47.11 T
+(y of the GNIRS OIWFS Mec) 108.1 47.11 T
+(hanism T) 223.03 47.11 T
+(esting) 262 47.11 T
+( niri_hty_016) 414.08 47.11 T
+0 10 Q
+(/) 469.1 47.11 T
+0 9 Q
+(00) 471.88 47.11 T
+0 10 Q
+(1) 513.96 47.11 T
+0 9 Q
+( of) 519.52 47.11 T
+0 10 Q
+(6) 533.02 47.11 T
+72 191/G915976 FmPA
+72 468 198 720 R
+V
+0 0 0 0 1 1 1 K
+0 0 0 1 0 0 0 K
+72 852/G915977 FmPA
+0 0 0 0 1 1 1 K
+1 20 Q
+7 X
+0 0 0 0 1 1 1 K
+(Gemini) 81 684.67 T
+0 0 0 1 0 0 0 K
+72 829/G915978 FmPA
+0 0 0 0 1 1 1 K
+1 18 Q
+(Near) 81 662 T
+0 0 0 1 0 0 0 K
+0 0 0 0 1 1 1 K
+(Infra-Red) 81 640 T
+0 0 0 1 0 0 0 K
+0 0 0 0 1 1 1 K
+(Imager) 81 618 T
+0 0 0 1 0 0 0 K
+0 0 0 0 1 1 1 K
+(and) 81 596 T
+0 0 0 1 0 0 0 K
+0 0 0 0 1 1 1 K
+(W) 81 574 T
+(a) 97.83 574 T
+(v) 106.38 574 T
+(efr) 115.2 574 T
+(ont) 136.85 574 T
+0 0 0 1 0 0 0 K
+72 718/G915979 FmPA
+0 0 0 0 1 1 1 K
+(Sensor) 81 552 T
+0 0 0 1 0 0 0 K
+108 513 135 540 R
+4 X
+0 0 0 1 0 0 0 K
+V
+0.5 H
+0 X
+N
+135 486 162 513 R
+4 X
+V
+135 513 162 540 R
+3 X
+V
+108 486 135 513 R
+V
+1 1 0 0 0 0 1 K
+0 14 Q
+0 X
+1 1 0 0 0 0 1 K
+(NIRI) 120.5 511.95 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+108 486 162 540 R
+3 H
+1 X
+0 0 0 1 0 0 0 K
+N
+0 0 0 1 0 0 0 K
+1 1 0 0 0 0 1 K
+0 X
+1 1 0 0 0 0 1 K
+(OIWFS) 111.55 497.95 T
+0 0 0 1 0 0 0 K
+2 24 Q
+0 0 0 1 0 0 0 K
+-0.17 (Summary of the GNIRS OIWFS) 207 704 S
+207 848/G473591 FmPA
+207 651.6 558 666 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+207 658.8 675 658.8 2 L
+1.5 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+2 24 Q
+0 X
+0 0 0 1 0 0 0 K
+-0.17 (Mechanism T) 207 674 S
+-0.17 (esting) 336.15 674 S
+1 12 Q
+(Hubert Y) 207 627.6 T
+(amada) 254.98 627.6 T
+207 772/G916042 FmPA
+3 11 Q
+(nir) 207 603.27 T
+(i_hty_016 / 1.00 / 2001-07-02) 219.39 603.27 T
+207 747/G916062 FmPA
+0 10 Q
+-0.47 (This document describes the tests whic) 207 562.93 P
+-0.47 (h were perf) 394.04 562.93 P
+-0.47 (ormed to insure that) 446.25 562.93 P
+207 707/G916063 FmPA
+(the GNIRS OIWFS mec) 207 549.93 T
+(hanisms were w) 314.7 549.93 T
+(orking correctl) 391.2 549.93 T
+(y) 461.07 549.93 T
+(.) 465.83 549.93 T
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+72 411 558 420 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171 420 549 420 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 420 162 420 2 L
+0 Z
+N
+0 0 612 792 C
+1 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(1) 147 424 T
+(Intr) 171 424 T
+(oduction) 191.45 424 T
+72 568/G916069 FmPA
+2 10 Q
+(The GNIRS OIWFS mechanisms were b) 171 394.33 T
+(uilt using the same designs as the NIRI OIWFS mecha-) 333.83 394.33 T
+72 538/G916071 FmPA
+-0.32 (nisms. The NIRI mechanisms had recei) 171 382.33 P
+-0.32 (v) 326.92 382.33 P
+-0.32 (ed e) 331.77 382.33 P
+-0.32 (xtensi) 347.69 382.33 P
+-0.32 (v) 371.33 382.33 P
+-0.32 (e testing, both in the lab and on the telescope,) 376.18 382.33 P
+(so it w) 171 370.33 T
+(as felt that the design w) 197.57 370.33 T
+(as sound. F) 292.18 370.33 T
+(or this reason, it w) 337.31 370.33 T
+(as deemed unnecessary to perform) 411.37 370.33 T
+(e) 171 358.33 T
+(xtensi) 175.29 358.33 T
+(v) 198.93 358.33 T
+(e and time-consuming mechanism tests. It appeared suf) 203.78 358.33 T
+(\336cient to perform a basic test of) 425.16 358.33 T
+-0.33 (all mechanism functions, with particular attention being paid to those elements which had pro) 171 346.33 P
+-0.33 (v) 541.54 346.33 P
+-0.33 (en) 546.39 346.33 P
+(to be problematic with the NIRI OIWFS.) 171 334.33 T
+1 12 Q
+(1.1) 147 300 T
+(De\336nitions, Acr) 171 300 T
+(onyms and Ab) 251.45 300 T
+(br) 325.34 300 T
+(e) 337.13 300 T
+(viations) 342.28 300 T
+72 444/G916708 FmPA
+2 10 Q
+(See \322Near IR Imager \050NIRI\051\321De\336nitions, Abbre) 171.21 282.33 T
+(viations, and References\323.) 369.24 282.33 T
+72 426/G916709 FmPA
+1 12 Q
+(1.2) 147 248 T
+(Stylistic Con) 171 248 T
+(v) 235.52 248 T
+(entions) 241.4 248 T
+72 392/G916710 FmPA
+2 10 Q
+(References to documents in Section) 171.21 230.33 T
+(1.5, \322References,) 317.02 230.33 T
+(\323 on page) 385.18 230.33 T
+(2 of \322Near IR Imager \050NIRI\051\321) 426 230.33 T
+72 374/G916714 FmPA
+(De\336nitions, Abbre) 171.21 218.33 T
+(viations, and References\323 are gi) 245.4 218.33 T
+(v) 372.61 218.33 T
+(en lik) 377.46 218.33 T
+(e this; [1].) 399.86 218.33 T
+1 12 Q
+(1.3) 147 184 T
+(Refer) 171 184 T
+(ences) 199.43 184 T
+72 328/G916718 FmPA
+2 10 Q
+(See \322Near IR Imager \050NIRI\051\321De\336nitions, Abbre) 171.21 166.33 T
+(viations, and References\323.) 369.24 166.33 T
+72 310/G916719 FmPA
+72 286/G916706 FmPA
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/Creator(FrameMaker xm5.0.1P1j)/DOCINFO FmPD2
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.1/DEST FmPD2
+[/Rect[285 227 431 237]/Border[0 0 0]/Dest/M9.40713.Heading2.15.References/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Rect[427 215 438 225]/Border[0 0 0]/Dest/M9.25768.Doclist1.1.nirihty000fm.obsolete.superseded.by.this.document.and.by.2.NIRI.Optical/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Title(A)/Rect[198 459 567 729]/ARTICLE FmPD2
+[/Title(A)/Rect[63 67 567 441]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "1" 1
+%%Page: "2" 2
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.68 540 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Filter Wheel) 114.8 733.66 T
+54 878/G915869 FmPA
+54 726.98 540 726.98 2 L
+0.25 H
+N
+52.58 54.99 538.58 54.99 2 L
+2 Z
+N
+0 10 Q
+(2) 52.58 38.89 T
+0 9 Q
+( of) 58.14 38.89 T
+0 10 Q
+( 6) 69.14 38.89 T
+0 9 Q
+( niri_hty_016) 113.39 38.89 T
+0 10 Q
+(/) 168.41 38.89 T
+0 9 Q
+(00) 171.19 38.89 T
+(Summar) 305.35 38.89 T
+(y of the GNIRS OIWFS Mec) 341.45 38.89 T
+(hanism T) 456.38 38.89 T
+(esting) 495.35 38.89 T
+53 183/G915888 FmPA
+54 666.33 523.28 675.33 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+153 675.33 531 675.33 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+54 675.33 144 675.33 2 L
+0 Z
+N
+0 0 612 792 C
+1 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2) 129 679.33 T
+(Filter Wheel) 153 679.33 T
+54 823/G916080 FmPA
+2 10 Q
+-0.24 (The \336lter wheel b) 153 649.66 P
+-0.24 (uilt from a design that has pro) 222.89 649.66 P
+-0.24 (v) 341.28 649.66 P
+-0.24 (en to be v) 346.13 649.66 P
+-0.24 (ery reliable. F) 384.41 649.66 P
+-0.24 (or this reason, it w) 439.6 649.66 P
+-0.24 (as) 512.69 649.66 P
+54 794/G916083 FmPA
+-0.3 (felt that it w) 153 637.66 P
+-0.3 (as acceptable to test the mechanism at room temperature, without cooling it to its) 200.6 637.66 P
+(operating temperature.) 153 625.66 T
+(T) 153.21 601.66 T
+(esting w) 158.62 601.66 T
+(as done using the actual interf) 192.13 601.66 T
+(ace boards and stepper) 311.73 601.66 T
+(-motor dri) 402.33 601.66 T
+(v) 442.91 601.66 T
+(er modules that) 447.76 601.66 T
+54 746/G916090 FmPA
+(will be used in GNIRS. Custom interf) 153.21 589.66 T
+(ace cables were used in place of the cables which will) 304.5 589.66 T
+(be used in the de) 153.21 577.66 T
+(w) 220.17 577.66 T
+(ar; the other cables, which will be e) 227.29 577.66 T
+(xternal to the de) 369.33 577.66 T
+(w) 433.79 577.66 T
+(ar) 440.91 577.66 T
+(, were the cables) 448.28 577.66 T
+(which are to be used with GNIRS. The mechanism w) 153.21 565.66 T
+(as con\336gured as it w) 366.41 565.66 T
+(as e) 448.52 565.66 T
+(xpected to be) 463.64 565.66 T
+(used, including the Hall-ef) 153.21 553.66 T
+(fect sensors.) 259.61 553.66 T
+(The standard OIWFS datum / diagnose function w) 153.21 529.66 T
+(as then used, with the NIRI calibration) 355.03 529.66 T
+54 674/G916100 FmPA
+(constants. It w) 153.21 517.66 T
+(as e) 211.16 517.66 T
+(xpected that the datum function w) 226.28 517.66 T
+(ould w) 362.55 517.66 T
+(ork correctly) 389.95 517.66 T
+(, b) 440.67 517.66 T
+(ut that the diag-) 450.47 517.66 T
+-0.06 (nose function w) 153.21 505.66 P
+-0.06 (ould f) 216.87 505.66 P
+-0.06 (ail until the system had been calibrated. It w) 240.32 505.66 P
+-0.06 (as found that the direction) 416.65 505.66 P
+(of rotation of the motor w) 153.21 493.66 T
+(as the re) 256.71 493.66 T
+(v) 289.78 493.66 T
+(erse of NIRI. It is belie) 294.63 493.66 T
+(v) 386.58 493.66 T
+(ed that the NIRI motors were) 391.43 493.66 T
+-0.16 (inconsistently wired. Since all of the GNIRS motors were wired identically) 153.21 481.66 P
+-0.16 (, it w) 451.81 481.66 P
+-0.16 (as felt that it) 471.68 481.66 P
+(w) 153.21 469.66 T
+(as preferable not to re) 160.33 469.66 T
+(v) 247.27 469.66 T
+(erse the direction of motor motion to match NIRI. Instead, all cali-) 252.12 469.66 T
+(bration constants were re) 153.21 457.66 T
+(v) 253.21 457.66 T
+(ersed.) 258.06 457.66 T
+(W) 153.21 433.66 T
+(ith the corrected calibration constants, the \336lter wheel w) 162.25 433.66 T
+(as able to datum properly) 386.83 433.66 T
+(, b) 487.83 433.66 T
+(ut) 497.63 433.66 T
+54 578/G916102 FmPA
+(f) 153.21 421.66 T
+(ailed the diagnosis phase. This w) 156.44 421.66 T
+(as e) 288.55 421.66 T
+(xpected, as the normal calibration constants are sensi-) 303.67 421.66 T
+-0.14 (ti) 153.21 409.66 P
+-0.14 (v) 158.52 409.66 P
+-0.14 (e, and need to be re) 163.37 409.66 P
+-0.14 (generated for each mechanism. The lo) 240.27 409.66 P
+-0.14 (w-le) 392.05 409.66 P
+-0.14 (v) 409.57 409.66 P
+-0.14 (el calibration constants are) 414.42 409.66 P
+-0.28 (well-de\336ned by the mechanism. The) 153.21 397.66 P
+-0.28 (y were not changed, and were not e) 297.74 397.66 P
+-0.28 (xpected to need to be) 437.22 397.66 P
+(changed.) 153.21 385.66 T
+(The standard mechanism calibration procedure w) 153.21 361.66 T
+(as then carried out, and the ne) 350.56 361.66 T
+(w constants) 470 361.66 T
+54 506/G916114 FmPA
+-0.22 (were v) 153.21 349.66 P
+-0.22 (eri\336ed to be reasonable, and then were loaded into the database. The datum / diagnose) 179.77 349.66 P
+(function w) 153.21 337.66 T
+(as ag) 196.16 337.66 T
+(ain performed, and w) 216.38 337.66 T
+(as completed with no problems. The datum / diagnose) 301.81 337.66 T
+(function w) 153.21 325.66 T
+(as then e) 196.16 325.66 T
+(x) 231 325.66 T
+(ecuted a fe) 235.85 325.66 T
+(w times, with no f) 278.91 325.66 T
+(ailures detected.) 351.31 325.66 T
+-0.14 (The mechanism w) 153.21 301.66 P
+-0.14 (as then mo) 226.15 301.66 P
+-0.14 (v) 269.05 301.66 P
+-0.14 (ed to each \336lter position in sequence. The mechanism reached) 273.9 301.66 P
+54 446/G916121 FmPA
+(each position and the Hall-ef) 153.21 289.66 T
+(fect sensor reading con\336rmed that the mechanism w) 268.49 289.66 T
+(as in the) 476.96 289.66 T
+(correct position.) 153.21 277.66 T
+(Finally) 153.21 253.66 T
+(, the OIWFS c) 180.9 253.66 T
+(ycle test w) 238.52 253.66 T
+(as started. The mechanism w) 281.19 253.66 T
+(as run through 30 test c) 396.9 253.66 T
+(ycles.) 490.35 253.66 T
+54 398/G916124 FmPA
+(No errors were detected during the c) 153.21 241.66 T
+(ycle test.) 299.12 241.66 T
+54 192.33 523.28 201.33 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+153 201.33 531 201.33 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+54 201.33 144 201.33 2 L
+0 Z
+N
+0 0 612 792 C
+1 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(3) 129 205.33 T
+(F) 153 205.33 T
+(ocus Stage) 160.03 205.33 T
+54 349/G916113 FmPA
+2 10 Q
+-0.02 (The \336lter wheel b) 153 175.66 P
+-0.02 (uilt from a design that has pro) 223.57 175.66 P
+-0.02 (v) 343.31 175.66 P
+-0.02 (en to be reliable. F) 348.16 175.66 P
+-0.02 (or this reason, it w) 422.65 175.66 P
+-0.02 (as felt) 496.65 175.66 P
+54 320/G916155 FmPA
+(that e) 153 163.66 T
+(xtensi) 174.79 163.66 T
+(v) 198.43 163.66 T
+(e testing w) 203.28 163.66 T
+(as unnecessary) 246.51 163.66 T
+(, b) 305.56 163.66 T
+(ut that cryogenic operation needed to be v) 315.36 163.66 T
+(eri\336ed.) 483.23 163.66 T
+-0.2 (T) 153.21 139.66 P
+-0.2 (esting be) 158.62 139.66 P
+-0.2 (g) 194.1 139.66 P
+-0.2 (an with the mechanism sitting in an upright position. The mechanism w) 199.05 139.66 P
+-0.2 (as mo) 483.42 139.66 P
+-0.2 (v) 506.68 139.66 P
+-0.2 (ed) 511.53 139.66 P
+54 284/G916153 FmPA
+-0.08 (to the center of tra) 153.21 127.66 P
+-0.08 (v) 225.99 127.66 P
+-0.08 (el. Some slight misalignment of the mechanism were disco) 230.84 127.66 P
+-0.08 (v) 465.84 127.66 P
+-0.08 (ered and cor-) 470.69 127.66 P
+(rected at this time. The home position w) 153.21 115.66 T
+(as found to be slightly closer to the center of tra) 314.21 115.66 T
+(v) 505.09 115.66 T
+(el) 509.94 115.66 T
+(of the mechanism than NIRI. This has the possibility of introducing slightly more inconsis-) 153.21 103.66 T
+-0.16 (tenc) 153.21 91.66 P
+-0.16 (y to the home position, because the mechanism is not pre-loaded at the home position. It) 169.72 91.66 P
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.2/DEST FmPD2
+[/Title(A)/Rect[45 60 532 696]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "2" 2
+%%Page: "3" 3
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.68 558 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Gimbal Mirr) 132.8 733.66 T
+(or) 182.64 733.66 T
+72 878/G915903 FmPA
+72 726.98 558 726.98 2 L
+0.25 H
+N
+72 62.08 558 62.08 2 L
+2 Z
+N
+(Summar) 72 45.45 T
+(y of the GNIRS OIWFS Mec) 108.1 45.45 T
+(hanism T) 223.03 45.45 T
+(esting) 262 45.45 T
+( niri_hty_016) 414.08 45.45 T
+0 10 Q
+(/) 469.1 45.45 T
+0 9 Q
+(00) 471.88 45.45 T
+0 10 Q
+(3) 516.65 45.45 T
+0 9 Q
+( of) 522.21 45.45 T
+0 10 Q
+(6) 535.71 45.45 T
+72 189/G915922 FmPA
+2 F
+(w) 171.21 680.66 T
+(as felt that the home position w) 178.33 680.66 T
+(as suf) 303.78 680.66 T
+(\336ciently distant from the central position to insure a) 326.58 680.66 T
+(repeatable home position.) 171.21 668.66 T
+-0.01 (The mechanism w) 171.21 644.66 P
+-0.01 (as centered, and mo) 244.41 644.66 P
+-0.01 (v) 323.64 644.66 P
+-0.01 (ed back and forth from limit to limit se) 328.49 644.66 P
+-0.01 (v) 483.69 644.66 P
+-0.01 (eral times. It) 488.54 644.66 P
+72 789/G916173 FmPA
+(w) 171.21 632.66 T
+(as found that the mechanism mo) 178.33 632.66 T
+(v) 307.89 632.66 T
+(ed freely) 312.74 632.66 T
+(, with no apparent problems. No e) 347.35 632.66 T
+(vidence of) 483.19 632.66 T
+(motor stalling \321 a common problem with this type of mechanism, particularly near the lim-) 171.21 620.66 T
+(its of tra) 171.21 608.66 T
+(v) 204.34 608.66 T
+(el \321 w) 209.19 608.66 T
+(as detected.) 238.53 608.66 T
+(The lo) 171.21 584.66 T
+(w-le) 196.79 584.66 T
+(v) 214.31 584.66 T
+(el calibration constants were then adjusted to match this mechanism. This w) 219.16 584.66 T
+(as) 523.47 584.66 T
+72 729/G916195 FmPA
+(e) 171.21 572.66 T
+(xpected to be necessary) 175.5 572.66 T
+(, since the constants are dependent on v) 269.54 572.66 T
+(ery \336ne positioning of the) 427.69 572.66 T
+-0.2 (Hall-ef) 171.21 560.66 P
+-0.2 (fect sensors. The limits of tra) 199.28 560.66 P
+-0.2 (v) 314.73 560.66 P
+-0.2 (el were adjusted, also e) 319.58 560.66 P
+-0.2 (xpected, as the limits depend on) 411.66 560.66 P
+-0.13 (the orientation of the main scre) 171.21 548.66 P
+-0.13 (w) 295.04 548.66 P
+-0.13 (. The mechanism w) 301.61 548.66 P
+-0.13 (as datumed, and performed as e) 379.45 548.66 P
+-0.13 (xpected.) 505.3 548.66 P
+(The normal calibration w) 171.21 536.66 T
+(as then carried out. The datum / diagnose test w) 272.48 536.66 T
+(as then performed) 463.46 536.66 T
+(se) 171.21 524.66 T
+(v) 179.29 524.66 T
+(eral times, with no f) 184.14 524.66 T
+(ailure. Finally) 264.31 524.66 T
+(, a c) 319.77 524.66 T
+(ycle test w) 336 524.66 T
+(as carried out for about 30 c) 378.67 524.66 T
+(ycles. The) 490.71 524.66 T
+(mechanism passed with no problems.) 171.21 512.66 T
+-0.12 (The mechanism w) 171.21 488.66 P
+-0.12 (as then cooled to its operating temperature. The mechanism w) 244.2 488.66 P
+-0.12 (as unable to) 491.35 488.66 P
+72 633/G916203 FmPA
+-0.21 (datum itself. Further inspection sho) 171.21 476.66 P
+-0.21 (wed that the home position had mo) 312.05 476.66 P
+-0.21 (v) 451.17 476.66 P
+-0.21 (ed slightly as the sys-) 456.02 476.66 P
+-0.2 (tem had cooled. This is w) 171.21 464.66 P
+-0.2 (as not a problem with NIRI, though it w) 272.86 464.66 P
+-0.2 (as a problem with a similar) 431.4 464.66 P
+(NIRI mechanism. At that time, it w) 171.21 452.66 T
+(as decided to resolv) 312.77 452.66 T
+(e the problem by changing some of) 391.77 452.66 T
+(the lo) 171.21 440.66 T
+(w-le) 193.46 440.66 T
+(v) 210.98 440.66 T
+(el calibration constants, depending on the temperature. This w) 215.83 440.66 T
+(as found to be nec-) 464.58 440.66 T
+(essary with the NIRI science-channel focus stage, which has a similar design. There is no) 171.21 428.66 T
+(e) 171.21 416.66 T
+(xplanation of wh) 175.5 416.66 T
+(y this is necessary with the GNIRS OIWFS focus stage, b) 243.22 416.66 T
+(ut not with the) 473.83 416.66 T
+-0.31 (NIRI OIWFS focus stage. W) 171.21 404.66 P
+-0.31 (ith this change to the softw) 285.38 404.66 P
+-0.31 (are, the mechanism passed the datum) 391.78 404.66 P
+(/ diagnose test se) 171.21 392.66 T
+(v) 239.01 392.66 T
+(eral times. Finally) 243.86 392.66 T
+(, a c) 315.71 392.66 T
+(ycle test w) 331.94 392.66 T
+(as performed for about 30 c) 374.61 392.66 T
+(ycles. No) 485.26 392.66 T
+(problems were disco) 171.21 380.66 T
+(v) 253.82 380.66 T
+(ered during the c) 258.67 380.66 T
+(ycle test.) 326 380.66 T
+(Finally) 171.21 356.66 T
+(, to v) 198.9 356.66 T
+(erify that nothing had changed with the mechanism w) 219.03 356.66 T
+(as w) 433.9 356.66 T
+(armed ag) 451.85 356.66 T
+(ain. It w) 488.73 356.66 T
+(as) 521.68 356.66 T
+72 501/G916211 FmPA
+(able to pass the datum / diagnose test and a c) 171.21 344.66 T
+(ycle test of approximately 30 c) 350.48 344.66 T
+(ycles.) 473.92 344.66 T
+(At this time, it is possible to say that the GNIRS OIWFS mechanism passes its tests as well) 171.21 320.66 T
+72 465/G916210 FmPA
+-0.23 (as the corresponding NIRI mechanism did. Ho) 171.21 308.66 P
+-0.23 (we) 355.91 308.66 P
+-0.23 (v) 367.32 308.66 P
+-0.23 (er) 372.17 308.66 P
+-0.23 (, optical testing is still required to insure) 379.54 308.66 P
+(that it is beha) 171.21 296.66 T
+(ving as well as the NIRI mechanism.) 224.62 296.66 T
+72 423/G916151 FmPA
+72 229.33 541.28 238.33 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171 238.33 549 238.33 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 238.33 162 238.33 2 L
+0 Z
+N
+0 0 612 792 C
+1 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(4) 147 242.33 T
+(Gimbal Mirr) 171 242.33 T
+(or) 237.78 242.33 T
+72 386/G916082 FmPA
+72 355/G916048 FmPA
+2 10 Q
+(The gimbal mirror w) 171 196.66 T
+(as b) 254.5 196.66 T
+(uilt from a w) 270.13 196.66 T
+(orking design, so it w) 321.97 196.66 T
+(as felt that it w) 408.26 196.66 T
+(as unnecessary to) 467.6 196.66 T
+72 341/G916047 FmPA
+(perform the detailed testing that w) 171 184.66 T
+(as required for the NIRI mechanism. This mechanism is) 308.38 184.66 T
+(designed to v) 171 172.66 T
+(ery high precision, so optical testing w) 224.18 172.66 T
+(as required.) 378.79 172.66 T
+(The mirror w) 171.21 148.66 T
+(as \336rst calibrated while it w) 224.43 148.66 T
+(as w) 335.15 148.66 T
+(arm. The mechanism w) 353.1 148.66 T
+(as found to mo) 446.87 148.66 T
+(v) 506.44 148.66 T
+(e) 511.29 148.66 T
+72 293/G916242 FmPA
+(smoothly) 171.21 136.66 T
+(. The mechanism w) 207.79 136.66 T
+(as datumed a fe) 286.01 136.66 T
+(w times, and found to return to the same home) 348.24 136.66 T
+(position \050as determined using the Hall-ef) 171.21 124.66 T
+(fect sensors\051. The mechanism w) 334.55 124.66 T
+(as then calibrated) 463.03 124.66 T
+(and passed a small number of c) 171.21 112.66 T
+(ycle tests. Slight mechanical adjustments were necessary in) 296.59 112.66 T
+(order to pro) 171.21 100.66 T
+(vide the full range of tra) 218.27 100.66 T
+(v) 314.99 100.66 T
+(el. The calibration and c) 319.84 100.66 T
+(ycle tests were then repeated.) 416.61 100.66 T
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.3/DEST FmPD2
+[/Title(A)/Rect[63 60 550 696]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "3" 3
+%%Page: "4" 4
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.68 540 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Gimbal Mirr) 114.8 733.66 T
+(or) 164.64 733.66 T
+54 878/G915869 FmPA
+54 726.98 540 726.98 2 L
+0.25 H
+N
+52.58 54.99 538.58 54.99 2 L
+2 Z
+N
+0 10 Q
+(4) 52.58 38.89 T
+0 9 Q
+( of) 58.14 38.89 T
+0 10 Q
+( 6) 69.14 38.89 T
+0 9 Q
+( niri_hty_016) 113.39 38.89 T
+0 10 Q
+(/) 168.41 38.89 T
+0 9 Q
+(00) 171.19 38.89 T
+(Summar) 305.35 38.89 T
+(y of the GNIRS OIWFS Mec) 341.45 38.89 T
+(hanism T) 456.38 38.89 T
+(esting) 495.35 38.89 T
+53 183/G915888 FmPA
+2 10 Q
+(The system w) 153.21 680.66 T
+(as then analyzed using an alignment telescope. The image of a cross-hair w) 208.66 680.66 T
+(as) 509.88 680.66 T
+54 825/G916245 FmPA
+(projected onto the gimbal mirror) 153.21 668.66 T
+(, and the re\337ected image w) 283.35 668.66 T
+(as e) 391 668.66 T
+(xamined as the gimbal w) 406.12 668.66 T
+(as) 506.01 668.66 T
+(tipped. The reticle w) 153.21 656.66 T
+(as able to be read to an accurac) 235.87 656.66 T
+(y of about 0.1 reticle unit, which corre-) 360.39 656.66 T
+-0.34 (sponded to a mirror mo) 153.21 644.66 P
+-0.34 (v) 245.58 644.66 P
+-0.34 (e of approximately 150 steps. \050The e) 250.43 644.66 P
+-0.34 (xact scale w) 394.6 644.66 P
+-0.34 (as dif) 442.69 644.66 P
+-0.34 (ferent for both) 464.04 644.66 P
+(ax) 153.21 632.66 T
+(es, because of geometric f) 162.5 632.66 T
+(actors.\051) 266.53 632.66 T
+(The mirror w) 153.21 608.66 T
+(as of) 206.43 608.66 T
+(fset by 100000 steps and then returned to its home position. This w) 225.34 608.66 T
+(as) 493.84 608.66 T
+54 753/G916250 FmPA
+-0.09 (repeated 20 times. There appeared to be a slight drift in the position, that w) 153.21 596.66 P
+-0.09 (as approximately) 452.36 596.66 P
+(0.1 or 0.2 reticle units.) 153.21 584.66 T
+(The mechanism w) 153.21 560.66 T
+(as tested at cryogenic temperatures. One axis f) 226.43 560.66 T
+(ailed to mo) 412.39 560.66 T
+(v) 457.24 560.66 T
+(e at all at cryo-) 462.09 560.66 T
+54 705/G916251 FmPA
+(genic temperatures. The other axis f) 153.21 548.66 T
+(ailed also after further cold testing. The problem w) 296.96 548.66 T
+(as) 500.43 548.66 T
+(e) 153.21 536.66 T
+(v) 157.4 536.66 T
+(entually isolated, and repaired.) 162.25 536.66 T
+(The pre) 153.21 512.66 T
+(vious calibration and test procedure w) 183.78 512.66 T
+(as repeated, b) 336.15 512.66 T
+(ut the slight drift in position w) 390.65 512.66 T
+(as) 512.23 512.66 T
+54 657/G916254 FmPA
+(not observ) 153.21 500.66 T
+(ed.) 195 500.66 T
+-0.29 (The mechanism w) 153.21 476.66 P
+-0.29 (as then cooled. The mirror w) 225.85 476.66 P
+-0.29 (as of) 339.81 476.66 P
+-0.29 (fset by 100000 steps and then returned to) 358.42 476.66 P
+54 621/G916255 FmPA
+(the home position. The cross-hair returned e) 153.21 464.66 T
+(xactly to the zero position to the accurac) 329.97 464.66 T
+(y of) 491.73 464.66 T
+(observ) 153.21 452.66 T
+(ation.) 179.62 452.66 T
+(The mechanism w) 153.21 428.66 T
+(as calibrated, and the datum / diagnose function w) 226.43 428.66 T
+(as repeated three times) 427.13 428.66 T
+54 573/G916501 FmPA
+(for each axis. Each axis w) 153.21 416.66 T
+(as c) 257.52 416.66 T
+(ycle tested for \336v) 272.64 416.66 T
+(e c) 342.2 416.66 T
+(ycles.) 353.43 416.66 T
+-0.36 (The mechanism w) 153.21 392.66 P
+-0.36 (as then mo) 225.72 392.66 P
+-0.36 (v) 268.18 392.66 P
+-0.36 (ed to a series of points, and the reticle position of the cross hair) 273.03 392.66 P
+54 537/G916262 FmPA
+-0.12 (w) 153.21 380.66 P
+-0.12 (as then read. The follo) 160.33 380.66 P
+-0.12 (wing data w) 249.28 380.66 P
+-0.12 (as recorded. Note that no corrections were made for an) 297.81 380.66 P
+-0.12 (y) 515.9 380.66 P
+(slight distortions which might ha) 153.21 368.66 T
+(v) 284.69 368.66 T
+(e been caused by the optics of the test system. The data) 289.54 368.66 T
+(w) 153.21 356.66 T
+(as found to be linear) 160.33 356.66 T
+(, with an) 241.58 356.66 T
+(y discrepancies easily e) 276.15 356.66 T
+(xplained by the limitations of the test) 370.14 356.66 T
+(setup.) 153.21 344.66 T
+54 310.33 523.28 333.33 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+153.21 318.33 538.72 318.33 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+54 318.33 139.04 318.33 2 L
+0 Z
+N
+0 0 612 792 C
+0 9 Q
+0 X
+0 0 0 1 0 0 0 K
+(T) 54 304.33 T
+(ABLE 1.) 58.69 304.33 T
+2 F
+(x Axis Cross Hair Position as a Function of Mirror Position) 153.21 304.33 T
+54 448/G916584 FmPA
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(Mirror position) 159.22 285.33 T
+0 0 0 1 0 0 0 K
+153 429/G916513 FmPA
+0 0 0 1 0 0 0 K
+(\050ministeps\051) 159.22 274.33 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(Cross hair position) 267.22 285.33 T
+0 0 0 1 0 0 0 K
+261 429/G916515 FmPA
+0 0 0 1 0 0 0 K
+(\050Reticle units\051) 267.22 274.33 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(Cross hair uncertainty) 375.22 285.33 T
+0 0 0 1 0 0 0 K
+369 429/G916517 FmPA
+0 0 0 1 0 0 0 K
+(\050Reticle units\051) 375.22 274.33 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(-10000) 229.72 259.33 T
+0 0 0 1 0 0 0 K
+153 403/G916519 FmPA
+0 0 0 1 0 0 0 K
+(6.9) 351.97 259.33 T
+0 0 0 1 0 0 0 K
+261 403/G916521 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 459.97 259.33 T
+0 0 0 1 0 0 0 K
+369 403/G916523 FmPA
+0 0 0 1 0 0 0 K
+(-8000) 234.22 244.33 T
+0 0 0 1 0 0 0 K
+153 388/G916525 FmPA
+0 0 0 1 0 0 0 K
+(5.6) 351.97 244.33 T
+0 0 0 1 0 0 0 K
+261 388/G916527 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 459.97 244.33 T
+0 0 0 1 0 0 0 K
+369 388/G916529 FmPA
+0 0 0 1 0 0 0 K
+(-6000) 234.22 229.33 T
+0 0 0 1 0 0 0 K
+153 373/G916531 FmPA
+0 0 0 1 0 0 0 K
+(4.1) 351.97 229.33 T
+0 0 0 1 0 0 0 K
+261 373/G916533 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 459.97 229.33 T
+0 0 0 1 0 0 0 K
+369 373/G916535 FmPA
+0 0 0 1 0 0 0 K
+(-4000) 234.22 214.33 T
+0 0 0 1 0 0 0 K
+153 358/G916537 FmPA
+0 0 0 1 0 0 0 K
+(2.9) 351.97 214.33 T
+0 0 0 1 0 0 0 K
+261 358/G916539 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 459.97 214.33 T
+0 0 0 1 0 0 0 K
+369 358/G916541 FmPA
+0 0 0 1 0 0 0 K
+(-2000) 234.22 199.33 T
+0 0 0 1 0 0 0 K
+153 343/G916543 FmPA
+0 0 0 1 0 0 0 K
+(1.4) 351.97 199.33 T
+0 0 0 1 0 0 0 K
+261 343/G916545 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 459.97 199.33 T
+0 0 0 1 0 0 0 K
+369 343/G916547 FmPA
+0 0 0 1 0 0 0 K
+(0) 250.72 184.33 T
+0 0 0 1 0 0 0 K
+153 328/G916549 FmPA
+0 0 0 1 0 0 0 K
+(0.0) 351.97 184.33 T
+0 0 0 1 0 0 0 K
+261 328/G916551 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 459.97 184.33 T
+0 0 0 1 0 0 0 K
+369 328/G916553 FmPA
+0 0 0 1 0 0 0 K
+(2000) 237.22 169.33 T
+0 0 0 1 0 0 0 K
+153 313/G916555 FmPA
+0 0 0 1 0 0 0 K
+(-1.3) 348.97 169.33 T
+0 0 0 1 0 0 0 K
+261 313/G916557 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 459.97 169.33 T
+0 0 0 1 0 0 0 K
+369 313/G916559 FmPA
+0 0 0 1 0 0 0 K
+(4000) 237.22 154.33 T
+0 0 0 1 0 0 0 K
+153 298/G916561 FmPA
+0 0 0 1 0 0 0 K
+(-2.8) 348.97 154.33 T
+0 0 0 1 0 0 0 K
+261 298/G916563 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 459.97 154.33 T
+0 0 0 1 0 0 0 K
+369 298/G916565 FmPA
+0 0 0 1 0 0 0 K
+(6000) 237.22 139.33 T
+0 0 0 1 0 0 0 K
+153 283/G916567 FmPA
+0 0 0 1 0 0 0 K
+(-4.1) 348.97 139.33 T
+0 0 0 1 0 0 0 K
+261 283/G916569 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 459.97 139.33 T
+0 0 0 1 0 0 0 K
+369 283/G916571 FmPA
+0 0 0 1 0 0 0 K
+(8000) 237.22 124.33 T
+0 0 0 1 0 0 0 K
+153 268/G916573 FmPA
+0 0 0 1 0 0 0 K
+(-5.4) 348.97 124.33 T
+0 0 0 1 0 0 0 K
+261 268/G916575 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 459.97 124.33 T
+0 0 0 1 0 0 0 K
+369 268/G916577 FmPA
+0 0 0 1 0 0 0 K
+(10000) 232.72 109.33 T
+0 0 0 1 0 0 0 K
+153 253/G916579 FmPA
+0 0 0 1 0 0 0 K
+(-6.9) 348.97 109.33 T
+0 0 0 1 0 0 0 K
+261 253/G916581 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 459.97 109.33 T
+0 0 0 1 0 0 0 K
+369 253/G916583 FmPA
+0 0 0 1 0 0 0 K
+153.22 295.08 153.22 104.58 2 L
+V
+0.5 H
+0 Z
+N
+261.22 295.58 261.22 104.08 2 L
+V
+N
+369.22 295.58 369.22 104.08 2 L
+V
+N
+477.22 295.08 477.22 104.58 2 L
+V
+N
+152.97 295.33 477.47 295.33 2 L
+V
+N
+152.97 269.33 477.47 269.33 2 L
+V
+2 H
+N
+152.97 254.33 477.47 254.33 2 L
+V
+0.5 H
+N
+152.97 239.33 477.47 239.33 2 L
+V
+N
+152.97 224.33 477.47 224.33 2 L
+V
+N
+152.97 209.33 477.47 209.33 2 L
+V
+N
+152.97 194.33 477.47 194.33 2 L
+V
+N
+152.97 179.33 477.47 179.33 2 L
+V
+N
+152.97 164.33 477.47 164.33 2 L
+V
+N
+152.97 149.33 477.47 149.33 2 L
+V
+N
+152.97 134.33 477.47 134.33 2 L
+V
+N
+152.97 119.33 477.47 119.33 2 L
+V
+N
+152.97 104.33 477.47 104.33 2 L
+V
+N
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.4/DEST FmPD2
+[/Title(A)/Rect[45 60 532 696]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "4" 4
+%%Page: "5" 5
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.68 558 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Gimbal Mirr) 132.8 733.66 T
+(or) 182.64 733.66 T
+72 878/G915903 FmPA
+72 726.98 558 726.98 2 L
+0.25 H
+N
+72 62.08 558 62.08 2 L
+2 Z
+N
+(Summar) 72 45.45 T
+(y of the GNIRS OIWFS Mec) 108.1 45.45 T
+(hanism T) 223.03 45.45 T
+(esting) 262 45.45 T
+( niri_hty_016) 414.08 45.45 T
+0 10 Q
+(/) 469.1 45.45 T
+0 9 Q
+(00) 471.88 45.45 T
+0 10 Q
+(5) 516.65 45.45 T
+0 9 Q
+( of) 522.21 45.45 T
+0 10 Q
+(6) 535.71 45.45 T
+72 189/G915922 FmPA
+72 664.33 541.28 687.33 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171.21 672.33 556.72 672.33 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 672.33 157.04 672.33 2 L
+0 Z
+N
+0 0 612 792 C
+0 9 Q
+0 X
+0 0 0 1 0 0 0 K
+(FIGURE 1.) 72 658.33 T
+2 F
+(x Axis Cross Hair Position vs Function of Mirror Position) 171.21 658.33 T
+72 802/G916585 FmPA
+72 260.33 541.28 283.33 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171.21 268.33 556.72 268.33 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 268.33 157.04 268.33 2 L
+0 Z
+N
+0 0 612 792 C
+0 9 Q
+0 X
+0 0 0 1 0 0 0 K
+(T) 72 254.33 T
+(ABLE 2.) 76.69 254.33 T
+2 F
+(y Axis Cross Hair Position as a Function of Mirror Position) 171.21 254.33 T
+72 398/G916685 FmPA
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(Mirror position) 177.21 235.33 T
+0 0 0 1 0 0 0 K
+171 379/G916588 FmPA
+0 0 0 1 0 0 0 K
+(\050ministeps\051) 177.21 224.33 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(Cross hair position) 285.21 235.33 T
+0 0 0 1 0 0 0 K
+279 379/G916590 FmPA
+0 0 0 1 0 0 0 K
+(\050Reticle units\051) 285.21 224.33 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(Cross hair uncertainty) 393.21 235.33 T
+0 0 0 1 0 0 0 K
+387 379/G916592 FmPA
+0 0 0 1 0 0 0 K
+(\050Reticle units\051) 393.21 224.33 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(-10000) 247.72 209.33 T
+0 0 0 1 0 0 0 K
+171 353/G916594 FmPA
+0 0 0 1 0 0 0 K
+(7.8) 369.96 209.33 T
+0 0 0 1 0 0 0 K
+279 353/G916596 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 477.96 209.33 T
+0 0 0 1 0 0 0 K
+387 353/G916598 FmPA
+0 0 0 1 0 0 0 K
+(-8000) 252.22 194.33 T
+0 0 0 1 0 0 0 K
+171 338/G916600 FmPA
+0 0 0 1 0 0 0 K
+(6.0) 369.96 194.33 T
+0 0 0 1 0 0 0 K
+279 338/G916602 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 477.96 194.33 T
+0 0 0 1 0 0 0 K
+387 338/G916604 FmPA
+0 0 0 1 0 0 0 K
+(-6000) 252.22 179.33 T
+0 0 0 1 0 0 0 K
+171 323/G916606 FmPA
+0 0 0 1 0 0 0 K
+(4.7) 369.96 179.33 T
+0 0 0 1 0 0 0 K
+279 323/G916608 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 477.96 179.33 T
+0 0 0 1 0 0 0 K
+387 323/G916610 FmPA
+0 0 0 1 0 0 0 K
+(-4000) 252.22 164.33 T
+0 0 0 1 0 0 0 K
+171 308/G916612 FmPA
+0 0 0 1 0 0 0 K
+(3.0) 369.96 164.33 T
+0 0 0 1 0 0 0 K
+279 308/G916614 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 477.96 164.33 T
+0 0 0 1 0 0 0 K
+387 308/G916616 FmPA
+0 0 0 1 0 0 0 K
+(-2000) 252.22 149.33 T
+0 0 0 1 0 0 0 K
+171 293/G916618 FmPA
+0 0 0 1 0 0 0 K
+(1.5) 369.96 149.33 T
+0 0 0 1 0 0 0 K
+279 293/G916620 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 477.96 149.33 T
+0 0 0 1 0 0 0 K
+387 293/G916622 FmPA
+0 0 0 1 0 0 0 K
+(0) 268.71 134.33 T
+0 0 0 1 0 0 0 K
+171 278/G916624 FmPA
+0 0 0 1 0 0 0 K
+(0.0) 369.96 134.33 T
+0 0 0 1 0 0 0 K
+279 278/G916626 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 477.96 134.33 T
+0 0 0 1 0 0 0 K
+387 278/G916628 FmPA
+0 0 0 1 0 0 0 K
+(2000) 255.21 119.33 T
+0 0 0 1 0 0 0 K
+171 263/G916630 FmPA
+0 0 0 1 0 0 0 K
+(-1.5) 366.97 119.33 T
+0 0 0 1 0 0 0 K
+279 263/G916632 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 477.96 119.33 T
+0 0 0 1 0 0 0 K
+387 263/G916634 FmPA
+0 0 0 1 0 0 0 K
+(4000) 255.21 104.33 T
+0 0 0 1 0 0 0 K
+171 248/G916636 FmPA
+0 0 0 1 0 0 0 K
+(-3.1) 366.97 104.33 T
+0 0 0 1 0 0 0 K
+279 248/G916638 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 477.96 104.33 T
+0 0 0 1 0 0 0 K
+387 248/G916640 FmPA
+0 0 0 1 0 0 0 K
+(6000) 255.21 89.33 T
+0 0 0 1 0 0 0 K
+171 233/G916642 FmPA
+0 0 0 1 0 0 0 K
+(-4.5) 366.97 89.33 T
+0 0 0 1 0 0 0 K
+279 233/G916644 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 477.96 89.33 T
+0 0 0 1 0 0 0 K
+387 233/G916646 FmPA
+0 0 0 1 0 0 0 K
+171.21 245.08 171.21 84.58 2 L
+V
+0.5 H
+0 Z
+N
+279.21 245.58 279.21 84.08 2 L
+V
+N
+387.21 245.58 387.21 84.08 2 L
+V
+N
+495.21 245.08 495.21 84.58 2 L
+V
+N
+170.96 245.33 495.46 245.33 2 L
+V
+N
+170.96 219.33 495.46 219.33 2 L
+V
+2 H
+N
+170.96 204.33 495.46 204.33 2 L
+V
+0.5 H
+N
+170.96 189.33 495.46 189.33 2 L
+V
+N
+170.96 174.33 495.46 174.33 2 L
+V
+N
+170.96 159.33 495.46 159.33 2 L
+V
+N
+170.96 144.33 495.46 144.33 2 L
+V
+N
+170.96 129.33 495.46 129.33 2 L
+V
+N
+170.96 114.33 495.46 114.33 2 L
+V
+N
+170.96 99.33 495.46 99.33 2 L
+V
+N
+170.96 84.33 495.46 84.33 2 L
+V
+N
+72 69.17 541.28 687.33 C
+0 0 0 1 0 0 0 K
+72 283.33 541.28 655.33 C
+0 X
+0 0 0 1 0 0 0 K
+%%BeginBinary:  10145    
+480 360 480 360 0 66.64 289.33
+/red <
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000004100000000007E90F0000003B412638
+000000003B412638000000003B41266D0000C9B8000000640000011C000181A4
+000020DD0003740701000000016801E0000100000007C07BE830000000BFE89C
+05EA8D081A8000BFE898000000002818661CE80000000000080D972D088F8AF0
+060002340818A00017408EBFBFE7B0000600025D0805EB7DBFE7B0000000281F
+7E38A898025D00000818A0002818A8ACBFE7800000000000000000080AECAABF
+BFE77006025D00000328171B9DBFBFEFE00818A0001F7E382818A961FFFFAA00
+> store
+/green <
+0000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000A80018C0002818A97ABFE75000000200000150
+281723E2BFBFE7300818E080281F7E38281A57400000015C0818A8000818C000
+281A575BBFBFE710A0003817168AA8BCE080287E381A4BD8015C08A800000003
+1A4BF300000004BFE6D00818A8FC281713F600040818A0000000000000000000
+0818EC80281F7E3818CA7A0818A00000281F7E3828171275000004BFE6900818
+A8FC13F60004A0000818A8C8281713F60000040818A00000000003281A4BC700
+B2C0DC000000000000000000000818A0000818A0001F7E3828171275FF55AA00
+> store
+/blue <
+0000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000E64018A8C8281713F63F276669677261656E69
+6C782F6164616D61792F656D6F682F2720656C696620676E6974736978652065
+746972777265764F003E000000000000E620000004000000000006008318A000
+00A0C1080D8555000000080D8555BFBFE74C00000000001800000000FFFFFF0B
+0814D6800818AB66187DC10814D6800B000000010000000000000B00000B281F
+7E380003E830E78C0818A000281716E8BFEFE0BFBFEFE028322EA828310C6508
+18E080BFE78CBFE7C828312B96BFBFE7A00000000200010100000006FF55AA00
+> store
+ BEGINBITMAPCOLORc
+z
+X4FC
+
+
+
+
+
+
+
+
+
+
+J$J"9"A"H%I"<"<"J"9":"J%I"<"<"
+P=FFFFFFFFFFFFFFFFFFFFFFFFFFFO FFFFFFGFFFFFFFFFFFFFFJ&J"I%H"C"J$;"J%H"C"
+P<FFFCFCFCFFO'FCFCFCFCFFFCFCO!FFFCFFFCHFCFCFCFFFCFCJ"8%:$:%9%G$:#:%H$:%9#:P9#;$9%@"9"9%@$:#:%9%:$9%H$:%9#:P9#;$9%
+P@FCFFFCFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCFFFFFFFFFFFFFFFFFCFFFCFFFFFFFCFFFFFFFCFFFFFFFFFFFFFCFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCFFFFJ%8&8&8&@$:%9"<%@%8&8&9";&9";&9%F&G"<%9%8&9%@%8&8&9";&9";&9%
+PDFFFCFCFFFFFCFCFCFFFFFCFCFCFCFFFCFCFCFCFFFFFFFCFCFCFFFCFFFCFCFFFFFFFFFCFFFCFCFCFFFFFCFCFCFCFCFCFCFFFCFCFCFFFCFCFCFFFFFCFCFFFFFCFCFCFCFCFFFCFCFFFFFCFCFFFFFCFCFCFFFFFCFCFFFFFFFFFCFFFCFCFCFFFFFCFCFCFCFCFCFCFFFCFCFCFFFCFCFCFFFFFCFCFFJ"8"?%9%A$:$A"8"@$@%J"I%B"B"8"9"8"@"8"@$@%J"
+PDFCFCFCFFFFFFFCFFFFFFFCFCFCFFFFFFFCFCFCFCFCFCFFFFFF@FCFCFFFFFFFCFCFCFCFCFCFCFCFCFCFCFFFFFF@FCJ"G%9%F%J%C"J&9%J%C"
+P@FFFCFCFCFFFCFCFCFFFFFCFCFCGFCFCFCFFFF>FCFFFCFFFCFCFCFCFFO;FCFCFCFFFFJ&?&8&8&F%:$J&8&9$;$9$9&G$9&G$G&J&8&9$;$9$9&
+P<FCFFFFFFFCFCFFFFFFFCFFFFFFFFFCFFFFFFFFFCFCFFFFFFFFFFFF8FCFFFFFFFCFFFFFFFFFCFFFFFFFCFFFCFFFFFFFCFFFFFFFCFCFFFCFFFFFFFFFCFFFFFFFCFFFFFFFC7FCFFFFFFFCFFFFFFFFFCFFFFFFFCFFFCFFFFFFFCFFFFFFFCJ$9"=$9%9%@"9"9%9$9"C"=$9%:$<":$:$9"9"A":%@"9"9$9"<"=$9"C"=$9%:$<":$:$9"9"
+P=FCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFC
+
+
+
+
+
+
+
+
+J$
+@FFFFFFJ&
+?FFFCFCFCFF
+J&>Z
+?FCFFFFFFFCW#J&?z"z"z"z"z"z"z"z"z"z
+?FFFCFCFCFFIFCFFHFCFFIFCFFHFCFFIFCFFIFCFFHFCFFIFCFFHFCFFIFC
+J&
+?FCFFFFFFFCJ$
+@FCFCFC
+J"J"J"J"J"J"J"J"J"
+OHFEHFEIFEHFEIFEIFEHFEIFEHFC
+J"E"F"
+VMFDFDFDJ"9"J$
+V@FDFD7FDFCFDJ&?z
+V@FCFDFCFDFC@FDJ$@y$z
+VAFCFDFCFCFDFCFD/FCJ$J$
+VAFDFCFD8FCFDFCJ&>"E"F"
+V@FDFCFCFCFDFCFCFCJ"9"
+V@FCFC
+J"
+W$FE
+J&
+JFDFDFDFDFDJ"9"
+JFCFCJ&
+JFDFCFDFCFDJ&
+JFCFDFDFDFCJ"9"
+JFDFDJ&
+JFCFCFFFCFC
+
+
+
+
+
+
+
+
+
+J#
+AFFFFJ$
+@FFFCFCJ#
+?FFFCJ$@PzP
+@FFFFFFVEFE?$J%?z"z"z"z"z"z"z"z"z"z
+FFFFFF4FCFCFCFFIFCFEHFCFEIFCFEHFCFEIFCFEIFCFEHFCFEIFCFEHFCFEIFC>&
+FFFCFCFCFF=#9#G&
+FFFCFCFFFCFFFFFFFC=";"H$
+FCFCFCFCFCJ&
+OFFDFDFDFDFDJ"9"
+OFFCFC?"8"J&
+FFFFO9FDFCFDFCFDA$J&
+FFFCFFO8FCFDFDFDFCJ"9"
+OFFDFDJ&
+OFFCFCFEFCFC?$
+FCFFFC@"8"
+FCFC
+?"8"
+FFFFB#
+FCFF=Q"
+FC='
+FCFCFFFCFCFC
+?"
+FC
+
+C"
+FF='
+FFFCFFFFFFFF="8$
+FCFCFCFC?"9"
+FCFC
+
+@%
+FFFFFFFF?&
+FFFCFCFCFC
+?#
+FCFF?P
+?&J"J&
+FCFCFCFCFC4FFOLFDFDFDFDFDJ"J"9"
+AFFOMFCFC?PH#J&
+FFFCOMFDFCFDFCFD?&G#BPz&zP
+FCFCFCFFFCFFFCO=FEFDFDFDFDFDU#FEB#H%?z"z"z"z"z"z"z"z"z"z
+FCFFFFFFFFFFIFCFEHFCFDIFCFEHFCFEIFCFEIFCFEHFCFEIFCFEHFCFEIFCJ&J"
+?FCFCFCFFFCOMFE?&
+FFFFFFFFFC?%J"
+FCFCFCFC5FC
+
+
+
+
+
+
+
+
+
+B#
+FFFF
+B#
+FCFC
+J&
+Q=FDFDFDFDFD@$J"9"
+FFFFFFQ0FCFC?&J&
+FFFCFCFCFFQ/FDFCFDFCFDJ&
+Q=FCFDFDFDFC?&J"9"
+FCFFFCFFFCQ/FDFD=RJ&
+Q/FCFCFEFCFC=r
+FC
+@"
+FF?#
+FFFC
+?#
+FCFF?P
+?&
+FCFCFCFCFC
+@%H$
+FFFFFFFFFFFFFF?%H&
+FFFCFFFCFFFCFCFCFFJ"
+?FCJ%?PzP
+@FFFFFFFCVEFE?&G%@z"z"z"z"z"z"z"z"z"z
+FCFCFCFFFCFFFCFCFCIFCFEHFCFEIFCFEHFCFEIFCFEIFCFEHFCFEIFCFEHFCFEIFCB"
+FCJ%
+@FFFFFFFFJ&
+?FCFCFCFCFC=";"
+FFFF=#9#
+FCFFFFFC>&
+FCFFFFFFFC?$
+FCFCFCJ&
+R8FDFDFDFDFDJ"9"
+R8FCFCJ&
+R8FDFCFDFCFDJ&
+R8FCFDFDFDFCJ"9"
+R8FDFDJ&
+R8FCFCFEFCFC
+
+
+@%
+FFFFFFFF?&
+FFFCFCFCFC
+?#
+FCFF?P
+?&
+FCFCFCFCFC
+@$
+FFFFFF?&
+FFFCFCFCFF
+
+?&
+FCFFFFFFFC@$
+FCFCFC
+
+C"
+FF='I$
+FFFCFFFFFFFFFFFFFF="8$H&J&
+FCFCFCFCFFFCFCFCFFR>FDFDFDFDFD?"9"J"J"9"
+FCFC4FFR?FCFCJ#@Pz&zP
+AFFFCR0FEFDFEFDFEFDR0FEJ#Az"z"z"z"z$z"z"z"z"z
+@FFFCIFCFEHFCFEIFCFEHFCFEHFCFDFDFDHFCFEHFCFEIFCFEHFCFEIFC?"8"I"J"9"
+FFFFFCRAFDFDB#G&J&
+FCFFFCFFFFFFFCR>FCFCFEFCFC=Q"H$
+FCFCFCFC='
+FCFCFFFCFCFC
+?"
+FC
+
+C"
+FF='
+FFFCFFFFFFFF="8$
+FCFCFCFC?"9"
+FCFC
+
+?"8"
+FFFFA$
+FFFCFF
+
+?$
+FCFFFC@"8"
+FCFCJ&
+T0FDFDFDFDFD@$J"9"
+FFFFFFT#FCFC?&J&
+FFFCFCFCFFT"FDFCFDFCFDJ&
+T0FCFDFDFDFCJ"9"
+T0FDFD?&J&
+FCFFFFFFFCT"FCFCFEFCFC@$
+FCFCFC
+>#
+FFFF=%
+FFFCFCFF
+
+>QH$
+FFFFFF=rG&
+FCFFFCFCFCFFJ"
+?FCJP9%?PzP
+8FFFFFFFCVEFEJ&8%@z"z"z"z"z"z"z"z"z"z
+8FCFCFCFCFCFFFCFCFCIFCFEHFCFEIFCFEHFCFEIFCFEIFCFEHFCFEIFCFEHFCFEIFC
+J%
+@FFFFFFFFJ&
+?FCFCFCFCFC
+
+@"
+FF?#
+FFFC
+?#
+FCFF?P
+?&J"
+FCFCFCFCFCTMFDJ&
+U+FDFDFDFDFDJ$
+U,FCFDFCC"J&
+FFTKFCFDFDFDFC='J"9"
+FFFCFFFFFFFFTLFDFD="8$J&
+FCFCFCFCTLFCFCFEFCFC?"9"
+FCFC
+
+@%
+FFFFFFFF?%
+FFFCFFFC
+
+?&
+FCFCFCFFFCB"
+FC
+=R
+=(
+FCFCFCFFFCFCFC
+
+=R
+=rJ"
+FC4FFJ"
+AFFJ#
+@FFFCJP8#BPz&zP
+8FFFCU#FEFDFDFDFDFDO=FEJ&9%?z"z"z"z"z"z"z"z9z"z
+8FCFCFCFCFCFFFFFFFFIFCFEHFCFEIFCFEHFCFEIFCFEIFCFEHFCFEHFCGFCFEIFCJ&J&
+?FCFCFCFFFCU1FDFCFDFCFDJ&
+V'FCFDFDFDFCJ"J"9"
+BFCU2FDFDJ&
+V'FCFCFEFCFC?"8"
+FFFFA$
+FFFCFF
+
+?$
+FCFFFC@"8"
+FCFC
+?"8"
+FFFFA$
+FFFCFF
+
+?$
+FCFFFC@"8"
+FCFC
+@$
+FFFFFF?&
+FFFCFCFCFF
+
+?&J&
+FCFFFFFFFCVBFDFDFDFDFD@$J"9"
+FCFCFCVCFCFCJ&
+W"FDFCFDFCFD@"J&
+FFVEFCFDFDFDFC?#J"9"
+FFFCVEFDFDJ&
+W"FCFCFEFCFC?#
+FCFF?P
+?&
+FCFCFCFCFC
+>"9"J#
+FFFF4FFFF=#9#H$
+FFFCFCFFFFFCFCJ#
+?FFFCJP9$@PzP
+8FFFFFFVEFE="P"@&9%?z"z"z"z"z"z"z"z"z"z
+FCFCFCFCFCFCFCFCFCFCFFIFCFEHFCFEIFCFEHFCFEIFCFEIFCFEHFCFEIFCFEHFCFEIFC>&
+FCFCFCFCFCJ&
+?FCFFFFFFFCJ$
+@FCFCFC
+
+
+
+
+
+
+
+
+
+J&
+WLFDFDFDFDFDJ"9"
+WLFCFCJ&
+WLFDFCFDFCFDJ&
+WLFCFDFDFDFCJ"9"
+WLFDFDJ&
+WLFCFCFFFCFC
+
+
+
+
+
+
+
+
+
+
+J"J"J"J"J"J"J"J"J"
+OHFFHFFIFFHFFIFFIFFHFFIFFHFF
+J$
+@FFFFFFJ&
+?FFFCFCFCFF
+JP8&?Z
+8FCFFFFFFFCW!J&8&>z
+8FCFCFCFCFCFFFCFCFCFFW#FC
+J&
+?FCFFFFFFFCJ$
+@FCFCFC
+
+
+J";$:$:$:$E$:$:$:$H#:$:$:$J":$:$:$G$:$:$:$J$J$:$:$:$I":$:$:$I#:$:$:$G$:$:$:$F";$:$:$:$
+AFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF4FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF9FFFFFF<FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFJ";&8&8&8&C&8&8&8&F$9&8&8&H":&8&8&E&8&8&8&J&J&8&8&8&G":&8&8&G$9&8&8&E&8&8&8&D";&8&8&8&
+@FFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFF7FFFCFCFCFF:FFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFJ">"<"<"<"J"<"<"F#>"<"<"H#="<"<"F"?"<"<"J"J"?"<"<"G#="<"<"G#>"<"<"J"<"<"E">"<"<"<"
+@FCFFFFFFFF8FFFFFFFFFCFFFFFFFFFCFFFFFFFCFFFFFF;FF;FCFFFFFFFFFCFFFFFFFFFCFFFFFF:FFFFFFFCFFFFFFFFJPA#;#;#;#=P8&:#;#;#?P9$;#;#;#@P8#=#;#;#?P9%:#;#;#J#J%:#;#;#F#=#;#;#H$;#;#;#F&:#;#;#J#;#;#;#
+8FFFCFFFCFFFCFFFCFCFFFFFFFCFFFCFFFCFFFCFFFFFFFFFCFFFCFFFCFFFCFFFCFFFCFFFCFFFFFFFCFFFCFFFCFFFC:FFFC<FFFFFFFCFFFCFFFCFFFCFFFCFFFCFFFCFFFCFFFFFFFFFCFFFCFFFCFCFFFFFFFCFFFCFFFCFFFC7FFFCFFFCFFFCFFFCJ&@#;#;#;#>&8&9#;#;#@&9%9#;#;#A&9%9#;#;#@&8%:#;#;#J#J%:#;#;#H%9#;#;#I%9#;#;#G&9#;#;#J#;#;#;#
+8FCFCFCFCFCFFFCFFFCFFFCFFFCFCFCFCFCFCFFFCFCFCFFFFFCFFFCFFFCFCFCFCFCFCFCFCFCFFFFFCFFFCFFFCFCFCFCFCFCFFFFFFFFFFFCFFFCFFFCFCFCFCFCFCFFFCFCFCFFFCFFFCFFFC:FFFC<FFFCFCFCFFFCFFFCFFFCFFFFFFFFFFFCFFFCFFFCFCFCFCFFFFFCFFFCFFFCFFFCFCFCFFFFFCFFFCFFFC7FFFCFFFCFFFCFFFCJ"<"<"<"J"<"<"J"<"<"I&9"<"<"J"<"<"J"J"<"<"H&9"<"<"J"<"<"J"<"<"J"<"<"<"
+GFCFCFCFC8FCFCFC:FCFCFCFCFCFCFFFCFCFCFC:FCFCFC;FCEFCFCFCFCFCFCFFFCFCFCFC;FCFCFC:FCFCFC8FCFCFCFCJ$9&8&8&8&C&8&8&8&E&8&8&8&J&8&8&F%8&8&8&J&J%8&8&8&J&8&8&F&8&8&8&E&8&8&8&D$9&8&8&8&
+@FFFFFFFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFC7FCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFFFFFFFFFCFFFFFFFCFCFFFFFFFCFCFFFFFFFC7FCFFFFFFFC;FFFFFFFFFCFFFFFFFCFCFFFFFFFCFCFFFFFFFC6FCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFFFFFFFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCJ$:$:$:$:$E$:$:$:$G$:$:$:$J":$:$:$F&9$:$:$J$J&9$:$:$I":$:$:$H$:$:$:$G$:$:$:$E$:$:$:$:$
+@FCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFC4FCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFC9FCFCFC;FCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFC
+
+
+
+
+
+
+
+J"9":"J%I"<"<"J"B"J"
+QCFFFFFFGFFFFFFFFFFFFFF<FFFF:FFJ$;"J%H"C"J#J#
+QDFFFCFFFCHFCFCFCFFFCFC;FFFCGFCFFJ$:#:%9%:$9%H$:%9#:P9#;$9%A#;%8P9$9%:%:#
+QDFCFFFCFFFFFFFCFFFFFFFCFFFFFFFFFFFFFCFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCFFFFFFFCFFFFFFFFFFFFFFFFFCFFFFFFFFFFFFFCFFJ"<%9%8&9%@%8&8&9";&9";&9%F&8&8&9%8&
+QKFCFFFCFCFFFFFCFCFFFFFCFCFCFFFFFCFCFFFFFFFFFCFFFCFCFCFFFFFCFCFCFCFCFCFCFFFCFCFCFFFCFCFCFFFFFCFCFFFFFCFCFCFCFCFCFFFCFCFFFCFCFCFFFFFCFCFFFFFCFCFCFCJ"B"8"9"8"@"8"@$@%J"I%A$:";%
+QEFCFCFCFCFCFCFCFCFCFCFCFFFFFF@FCFCFFFFFFFFFFFFFCFCFFFFFFJ%C"J#;%<"9%9"<%:#
+S'FCFCFCFFFF?FCFFFCFCFCFFFFFCFCFCFCFFFCFCFCFFFFFCJ$G&J&8&9$;$9$9&H#9&:$8%:%8&9#
+QKFFFFFFFCFFFFFFFC7FCFFFFFFFCFFFFFFFFFCFFFFFFFCFFFCFFFFFFFCFFFFFFFCFCFFFFFFFFFFFCFCFFFCFCFFFFFFFCFFFFFCFFFFFFFFFCFFFCJ"9"9$9"<"=$9"C"=$9%:$<":$:$9"9"B"9%<":$;#9%:"
+QCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFC
+J"
+TEFC
+ENDBITMAP
+%%EndBinary
+72 69.17 541.28 687.33 C
+0 0 612 792 C
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.5/DEST FmPD2
+[/Title(A)/Rect[63 60 550 696]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "5" 5
+%%Page: "6" 6
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.68 540 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Gimbal Mirr) 114.8 733.66 T
+(or) 164.64 733.66 T
+54 878/G915869 FmPA
+54 726.98 540 726.98 2 L
+0.25 H
+N
+52.58 54.99 538.58 54.99 2 L
+2 Z
+N
+0 10 Q
+(6) 52.58 38.89 T
+0 9 Q
+( of) 58.14 38.89 T
+0 10 Q
+( 6) 69.14 38.89 T
+0 9 Q
+( niri_hty_016) 113.39 38.89 T
+0 10 Q
+(/) 168.41 38.89 T
+0 9 Q
+(00) 171.19 38.89 T
+(Summar) 305.35 38.89 T
+(y of the GNIRS OIWFS Mec) 341.45 38.89 T
+(hanism T) 456.38 38.89 T
+(esting) 495.35 38.89 T
+53 183/G915888 FmPA
+54 596.33 523.28 619.33 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+153.21 604.33 538.72 604.33 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+54 604.33 139.04 604.33 2 L
+0 Z
+N
+0 0 612 792 C
+0 9 Q
+0 X
+0 0 0 1 0 0 0 K
+(FIGURE 2.) 54 590.33 T
+2 F
+(y Axis Cross Hair Position as a Function of Mirror Position) 153.21 590.33 T
+54 734/G916698 FmPA
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(8000) 237.21 651.33 T
+0 0 0 1 0 0 0 K
+153 795/G916648 FmPA
+0 0 0 1 0 0 0 K
+(-6.0) 348.97 651.33 T
+0 0 0 1 0 0 0 K
+261 795/G916650 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 459.96 651.33 T
+0 0 0 1 0 0 0 K
+369 795/G916652 FmPA
+0 0 0 1 0 0 0 K
+(10000) 232.71 636.33 T
+0 0 0 1 0 0 0 K
+153 780/G916654 FmPA
+0 0 0 1 0 0 0 K
+(-7.5) 348.97 636.33 T
+0 0 0 1 0 0 0 K
+261 780/G916656 FmPA
+0 0 0 1 0 0 0 K
+(0.1) 459.96 636.33 T
+0 0 0 1 0 0 0 K
+369 780/G916658 FmPA
+0 0 0 1 0 0 0 K
+(Mirror position) 159.21 677.33 T
+0 0 0 1 0 0 0 K
+153 821/G916588 FmPA
+0 0 0 1 0 0 0 K
+(\050ministeps\051) 159.21 666.33 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(Cross hair position) 267.21 677.33 T
+0 0 0 1 0 0 0 K
+261 821/G916590 FmPA
+0 0 0 1 0 0 0 K
+(\050Reticle units\051) 267.21 666.33 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+(Cross hair uncertainty) 375.21 677.33 T
+0 0 0 1 0 0 0 K
+369 821/G916592 FmPA
+0 0 0 1 0 0 0 K
+(\050Reticle units\051) 375.21 666.33 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+153.21 687.08 153.21 631.58 2 L
+V
+0.5 H
+0 Z
+N
+261.21 687.58 261.21 631.08 2 L
+V
+N
+369.21 687.58 369.21 631.08 2 L
+V
+N
+477.21 687.08 477.21 631.58 2 L
+V
+N
+152.96 687.33 477.46 687.33 2 L
+V
+N
+152.96 661.33 477.46 661.33 2 L
+V
+2 H
+N
+152.96 646.33 477.46 646.33 2 L
+V
+0.5 H
+N
+152.96 631.33 477.46 631.33 2 L
+V
+N
+54 69.17 523.28 687.33 C
+0 0 0 1 0 0 0 K
+54 215.33 523.28 587.33 C
+0 X
+0 0 0 1 0 0 0 K
+%%BeginBinary:  10123    
+480 360 480 360 0 48.64 221.33
+/red <
+0000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000800000000000FD21E0000003B412663
+000000003B412663000000003B41268100046038000000640000011C000181A4
+000021020003740701000000016801E0000100000007C07BE830000000BFE89C
+05EA8D08251000BFE898000000002818661CE80000000000080D972D088F8AF0
+060002340818A00017408EBFBFE7B0000600025D0805EB7DBFE7B0000000281F
+7E38A898025D00000818A0002818A8ACBFE7800000000000000000080AECAABF
+BFE77006025D00000328171B9DBFBFEFE00818A0001F7E382818A961FFFFAA00
+> store
+/green <
+0000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000A80018C0002818A97ABFE75000000200000150
+281723E2BFBFE7300818E080281F7E38281A57400000015C0818A8000818C000
+281A575BBFBFE710A0003817168AA8BCE080287E381A4BD8015C08A800000003
+1A4BF300000004BFE6D00818A8FC281713F600040818A0000000000000000000
+0818EB80281F7E3818CA7A0818A00000281F7E3828171275000004BFE6900818
+A8FC13F60004A0000818A8C8281713F60000040818A00000000003281A4BC700
+B2C0DC000000000000000000000818A0000818A0001F7E3828171275FF55AA00
+> store
+/blue <
+0000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000E64018A8C8281713F63F276669677261656E69
+6C792F6164616D61792F656D6F682F2720656C696620676E6974736978652065
+746972777265764F003E000000000000E620000004000000000006008318A000
+00A0C1080D8555000000080D8555BFBFE74C00000000001800000000FFFFFF0B
+0814D6800818AB72187DC10814D6800B000000010000000000000B00000B281F
+7E380003E830E78C0818A000281716E8BFEFE0BFBFEFE028322EA828310C6508
+18E080BFE78CBFE7C828312B96BFBFE7A00000000300010E00000013FF55AA00
+> store
+ BEGINBITMAPCOLORc
+z
+X4FC
+
+
+
+
+
+
+
+
+
+
+J$J"9"A"H%I"<"<"J"9":"J%I"<"<"
+P=FFFFFFFFFFFFFFFFFFFFFFFFFFFO FFFFFFGFFFFFFFFFFFFFFJ&J"I%H"C"J$;"J%H"C"
+P<FFFCFCFCFFO'FCFCFCFCFFFCFCO!FFFCFFFCHFCFCFCFFFCFCJ"8%:$:%9%G$:#:%H$:%9#:P9#;$9%@"9"9%@$:#:%9%:$9%H$:%9#:P9#;$9%
+P@FCFFFCFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCFFFFFFFFFFFFFFFFFCFFFCFFFFFFFCFFFFFFFCFFFFFFFFFFFFFCFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCFFFFJ%8&8&8&@$:%9"<%@%8&8&9";&9";&9%F&G"<%9%8&9%@%8&8&9";&9";&9%
+PDFFFCFCFFFFFCFCFCFFFFFCFCFCFCFFFCFCFCFCFFFFFFFCFCFCFFFCFFFCFCFFFFFFFFFCFFFCFCFCFFFFFCFCFCFCFCFCFCFFFCFCFCFFFCFCFCFFFFFCFCFFFFFCFCFCFCFCFFFCFCFFFFFCFCFFFFFCFCFCFFFFFCFCFFFFFFFFFCFFFCFCFCFFFFFCFCFCFCFCFCFCFFFCFCFCFFFCFCFCFFFFFCFCFFJ"8"?%9%A$:$A"8"@$@%J"I%B"B"8"9"8"@"8"@$@%J"
+PDFCFCFCFFFFFFFCFFFFFFFCFCFCFFFFFFFCFCFCFCFCFCFFFFFF@FCFCFFFFFFFCFCFCFCFCFCFCFCFCFCFCFFFFFF@FCJ"G%9%F%J%C"J&9%J%C"
+P@FFFCFCFCFFFCFCFCFFFFFCFCFCGFCFCFCFFFF>FCFFFCFFFCFCFCFCFFO;FCFCFCFFFFJ&?&8&8&F%:$J&8&9$;$9$9&G$9&G$G&J&8&9$;$9$9&
+P<FCFFFFFFFCFCFFFFFFFCFFFFFFFFFCFFFFFFFFFCFCFFFFFFFFFFFF8FCFFFFFFFCFFFFFFFFFCFFFFFFFCFFFCFFFFFFFCFFFFFFFCFCFFFCFFFFFFFFFCFFFFFFFCFFFFFFFC7FCFFFFFFFCFFFFFFFFFCFFFFFFFCFFFCFFFFFFFCFFFFFFFCJ$9"=$9%9%@"9"9%9$9"C"=$9%:$<":$:$9"9"A":%@"9"9$9"<"=$9"C"=$9%:$<":$:$9"9"
+P=FCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFC
+
+
+
+
+
+
+
+
+J$
+@FFFFFFJ&
+?FFFCFCFCFF
+J&>Z
+?FCFFFFFFFCW#J&?z"z"z"z"z"z"z"z"z"z
+?FFFCFCFCFFIFCFFHFCFFIFCFFHFCFFIFCFFIFCFFHFCFFIFCFFHFCFFIFCJ&
+JFDFDFDFDFDJ&<"9"
+?FCFFFFFFFCFCFCJ$=&
+@FCFCFCFDFCFDFCFDJ&
+JFCFDFDFDFCJ"9"J"J"J"J"J"J"J"J"J"
+JFDFDGFEHFEIFEHFEIFEIFEHFEIFEHFCJ&
+JFCFCFFFCFCJ"E"F"
+VMFDFDFDJ"9"J$
+V@FDFD7FDFCFDJz
+W @FDJy$z
+W FCFDFCFD/FCJ$
+W.FCFDFCJ%?"E"F"
+V@FCFDFDFDFCFCFCJ$
+VAFCFCFCJ%
+VAFDFDFDFCJ$D"
+VAFCFCFCFE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+J#
+AFFFFJ$J&
+@FFFCFCO#FDFDFDFDFDJ#J"9"
+?FFFCO%FCFCJ$@Pz&zP
+@FFFFFFBFEFDFEFDFEFDULFE?$J%?z$z"z"z"z"z"z"z"z"z
+FFFFFF4FCFCFCFFHFCFDFDFDGFCFEIFCFEHFCFEIFCFEIFCFEHFCFEIFCFEHFCFEIFC>&J"9"
+FFFCFCFCFFO9FDFD=#9#G&J&
+FFFCFCFFFCFFFFFFFCO"FCFCFEFCFC=";"H$
+FCFCFCFCFC
+
+?"8"
+FFFFA$
+FFFCFF
+
+?$
+FCFFFC@"8"
+FCFC
+?"8"
+FFFFB#
+FCFF=Q"
+FC='
+FCFCFFFCFCFC
+?"
+FC
+
+C"J&
+FFP3FDFDFDFDFD='J"9"
+FFFCFFFFFFFFP4FCFC="8$J&
+FCFCFCFCP4FDFCFDFCFD?"9"J$
+FCFCP4FDFDFDJ&
+PAFCFCFDFCFCJ"
+PCFE@%
+FFFFFFFF?&
+FFFCFCFCFC
+?#
+FCFF?P
+?&J"
+FCFCFCFCFC4FFJ"
+AFF?PH#
+FFFC?&G#BPzP
+FCFCFCFFFCFFFCVEFEB#H%?z"z"z"z"z"z"z"z"z"z
+FCFFFFFFFFFFIFCFEHFCFEIFCFEHFCFEIFCFEIFCFEHFCFEIFCFEHFCFEIFCJ&
+?FCFCFCFFFC?&
+FFFFFFFFFC?%J"
+FCFCFCFC5FC
+
+
+
+
+
+
+
+
+
+B#
+FFFF
+B#J&
+FCFCQ/FDFDFDFDFDJ"9"
+Q=FCFCJ&
+Q=FDFCFDFCFD@$J&
+FFFFFFQ0FCFDFDFDFC?&J"9"
+FFFCFCFCFFQ/FDFDJ&
+Q=FCFCFEFCFC?&
+FCFFFCFFFC=R
+=r
+FC
+@"
+FF?#
+FFFC
+?#
+FCFF?P
+?&
+FCFCFCFCFC
+@%H$
+FFFFFFFFFFFFFF?%H&
+FFFCFFFCFFFCFCFCFFJ"
+?FCJ%?PzP
+@FFFFFFFCVEFE?&G%@z"z"z"z"z"z"z"z"z"z
+FCFCFCFFFCFFFCFCFCIFCFEHFCFEIFCFEHFCFEIFCFEIFCFEHFCFEIFCFEHFCFEIFCB"
+FCJ%
+@FFFFFFFFJ&
+?FCFCFCFCFC=";"
+FFFF=#9#
+FCFFFFFC>&J"
+FCFFFFFFFCR-FD?$J&
+FCFCFCR,FDFDFDFDFDJ$
+R9FCFDFCJ&
+R8FCFDFDFDFCJ"9"
+R8FDFDJ&
+R8FCFCFEFCFC
+
+
+
+
+@%
+FFFFFFFF?&
+FFFCFCFCFC
+?#
+FCFF?P
+?&
+FCFCFCFCFC
+@$
+FFFFFF?&
+FFFCFCFCFF
+
+?&
+FCFFFFFFFC@$
+FCFCFC
+
+C"
+FF='I$
+FFFCFFFFFFFFFFFFFF="8$H&J&
+FCFCFCFCFFFCFCFCFFR>FDFDFDFDFD?"9"J"J"9"
+FCFC4FFR?FCFCJ#@Pz&zP
+AFFFCR0FEFDFEFDFEFDR0FEJ#Az"z"z"z"z$z"z"z"z"z
+@FFFCIFCFEHFCFEIFCFEHFCFEHFCFDFDFDHFCFEHFCFEIFCFEHFCFEIFC?"8"I"J"9"
+FFFFFCRAFDFDB#G&J&
+FCFFFCFFFFFFFCR>FCFCFEFCFC=Q"H$
+FCFCFCFC='
+FCFCFFFCFCFC
+?"
+FC
+
+C"
+FF='
+FFFCFFFFFFFF="8$
+FCFCFCFC?"9"
+FCFC
+
+?"8"
+FFFFA$
+FFFCFF
+
+?$
+FCFFFC@"8"
+FCFC
+@$
+FFFFFF?&
+FFFCFCFCFF
+J&
+T0FDFDFDFDFD?&J"9"
+FCFFFFFFFCT"FCFC@$J&
+FCFCFCT#FDFCFDFCFDJ$
+T1FDFDFD>#J&
+FFFFT&FCFCFDFCFC=%J"
+FFFCFCFFT'FE
+
+>QH$
+FFFFFF=rG&
+FCFFFCFCFCFFJ"
+?FCJP9%?PzP
+8FFFFFFFCVEFEJ&8%@z"z"z"z"z"z"z"z"z"z
+8FCFCFCFCFCFFFCFCFCIFCFEHFCFEIFCFEHFCFEIFCFEIFCFEHFCFEIFCFEHFCFEIFC
+J%
+@FFFFFFFFJ&
+?FCFCFCFCFC
+
+@"
+FF?#
+FFFC
+?#
+FCFF?P
+?&
+FCFCFCFCFC
+
+C"
+FF='
+FFFCFFFFFFFF="8$
+FCFCFCFC?"9"J&
+FCFCTKFDFDFDFDFDJ"9"
+U+FCFCJ&
+U+FDFCFDFCFD@%J&
+FFFFFFFFTKFCFDFDFDFC?%J"9"
+FFFCFFFCTLFDFDJ&
+U+FCFCFEFCFC
+?&
+FCFCFCFFFCB"
+FC
+=R
+=(
+FCFCFCFFFCFCFC
+
+=R
+=rJ"
+FC4FFJ"
+AFFJ#
+@FFFCJP8#BPzP
+8FFFCVEFEJ&9%?z"z"z"z"z"z"z"z"z"z
+8FCFCFCFCFCFFFFFFFFIFCFEHFCFEIFCFEHFCFEIFCFEIFCFEHFCFEIFCFEHFCFEIFCJ&
+?FCFCFCFFFC
+J"
+BFC
+?"8"
+FFFFA$
+FFFCFFJ&
+V'FDFDFDFDFDJ"9"
+V'FCFC?$J&
+FCFFFCUIFDFCFDFCFD@"8"J&
+FCFCUGFCFDFDFDFCJ"9"
+V'FDFD?"8"J&
+FFFFUHFCFCFEFCFCA$
+FFFCFF
+
+?$
+FCFFFC@"8"
+FCFC
+@$
+FFFFFF?&
+FFFCFCFCFF
+
+?&
+FCFFFFFFFC@$
+FCFCFC
+@"
+FF?#
+FFFC
+?#
+FCFF?P
+?&
+FCFCFCFCFC
+>"9"J#
+FFFF4FFFF=#9#H$J&
+FFFCFCFFFFFCFCV-FDFDFDFDFDJ#J"9"
+?FFFCV/FCFCJP9$@Pz&zP
+8FFFFFFULFEFDFEFDFEFDBFE="P"@&9%?z"z"z"z"z"z"z"z"z$z
+FCFCFCFCFCFCFCFCFCFCFFIFCFEHFCFEIFCFEHFCFEIFCFEIFCFEHFCFEIFCFEGFCFDFDFDHFC>&J"9"
+FCFCFCFCFCVCFDFDJ&J&
+?FCFFFFFFFCV,FCFCFEFCFCJ$
+@FCFCFC
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+J&
+WLFDFDFDFDFDJ"9"
+WLFCFCJ&
+WLFDFCFDFCFDJ&
+WLFCFDFDFDFCJ"9"
+WLFDFDJ&
+WLFCFCFFFCFCJ"J"J"J"J"J"J"J"J"
+OHFFHFFIFFHFFIFFIFFHFFIFFHFF
+J$
+@FFFFFFJ&
+?FFFCFCFCFF
+JP8&?Z
+8FCFFFFFFFCW!J&8&>z
+8FCFCFCFCFCFFFCFCFCFFW#FC
+J&
+?FCFFFFFFFCJ$
+@FCFCFC
+
+
+J";$:$:$:$E$:$:$:$H#:$:$:$J":$:$:$G$:$:$:$J$J$:$:$:$I":$:$:$I#:$:$:$G$:$:$:$F";$:$:$:$
+AFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF4FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF9FFFFFF<FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFJ";&8&8&8&C&8&8&8&F$9&8&8&H":&8&8&E&8&8&8&J&J&8&8&8&G":&8&8&G$9&8&8&E&8&8&8&D";&8&8&8&
+@FFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFF7FFFCFCFCFF:FFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFFFFCFCFCFFJ">"<"<"<"J"<"<"F#>"<"<"H#="<"<"F"?"<"<"J"J"?"<"<"G#="<"<"G#>"<"<"J"<"<"E">"<"<"<"
+@FCFFFFFFFF8FFFFFFFFFCFFFFFFFFFCFFFFFFFCFFFFFF;FF;FCFFFFFFFFFCFFFFFFFFFCFFFFFF:FFFFFFFCFFFFFFFFJPA#;#;#;#=P8&:#;#;#?P9$;#;#;#@P8#=#;#;#?P9%:#;#;#J#J%:#;#;#F#=#;#;#H$;#;#;#F&:#;#;#J#;#;#;#
+8FFFCFFFCFFFCFFFCFCFFFFFFFCFFFCFFFCFFFCFFFFFFFFFCFFFCFFFCFFFCFFFCFFFCFFFCFFFFFFFCFFFCFFFCFFFC:FFFC<FFFFFFFCFFFCFFFCFFFCFFFCFFFCFFFCFFFCFFFFFFFFFCFFFCFFFCFCFFFFFFFCFFFCFFFCFFFC7FFFCFFFCFFFCFFFCJ&@#;#;#;#>&8&9#;#;#@&9%9#;#;#A&9%9#;#;#@&8%:#;#;#J#J%:#;#;#H%9#;#;#I%9#;#;#G&9#;#;#J#;#;#;#
+8FCFCFCFCFCFFFCFFFCFFFCFFFCFCFCFCFCFCFFFCFCFCFFFFFCFFFCFFFCFCFCFCFCFCFCFCFCFFFFFCFFFCFFFCFCFCFCFCFCFFFFFFFFFFFCFFFCFFFCFCFCFCFCFCFFFCFCFCFFFCFFFCFFFC:FFFC<FFFCFCFCFFFCFFFCFFFCFFFFFFFFFFFCFFFCFFFCFCFCFCFFFFFCFFFCFFFCFFFCFCFCFFFFFCFFFCFFFC7FFFCFFFCFFFCFFFCJ"<"<"<"J"<"<"J"<"<"I&9"<"<"J"<"<"J"J"<"<"H&9"<"<"J"<"<"J"<"<"J"<"<"<"
+GFCFCFCFC8FCFCFC:FCFCFCFCFCFCFFFCFCFCFC:FCFCFC;FCEFCFCFCFCFCFCFFFCFCFCFC;FCFCFC:FCFCFC8FCFCFCFCJ$9&8&8&8&C&8&8&8&E&8&8&8&J&8&8&F%8&8&8&J&J%8&8&8&J&8&8&F&8&8&8&E&8&8&8&D$9&8&8&8&
+@FFFFFFFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFC7FCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFFFFFFFFFCFFFFFFFCFCFFFFFFFCFCFFFFFFFC7FCFFFFFFFC;FFFFFFFFFCFFFFFFFCFCFFFFFFFCFCFFFFFFFC6FCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFFFFFFFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCFCFFFFFFFCJ$:$:$:$:$E$:$:$:$G$:$:$:$J":$:$:$F&9$:$:$J$J&9$:$:$I":$:$:$H$:$:$:$G$:$:$:$E$:$:$:$:$
+@FCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFC4FCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFC9FCFCFC;FCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFC
+
+
+
+
+
+
+
+J"9":"J%I"<"<"J"B"J"
+QCFFFFFFGFFFFFFFFFFFFFF<FFFF:FFJ$;"J%H"C"J#J#
+QDFFFCFFFCHFCFCFCFFFCFC;FFFCGFCFFJ$:#:%9%:$9%H$:%9#:P9#;$9%A#;%8P9$9%:%:#
+QDFCFFFCFFFFFFFCFFFFFFFCFFFFFFFFFFFFFCFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCFFFFFFFCFFFFFFFFFFFFFFFFFCFFFFFFFFFFFFFCFFJ"<%9%8&9%@%8&8&9";&9";&9%F&8&8&9%8&
+QKFCFFFCFCFFFFFCFCFFFFFCFCFCFFFFFCFCFFFFFFFFFCFFFCFCFCFFFFFCFCFCFCFCFCFCFFFCFCFCFFFCFCFCFFFFFCFCFFFFFCFCFCFCFCFCFFFCFCFFFCFCFCFFFFFCFCFFFFFCFCFCFCJ"B"8"9"8"@"8"@$@%J"I%A$:";%
+QEFCFCFCFCFCFCFCFCFCFCFCFFFFFF@FCFCFFFFFFFFFFFFFCFCFFFFFFJ%C"J#;%<"9%9"<%:#
+S'FCFCFCFFFF?FCFFFCFCFCFFFFFCFCFCFCFFFCFCFCFFFFFCJ$G&J&8&9$;$9$9&H#9&:$8%:%8&9#
+QKFFFFFFFCFFFFFFFC7FCFFFFFFFCFFFFFFFFFCFFFFFFFCFFFCFFFFFFFCFFFFFFFCFCFFFFFFFFFFFCFCFFFCFCFFFFFFFCFFFFFCFFFFFFFFFCFFFCJ"9"9$9"<"=$9"C"=$9%:$<":$:$9"9"B"9%<":$;#9%:"
+QCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFCFC
+J"
+TEFC
+ENDBITMAP
+%%EndBinary
+54 69.17 523.28 687.33 C
+0 0 612 792 C
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.6/DEST FmPD2
+[/Title(A)/Rect[45 60 532 696]/ARTICLE FmPD2
+[/Page 1/View[/XYZ null 207 864 FmDC exch pop null]/Title(Summary of the GNIRS OIWFS Mechanism Testing)/Count 4/OUT FmPD
+[/Page 1/View[/XYZ null 171 576 FmDC exch pop null]/Title(1 Introduction)/Count 3/OUT FmPD
+[/Page 1/View[/XYZ null 171 452 FmDC exch pop null]/Title(1.1 Definitions, Acronyms and Abbreviations)/OUT FmPD
+[/Page 1/View[/XYZ null 171 400 FmDC exch pop null]/Title(1.2 Stylistic Conventions)/OUT FmPD
+[/Page 1/View[/XYZ null 171 336 FmDC exch pop null]/Title(1.3 References)/OUT FmPD
+[/Page 2/View[/XYZ null 153 831 FmDC exch pop null]/Title(2 Filter Wheel)/OUT FmPD
+[/Page 2/View[/XYZ null 153 357 FmDC exch pop null]/Title(3 Focus Stage)/OUT FmPD
+[/Page 3/View[/XYZ null 171 394 FmDC exch pop null]/Title(4 Gimbal Mirror)/Count 2/OUT FmPD
+[/Page 4/View[/XYZ null 153 454 FmDC exch pop null]/Title(TABLE 1. x Axis Cross Hair Position as a Function ...)/Count 1/OUT FmPD
+[/Page 5/View[/XYZ null 171 808 FmDC exch pop null]/Title(FIGURE 1. x Axis Cross Hair Position vs Function o...)/OUT FmPD
+[/Page 5/View[/XYZ null 171 404 FmDC exch pop null]/Title(TABLE 2. y Axis Cross Hair Position as a Function ...)/Count 1/OUT FmPD
+[/Page 6/View[/XYZ null 153 740 FmDC exch pop null]/Title(FIGURE 2. y Axis Cross Hair Position as a Function...)/OUT FmPD
+FMENDPAGE
+%%EndPage: "6" 6
+%%Trailer
+%%BoundingBox: 0 0 612 792
+%%PageOrder: Ascend
+%%Pages: 6
+%%DocumentFonts: Helvetica-Bold
+%%+ Times-Bold
+%%+ Times-Roman
+%%+ Helvetica
+%%EOF

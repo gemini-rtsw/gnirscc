@@ -1,0 +1,347 @@
+[schematic2]
+uniq 178
+[tools]
+[detail]
+w 458 3307 100 0 n#172 ebos.active.OUT 48 3296 928 3296 928 2976 1152 2976 ecad20.obsSetup.B
+w 1186 1435 100 0 n#159 hwin.hwin#158.in 1216 1424 1216 1424 estringouts.detID.DOL
+w 136 2051 100 0 n#148 eais.sequenceNum.VAL 80 1984 124 1984 124 2048 208 2048 estringouts.seqNumStr.DOL
+w 114 2019 100 0 n#147 eais.sequenceNum.FLNK 80 2016 208 2016 estringouts.seqNumStr.SLNK
+w 80 3491 100 0 n#146 embbis.arSize.VAL 64 3488 156 3488 156 3552 192 3552 estringouts.arSizeStr.DOL
+w 118 2883 100 0 n#150 eais.coadds.VAL 64 2816 104 2816 104 2880 192 2880 estringouts.coAddsStr.DOL
+w 98 3187 100 0 n#144 embbis.DAvgNum.FLNK 64 3184 192 3184 estringouts.numDavgsStr.SLNK
+w 82 3155 100 0 n#143 embbis.DAvgNum.VAL 64 3152 160 3152 160 3216 192 3216 estringouts.numDavgsStr.DOL
+w 98 3523 100 0 n#142 embbis.arSize.FLNK 64 3520 192 3520 estringouts.arSizeStr.SLNK
+w 860 2227 100 0 n#138 estringouts.seqNumStr.OUT 464 2000 864 2000 864 2464 1152 2464 ecad20.obsSetup.J
+w 930 2659 100 0 n#134 estringouts.intTimeStr.OUT 448 2480 768 2480 768 2656 1152 2656 ecad20.obsSetup.G
+w 114 2531 100 0 n#133 eais.integTime.VAL 64 2464 96 2464 96 2528 192 2528 estringouts.intTimeStr.DOL
+w 98 2499 100 0 n#132 eais.integTime.FLNK 64 2496 192 2496 estringouts.intTimeStr.SLNK
+w 934 2787 100 0 n#130 estringouts.coAddsStr.OUT 448 2832 776 2832 776 2784 1152 2784 ecad20.obsSetup.E
+w 98 2851 100 0 n#128 eais.coadds.FLNK 64 2848 192 2848 estringouts.coAddsStr.SLNK
+w 114 1411 100 0 n#126 embbis.hdTime.FLNK 80 1408 208 1408 estringouts.hdTimeStr.SLNK
+w 130 1443 100 0 n#155 embbis.hdTime.VAL 80 1376 112 1376 112 1440 208 1440 estringouts.hdTimeStr.DOL
+w 98 2675 100 0 n#151 eais.numberPics.FLNK 64 2672 192 2672 estringouts.nPstr.SLNK
+w 114 2707 100 0 n#122 eais.numberPics.VAL 64 2640 96 2640 96 2704 192 2704 estringouts.nPstr.DOL
+w 114 2163 100 0 n#118 estringins.titleStr.FLNK 80 2160 208 2160 estringouts.tStr.SLNK
+w 1004 1795 100 0 n#115 estringouts.hdTimeStr.OUT 464 1392 1008 1392 1008 2208 1152 2208 ecad20.obsSetup.N
+w 98 3011 100 0 n#107 embbis.LNRNum.FLNK 64 3008 192 3008 estringouts.numLNRStr.SLNK
+w 114 2339 100 0 n#153 embbis.hdrDet.FLNK 80 2336 208 2336 estringouts.hdrDetStr.SLNK
+w 114 1731 100 0 n#154 embbis.hkSt.FLNK 80 1728 208 1728 estringouts.hkStStr.SLNK
+w 114 1571 100 0 n#103 embbis.pMode.FLNK 80 1568 208 1568 estringouts.pModeStr.SLNK
+w 626 3171 100 0 n#102 estringouts.numDavgsStr.OUT 448 3168 864 3168 864 2912 1152 2912 ecad20.obsSetup.C
+w 608 2995 100 0 n#97 ecad20.obsSetup.D 1152 2848 816 2848 816 2992 448 2992 estringouts.numLNRStr.OUT
+w 120 3043 100 0 n#94 embbis.LNRNum.VAL 64 2976 96 2976 96 3040 192 3040 estringouts.numLNRStr.DOL
+w 920 2723 100 0 n#84 estringouts.nPstr.OUT 448 2656 736 2656 736 2720 1152 2720 ecad20.obsSetup.F
+w 828 2331 100 0 n#82 estringouts.tStr.OUT 464 2144 832 2144 832 2528 1152 2528 ecad20.obsSetup.I
+w 1148 3315 100 0 n#77 ecad20.obsSetup.DIR 1152 3232 1152 3408 1088 3408 inhier.DIR.P
+w 956 1907 100 0 n#73 estringouts.pModeStr.OUT 464 1552 960 1552 960 2272 1152 2272 ecad20.obsSetup.M
+w 924 2019 100 0 n#72 estringouts.hkStStr.OUT 464 1712 928 1712 928 2336 1152 2336 ecad20.obsSetup.L
+w 892 2123 100 0 n#162 estringouts.commStr.OUT 464 1856 896 1856 896 2400 1152 2400 ecad20.obsSetup.K
+w 952 2595 100 0 n#70 estringouts.hdrDetStr.OUT 464 2320 800 2320 800 2592 1152 2592 ecad20.obsSetup.H
+w 138 1603 100 0 n#64 embbis.pMode.VAL 80 1536 116 1536 116 1600 208 1600 estringouts.pModeStr.DOL
+w 148 1763 100 0 n#61 embbis.hkSt.VAL 80 1696 136 1696 136 1760 208 1760 estringouts.hkStStr.DOL
+w 82 2307 100 0 n#152 embbis.hdrDet.VAL 80 2304 144 2304 144 2368 208 2368 estringouts.hdrDetStr.DOL
+w 690 3507 100 0 n#109 estringouts.arSizeStr.OUT 448 3504 992 3504 992 3040 1152 3040 ecad20.obsSetup.A
+w 1590 3203 100 0 n#6 ecad20.obsSetup.MESS 1472 3200 1744 3200 1744 3204 outhier.MESS.p
+w 1590 3279 100 0 n#5 ecad20.obsSetup.VAL 1472 3232 1472 3276 1744 3276 outhier.VAL.p
+s 1460 2404 100 0 (comment)
+s 1460 2468 100 0 (seqNum)
+s 1460 2532 100 0 (title)
+s 1460 2596 100 0 (hdrDetail)
+s 1468 2284 100 0 (procMode)
+s 1468 2348 100 0 (hkState)
+s 1040 2284 100 0 (procMode)
+s 1044 2988 100 0 (detState)
+s 1056 2348 100 0 (hkState)
+s 1060 2408 100 0 (comment)
+s 1076 2476 100 0 (seqNum)
+s 1084 2536 100 0 (title)
+s 1036 2604 100 0 (hdrDetail)
+s 1060 2732 100 0 (numPics)
+s 1032 2796 100 0 (numCoAdds)
+s 1024 2668 100 0 (reqIntTime)
+s 1060 2860 100 0 (numLNRs)
+s 1044 2924 100 0 (numDAvgs)
+s 1020 3056 100 0 (seqRoiSize)
+s 1468 2668 100 0 seqIntTime
+s 1460 2156 100 0 seqFDly
+s 1460 2732 100 0 (numPics)
+s 1460 2796 100 0 (numCoAdds)
+s 1468 2860 100 0 (numLNRs)
+s 1468 2924 100 0 (numDAvgs)
+s 1468 2988 100 0 (detState)
+s 1468 3052 100 0 (seqRoiSize)
+s 1036 2220 100 0 (hdrTiming)
+s 1468 2220 100 0 (hdrTiming)
+s 1736 2032 150 0 obsSetup
+[cell use]
+use hwin 1024 1383 100 0 hwin#158
+xform 0 1120 1424
+p 1027 1416 100 0 -1 val(in):$(sadtop)detID
+use estringouts 1216 1319 100 0 detID
+xform 0 1344 1392
+use estringouts 1856 1319 100 0 detType
+xform 0 1984 1392
+use estringouts 280 1464 100 0 hdTimeStr
+xform 0 336 1408
+p 400 1344 100 0 1 OMSL:closed_loop
+p 196 748 100 0 1 PV:$(top)
+p 176 1440 75 1280 -1 pproc(DOL):PP
+use estringouts 264 3064 100 0 numLNRStr
+xform 0 320 3008
+p 256 2944 100 0 1 OMSL:closed_loop
+p 160 3040 75 1280 -1 pproc(DOL):NPP
+use estringouts 264 3240 100 0 numDavgsStr
+xform 0 320 3184
+p 256 3104 100 0 1 OMSL:closed_loop
+p 160 3216 75 1280 -1 pproc(DOL):NPP
+use estringouts 280 1624 100 0 pModeStr
+xform 0 336 1568
+p 416 1520 100 0 1 OMSL:closed_loop
+p 176 1600 75 1280 -1 pproc(DOL):PP
+use estringouts 280 1784 100 0 hkStStr
+xform 0 336 1728
+p 400 1680 100 0 1 OMSL:closed_loop
+p 176 1760 75 1280 -1 pproc(DOL):PP
+use estringouts 280 2392 100 0 hdrDetStr
+xform 0 336 2336
+p 272 2256 100 0 1 OMSL:closed_loop
+use estringouts 264 3576 100 0 arSizeStr
+xform 0 320 3520
+p 256 3456 100 0 1 OMSL:closed_loop
+p 272 3496 65 1536 1 PV:$(top)
+p 128 3486 100 0 0 VAL:string
+use estringouts 2584 1676 100 0 programID
+xform 0 2640 1616
+use estringouts 272 2216 100 0 tStr
+xform 0 336 2160
+p 384 2096 100 0 1 OMSL:closed_loop
+p 76 2224 60 1536 1 def(DOL):$(top)titleStr.VAL
+use estringouts 280 1928 100 0 commStr
+xform 0 336 1872
+use estringouts 256 2736 100 0 nPstr
+xform 0 320 2672
+p 272 2592 100 0 1 OMSL:closed_loop
+use estringouts 256 2908 100 0 coAddsStr
+xform 0 320 2848
+p 256 2784 100 0 1 OMSL:closed_loop
+use estringouts 264 2560 100 0 intTimeStr
+xform 0 320 2496
+p 256 2416 100 0 0 OMSL:closed_loop
+use estringouts 280 2080 100 0 seqNumStr
+xform 0 336 2016
+p 400 1968 100 0 1 OMSL:closed_loop
+use estringouts 736 3472 100 0 activstr
+xform 0 784 3408
+p 720 3328 100 0 1 OMSL:closed_loop
+use eaos 1392 3399 100 0 intOK
+xform 0 1520 3488
+use ebos -128 3392 100 0 active
+xform 0 -80 3328
+p -528 3182 100 0 0 ONAM:Activate
+p -528 3214 100 0 0 ZNAM:Deactivate
+use embbis -104 1456 100 0 hdTime
+xform 0 -48 1392
+p -240 1182 100 0 0 EIVL:
+p -240 1086 100 0 0 ELVL:
+p -240 958 100 0 0 FFVL:
+p -240 1310 100 0 0 FRVL:
+p -240 990 100 0 0 FTVL:0
+p -240 1150 100 0 0 NIVL:
+p -48 1406 100 0 0 ONST:AFTER
+p -240 1406 100 0 0 ONVL:1
+p -96 1352 60 1536 1 PV:$(top)
+p -240 1214 100 0 0 SVVL:
+p -240 1246 100 0 0 SXVL:
+p -240 1118 100 0 0 TEVL:
+p -240 1342 100 0 0 THVL:
+p -48 1054 100 0 0 TVST:
+p -240 1054 100 0 0 TVVL:
+p -48 1374 100 0 0 TWST:BOTH
+p -240 1374 100 0 0 TWVL:2
+p -48 1438 100 0 0 ZRST:BEFORE
+use embbis -120 3056 100 0 LNRNum
+xform 0 -64 2992
+p -64 2910 100 0 0 FRST:16
+p -256 2910 100 0 0 FRVL:4
+p -64 2878 100 0 0 FVST:32
+p -256 2878 100 0 0 FVVL:5
+p -64 3006 100 0 0 ONST:2
+p -256 3006 100 0 0 ONVL:1
+p -64 2814 100 0 0 SVST:128
+p -256 2814 100 0 0 SVVL:7
+p -64 2846 100 0 0 SXST:64
+p -256 2846 100 0 0 SXVL:6
+p -64 2942 100 0 0 THST:8
+p -256 2942 100 0 0 THVL:3
+p -64 2974 100 0 0 TWST:4
+p -256 2974 100 0 0 TWVL:2
+p -64 3038 100 0 0 ZRST:1
+use embbis -120 3232 100 0 DAvgNum
+xform 0 -64 3168
+p -64 3086 100 0 0 FRST:16
+p -256 3086 100 0 0 FRVL:4
+p -64 3182 100 0 0 ONST:2
+p -256 3182 100 0 0 ONVL:1
+p -64 3118 100 0 0 THST:8
+p -256 3118 100 0 0 THVL:3
+p -64 3150 100 0 0 TWST:4
+p -448 3072 100 0 0 TWVL:2
+p -64 3214 100 0 0 ZRST:1
+use embbis -104 1616 100 0 pMode
+xform 0 -48 1552
+p -48 1470 100 0 0 FRST:TEST
+p -240 1470 100 0 0 FRVL:4
+p -48 1566 100 0 0 ONST:SEP
+p -240 1566 100 0 0 ONVL:1
+p -48 1502 100 0 0 THST:CHOP3
+p -240 1502 100 0 0 THVL:3
+p -48 1534 100 0 0 TWST:CHOP
+p -240 1534 100 0 0 TWVL:2
+p -48 1598 100 0 0 ZRST:STARE
+use embbis -104 1776 100 0 hkSt
+xform 0 -48 1712
+p -240 1502 100 0 0 EIVL:
+p -240 1406 100 0 0 ELVL:
+p -240 1278 100 0 0 FFVL:
+p -240 1630 100 0 0 FRVL:
+p -240 1310 100 0 0 FTVL:0
+p -240 1470 100 0 0 NIVL:
+p -48 1726 100 0 0 ONST:ON
+p -240 1726 100 0 0 ONVL:1
+p -240 1534 100 0 0 SVVL:
+p -240 1566 100 0 0 SXVL:
+p -240 1438 100 0 0 TEVL:
+p -240 1662 100 0 0 THVL:
+p -48 1374 100 0 0 TVST:
+p -240 1374 100 0 0 TVVL:
+p -48 1694 100 0 0 TWST:
+p -240 1694 100 0 0 TWVL:
+p -48 1758 100 0 0 ZRST:OFF
+use embbis -104 2384 100 0 hdrDet
+xform 0 -48 2320
+p -48 2334 100 0 0 ONST:PARTIAL
+p -240 2334 100 0 0 ONVL:1
+p -240 1982 100 0 0 TVVL:2
+p -48 2302 100 0 0 TWST:FULL
+p -48 2366 100 0 0 ZRST:NORMAL
+use embbis 2656 3424 100 0 obsSetupDone
+xform 0 2728 3360
+p 2728 3374 100 0 0 ONST:UNKNOWN
+p 2536 3374 100 0 0 ONVL:1
+p 2692 3328 65 0 1 PV:$(top)
+p 2728 3310 100 0 0 THST:ERROR
+p 2536 3310 100 0 0 THVL:3
+p 2728 3342 100 0 0 TWST:BUSY
+p 2536 3342 100 0 0 TWVL:2
+p 2728 3406 100 0 0 ZRST:DONE
+use embbis -120 3568 100 0 arSize
+xform 0 -64 3504
+p -64 3422 100 0 0 FRST:
+p 128 3422 100 0 0 FRSV:MINOR
+p -256 3422 100 0 0 FRVL:
+p -64 3390 100 0 0 FVST:
+p 128 3390 100 0 0 FVSV:MINOR
+p -256 3390 100 0 0 FVVL:
+p -64 3518 100 0 0 ONST:768
+p 128 3518 100 0 0 ONSV:MINOR
+p -256 3518 100 0 0 ONVL:1
+p -480 3422 100 0 0 PINI:YES
+p -104 3480 65 1536 1 PV:$(top)
+p -64 3454 100 0 0 THST:256
+p 128 3454 100 0 0 THSV:MINOR
+p -256 3454 100 0 0 THVL:3
+p -64 3486 100 0 0 TWST:512
+p 128 3486 100 0 0 TWSV:MINOR
+p -256 3486 100 0 0 TWVL:2
+p -120 3440 65 1536 1 VAL:0
+p -64 3550 100 0 0 ZRST:1024
+use embbis -416 3696 100 0 active1
+xform 0 -368 3632
+p -368 3646 100 0 0 ONST:Active
+p -560 3646 100 0 0 ONVL:1
+p -368 3678 100 0 0 ZRST:inActive
+p -560 3678 100 0 0 ZRVL:0
+use estringins -112 2216 100 0 titleStr
+xform 0 -48 2160
+use eais -112 2736 100 0 numberPics
+xform 0 -64 2656
+p -428 2040 100 0 0 VAL:1
+use eais -112 2060 100 0 sequenceNum
+xform 0 -48 2000
+use eais -128 2540 100 0 integTime
+xform 0 -64 2480
+p -224 2414 100 0 0 HIGH:10000000
+p -224 2478 100 0 0 HIHI:10000001
+p -224 2446 100 0 0 LOLO:0
+p -224 2382 100 0 0 LOW:0
+p -448 2318 100 0 0 PREC:3
+use eais -112 2888 100 0 coadds
+xform 0 -64 2832
+use ebis 2196 1668 100 0 logHk
+xform 0 2252 1612
+p 1900 1450 100 0 0 ONAM:ENABLED
+p 1900 1482 100 0 0 ZNAM:DISABLED
+use ebis 2188 1860 100 0 logTemps
+xform 0 2248 1804
+p 1896 1642 100 0 0 ONAM:ENABLED
+p 1896 1674 100 0 0 ZNAM:DISABLED
+use task 1524 1919 100 0 task#55
+xform 0 1820 2088
+use CBorder -368 1164 -100 0 frame
+xform 0 1312 2468
+p 2200 1300 100 1536 1 Date:23 Apr 97
+p 2304 1396 300 1792 -1 Dnumber:
+p 2432 1380 150 1536 -1 Title:obsSetupCad.sch
+use elongouts 2180 2064 100 0 hdrTiming
+xform 0 2244 1992
+p 2188 1952 65 1536 1 PV:$(top)
+use setObsState 2344 2123 100 0 setObsState#45
+xform 0 2472 2276
+use setHdrVars 2344 2507 100 0 setHdrVars#36
+xform 0 2472 2660
+use setIntTime 1988 2123 100 0 setIntTime#31
+xform 0 2052 2292
+use setSeqVars 1936 2447 100 0 setSeqVars#18
+xform 0 2048 2632
+use activChk 1984 2831 100 0 activChk#14
+xform 0 2048 2984
+use setSeqROI 2408 2843 100 0 setSeqROI#13
+xform 0 2488 2992
+use ecars 2104 3504 100 0 obsSetupC
+xform 0 2192 3352
+p 2128 3408 65 1536 1 PV:$(top)
+p 2376 3248 65 0 1 def(FLNK):$(top)combCars1.VAL
+p 1812 3452 65 0 0 def(ICID):0.0
+use outhier 1712 3235 100 0 VAL
+xform 0 1728 3276
+use outhier 1712 3163 100 0 MESS
+xform 0 1728 3204
+use inhier 1072 3368 100 0 DIR
+xform 0 1088 3408
+use ecad20 1224 3280 100 0 obsSetup
+xform 0 1312 2400
+p 1256 3088 65 1536 1 FTVA:LONG
+p 1256 3056 65 1536 1 FTVB:LONG
+p 1256 3024 65 1536 1 FTVC:LONG
+p 1256 2992 65 1536 1 FTVD:LONG
+p 1256 2960 65 1536 1 FTVE:LONG
+p 1256 2928 65 1536 1 FTVF:LONG
+p 1256 2896 65 1536 1 FTVG:DOUBLE
+p 1256 2864 65 1536 1 FTVH:LONG
+p 1256 2832 65 1536 1 FTVI:STRING
+p 1256 2800 65 1536 1 FTVJ:LONG
+p 1256 2768 65 1536 1 FTVK:STRING
+p 1256 2736 65 1536 1 FTVL:LONG
+p 1256 2704 65 1536 1 FTVM:LONG
+p 1256 2672 65 0 1 FTVN:LONG
+p 1256 2640 65 0 1 FTVO:DOUBLE
+p 1248 2496 100 0 0 FTVP:LONG
+p 1248 2464 100 0 0 FTVQ:LONG
+p 1248 2432 100 0 0 FTVR:LONG
+p 1248 2400 100 0 0 FTVS:LONG
+p 1248 2368 100 0 0 FTVT:LONG
+p 1248 2240 100 0 0 PREC:3
+p 1248 3128 65 1536 1 PV:$(top)
+p 1248 3112 65 1536 1 SNAM:obsSetupChk
+p 1504 1728 100 0 0 def(FLNK):0.0
+[comments]

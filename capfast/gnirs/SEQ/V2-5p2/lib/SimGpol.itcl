@@ -1,0 +1,38 @@
+#+
+#  SimGpol.itcl
+#
+#  A SimGpol object simulates a real Gpol object in the absence of the real
+#  GPOL.
+#
+#  D Terrett 10 October 2002
+#
+#  Copyright CCLRC
+#+
+
+itcl::class SimGpol {
+   public {
+      constructor {args} {eval configure $args}
+      destructor {}
+      method configure {args} {}
+      method setup {whendone}
+   }
+   private {
+      variable afterid ""
+   }
+}
+
+itcl::body SimGpol::destructor {} {
+   if { $afterid != "" } {
+       after cancel $afterid
+   }
+}
+
+itcl::body SimGpol::setup {whendone} {
+
+# Configures the instrument ready to take an exposure.
+
+# Execute the whendone script 1 second in the future.
+   puts "simulate GPOL configuration"
+   set afterid [after idle $whendone 1]
+   return 1
+}

@@ -1,0 +1,14 @@
+[symbol2]
+bbox 32 32 192 288
+uniq 167
+[tools]
+[attributes]
+[layers]
+<symbol>
+a 0 128 88 152 88 360
+a 0 104 88 128 88 360
+a 0 152 88 176 88 360
+a 0 80 88 104 88 360
+l 100 0 0 46 135 tempBdReqrd
+r 0 32 32 192 288
+[comments]

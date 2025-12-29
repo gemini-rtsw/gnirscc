@@ -1,0 +1,44 @@
+Postscript:
+
+   niri_hty.ps.gz:       NIRI documents: PostScript version of all documents
+                         (including OIWFS documents)
+   oiwfs_hty.ps.gz:      OIWFS documents: PostScript version of all documents
+
+Framemaker:
+
+   niri_hty.book.gz:     NIRI documents: FrameMaker book file for NIRI and
+                         OIWFS
+   oiwfs_hty.book.gz:    OIWFS documents: FrameMaker book file for OIWFS
+
+   niri_hty_TOC.doc.gz:  NIRI documents: Framemaker table of Contents
+   oiwfs_hty_TOC.doc.gz: OWIFS documents: Framemaker table of Contents
+
+   niri_hty_001.fm.gz:   Near IR Imager (NIRI) / On-Instrument Wavefront
+                         Sensor (OIWFS)--Architectural Design Document
+   niri_hty_002.fm.gz:   Near IR Imager (NIRI) / On-Instrument Wavefront
+                         sensor (OIWFS)--Detailed Design Document
+   niri_hty_003.fm.gz:   ICD 1.9a/3.1 "Near IR Imager (NIRI) to Observatory 
+                         Control System"
+   niri_hty_004.fm.gz:   Near IR Imager (NIRI) / On-Instrument Wavefront
+                         Sensor (OIWFS)--Software Calibration and
+                         Maintainance (Document not yet started).
+   niri_hty_005.fm.gz:   ICD 1.9/1.10ab "NIRI/GNIRS Science Instrument to On
+                         Instrument Wavefront Sensor"
+   niri_hty_006.fm.gz:   Near IR Imager (NIRI)-Installation and Release Notes
+   niri_hty_007.fm.gz:   Near IR Imager (NIRI)-Using the Engineering User
+                         Interface 
+   niri_hty_008.fm.gz:   ICD 1.6/1.10[ab] "A&G to NIRI/GNIRS On Instrument
+                         Wavefront Sensors"
+   niri_hty_009.fm.gz:   NIRI / OIWFS Definitions, Abbreviations and 
+						 References
+   niri_hty_010.fm.gz:   NIRI / OIWFS -- Project History Document.
+   niri_hty_011.fm.gz:   NIRI / OIWFS -- Implementation Notes and Record
+						 Reference.
+   niri_hty_012.fm.gz:   NIRI / OIWFS -- Hardware Notes
+   niri_hty_013.fm.gz:   NIRI CC -- Position Names (Withdrawn)
+   niri_hty_014.fm.gz:   NIRI OIWFS -- Position Names (Withdrawn)
+   niri_hty_015.fm.gz:   OIWFS -- Test Procedure
+   niri_hty_016.fm.gz:   GNIRS OIWFS -- Test summary
+
+   niri_hty_000.fm.gz:   NIRI Optical--Components Controller: Implementation 
+                         Issues (Obsolete).

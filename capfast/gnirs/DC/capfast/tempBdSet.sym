@@ -1,0 +1,11 @@
+[symbol2]
+bbox 32 0 192 256
+uniq 262
+[tools]
+[attributes]
+[layers]
+<symbol>
+a 0 112 48 128 32 360
+l 100 0 0 54 123 tempBdSet
+r 0 32 0 192 256
+[comments]

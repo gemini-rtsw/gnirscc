@@ -1,0 +1,4 @@
+run nirs.env to setup the uae environment.  nirs.env in the parent directrory
+should be modified to reflect the local directory structure.
+
+run gmake after the environment is setup.

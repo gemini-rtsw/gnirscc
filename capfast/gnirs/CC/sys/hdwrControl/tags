@@ -1,0 +1,512 @@
+ABORTED	gnirsCC.h	219
+ACQ	gnirsCC.h	315
+ADC_CNTS	tandp.c	80
+ADC_GAIN	tandp.c	81
+ADC_RANGE	tandp.c	79
+ANLG_GAIN	tandp.c	78
+BAD	gnirsCC.h	37
+BAUD	senTorr.h	29
+BINARY	gnirsCC.h	218
+BINARY_LIMIT	gnirsCC.h	352
+BIT_SET	commands.c	/^#define BIT_SET(p, d)      { __typeof__ (* (p)) __/
+BKOFF_FUDGE	gnirsCC.h	213
+BOOTING	gnirsCC.h	36
+BUS_RESET_BIT_MV167	commands.c	38
+BUS_RESET_REG_MV167	commands.c	37
+CAMERA	gnirsCC.h	316
+CICS_DB_ERROR	gnirsCC.h	565
+CICS_DB_ERROR1	gnirsCC.h	579
+CICS_DB_ERROR2	gnirsCC.h	580
+CICS_DB_ERROR3	gnirsCC.h	581
+CICS_DB_ERROR4	gnirsCC.h	582
+CICS_DB_ERROR5	gnirsCC.h	583
+CICS_DB_ERROR_TS	gnirsCC.h	588
+CICS_DB_FILE	gnirsCC.h	587
+CICS_DB_FULL	gnirsCC.h	557
+CICS_DB_LOG	gnirsCC.h	566
+CICS_DB_MARK	gnirsCC.h	578
+CICS_DB_MIN	gnirsCC.h	556
+CICS_DB_NOLOG	gnirsCC.h	554
+CICS_DB_NONE	gnirsCC.h	555
+COLD_CATHODE_GAUGE	senTorr.h	39
+COMPUTER	gnirsCC.h	479
+COMPUTER_CONTROL	gnirsCC.h	483
+COMPUTER_MANUAL	gnirsCC.h	483
+CONFIGURING	gnirsCC.h	36
+CONFIG_CHAR_LEN	gnirsCC.h	412
+CONFIG_DIR_LEN	gnirsCC.h	413
+CONF_APPEND_STR	gnirsCC.h	424
+CONF_BIT	gnirsCC.h	431
+CONF_CHAR	gnirsCC.h	420
+CONF_CRYO	gnirsCC.h	417
+CONF_DOUBLE	gnirsCC.h	421
+CONF_FILTER	gnirsCC.h	416
+CONF_FOCUS	gnirsCC.h	430
+CONF_GBOUNDS	gnirsCC.h	429
+CONF_GPARAM	gnirsCC.h	428
+CONF_GRATING	gnirsCC.h	417
+CONF_INT	gnirsCC.h	419
+CONF_MECHANISM	gnirsCC.h	416
+CONF_MOTION	gnirsCC.h	426
+CONF_MOTOR	gnirsCC.h	416
+CONF_POSITION	gnirsCC.h	427
+CONF_STRING	gnirsCC.h	422
+CONF_SWITCH	gnirsCC.h	425
+CONF_TEMP	gnirsCC.h	417
+CONF_TYPE	gnirsCC.h	423
+CONTROL_X	gnirsCC.h	123
+CONTROL_Y	gnirsCC.h	124
+COVER	gnirsCC.h	315
+CR	gnirsCC.h	125
+CREEP_D	diags.c	267
+CRYO_OFF	gnirsCC.h	481
+CRYO_ON	gnirsCC.h	480
+DATUM	gnirsCC.h	317
+DECKER	gnirsCC.h	315
+DPRINT	diags.c	/^#define DPRINT(a) (fputs (a,stderr), fflush(stderr/
+EMIS_TIME	senTorr.h	40
+EPICS_LEN	gnirsCC.h	524
+EPSILON	senTorr.h	30
+ERR_MSG_LEN	gnirsCC.h	67
+FASTSIM	gnirsCC.h	40
+FIBIAS	gnirsCC.h	360
+FILTER	gnirsCC.h	316
+FLAG_PORT	gnirsCC.h	453
+FOCUS	gnirsCC.h	316
+FULLSIM	gnirsCC.h	40
+FW1	gnirsCC.h	315
+FW2	gnirsCC.h	315
+GND_A	tandp.c	83
+GND_B	tandp.c	87
+GNIRS_MD_ADDR_BASE	gnirsCC.h	98
+GNIRS_MD_ADDR_INCR	gnirsCC.h	99
+GNIRS_MESSAGE_LENGTH	gnirsCC.h	525
+GNIRS_MOTOR0_INT_NUM	gnirsCC.h	130
+GNIRS_MOTOR1_INT_NUM	gnirsCC.h	131
+GNIRS_MOTOR2_INT_NUM	gnirsCC.h	132
+GNIRS_MOTOR3_INT_NUM	gnirsCC.h	134
+GNIRS_MOTOR_INTERRUPT_LEVEL	gnirsCC.h	129
+GNIRS_ST_GLOBALS	gnirsCC.h	85
+GNIRS_ST_MD	gnirsCC.h	197
+GNIRS_XYCOM0_INT_NUM	gnirsCC.h	449
+GOOD	gnirsCC.h	37
+GRATING	gnirsCC.h	316
+G_BUSY	gnirsCC.h	39
+G_DONE	gnirsCC.h	39
+G_ERROR	gnirsCC.h	39
+HARD	gnirsCC.h	223
+HARD_NEG_LIM	gnirsCC.h	221
+HARD_POS_LIM	gnirsCC.h	221
+HOME_SW	gnirsCC.h	221
+HW_REG32	commands.c	32
+INITIALIZING	gnirsCC.h	36
+INPUT_DONT_CARE	globals.c	158
+ITEM_ID_LEN	gnirsCC.h	286
+LABVIEW	gnirsCC.h	41
+LF	gnirsCC.h	126
+LIM_FUDGE	gnirsCC.h	215
+LINEAR	gnirsCC.h	218
+LVNFS	gnirsCC.h	42
+LVSERVER	gnirsCC.h	42
+LV_MAX_MSG_LEN	gnirsCC.h	66
+MANUAL	gnirsCC.h	478
+MANUAL_SWITCH	gnirsCC.h	483
+MAX_INTRO_SIZE	util.c	666
+MAX_INTRO_STRING	util.c	667
+MD_CMD_S	gnirsCC.h	109
+MD_DONE_E	gnirsCC.h	118
+MD_DON_S	gnirsCC.h	113
+MD_ENC_S	gnirsCC.h	111
+MD_IBF_E	gnirsCC.h	119
+MD_IBF_S	gnirsCC.h	114
+MD_INIT	gnirsCC.h	110
+MD_IRQ_E	gnirsCC.h	121
+MD_IRQ_S	gnirsCC.h	116
+MD_OVRT	gnirsCC.h	112
+MD_REG_CTRL	gnirsCC.h	104
+MD_REG_DATA	gnirsCC.h	102
+MD_REG_DONE	gnirsCC.h	103
+MD_REG_IVEC	gnirsCC.h	106
+MD_REG_STAT	gnirsCC.h	105
+MD_RING_SIZE	gnirsCC.h	138
+MD_TBE_E	gnirsCC.h	120
+MD_TBE_S	gnirsCC.h	115
+MEDM	gnirsCC.h	41
+MESSAGE_BUFFERS	util.c	657
+MH_DIR	gnirsCC.h	148
+MH_DONE	gnirsCC.h	149
+MH_HOME	gnirsCC.h	151
+MH_LIMIT	gnirsCC.h	150
+MH_MINUS	gnirsCC.h	147
+MH_PLUS	gnirsCC.h	146
+MH_STAT_MASK	gnirsCC.h	152
+MH_STAT_SIZE	gnirsCC.h	153
+MICRO_STEPS	gnirsCC.h	211
+MOTOR_CMD_LEN	gnirsCC.h	207
+MOTOR_ID_LEN	gnirsCC.h	205
+MOTOR_MSG_LEN	gnirsCC.h	137
+MOVING	gnirsCC.h	219
+MS_BUSY	gnirsCC.h	155
+MS_ERROR	gnirsCC.h	158
+MS_FAULT	gnirsCC.h	157
+MS_HARDW	gnirsCC.h	161
+MS_OTRAVEL	gnirsCC.h	156
+MS_STALL	gnirsCC.h	160
+MS_STAT_MASK	gnirsCC.h	162
+MS_STUCK	gnirsCC.h	159
+NEGATIVE	gnirsCC.h	222
+NEG_LIM	gnirsCC.h	221
+NFILT_IN_WHEEL	gnirsCC.h	361
+NODE_FILTERS	gnirsCC.h	301
+NODE_MECH	gnirsCC.h	300
+NOSIM	gnirsCC.h	40
+NOTHING	senTorr.h	34
+NO_EXTERNS	globals.c	12
+NUMREADS	diags.c	719
+NUM_AXES	gnirsCC.h	96
+NUM_CARDS	gnirsCC.h	95
+NUM_GRATINGS	gnirsCC.h	379
+NUM_GRAT_BOUNDS	gnirsCC.h	381
+NUM_MECH	gnirsCC.h	320
+NUM_MOTORS	gnirsCC.h	203
+NUM_REFTEMP	gnirsCC.h	506
+NUM_TEMPS	gnirsCC.h	505
+NUM_TEMP_COEFF	gnirsCC.h	508
+NUM_T_BOARDS	gnirsCC.h	503
+NUM_T_PER_BOARD	gnirsCC.h	504
+OFFSETCRYO	gnirsCC.h	/^#define OFFSETCRYO(X)   ((char *)&cryoSwitches[X] /
+OFFSETGRAT	gnirsCC.h	/^#define OFFSETGRAT(X)   ((char *)&(gratingData[0]./
+OFFSETM	gnirsCC.h	/^#define OFFSETM(X)   ((char *)&(motorV[0].X) - (ch/
+OFFSETMECH	gnirsCC.h	/^#define OFFSETMECH(X)   ((char *)&(mechanism[0].X)/
+OFFSETTEMP	gnirsCC.h	/^#define OFFSETTEMP(X)   ((char *)&(temperatures[0]/
+PARK	gnirsCC.h	317
+PFV	gnirsCC.h	488
+POS	gnirsCC.h	317
+POSITIVE	gnirsCC.h	222
+POS_LIM	gnirsCC.h	221
+QUIESCENT	gnirsCC.h	219
+ROTARY	gnirsCC.h	218
+RUNNING	gnirsCC.h	36
+SAD_DYNAMIC	gnirsCC.h	539
+SAD_STATIC	gnirsCC.h	533
+SEM_TIMEOUT	senTorr.h	27
+SENTORR_BAUD	tandp.c	327
+SENTORR_EMISSION_ON	tandp.c	323
+SENTORR_EPSILON	tandp.c	328
+SENTORR_ID	tandp.c	319
+SENTORR_LEN	gnirsCC.h	519
+SENTORR_STABLE	tandp.c	325
+SENTORR_TIMEOUT	tandp.c	321
+SHORT_RING	gnirsCC.h	139
+SLIT	gnirsCC.h	315
+SOFT	gnirsCC.h	223
+SPARE1	gnirsCC.h	316
+SPARE2	gnirsCC.h	316
+STEPS	gnirsCC.h	317
+STR_LEN_IN	senTorr.h	33
+STR_LEN_OUT	senTorr.h	32
+SVCLOSE	gnirsCC.h	52
+SVDELETE	gnirsCC.h	53
+SVEXIT	gnirsCC.h	54
+SVFLAG	gnirsCC.h	46
+SVMSG	gnirsCC.h	63
+SVMSG_LEN	gnirsCC.h	65
+SVOPEN	gnirsCC.h	48
+SVSEEK	gnirsCC.h	49
+SVTELL	gnirsCC.h	50
+SVWRITE	gnirsCC.h	51
+SWID	gnirsCC.h	527
+SenTorrIg	globals.c	194
+SenTorrTc1	globals.c	195
+SenTorrTc2	globals.c	196
+TEMP_D_ADDR	gnirsCC.h	498
+TEMP_ERROR	gnirsCC.h	500
+TEMP_P_ADDR	gnirsCC.h	496
+THERMOCOUPLE1	senTorr.h	37
+THERMOCOUPLE2	senTorr.h	38
+THRESHOLD	senTorr.h	31
+TIMEOUT_MIN	gnirsCC.h	216
+T_100K	tandp.c	85
+T_1V	tandp.c	86
+T_COLD_HEAD	gnirsCC.h	510
+T_DIODE	tandp.c	84
+T_NORMAL	gnirsCC.h	510
+T_REF	gnirsCC.h	510
+VMESTATUS	gnirsCC.h	32
+VSM	gnirsCC.h	40
+WARNING	gnirsCC.h	37
+XDISP	gnirsCC.h	315
+XYCOM_BASE	gnirsCC.h	446
+XYCOM_INTR_ENABLE	gnirsCC.h	457
+XYCOM_INTR_IS_PEND	gnirsCC.h	458
+XYCOM_NPORTS	gnirsCC.h	451
+XYCOM_REGISTERS	gnirsCC.h	447
+XYCOM_SRESET	gnirsCC.h	456
+__GNIRSCCH	gnirsCC.h	16
+abortMotor	motors.c	/^void abortMotor(int motor) {$/
+axisLetter	globals.c	35
+bitHigh	diags.c	/^void bitHigh(int port, int bit) {$/
+bitLow	diags.c	/^void bitLow(int port, int bit) {$/
+chargeLimit	motors.c	/^int chargeLimit(int motor, switchType *s) {$/
+checkLimit	motors.c	/^int checkLimit(int motor) {$/
+checkParked	motors.c	/^void checkParked(int motor) {$/
+cleanInput	diags.c	/^void cleanInput(char *in)$/
+clearBit	digital.c	/^int clearBit(ioBit iob) {$/
+cmd	diags.c	/^void cmd(int motor) {$/
+cmdR	diags.c	/^void cmdR(int motor, char *cmd) {$/
+cmdSentorr	diags.c	/^void cmdSentorr(char *cmd, int len) {$/
+compHead	gnirsCC.h	298
+computerMode	mech.c	/^void computerMode() {$/
+configDirectory	globals.c	31
+creep	diags.c	/^int creep(int motor, int sw) {$/
+cryoConfig	globals.c	185
+cryoHead	mech.c	/^void cryoHead(int state) {$/
+cryoSwitches	globals.c	183
+datum	motors.c	/^int datum(int motor) {$/
+datumAll	diags.c	/^int datumAll() {$/
+datumMech	commands.c	/^int datumMech(int mech) {$/
+devAiCCG	senTorr.h	85
+devAiTC	senTorr.h	63
+dio_xy240	gnirsCC.h	461
+doAll	diags.c	/^int doAll() {$/
+doC_X	diags.c	/^void doC_X(int motor) {$/
+doPosition	util.c	/^int doPosition(char *base, char *rhs, char *orig) /
+doWY	diags.c	/^void doWY(int motor) {$/
+dumpFilters	mech.c	/^void dumpFilters() {$/
+dumpMech	mech.c	/^void dumpMech(int mech) {$/
+extbus	tandp.c	/^int extbus() {$/
+filterDescInit	mech.c	/^int filterDescInit() {$/
+filterHead	globals.c	108
+filterItem	gnirsCC.h	368
+filterNode	gnirsCC.h	374
+findLimit	motors.c	/^int findLimit(int motor, int type) {$/
+findTheLimit	motors.c	/^int findTheLimit(int motor, int which) {$/
+finishCryoConfig	mech.c	/^void finishCryoConfig() {$/
+finishFiltersConfig	mech.c	/^int finishFiltersConfig() {$/
+finishMechConfig	mech.c	/^int finishMechConfig() {$/
+finishMotorConfig	motors.c	/^void finishMotorConfig(int motor) {$/
+fitsKeywordTime	lv.c	/^void fitsKeywordTime(char *label, double value, ch/
+focusType	gnirsCC.h	394
+focusZeroPoint	globals.c	131
+fsAcq	mech.c	/^focusType fsAcq() {$/
+fsCamera	mech.c	/^focusType fsCamera() {$/
+fsCover	mech.c	/^focusType fsCover() {$/
+fsDecker	mech.c	/^focusType fsDecker() {$/
+fsFW1	mech.c	/^focusType fsFW1() {$/
+fsFW2	mech.c	/^focusType fsFW2() {$/
+fsFocus	mech.c	/^focusType fsFocus() {$/
+fsGrating	mech.c	/^focusType fsGrating() {$/
+fsSlit	mech.c	/^focusType fsSlit() {$/
+fsXdisp	mech.c	/^focusType fsXdisp() {$/
+gdata	gnirsCC.h	386
+getClockSpeed	util.c	/^void getClockSpeed(void)$/
+getLvCode	lv.c	/^int getLvCode()$/
+getMdStatus	motors.c	/^void getMdStatus(int motor) {$/
+getSadDynamic	commands.c	/^SAD_DYNAMIC getSadDynamic() {$/
+getSadStatic	commands.c	/^SAD_STATIC getSadStatic() {$/
+getString	diags.c	/^void getString(char *prompt) {$/
+gnirsDebugLevel	globals.c	200
+gnirsErrorMessage	globals.c	199
+gnirsG	globals.c	17
+gnirsGlobalStatus	commands.c	/^int gnirsGlobalStatus() {$/
+gnirsInit	intfc.c	/^int gnirsInit() {$/
+gnirsInitLogging	util.c	/^void gnirsInitLogging(void)$/
+gnirsInt240	intfc.c	382
+gnirsInt241	intfc.c	383
+gnirsInt242	intfc.c	384
+gnirsInterruptsAllowed	intfc.c	30
+gnirsLogMessage	util.c	/^void gnirsLogMessage(const long debugLevel, const /
+gnirsMotor0IntHndlr	intfc.c	/^void gnirsMotor0IntHndlr(int dummy)$/
+gnirsMotor1IntHndlr	intfc.c	/^void gnirsMotor1IntHndlr(int dummy)$/
+gnirsMotor2IntHndlr	intfc.c	/^void gnirsMotor2IntHndlr(int dummy)$/
+gnirsReboot	commands.c	/^int gnirsReboot()$/
+gnirsSetDebug	util.c	/^void gnirsSetDebug(const long debug)$/
+gnirsTest	commands.c	/^int gnirsTest()$/
+goToPos	motors.c	/^int goToPos(int motor, int where, int removeBL) {$/
+gratConfig	globals.c	122
+gratingAngle	globals.c	114
+gratingData	globals.c	111
+gratingOrder	globals.c	115
+gratingStep	globals.c	116
+gratingWavelength	globals.c	113
+healthString	util.c	/^void healthString(char *hp, int health)$/
+homeOffset	diags.c	/^void homeOffset(int motor) {$/
+initCCG	tandp.c	/^int initCCG() {$/
+initIOBits	digital.c	/^int initIOBits() {$/
+initMotors	motors.c	/^int initMotors() {$/
+initSenTorr	tandp.c	/^int initSenTorr() {$/
+initTempBoards	tandp.c	/^int initTempBoards() {$/
+initXycom	digital.c	/^int initXycom() {$/
+ioBit	gnirsCC.h	233
+isBusy	motors.c	/^BOOL isBusy(int motor) {$/
+isClear	digital.c	/^int isClear(ioBit iob) {$/
+isInError	motors.c	/^BOOL isInError(int motor) {$/
+isParked	motors.c	/^BOOL isParked(int motor) {$/
+isSet	digital.c	/^int isSet(ioBit iob) {$/
+itemConfig	gnirsCC.h	439
+lvD	lv.c	/^void lvD() {$/
+lvDump	lv.c	/^int lvDump(int i1, int i2, int i3, int i4, int i5,/
+lvDumpAllowed	lv.c	678
+lvFakeTemp	diags.c	/^void lvFakeTemp() {$/
+lvFileClose	lv.c	/^int lvFileClose()$/
+lvFileOpen	lv.c	/^int lvFileOpen(char *name)$/
+lvFileRemove	lv.c	/^int lvFileRemove(char *name)$/
+lvFileSeek	lv.c	/^int lvFileSeek(off_t seek, int whence)$/
+lvFileSever	lv.c	/^void lvFileSever()$/
+lvFileString	lv.c	/^void lvFileString(char *string)$/
+lvFileTell	lv.c	/^int lvFileTell()$/
+lvFileWrite	lv.c	/^int lvFileWrite(int count, char *buffer)$/
+lvFp	lv.c	94
+lvMotorDump	diags.c	/^void lvMotorDump() {$/
+lvRoot	lv.c	294
+lvTaskId	intfc.c	31
+mErrMsg	motors.c	/^void mErrMsg(motorVars *m, const char *fmt, ...) {/
+makeNode	mech.c	/^NODE *makeNode(int type) {$/
+manualMode	mech.c	/^void manualMode() {$/
+mdMax	gnirsCC.h	636
+mdMessage	gnirsCC.h	183
+mdRegister	gnirsCC.h	175
+mechConfig	globals.c	99
+mechDescInit	mech.c	/^int mechDescInit() {$/
+mechDescriptor	gnirsCC.h	338
+mechHead	globals.c	96
+mechItemP	gnirsCC.h	341
+mechMotor	commands.c	/^int mechMotor(int mech) {$/
+mechNode	gnirsCC.h	346
+mechanism	globals.c	83
+microRound	motors.c	/^#define microRound(x)  (x)$/
+motion	gnirsCC.h	229
+motorConfig	globals.c	56
+motorCreep	motors.c	/^int motorCreep(int motor, int distance, int test) /
+motorDriver	globals.c	34
+motorDriverInit	intfc.c	/^int motorDriverInit() {$/
+motorHealthTree	motors.c	/^int motorHealthTree() {$/
+motorID	globals.c	51
+motorInitString	globals.c	50
+motorIntHandler	intfc.c	/^void motorIntHandler(int who) {$/
+motorOff	motors.c	/^int motorOff(int motor) {$/
+motorOn	motors.c	/^int motorOn(int motor) {$/
+motorOnOff	motors.c	/^int motorOnOff(int motor, BOOL on) {$/
+motorPos	motors.c	/^int motorPos(int motor, int where, int stopD, int /
+motorSteps	motors.c	/^int motorSteps(int motor, int steps, int flag) {$/
+motorTask	motors.c	/^int motorTask(int motor, int a1, int a2, int a3, i/
+motorTimeout	motors.c	/^int motorTimeout(int dist, motion *ms) {$/
+motorV	globals.c	38
+motorVars	gnirsCC.h	283
+motors	globals.c	44
+moveAll	diags.c	/^int moveAll() {$/
+moveMech	commands.c	/^int moveMech(int mech, char *message) {$/
+moveOneMotor	motors.c	/^void moveOneMotor(int motor) {$/
+mstat	diags.c	/^void mstat() {$/
+mstatus	diags.c	/^void mstatus (int motor, int detailed) {$/
+noSenTorr	tandp.c	335
+noWFDEW	tandp.c	100
+noWait	motors.c	/^int noWait(int motor, char *command) {$/
+noXYCOM	digital.c	40
+nodeLookup	mech.c	/^NODE *nodeLookup(char * item, compHead *pList, int/
+ovrt	intfc.c	410
+pWf	tandp.c	98
+parkAll	diags.c	/^int parkAll() {$/
+parkMech	commands.c	/^int parkMech(int mech) {$/
+parkOne	motors.c	/^int parkOne(int motor) {$/
+parseKeywordValue	util.c	/^int parseKeywordValue(char *keyword, itemConfig *p/
+pdio	digital.c	45
+position	motors.c	/^int position(int motor, int where) {$/
+printMotorSwitch	diags.c	/^void printMotorSwitch(char *name, switchType *s) {/
+printPortBits	diags.c	/^void printPortBits(int port, unsigned char val) {$/
+printPressure	diags.c	/^void printPressure() {$/
+printTemp	diags.c	/^void printTemp(unsigned char ch) {$/
+printTempVolts	diags.c	/^void printTempVolts() {$/
+probeLimSwitch	motors.c	/^int probeLimSwitch(int motor, int condition) {$/
+rcsid	commands.c	6
+rdTemp	diags.c	/^void rdTemp(unsigned char ch, int n) {$/
+rddewDegC	tandp.c	/^double rddewDegC(unsigned char ch) {$/
+rddewDegK	tandp.c	/^double rddewDegK(unsigned char ch) {$/
+rddewVolt	tandp.c	/^double rddewVolt(unsigned char ch) {$/
+rddewint	tandp.c	/^int rddewint(unsigned char ch) {$/
+readBit	digital.c	/^unsigned char readBit(ioBit iob) {$/
+readCCG	tandp.c	/^int readCCG() {$/
+readConfig	util.c	/^int readConfig(char * file) {$/
+readMdr	diags.c	/^void readMdr(int n, int which) {$/
+readMdr2	diags.c	/^void readMdr2(int n, int which) {$/
+readPort	tandp.c	/^int readPort(char *msg, int wanted) {$/
+readSenTorr	tandp.c	/^int readSenTorr() {$/
+reqFilterPosition	globals.c	120
+resetFault	motors.c	/^void resetFault(int motor) {$/
+resetHealth	commands.c	/^void resetHealth() {$/
+semMutex	util.c	678
+semSenTorr	tandp.c	333
+semTemps	tandp.c	102
+semWd	gnirsCC.h	593
+semXYCOM	digital.c	46
+sendLvData	lv.c	/^int sendLvData(int op, int count, char *buffer)$/
+sendLvString	lv.c	/^int sendLvString(int op, char *string)$/
+sendMsg	lv.c	/^int sendMsg(char *data)$/
+sendSenTorr	tandp.c	/^int sendSenTorr(char *msg, char *response, int len/
+sendToMotorDebug	motors.c	37
+sendToMotorDriver	motors.c	/^int sendToMotorDriver(int controller, char *string/
+serialPort	tandp.c	334
+setBit	digital.c	/^int setBit(ioBit iob) {$/
+setFilters	mech.c	/^int setFilters(char *start, char *rhs, char *orig)/
+setGrating	diags.c	/^int setGrating(int grating) {$/
+setGratingRot	commands.c	/^int setGratingRot(double theta) {$/
+setHome	motors.c	/^int setHome(int motor) {$/
+setMem	diags.c	/^void setMem(int count, uint32 * pmem, uint32 value/
+setPositionReq	commands.c	/^int setPositionReq(int mech, int where ) {$/
+setSimulation	commands.c	/^int setSimulation(int level) {$/
+setupMotor	motors.c	/^int setupMotor(int motor, char *name) {$/
+sockAccept	sockutil.c	/^STATUS sockAccept(int sFd, struct sockaddr_in *cli/
+sockBind	sockutil.c	/^STATUS sockBind(int sFd, int port)      $/
+sockClose	sockutil.c	/^void sockClose(int *sFd)$/
+sockConnect	sockutil.c	/^int sockConnect(int port, char *saver_inet_addr)$/
+sockConnectTO	sockutil.c	/^int sockConnectTO(int port, char *saver_inet_addr,/
+sockCreate	sockutil.c	/^int sockCreate(int *port)$/
+sockListen	sockutil.c	/^STATUS sockListen(int sFd, int maxConnections) $/
+sockNew	sockutil.c	/^STATUS sockNew(int *sFd) $/
+sockRead	sockutil.c	/^STATUS sockRead(int sfd, char *buffer,int sz)$/
+sockWrite	sockutil.c	/^STATUS sockWrite(int sfd, char *buf,int sz)$/
+sockWriteString	sockutil.c	/^STATUS sockWriteString(int sfd, char *buf,int sz)$/
+sockdebug	sockutil.c	96
+socknRead	sockutil.c	/^int socknRead(int sfd, char *buffer,int sz)$/
+statCodes	gnirsCC.h	20
+statusString	diags.c	/^char * statusString(int status) {$/
+strnlc	util.c	/^void strnlc(char *out, char *in, int len) {$/
+svout	lv.c	92
+svreply	lv.c	93
+switchType	gnirsCC.h	242
+tellPV	motors.c	/^int tellPV(int motor) {$/
+tempCoeff	globals.c	136
+tempConfig	globals.c	145
+tempDescriptor	gnirsCC.h	516
+temperatures	globals.c	135
+testHardware	intfc.c	/^int testHardware() {$/
+testOMSCards	motors.c	/^int testOMSCards() {$/
+testSenTorr	tandp.c	/^int testSenTorr() {$/
+testTempBoards	tandp.c	/^int testTempBoards() {$/
+testXYCOM	digital.c	/^int testXYCOM() {$/
+uint32	gnirsCC.h	18
+unDatum	diags.c	/^void unDatum(int motor) {$/
+useAlt	diags.c	/^void useAlt(int motor, BOOL flag) {$/
+useLv	diags.c	/^int useLv(int port, char *host) {$/
+useSem	util.c	683
+valid	commands.c	/^int valid(int who, char *where) {$/
+validGratingWavelength	commands.c	/^int validGratingWavelength(double wavelength, int /
+validPreferredWavelength	commands.c	/^int validPreferredWavelength(double wavelength){$/
+vmeBoardInit	intfc.c	/^int vmeBoardInit()$/
+vmeInit	intfc.c	/^int vmeInit(void)$/
+waitFor	motors.c	/^int waitFor(int motor, char * cmdString, int wait)/
+wfdewReg	tandp.c	89
+wfdewdbg	tandp.c	101
+wfsBusReset	commands.c	/^void wfsBusReset(void)$/
+xycomBiRead	digital.c	/^int xycomBiRead(int port, unsigned char mask, unsi/
+xycomBoRead	digital.c	/^int xycomBoRead(int port, unsigned char mask, unsi/
+xycomBoWrite	digital.c	/^int xycomBoWrite(int port, unsigned char mask, uns/
+xycomID	globals.c	156
+xycomIntHndlr	digital.c	/^void xycomIntHndlr(int dummy) {$/
+xycomInterruptFunctions	digital.c	43
+xycomOutputInit	globals.c	170
+xycomOutputs	globals.c	162
+xycomReport	diags.c	/^void xycomReport() {$/
+xycomSetInterrupt	digital.c	/^void xycomSetInterrupt(int which, PFV func) {$/
+xycomStart	digital.c	/^void xycomStart() {$/
+xycomWrite	diags.c	/^int xycomWrite(int port, unsigned char val)$/

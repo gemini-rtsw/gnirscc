@@ -1,0 +1,63 @@
+2.1.3.1
+The wfire message device driver is the link between EPICS and the B014 device
+driver.  How we get messages from EPICS to the transputers.  It does through the
+use of EPICS input and output records.  There are three, (string, analog and 
+long) they just differ in the type of data they are sending or receiving.  
+
+EPICS RECORD
+Within the EPICS records are two types of device support for talking to the transputers, 'wFireVarMsg' and 'wFireCmdMsg'.  The wFireVarMsg is for values, where the wFireCmdMsg is just for sending commands to the transputers (like killing or
+starting the microcode).  A record that communicates to the transputers must
+have two fields set when the database is created, DTYP and OUT fields.  The 
+DTYP field gets the type from above, 'wFireVarMsg' or 'wFireCmdMsg'.  While the 
+out field is set to a string that tells the device driver what on the transputer
+is being read or modified, or what command is being sent.  
+
+	example string in OUT field:  "@Node=10,Var=14,Grp=-1,Idx=0"
+
+The ampersand is always first.  The text should all be the same, and have the 
+same spacing.  But the numbers can change depending on what is wanted.  The Node
+specifies the node number of the transputer to talk to.  These are the same ones
+as specified in the nif files that ldnet uses to download the transputer code.
+The other fields meaning is dependent on the device type and what is being set.
+ 
+   wFireVarMsg
+	Var - the variable number on the transputer that is being changed
+	Grp - Only has meaning for the DAC's which are Var = 9. This field
+	        tells the transputer which dac is being accessed.  Otherwise
+		it must be set to -1.
+	Idx - This is for variables on the transputers that are arrays 
+		(like housekeeping).  This is the index into the array.  
+		If not used, this is set to 0.
+   wFireCmdMsg
+	Var - The number of the command that is being set.  setvar and readvar
+		are taken care in wFireVarMsg.  
+	Grp - set to -1.
+	Idx - set to 0
+
+The variable numbers and command numbers are in commands.c for the sequencer, or inst_cmnds.c for the icon.  These are both located in the tpSource directory.  
+Under their respective transputer name.
+
+DEVICE DRIVER
+When the device driver is started, it spawns off four tasks (toTPMsgQTask,fromTPMsgQTask,toEPICSMsgQTask,dmMsgQTask) which handle all the messages.  These all
+run in an infinite loop receiving messages and processing them.  
+
+data flow
+When a record is processed, it runs an EPICS device support routine, depending 
+on what type of data is in the record and what device type is in the DTYP field.
+These routines all do basically the same thing, they read the appropriate fields 
+from the record and form this information into a message that is placed on an 
+output queue and then waits for a response on an input queue.  The task that is 
+reading the output queue (toTPMsgQTask) now takes the message and sends it to the 
+transputer.  When the transputer has processed the message, it sends a response.
+This response is taken by fromTPMsgQTask.  It processes the response depending 
+on the type of message it received (VAR_READ, DEBUG_MSG, SET_VAR) from the 
+transputer.  The VAR_READ message is the normal return from a wFireVarMsg when a
+value is being read.  This response is placed in the queue that is being read
+by the epics device support routine.  A DEBUG_MSG is placed on a debug queue to
+be processed by the dmMsgQTask.  The last type of msg, SET_VAR, is only returned 
+when a read_hk command was sent to the transputer.  The routine to process the 
+data is called, and an OK or ERROR response is sent back to the EPICS device 
+support routine.  Most of the debug messages are informational, and can be 
+either printed or thrown away depending on the debug level of the system. 
+These are marked by 2 asteriks at the beginning of the message.   The rest are 
+sent back to the EPICS device support routine.

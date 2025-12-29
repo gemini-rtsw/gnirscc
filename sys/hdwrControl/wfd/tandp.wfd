@@ -1,0 +1,703 @@
+/*
+ * Copyright 2001 Association of Universities for Research in Astronomy, Inc.
+ * See the file COPYRIGHT for more details.
+ *
+ * FILENAME:
+ * tandp.c
+ *
+ * FUNCTION NAME(S):
+ *  computerMode   -   Record state of Computer/Manual switch as "Computer" 
+ *  cryoHead   -   Turns cryo coolers on or off 
+ *  extbus   -   Reads external bus on temperature boards 
+ *  finishCryoConfig   -   Set computer control of the cryoheads at boot time. 
+ *  initCCG   -   Initialize cold cathode guage 
+ *  initSenTorr   -   Initialize software that communicates with SenTorr gauge. 
+ *  initTempBoards   -   Initialize the temperature reading software. 
+ *  manualMode   -   Record state of Computer/Manual switch as "Manual" 
+ *  rddewDegC   -   Read a specified channel, return temperature in degrees C. 
+ *  rddewDegK   -   Determine temperature in degrees K for a specified channel. 
+ *  rddewVolt   -   Read temperature channel, return a floating point number 
+ *  rddewint   -   Read a particular temperature board channel 
+ *  readCCG   -     Read the cold cathode guage. 
+ *  readPort   -     Read the return message from the serial port 
+ *  readSenTorr   -   Read all three SenTorr sensors 
+ *  sendSenTorr   -   Command the SenTorr and receive a response. 
+ *  testSenTorr   -   Test operation of SenTorr guage without disturbing it. 
+ *  testTempBoards   -   Test temperature boards for plausible operation 
+ *
+ *INDENT-OFF*
+ * $Log: tandp.wfd,v $
+ * Revision 1.2  2009/05/27 19:32:11  fkraemer
+ * fkraemer - copied my complete working dir over trunk
+ *
+ *INDENT-ON*
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * testTempBoards
+ *
+ * INVOCATION:
+ * testTempBoards()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Test temperature boards for plausible operation
+ *
+ * DESCRIPTION:
+ * Test to see if the boards are working.  This is done by reading the
+ * various on board reference channels and checking that what each one
+ * reads is plausible.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * initTempBoards
+ *
+ * INVOCATION:
+ * initTempBoards()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Initialize the temperature reading software.
+ *
+ * DESCRIPTION:
+ * Set up the various software structures.  In this case, create a
+ * semaphore used for locking, and fill in the fixed names and type
+ * descriptors.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * extbus
+ *
+ * INVOCATION:
+ * extbus()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (int) Returns value read
+ *
+ * PURPOSE:
+ * Reads external bus on temperature boards
+ *
+ * DESCRIPTION:
+ * (Function originally in Roddier code; not needed XXX)
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ * Not Used
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * rddewint
+ *
+ * INVOCATION:
+ * rddewint(ch)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) ch (unsigned char)
+ *
+ * FUNCTION VALUE:
+ * (int) Returns integer A/D reading
+ *
+ * PURPOSE:
+ * Read a particular temperature board channel
+ *
+ * DESCRIPTION:
+ * Reads the specified temperature channel by specifying channel to
+ * address mux, strobing the A/D, reading the A/D, and reseting the
+ * board.  The value returned is a "raw" A/D value.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * May 14, 1997     Initial Version                 Nick Roddier, noao
+ * Jul 1, 2001      Adapted original code for GNIRS (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * rddewVolt
+ *
+ * INVOCATION:
+ * rddewVolt(ch)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) ch (unsigned char)
+ *
+ * FUNCTION VALUE:
+ * (double) Returns voltage
+ *
+ * PURPOSE:
+ * Read temperature channel, return a floating point number
+ *
+ * DESCRIPTION:
+ * Calls rddewInt(ch) and converts that integer result by multiplying
+ * by a A/D converter gain.  The result is a voltage rather than just
+ * an A/D value.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * May 14, 1997     Initial Version                 Nick Roddier, noao
+ * Jul 1, 2001      Adapted original code for GNIRS (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * rddewDegK
+ *
+ * INVOCATION:
+ * rddewDegK(ch)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) ch (unsigned char)
+ *
+ * FUNCTION VALUE:
+ * (double) temperature
+ *
+ * PURPOSE:
+ * Determine temperature in degrees K for a specified channel.
+ *
+ * DESCRIPTION:
+ * Applies a 5th order polynomial conversion to go from volts to
+ * temperature.  The polynomial is fixed (see gloabls.c), except for
+ * the offset value, which is read from a configuration file.
+ *
+ * Reference channels and cold head temperatures (if any) are not
+ * converted.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * rddewDegC
+ *
+ * INVOCATION:
+ * rddewDegC(ch)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) ch (unsigned char)
+ *
+ * FUNCTION VALUE:
+ * (double) Returns temperature in degrees C
+ *
+ * PURPOSE:
+ * Read a specified channel, return temperature in degrees C.
+ *
+ * DESCRIPTION:
+ * Converts from rddewDegK (degrees K) to degrees C.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * May 14, 1997     Initial Version                 Nick Roddier, noao
+ * Jul 1, 2001      Adapted original code for GNIRS (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * initSenTorr
+ *
+ * INVOCATION:
+ * initSenTorr()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Initialize software that communicates with SenTorr gauge.
+ *
+ * DESCRIPTION:
+ * Build the one semaphore, open the serial line and configure it.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * testSenTorr
+ *
+ * INVOCATION:
+ * testSenTorr()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Test operation of SenTorr guage without disturbing it.
+ *
+ * DESCRIPTION:
+ * The test is done by changing the SenTorr configuration to operate
+ * with the "other" units (Torr or mBar), seeing that it does so,
+ * and restoring the original mode of operation.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * sendSenTorr
+ *
+ * INVOCATION:
+ * sendSenTorr(msg, response, len)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) msg (char *)         message to send
+ * (<) response (char *)    response
+ * (>) len (int)            expected length of response
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Command the SenTorr and receive a response.
+ *
+ * DESCRIPTION:
+ * Send a message to the SenTorr, which will change a configuration or
+ * read a value.  Store the response in 'response'.  The semaphore is
+ * used to insure that the write/read is atomic.  Note that 'len'
+ * includes only the wanted characters, and not the response delimiters.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * readPort
+ *
+ * INVOCATION:
+ * int readPort(char *msg, int len)
+ * 
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ *  < char *msg  - string that was read
+ *  > int wanted - desired number of characters (not including delimiters)
+ *
+ * FUNCTION VALUE:
+ *   status
+ *
+ * PURPOSE:
+ *   Read the return message from the serial port
+ *
+ * DESCRIPTION:
+ *   Read the serial port.  If fewer than len characters are read before
+ *   a time out is reached, an error is returned.  Similarly, if a ? is read
+ *   as the first character, an error is returned.  
+ *    
+ *
+ * EXTERNAL VARIABLES:
+ * None
+ *
+ * PRIOR REQUIREMENTS:
+ * none
+ *
+ * DEFICIENCIES:
+ * None
+ *
+ * HISTORY:
+ * October 1998  Original version adapted from CICS alpha 1.0  
+ *
+ * Author P. Ruckle (serial port routines from N. Roddier)
+ * Extensively modified, R. Wolff   3/2000
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * readSenTorr
+ *
+ * INVOCATION:
+ * readSenTorr()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Read all three SenTorr sensors
+ *
+ * DESCRIPTION:
+ * Read all three sensors (two thermocouples and one ionization guage).
+ * The floating point values are stored in global variables senTorrTc1,
+ * senTorrTc2, and senTorrIg.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * initCCG
+ *
+ * INVOCATION:
+ * initCCG()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Initialize cold cathode guage
+ *
+ * DESCRIPTION:
+ * XXX Incomplete.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ * Not Used
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ *  readCCG
+ *
+ * INVOCATION:
+ * int readCCG()
+ * 
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ *
+ * FUNCTION VALUE:
+ *   status
+ *
+ * PURPOSE:
+ *   Read the cold cathode guage.
+ *
+ *
+ * DESCRIPTION:
+ *  Check the pressures on the thermocouple sensors.  If the pressure
+ *  is low enough, check the pressure on the cold cathode guage.  This
+ *  involves turning on the cathode emission, waiting until it is
+ *  on (and stabilized), reading the guage, and then turning the
+ *  emission off.  The value is stored in the global  senTorrCcg.
+ *
+ * EXTERNAL VARIABLES:
+ * None
+ *
+ * PRIOR REQUIREMENTS:
+ * none?
+ *
+ * DEFICIENCIES:
+ * None
+ *
+ * HISTORY:
+ * October 1998  Original version adapted from CICS alpha 1.0  
+ *
+ * Author P. Ruckle (serial port routines from N. Roddier)
+ * Extensively modified by R. Wolff  3/2000
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * cryoHead
+ *
+ * INVOCATION:
+ * cryoHead(state)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) state (int)      on or off (non-zero or zero)
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Turns cryo coolers on or off
+ *
+ * DESCRIPTION:
+ * Turns the cryo cooler heads on or off.  While the command will set
+ * the appropriate output bit, this is effective only if the cryo head
+ * control circuit is in computer mode.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * computerMode
+ *
+ * INVOCATION:
+ * computerMode()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Record state of Computer/Manual switch as "Computer"
+ *
+ * DESCRIPTION:
+ * Intended to be called via an interrupt, this routine flags the
+ * fact that the Computer/Manual switch has been turned to "Manual".
+ * Computer control of the on/off circuit is disabled by the external
+ * switch, but the computer control bit is set to "Off" anyhow.
+ *
+ * The interrupt is generated by a falling edge transition.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * manualMode
+ *
+ * INVOCATION:
+ * manualMode()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Record state of Computer/Manual switch as "Manual"
+ *
+ * DESCRIPTION:
+ * Intended to be called via an interrupt, this routine flags the
+ * fact that the Computer/Manual switch has been turned to "Computer".
+ * The state of the external "On/Off" switch is read and the computer
+ * control is set to mimic the switch setting.
+ *
+ * The interrupt is generated by a rising edge transition.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * finishCryoConfig
+ *
+ * INVOCATION:
+ * finishCryoConfig()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Set computer control of the cryoheads at boot time.
+ *
+ * DESCRIPTION:
+ * When the system is first set to run, the internal software states
+ * are made to mimic the hardware, and if the Computer/Manual switch
+ * is in "Computer", the computer controlled output bit is made to
+ * match the external On/Off switch state.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */

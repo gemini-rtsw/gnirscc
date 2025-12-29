@@ -1,0 +1,368 @@
+#+
+# HdrGmos
+#
+# A HdrGmos object manages the sending of gmos specifics DHS header info
+# to the DHS before and after an observation.
+#
+# M Bec  31 July 2000
+#
+#+
+
+itcl::class dhshdr::HdrGmos {
+
+   inherit dhshdr::HdrInfo
+
+   public {
+      variable useNS 0
+      variable nsPix   ""
+      variable nsMode  ""
+      variable nsCount ""
+      variable nsXoff  ""
+      variable nsYoff  ""
+      }
+
+   constructor {instrument contribs} {
+      HdrInfo::constructor $instrument $contribs 
+      } {
+      
+      hsender headgmosbefore -command ${this}::gmosbefore
+      ${this}::gmosbefore init
+      ${this}::gmosbefore add destName -value $dhshdr::destination
+      ${this}::gmosbefore add instrument
+      ${this}::gmosbefore set instrument $instrument
+      
+      hsender headnsbefore -command ${this}::nsbefore
+      ${this}::nsbefore init
+      ${this}::nsbefore add destName -value $dhshdr::destination
+      ${this}::nsbefore add instrument
+      ${this}::nsbefore set instrument $instrument
+      
+      hsender headgmosafter -command ${this}::gmosafter
+      ${this}::gmosafter init
+      ${this}::gmosafter add destName -value $dhshdr::destination
+      ${this}::gmosafter add instrument
+      ${this}::gmosafter set instrument $instrument
+      
+      hsender headnsafter -command ${this}::nsafter
+      ${this}::nsafter init
+      ${this}::nsafter add destName -value $dhshdr::destination
+      ${this}::nsafter add instrument
+      ${this}::nsafter set instrument $instrument
+      
+      hsender headadc -command ${this}::adc
+      ${this}::adc init
+      ${this}::adc add destName -value $dhshdr::destination
+      ${this}::adc add instrument
+      ${this}::adc set instrument $instrument
+      hsender headroi1 -command ${this}::roi1
+      ${this}::roi1 init
+      ${this}::roi1 add destName -value $dhshdr::destination
+      ${this}::roi1 add instrument
+      ${this}::roi1 set instrument $instrument      
+      hsender headroi2 -command ${this}::roi2
+      ${this}::roi2 init
+      ${this}::roi2 add destName -value $dhshdr::destination
+      ${this}::roi2 add instrument
+      ${this}::roi2 set instrument $instrument
+      hsender headroi3 -command ${this}::roi3
+      ${this}::roi3 init
+      ${this}::roi3 add destName -value $dhshdr::destination
+      ${this}::roi3 add instrument
+      ${this}::roi3 set instrument $instrument
+      hsender headroi4 -command ${this}::roi4
+      ${this}::roi4 init
+      ${this}::roi4 add destName -value $dhshdr::destination
+      ${this}::roi4 add instrument
+      ${this}::roi4 set instrument $instrument
+      
+      ${this}::gmosbefore add INPORT
+      ${this}::gmosbefore add GMOSCC
+
+      ${this}::gmosafter add MASKID
+      ${this}::gmosafter add MASKNAME
+      ${this}::gmosafter add MASKTYP     
+      ${this}::gmosafter add MASKLOC     
+      ${this}::gmosafter add FILTER1
+      ${this}::gmosafter add FILTID1     
+      ${this}::gmosafter add FILTER2
+      ${this}::gmosafter add FILTID2     
+      ${this}::gmosafter add GRATING
+      ${this}::gmosafter add GRATID      
+      ${this}::gmosafter add GRWLEN      
+      ${this}::gmosafter add GRORDER        
+      ${this}::gmosafter add GRTILT      
+      ${this}::gmosafter add DTAX              
+      ${this}::gmosafter add DTAY              
+      ${this}::gmosafter add DTAZ              
+      ${this}::gmosafter add DTAZST          
+      ${this}::gmosafter add DTAZEN          
+      ${this}::gmosafter add DTAZME        
+        
+      ${this}::gmosafter add DTMODE
+      ${this}::gmosafter add ADCMODE
+
+      ${this}::gmosafter add GMOSDC
+      ${this}::gmosafter add DETTYPE
+      ${this}::gmosafter add DETID
+      ${this}::gmosafter add EXPOSURE
+           
+# ${this}::gmosafter add ORIGIN          ;# 'NOAO-IRAF FITS Image Kernel July 1999' / FITS file originator
+# ${this}::gmosafter add IRAF-TLM        ;#'16:48:39 (01/05/2001)' / Time of last modification
+# ${this}::gmosafter add NEXTEND         ;#                   6 / Number of extensions  
+ 
+      ${this}::gmosafter add ADCUSED        
+      
+      ${this}::adc add  ADCENPST     
+      ${this}::adc add  ADCENPEN
+      ${this}::adc add  ADCENPME
+      ${this}::adc add  ADCEXPST
+      ${this}::adc add  ADCEXPEN
+      ${this}::adc add  ADCEXPME
+      ${this}::adc add  ADCWLEN1
+      ${this}::adc add  ADCWLEN2
+      
+      ${this}::gmosafter add DETNROI
+      
+      ${this}::roi1 add DETRO1X 
+      ${this}::roi1 add DETRO1XS
+      ${this}::roi1 add DETRO1Y 
+      ${this}::roi1 add DETRO1YS
+      ${this}::roi2 add DETRO2X 
+      ${this}::roi2 add DETRO2XS
+      ${this}::roi2 add DETRO2Y 
+      ${this}::roi2 add DETRO2YS
+      ${this}::roi3 add DETRO3X 
+      ${this}::roi3 add DETRO3XS
+      ${this}::roi3 add DETRO3Y 
+      ${this}::roi3 add DETRO3YS
+      ${this}::roi4 add DETRO4X 
+      ${this}::roi4 add DETRO4XS
+      ${this}::roi4 add DETRO4Y 
+      ${this}::roi4 add DETRO4YS
+ 
+      
+      ${this}::nsbefore add NODMODE
+      ${this}::nsbefore add NODPIX
+      ${this}::nsbefore add NODCOUNT
+      ${this}::nsbefore add NODXOFF
+      ${this}::nsbefore add NODYOFF
+
+      ${this}::nsafter  add ANODCNT
+      ${this}::nsafter  add BNODCNT
+      ${this}::nsafter  add SUBINT
+      }
+      
+      
+   public {
+      method sendbefore {} {
+         # parent's method need be called before: it generates the dhslabel
+         HdrInfo::sendbefore
+         
+         # whatever other keyword specific to the instrument now
+         hdrsetval ${this}::gmosbefore INPORT   [sa dhshdr::gmos get inport   ]
+         hdrsetval ${this}::gmosbefore GMOSCC   [sa dhshdr::gmos get gmoscc   ]
+         
+         # Post the "gmosbefore" headers.
+            if { $dhshdr::debug } {
+               foreach par [lindex [${this}::gmosbefore info] 3] {
+                  puts [${this}::gmosbefore info $par]
+               }
+               puts "${this}::gmosbefore postWait -label $dhshdr::dhslabel"
+            }
+         ${this}::gmosbefore postWait -label $dhshdr::dhslabel
+         
+         if {$useNS} {
+            hdrsetval ${this}::nsbefore  NODMODE   $nsMode
+            hdrsetval ${this}::nsbefore  NODPIX    $nsPix
+            hdrsetval ${this}::nsbefore  NODCOUNT  $nsCount
+            hdrsetval ${this}::nsbefore  NODXOFF   $nsXoff
+            hdrsetval ${this}::nsbefore  NODYOFF   $nsYoff
+            # Post the "nsbefore" headers.
+               if { $dhshdr::debug } {
+                  foreach par [lindex [${this}::nsbefore info] 3] {
+                     puts [${this}::nsbefore info $par]
+                  }
+                  puts "${this}::nsbefore postWait -label $dhshdr::dhslabel"
+               }
+            ${this}::nsbefore postWait -label $dhshdr::dhslabel
+            }
+         
+         }
+         
+      method sendafter {} {
+         
+         hdrsetval ${this}::gmosafter MASKID   [sa dhshdr::gmos get maskid   ]
+         hdrsetval ${this}::gmosafter MASKNAME [sa dhshdr::gmos get maskname ]
+         hdrsetval ${this}::gmosafter MASKTYP  [sa dhshdr::gmos get masktyp  ]
+         hdrsetval ${this}::gmosafter MASKLOC  [sa dhshdr::gmos get maskloc  ]
+         hdrsetval ${this}::gmosafter FILTER1  [sa dhshdr::gmos get filter1  ]
+         hdrsetval ${this}::gmosafter FILTID1  [sa dhshdr::gmos get filtid1  ]
+         hdrsetval ${this}::gmosafter FILTER2  [sa dhshdr::gmos get filter2  ]
+         hdrsetval ${this}::gmosafter FILTID2  [sa dhshdr::gmos get filtid2  ]
+         hdrsetval ${this}::gmosafter GRATING  [sa dhshdr::gmos get grating  ]
+         hdrsetval ${this}::gmosafter GRATID   [sa dhshdr::gmos get gratid   ]
+         hdrsetval ${this}::gmosafter GRWLEN   [sa dhshdr::gmos get grwlen   ]
+         hdrsetval ${this}::gmosafter GRORDER  [sa dhshdr::gmos get grorder  ]
+         hdrsetval ${this}::gmosafter GRTILT   [sa dhshdr::gmos get grtilt   ]
+         hdrsetval ${this}::gmosafter DTAX     [sa dhshdr::gmos get dtax     ]
+         hdrsetval ${this}::gmosafter DTAY     [sa dhshdr::gmos get dtay     ]
+         hdrsetval ${this}::gmosafter DTAZ     [sa dhshdr::gmos get dtaz     ]
+         hdrsetval ${this}::gmosafter DTAZST   [sa dhshdr::gmos get dtazst   ]
+         hdrsetval ${this}::gmosafter DTAZEN   [sa dhshdr::gmos get dtazen   ]
+         hdrsetval ${this}::gmosafter DTAZME   [sa dhshdr::gmos get dtazme   ]
+         hdrsetval ${this}::gmosafter DTMODE   [sa dhshdr::gmos get dtmode   ]
+         hdrsetval ${this}::gmosafter ADCMODE  [sa dhshdr::gmos get adcmode  ]
+         hdrsetval ${this}::gmosafter GMOSDC   [sa dhshdr::gmos get gmosdc   ]
+         hdrsetval ${this}::gmosafter DETTYPE  [sa dhshdr::gmos get dettype  ]
+         hdrsetval ${this}::gmosafter DETID    [sa dhshdr::gmos get detid    ]
+         if {$useNS} {
+            if [ catch {
+               set exposure [expr $nsCount * [sa dhshdr::gmos get exposure] * 2 ]
+               } ] {
+                  set exposure -0.0
+                  }
+            }\
+         else {
+            set exposure  [sa dhshdr::gmos get exposure ]
+            }
+         hdrsetval ${this}::gmosafter EXPOSURE $exposure
+            
+
+         set adcused [sa dhshdr::gmos get adcused]
+         hdrsetval ${this}::gmosafter ADCUSED $adcused
+
+         set detnroi [sa dhshdr::gmos get detnroi]
+         hdrsetval ${this}::gmosafter DETNROI  $detnroi
+         
+         # Post the "gmos" headers.
+            if { $dhshdr::debug } {
+               foreach par [lindex [${this}::gmosafter info] 3] {
+                  puts [${this}::gmosafter info $par]
+               }
+               puts "${this}::gmosafter postWait -label $dhshdr::dhslabel"
+            }
+         ${this}::gmosafter postWait -label $dhshdr::dhslabel
+
+         if { $adcused } {
+            hdrsetval ${this}::adc ADCENPST [sa dhshdr::gmos get adcenpst]
+            hdrsetval ${this}::adc ADCENPEN [sa dhshdr::gmos get adcenpen]
+            hdrsetval ${this}::adc ADCENPME [sa dhshdr::gmos get adcenpme]
+            hdrsetval ${this}::adc ADCEXPST [sa dhshdr::gmos get adcexpst]
+            hdrsetval ${this}::adc ADCEXPEN [sa dhshdr::gmos get adcexpen]
+            hdrsetval ${this}::adc ADCEXPME [sa dhshdr::gmos get adcexpme]
+            hdrsetval ${this}::adc ADCWLEN1 [sa dhshdr::gmos get adcwlen1]
+            hdrsetval ${this}::adc ADCWLEN2 [sa dhshdr::gmos get adcwlen2]
+            
+            # Post the "adc" headers.
+               if { $dhshdr::debug } {
+                  foreach par [lindex [${this}::adc info] 3] {
+                     puts [${this}::adc info $par]
+                  }
+                  puts "${this}::adc postWait -label $dhshdr::dhslabel"
+               }
+            ${this}::adc postWait -label $dhshdr::dhslabel
+            }
+           
+           
+         for { set i 1} { $i <= $detnroi } { incr i } {
+               hdrsetval ${this}::roi$i DETRO$i\X    [sa dhshdr::gmos get detro$i\x  ]
+               hdrsetval ${this}::roi$i DETRO$i\XS   [sa dhshdr::gmos get detro$i\xs ]
+               hdrsetval ${this}::roi$i DETRO$i\Y    [sa dhshdr::gmos get detro$i\y  ]
+               hdrsetval ${this}::roi$i DETRO$i\YS   [sa dhshdr::gmos get detro$i\ys ]
+               # Post the "adc" headers.
+                  if { $dhshdr::debug } {
+                     foreach par [lindex [${this}::roi$i info] 3] {
+                        puts [${this}::roi$i info $par]
+                     }
+                     puts "${this}::roi$i postWait -label $dhshdr::dhslabel"
+                  }
+               ${this}::roi$i postWait -label $dhshdr::dhslabel
+               }   
+         
+         if {$useNS} {
+            hdrsetval ${this}::nsafter   ANODCNT    [sa dhshdr::gmos get aexpcount] 
+            hdrsetval ${this}::nsafter   BNODCNT     [sa dhshdr::gmos get bexpcount]
+            hdrsetval ${this}::nsafter   SUBINT     [sa dhshdr::gmos get exposure]
+            # Post the "nsafter" headers.
+               if { $dhshdr::debug } {
+                  foreach par [lindex [${this}::nsafter info] 3] {
+                     puts [${this}::nsafter info $par]
+                  }
+                  puts "${this}::nsafter postWait -label $dhshdr::dhslabel"
+               }
+            ${this}::nsafter postWait -label $dhshdr::dhslabel
+            }
+            
+         # need be called last because it's final !!
+         HdrInfo::sendafter
+         }
+   }
+
+   proc dictload {} {
+      hsender -dict add INPORT      -type INT
+      hsender -dict add GMOSCC
+      hsender -dict add MASKID      -type INT
+      hsender -dict add MASKNAME
+      hsender -dict add MASKTYP     -type INT
+      hsender -dict add MASKLOC     -type INT
+      hsender -dict add FILTER1
+      hsender -dict add FILTID1     -type INT
+      hsender -dict add FILTER2
+      hsender -dict add FILTID2     -type INT
+      hsender -dict add GRATING
+      hsender -dict add GRATID      -type INT
+      hsender -dict add GRWLEN      -type DOUBLE
+      hsender -dict add GRORDER     -type INT        
+      hsender -dict add GRTILT      -type DOUBLE
+      hsender -dict add ADCUSED     -type INT        
+      hsender -dict add ADCENPST    -type DOUBLE    
+      hsender -dict add ADCENPEN    -type DOUBLE    
+      hsender -dict add ADCENPME    -type DOUBLE    
+      hsender -dict add ADCEXPST    -type DOUBLE    
+      hsender -dict add ADCEXPEN    -type DOUBLE    
+      hsender -dict add ADCEXPME    -type DOUBLE    
+      hsender -dict add ADCWLEN1    -type DOUBLE    
+      hsender -dict add ADCWLEN2    -type DOUBLE    
+      hsender -dict add DTAX        -type DOUBLE        
+      hsender -dict add DTAY        -type DOUBLE        
+      hsender -dict add DTAZ        -type DOUBLE        
+      hsender -dict add DTAZST      -type DOUBLE      
+      hsender -dict add DTAZEN      -type DOUBLE      
+      hsender -dict add DTAZME      -type DOUBLE    
+      hsender -dict add DTMODE                   
+      hsender -dict add ADCMODE
+
+      hsender -dict add GMOSDC
+      hsender -dict add DETTYPE
+      hsender -dict add DETID
+      hsender -dict add EXPOSURE      -type DOUBLE  
+      
+      hsender -dict add DETNROI -type INT
+      
+      hsender -dict add DETRO1X -type INT     
+      hsender -dict add DETRO1XS -type INT    
+      hsender -dict add DETRO1Y -type INT     
+      hsender -dict add DETRO1YS -type INT    
+      hsender -dict add DETRO2X -type INT     
+      hsender -dict add DETRO2XS -type INT    
+      hsender -dict add DETRO2Y -type INT     
+      hsender -dict add DETRO2YS -type INT    
+      hsender -dict add DETRO3X -type INT     
+      hsender -dict add DETRO3XS -type INT    
+      hsender -dict add DETRO3Y -type INT     
+      hsender -dict add DETRO3YS -type INT    
+      hsender -dict add DETRO4X -type INT     
+      hsender -dict add DETRO4XS -type INT    
+      hsender -dict add DETRO4Y -type INT     
+      hsender -dict add DETRO4YS -type INT
+      
+      hsender -dict add NODMODE
+      hsender -dict add NODPIX -type INT
+      hsender -dict add NODCOUNT -type INT
+      hsender -dict add ANODCNT -type INT
+      hsender -dict add BNODCNT -type INT
+      hsender -dict add SUBINT -type DOUBLE
+      hsender -dict add NODXOFF -type DOUBLE
+      hsender -dict add NODYOFF -type DOUBLE
+      }
+   }

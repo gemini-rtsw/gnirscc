@@ -1,0 +1,10 @@
+# $Id: wfsDir.lut,v 1.2 2009/05/27 19:34:10 fkraemer Exp $
+
+#
+# Named positions for the follow command
+#
+
+# name	nval	steps	lowtol	hightol
+auto	1	0	0	0
+pos	1	1	0	0
+neg	1	2	0	0

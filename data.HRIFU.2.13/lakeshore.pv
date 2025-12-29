@@ -1,0 +1,35 @@
+# Bench Temperature Control
+string $(btc)setmode = "ManualPID";
+double $(btc)set.A = 70.0;
+double $(btc)set.B = 1.0;
+double $(btc)set.C = 1.0;
+double $(btc)set.D = 1.0;
+string $(btc)set.DIR = "MARK";
+string $(btc)set.DIR = "START";
+
+###BTC Config###
+string $(btc)ctrlChan 	"A"
+string $(btc)units 	"kelvin"
+string $(btc)pwrup 	"OFF"
+string $(btc)curpwr 	"power"
+
+# Bench Temperature WARMUP Control
+string $(btwc)setmode = "ManualPID";
+double $(btwc)set.A = 70.0;
+double $(btwc)set.B = 1.0;
+double $(btwc)set.C = 1.0;
+double $(btwc)set.D = 1.0;
+string $(btwc)set.DIR = "MARK";
+string $(btwc)set.DIR = "START";
+
+###BTWC Config###
+string $(btwc)ctrlChan	"A"
+string $(btwc)units	"kelvin"
+string $(btwc)pwrup	"OFF"
+string $(btwc)curpwr	"power"
+string $(btwc)cset.DIR	"MARK"
+string $(btwc)cset.DIR	"START"
+
+
+
+

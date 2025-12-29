@@ -1,0 +1,2 @@
+Warning: DO NOT run 'make clean' in this directory, because that will
+destroy some important files.  Use 'make reset' instead.

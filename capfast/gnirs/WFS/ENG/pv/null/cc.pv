@@ -1,0 +1,14 @@
+# $Id: cc.pv,v 1.2 2009/05/27 19:34:19 fkraemer Exp $
+
+group {
+	string $(top)eng:cc:covSubdir = "NOSAVE";
+	string $(top)eng:cc:filt1Subdir = "NOSAVE";
+	string $(top)eng:cc:filt2Subdir = "NOSAVE";
+	string $(top)eng:cc:filt3Subdir = "NOSAVE";
+	string $(top)eng:cc:focSubdir = "NOSAVE";
+	string $(top)eng:cc:foplSubdir = "NOSAVE";
+	string $(top)eng:cc:puvwSubdir = "NOSAVE";
+	string $(top)eng:cc:spltSubdir = "NOSAVE";
+	string $(top)eng:cc:ster1Subdir = "NOSAVE";
+	string $(top)eng:cc:ster2Subdir = "NOSAVE";
+};

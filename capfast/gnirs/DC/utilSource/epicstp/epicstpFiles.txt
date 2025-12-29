@@ -1,0 +1,8 @@
+4.4.9.?
+
+This area has the actual routines that get run when one of the epics records
+with wFireVarMsg or wFireCmdMsg are fired.  The routine related to that record
+(ai,ao,li,lo,si,so) is then run.  The queue structure is setup and placed on
+the WFMsg_Q_ID_out queue.  The response is returned in the WFMsg_Q_ID_in queue.
+Any messages other than the response are taken care of in one of the tasks in the
+wfire area. 

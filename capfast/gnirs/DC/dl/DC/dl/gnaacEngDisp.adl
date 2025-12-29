@@ -1,0 +1,5323 @@
+file {
+	name="gnaacEngDisp.dl"
+}
+display {
+	magic="305419896"
+	majv="2"
+	mnrv="4"
+	ndyng="27"
+	npc="62"
+	nstr="199"
+	ndynamic="47"
+	nplot="0"
+	nrd="7"
+	nes="0"
+	nkd="1"
+	npd="0"
+	npo="0"
+	object {
+		x="0"
+		y="0"
+		width="1045"
+		height="598"
+	}
+	clr="1"
+	bclr="13"
+	nwords_dspy="9844"
+	nwords_sta="1432"
+	nwords_cmap="0"
+	nwords_crules="0"
+	odyng="4106"
+	osta="2674"
+	odynamic="5562"
+	oplot="8712"
+	ord="8712"
+	oes="9832"
+	okd="9832"
+	opd="9844"
+	opo="9844"
+	opc="68"
+	ostr="812"
+	ocmap="2674"
+	ocrules="2674"
+	style="solid"
+	fill="outline"
+	width="0"
+	clrmod="static"
+	vismod="static"
+	precision="-1"
+	clrrule="alarm"
+	pv=""
+	cmap="gmColors.dl"
+	pixwid="1152"
+	pixht="900"
+	mmwid="325"
+	mmht="254"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="5"
+		style="solid"
+		fill="solid"
+		width="0"
+	}
+}
+"rectangle" {
+	object {
+		x="575"
+		y="244"
+		width="100"
+		height="35"
+		groupid="0"
+	}
+}
+"rectangle" {
+	object {
+		x="475"
+		y="244"
+		width="100"
+		height="35"
+		groupid="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="6"
+		style="solid"
+		fill="solid"
+		width="0"
+	}
+}
+"rectangle" {
+	object {
+		x="7"
+		y="246"
+		width="456"
+		height="77"
+		groupid="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="8"
+		y="5"
+		width="505"
+		height="24"
+		groupid="0"
+	}
+	textix="GNAAC Engineering Display"
+	align="horiz. centered"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="10"
+	}
+}
+"text" {
+	object {
+		x="107"
+		y="31"
+		width="277"
+		height="24"
+		groupid="0"
+	}
+	textix="Overall Control"
+	align="horiz. centered"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="574"
+		y="100"
+		width="189"
+		height="18"
+		groupid="0"
+	}
+	textix="Overall Health"
+	align="horiz. left"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="12"
+		style="solid"
+		fill="outline"
+		width="2"
+	}
+}
+"rectangle" {
+	object {
+		x="473"
+		y="100"
+		width="331"
+		height="109"
+		groupid="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="478"
+		y="407"
+		width="200"
+		height="20"
+		groupid="0"
+	}
+	textix="Array Voltages"
+	align="horiz. centered"
+}
+"text" {
+	object {
+		x="489"
+		y="542"
+		width="69"
+		height="14"
+		groupid="0"
+	}
+	textix="VDet"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="483"
+		y="498"
+		width="75"
+		height="14"
+		groupid="0"
+	}
+	textix="VggCl1"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="484"
+		y="520"
+		width="74"
+		height="14"
+		groupid="0"
+	}
+	textix="VggCl2"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="485"
+		y="454"
+		width="73"
+		height="14"
+		groupid="0"
+	}
+	textix="VddCl1"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="485"
+		y="476"
+		width="73"
+		height="14"
+		groupid="0"
+	}
+	textix="VddCl2"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="494"
+		y="432"
+		width="64"
+		height="14"
+		groupid="0"
+	}
+	textix="VSet"
+	align="horiz. left"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="12"
+		style="solid"
+		fill="outline"
+		width="2"
+	}
+}
+"rectangle" {
+	object {
+		x="474"
+		y="408"
+		width="203"
+		height="160"
+		groupid="0"
+	}
+}
+"rectangle" {
+	object {
+		x="473"
+		y="244"
+		width="204"
+		height="164"
+		groupid="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="595"
+		y="261"
+		width="74"
+		height="12"
+		groupid="0"
+	}
+	textix="Achieved"
+	align="horiz. centered"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="12"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="813"
+		y="91"
+		width="163"
+		height="16"
+		groupid="0"
+	}
+	textix="Setup Commands"
+	align="horiz. centered"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="12"
+		style="solid"
+		fill="outline"
+		width="2"
+	}
+}
+"text" {
+	object {
+		x="507"
+		y="226"
+		width="156"
+		height="21"
+		groupid="0"
+	}
+	textix="Array Setup"
+	align="horiz. centered"
+}
+"rectangle" {
+	object {
+		x="7"
+		y="100"
+		width="462"
+		height="109"
+		groupid="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="12"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="112"
+		y="69"
+		width="227"
+		height="23"
+		groupid="0"
+	}
+	textix="Image Setup"
+	align="horiz. centered"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="12"
+		style="solid"
+		fill="outline"
+		width="2"
+	}
+}
+"rectangle" {
+	object {
+		x="3"
+		y="245"
+		width="462"
+		height="218"
+		groupid="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="12"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="97"
+		y="221"
+		width="271"
+		height="23"
+		groupid="0"
+	}
+	textix="Observation Setup"
+	align="horiz. centered"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="5"
+		y="128"
+		width="186"
+		height="18"
+		groupid="0"
+	}
+	textix="Image Filename -"
+	align="horiz. right"
+}
+"text" {
+	object {
+		x="41"
+		y="153"
+		width="150"
+		height="18"
+		groupid="0"
+	}
+	textix="Data Label -"
+	align="horiz. right"
+}
+"text" {
+	object {
+		x="687"
+		y="338"
+		width="239"
+		height="18"
+		groupid="0"
+	}
+	textix="Controller State"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="11"
+		y="416"
+		width="127"
+		height="12"
+		groupid="0"
+	}
+	textix="Digital Avgs."
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="11"
+		y="366"
+		width="128"
+		height="12"
+		groupid="0"
+	}
+	textix="Proc. Mode"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="11"
+		y="382"
+		width="124"
+		height="12"
+		groupid="0"
+	}
+	textix="Co-adds"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="11"
+		y="399"
+		width="128"
+		height="12"
+		groupid="0"
+	}
+	textix="Low Noise Rds"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="258"
+		y="416"
+		width="125"
+		height="12"
+		groupid="0"
+	}
+	textix="Rows to be read ="
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="258"
+		y="436"
+		width="124"
+		height="12"
+		groupid="0"
+	}
+	textix="Cols to be Read ="
+	align="horiz. left"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="7"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="299"
+		y="382"
+		width="53"
+		height="12"
+		groupid="0"
+	}
+	textix="Rows by"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="397"
+		y="382"
+		width="35"
+		height="12"
+		groupid="0"
+	}
+	textix="Cols"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="256"
+		y="362"
+		width="203"
+		height="14"
+		groupid="0"
+	}
+	textix="Installed Array Size"
+	align="horiz. left"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="687"
+		y="282"
+		width="257"
+		height="18"
+		groupid="0"
+	}
+	textix="HK Process State"
+	align="horiz. left"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="0"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="22"
+		y="252"
+		width="288"
+		height="20"
+		groupid="0"
+	}
+	textix="Integration Time (Secs)"
+	align="horiz. centered"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="26"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="171"
+		y="274"
+		width="131"
+		height="15"
+		groupid="0"
+	}
+	textix="Desired Time"
+	align="horiz. centered"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="37"
+		y="273"
+		width="80"
+		height="16"
+		groupid="0"
+	}
+	textix="Minimum"
+	align="horiz. centered"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="5"
+	}
+}
+"line" {
+	object {
+		x="140"
+		y="297"
+		width="9"
+		height="15"
+		groupid="0"
+	}
+	npoints="3"
+	point[0] {
+		x="149"
+		y="297"
+	}
+	point[1] {
+		x="140"
+		y="305"
+	}
+	point[2] {
+		x="149"
+		y="312"
+	}
+	orgpoint[0] {
+		x="1000"
+		y="0"
+	}
+	orgpoint[1] {
+		x="0"
+		y="550"
+	}
+	orgpoint[2] {
+		x="1000"
+		y="1000"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="4"
+	}
+}
+"line" {
+	object {
+		x="155"
+		y="300"
+		width="10"
+		height="0"
+		groupid="0"
+	}
+	npoints="2"
+	point[0] {
+		x="155"
+		y="300"
+	}
+	point[1] {
+		x="165"
+		y="300"
+	}
+	orgpoint[0] {
+		x="0"
+		y="1001"
+	}
+	orgpoint[1] {
+		x="1000"
+		y="1001"
+	}
+}
+"line" {
+	object {
+		x="155"
+		y="311"
+		width="10"
+		height="0"
+		groupid="0"
+	}
+	npoints="2"
+	point[0] {
+		x="155"
+		y="311"
+	}
+	point[1] {
+		x="165"
+		y="311"
+	}
+	orgpoint[0] {
+		x="0"
+		y="1000"
+	}
+	orgpoint[1] {
+		x="1000"
+		y="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="71"
+		y="184"
+		width="120"
+		height="18"
+		groupid="0"
+	}
+	textix="Headers -"
+	align="horiz. right"
+}
+"text" {
+	object {
+		x="687"
+		y="225"
+		width="244"
+		height="18"
+		groupid="0"
+	}
+	textix="Observation State"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="479"
+		y="259"
+		width="96"
+		height="14"
+		groupid="0"
+	}
+	textix="Requested"
+	align="horiz. centered"
+}
+"text" {
+	object {
+		x="4"
+		y="104"
+		width="187"
+		height="20"
+		groupid="0"
+	}
+	textix="Data Path -"
+	align="horiz. right"
+}
+"text" {
+	object {
+		x="9"
+		y="519"
+		width="110"
+		height="14"
+		groupid="0"
+	}
+	textix="uCode Name"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="10"
+		y="497"
+		width="106"
+		height="14"
+		groupid="0"
+	}
+	textix="uCode Path"
+	align="horiz. left"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="12"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="7"
+		y="473"
+		width="400"
+		height="18"
+		groupid="0"
+	}
+	textix="uCode Waveform Generator Program"
+	align="horiz. centered"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="25"
+		y="541"
+		width="96"
+		height="14"
+		groupid="0"
+	}
+	textix="Cmd Path"
+	align="horiz. left"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="12"
+		style="solid"
+		fill="outline"
+		width="3"
+	}
+}
+"rectangle" {
+	object {
+		x="2"
+		y="469"
+		width="463"
+		height="96"
+		groupid="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="475"
+		y="190"
+		width="89"
+		height="12"
+		groupid="0"
+	}
+	textix="Pwr Sup Hlth"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="475"
+		y="164"
+		width="96"
+		height="12"
+		groupid="0"
+	}
+	textix="PreAmp Hlth"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="475"
+		y="177"
+		width="76"
+		height="12"
+		groupid="0"
+	}
+	textix="WFire Hlth"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="642"
+		y="150"
+		width="95"
+		height="12"
+		groupid="0"
+	}
+	textix="Temperatures"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="642"
+		y="163"
+		width="91"
+		height="12"
+		groupid="0"
+	}
+	textix="ADC Hlth"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="642"
+		y="176"
+		width="91"
+		height="12"
+		groupid="0"
+	}
+	textix="CoAdder Hlth"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="475"
+		y="152"
+		width="89"
+		height="12"
+		groupid="0"
+	}
+	textix="Voltage Hlth"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="643"
+		y="189"
+		width="91"
+		height="12"
+		groupid="0"
+	}
+	textix="GFCI Hlth"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="257"
+		y="398"
+		width="185"
+		height="12"
+		groupid="0"
+	}
+	textix="Current Readout Size"
+	align="horiz. left"
+}
+"rectangle" {
+	object {
+		x="858"
+		y="55"
+		width="3"
+		height="3"
+		groupid="0"
+	}
+}
+"rectangle" {
+	object {
+		x="843"
+		y="25"
+		width="0"
+		height="0"
+		groupid="0"
+	}
+}
+"text" {
+	object {
+		x="511"
+		y="245"
+		width="133"
+		height="12"
+		groupid="0"
+	}
+	textix="Detector Bias"
+	align="horiz. centered"
+}
+"text" {
+	object {
+		x="11"
+		y="433"
+		width="124"
+		height="12"
+		groupid="0"
+	}
+	textix="Pictures"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="483"
+		y="357"
+		width="185"
+		height="12"
+		groupid="0"
+	}
+	textix="Array Activation State"
+	align="horiz. left"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="23"
+		style="solid"
+		fill="solid"
+		width="0"
+	}
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if zero"
+		}
+		param {
+			rulecolorfg="0"
+			rulecolorbg="0"
+			chan="$(T)activate"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="alarm"
+			clrargs=""
+		}
+	}
+}
+"rectangle" {
+	object {
+		x="475"
+		y="376"
+		width="200"
+		height="30"
+		groupid="0"
+	}
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if zero"
+		}
+		param {
+			rulecolorfg="0"
+			rulecolorbg="0"
+			chan="$(T)dwnLdState.VAL"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="alarm"
+			clrargs=""
+		}
+	}
+}
+"rectangle" {
+	object {
+		x="475"
+		y="307"
+		width="200"
+		height="35"
+		groupid="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="4"
+		style="solid"
+		fill="solid"
+		width="0"
+	}
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if not zero"
+		}
+		param {
+			rulecolorfg="0"
+			rulecolorbg="0"
+			chan="$(T)activate"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="alarm"
+			clrargs=""
+		}
+	}
+}
+"rectangle" {
+	object {
+		x="475"
+		y="376"
+		width="200"
+		height="30"
+		groupid="0"
+	}
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if not zero"
+		}
+		param {
+			rulecolorfg="0"
+			rulecolorbg="0"
+			chan="$(T)dwnLdState.VAL"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="alarm"
+			clrargs=""
+		}
+	}
+}
+"rectangle" {
+	object {
+		x="475"
+		y="307"
+		width="200"
+		height="35"
+		groupid="0"
+	}
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if zero"
+		}
+		param {
+			rulecolorfg="0"
+			rulecolorbg="0"
+			chan="$(T)obsSetupDone.VAL"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="busyDone"
+			clrargs="C=$(T)obsSetupDone.VAL"
+		}
+	}
+}
+"rectangle" {
+	object {
+		x="903"
+		y="458"
+		width="70"
+		height="35"
+		groupid="0"
+	}
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if zero"
+		}
+		param {
+			rulecolorfg="0"
+			rulecolorbg="0"
+			chan="$(T)drRoiSetDone.VAL"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="busyDone"
+			clrargs="C=$(T)drRoiSetDone.VAL"
+		}
+	}
+}
+"rectangle" {
+	object {
+		x="903"
+		y="509"
+		width="70"
+		height="35"
+		groupid="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if zero"
+		}
+		param {
+			rulecolorfg="0"
+			rulecolorbg="0"
+			chan="$(T)dwnLdState.VAL"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="alarm"
+			clrargs=""
+		}
+	}
+}
+"text" {
+	object {
+		x="497"
+		y="315"
+		width="166"
+		height="18"
+		groupid="0"
+	}
+	textix="No uCode Loaded"
+	align="horiz. centered"
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if not zero"
+		}
+		param {
+			rulecolorfg="0"
+			rulecolorbg="0"
+			chan="$(T)activate"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="alarm"
+			clrargs=""
+		}
+	}
+}
+"text" {
+	object {
+		x="511"
+		y="381"
+		width="130"
+		height="18"
+		groupid="0"
+	}
+	textix="Activated"
+	align="horiz. centered"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="23"
+		style="solid"
+		fill="solid"
+		width="0"
+	}
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if not zero"
+		}
+		param {
+			rulecolorfg="0"
+			rulecolorbg="0"
+			chan="$(T)drRoiSetDone.VAL"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="alarm"
+			clrargs=""
+		}
+	}
+}
+"rectangle" {
+	object {
+		x="903"
+		y="509"
+		width="70"
+		height="35"
+		groupid="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if zero"
+		}
+		param {
+			rulecolorfg="0"
+			rulecolorbg="0"
+			chan="$(T)drRoiSetDone.VAL"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="alarm"
+			clrargs=""
+		}
+	}
+}
+"text" {
+	object {
+		x="911"
+		y="519"
+		width="50"
+		height="12"
+		groupid="0"
+	}
+	textix="Done"
+	align="horiz. centered"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="23"
+		style="solid"
+		fill="solid"
+		width="0"
+	}
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if not zero"
+		}
+		param {
+			rulecolorfg="0"
+			rulecolorbg="0"
+			chan="$(T)obsSetupDone.VAL"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="alarm"
+			clrargs=""
+		}
+	}
+}
+"rectangle" {
+	object {
+		x="903"
+		y="458"
+		width="70"
+		height="35"
+		groupid="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if zero"
+		}
+		param {
+			rulecolorfg="0"
+			rulecolorbg="0"
+			chan="$(T)obsSetupDone.VAL"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="alarm"
+			clrargs=""
+		}
+	}
+}
+"text" {
+	object {
+		x="912"
+		y="468"
+		width="50"
+		height="12"
+		groupid="0"
+	}
+	textix="Done"
+	align="horiz. centered"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="4"
+		style="solid"
+		fill="solid"
+		width="0"
+	}
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if zero"
+		}
+		param {
+			rulecolorfg="0"
+			rulecolorbg="0"
+			chan="$(T)arSetupDone.VAL"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="busyDone"
+			clrargs="C=$(T)arSetupDone.VAL"
+		}
+	}
+}
+"rectangle" {
+	object {
+		x="903"
+		y="407"
+		width="70"
+		height="35"
+		groupid="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if not zero"
+		}
+		param {
+			rulecolorfg="0"
+			rulecolorbg="0"
+			chan="$(T)dwnLdState.VAL"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="alarm"
+			clrargs=""
+		}
+	}
+}
+"text" {
+	object {
+		x="492"
+		y="316"
+		width="177"
+		height="18"
+		groupid="0"
+	}
+	textix="UCode Downloaded"
+	align="horiz. centered"
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if zero"
+		}
+		param {
+			rulecolorfg="0"
+			rulecolorbg="0"
+			chan="$(T)activate"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="alarm"
+			clrargs=""
+		}
+	}
+}
+"text" {
+	object {
+		x="492"
+		y="382"
+		width="168"
+		height="18"
+		groupid="0"
+	}
+	textix="Deactivated"
+	align="horiz. centered"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="4"
+		style="solid"
+		fill="solid"
+		width="0"
+	}
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if zero"
+		}
+		param {
+			rulecolorfg="1"
+			rulecolorbg="1"
+			chan="$(T)arSetupC.VAL"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="alarm"
+			clrargs=""
+		}
+	}
+}
+"oval" {
+	object {
+		x="860"
+		y="406"
+		width="39"
+		height="37"
+		groupid="0"
+	}
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if zero"
+		}
+		param {
+			rulecolorfg="1"
+			rulecolorbg="1"
+			chan="$(T)obsSetupC.VAL"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="alarm"
+			clrargs=""
+		}
+	}
+}
+"oval" {
+	object {
+		x="860"
+		y="457"
+		width="39"
+		height="37"
+		groupid="0"
+	}
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if zero"
+		}
+		param {
+			rulecolorfg="1"
+			rulecolorbg="1"
+			chan="$(T)drRoiSetC.VAL"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="alarm"
+			clrargs=""
+		}
+	}
+}
+"oval" {
+	object {
+		x="860"
+		y="508"
+		width="39"
+		height="37"
+		groupid="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="2"
+		style="solid"
+		fill="solid"
+		width="0"
+	}
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if not zero"
+		}
+		param {
+			rulecolorfg="1"
+			rulecolorbg="1"
+			chan="$(T)arSetupC.VAL"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="alarm"
+			clrargs=""
+		}
+	}
+}
+"oval" {
+	object {
+		x="860"
+		y="406"
+		width="39"
+		height="37"
+		groupid="0"
+	}
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if not zero"
+		}
+		param {
+			rulecolorfg="1"
+			rulecolorbg="1"
+			chan="$(T)obsSetupC.VAL"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="alarm"
+			clrargs=""
+		}
+	}
+}
+"oval" {
+	object {
+		x="860"
+		y="457"
+		width="39"
+		height="37"
+		groupid="0"
+	}
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if not zero"
+		}
+		param {
+			rulecolorfg="1"
+			rulecolorbg="1"
+			chan="$(T)drRoiSetC.VAL"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="alarm"
+			clrargs=""
+		}
+	}
+}
+"oval" {
+	object {
+		x="860"
+		y="508"
+		width="39"
+		height="37"
+		groupid="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="23"
+		style="solid"
+		fill="solid"
+		width="0"
+	}
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if not zero"
+		}
+		param {
+			rulecolorfg="0"
+			rulecolorbg="0"
+			chan="$(T)arSetupDone.VAL"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule=""
+			clrargs=""
+		}
+	}
+}
+"rectangle" {
+	object {
+		x="903"
+		y="407"
+		width="70"
+		height="35"
+		groupid="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="903"
+		y="417"
+		width="70"
+		height="12"
+		groupid="0"
+	}
+	textix="Not Done"
+	align="horiz. centered"
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if zero"
+		}
+		param {
+			rulecolorfg="0"
+			rulecolorbg="0"
+			chan="$(T)arSetupDone.VAL"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule=""
+			clrargs=""
+		}
+	}
+}
+"text" {
+	object {
+		x="913"
+		y="417"
+		width="50"
+		height="12"
+		groupid="0"
+	}
+	textix="Done"
+	align="horiz. centered"
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if not zero"
+		}
+		param {
+			rulecolorfg="0"
+			rulecolorbg="0"
+			chan="$(T)obsSetupDone.VAL"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="alarm"
+			clrargs=""
+		}
+	}
+}
+"text" {
+	object {
+		x="902"
+		y="468"
+		width="70"
+		height="12"
+		groupid="0"
+	}
+	textix="Not Done"
+	align="horiz. centered"
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if not zero"
+		}
+		param {
+			rulecolorfg="0"
+			rulecolorbg="0"
+			chan="$(T)drRoiSetDone.VAL"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="alarm"
+			clrargs=""
+		}
+	}
+}
+"text" {
+	object {
+		x="901"
+		y="519"
+		width="70"
+		height="12"
+		groupid="0"
+	}
+	textix="Not Done"
+	align="horiz. centered"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="2"
+		style="solid"
+		fill="solid"
+		width="0"
+	}
+}
+"<<dynamic attribute>>" {
+	attr {
+		mod {
+			clrmod="static"
+			vis="if less zero"
+		}
+		param {
+			rulecolorfg="1"
+			rulecolorbg="1"
+			chan="$(T)intOK"
+			rulechan[0] = ""
+			rulechan[1] = ""
+			rulechan[2] = ""
+			rulechan[3] = ""
+			rulechan[4] = ""
+			rulechan[5] = ""
+			rulechan[6] = ""
+			rulechan[7] = ""
+			rulechan[8] = ""
+			rulechan[9] = ""
+			rulechan[10] = ""
+			rulechan[11] = ""
+			rulechan[12] = ""
+			rulechan[13] = ""
+			rulechan[14] = ""
+			rulechan[15] = ""
+			clrrule="alarm"
+			clrargs=""
+		}
+	}
+}
+"oval" {
+	object {
+		x="399"
+		y="280"
+		width="40"
+		height="40"
+		groupid="0"
+	}
+}
+"choice button" {
+	object {
+		x="489"
+		y="708"
+		width="200"
+		height="30"
+		groupid="0"
+	}
+	control {
+		chan="$(T)activate.VAL"
+		clr="0"
+		bclr="9"
+		label="channel"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	stacking="row"
+}
+"text update" {
+	object {
+		x="578"
+		y="116"
+		width="137"
+		height="30"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)dcHealth.VAL"
+		clr="0"
+		bclr="12"
+		label="none"
+		clrmod="rule"
+		rulechan[0] = "$(T)dcHealth.VAL"
+		rulechan[1] = "$(T)dcHealth.VAL"
+		rulechan[2] = "$(T)dcHealth.VAL"
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="health"
+		clrargs="C=$(T)dcHealth"
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. centered"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="562"
+		y="542"
+		width="105"
+		height="20"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)c80_95:a1.VAL"
+		clr="24"
+		bclr="5"
+		label="none"
+		clrmod="rule"
+		rulechan[0] = "$(T)c80_95:a1.SEVR"
+		rulechan[1] = "$(T)c80_95:a1.SEVR"
+		rulechan[2] = "$(T)c80_95:a1.SEVR"
+		rulechan[3] = "$(T)c80_95:a1.SEVR"
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs="C=$(T)c80_95:a1"
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="10"
+		ldl="-10"
+		prec="-1"
+		newunits="Volts"
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. right"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="562"
+		y="498"
+		width="105"
+		height="20"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)c64_79:a0.VAL"
+		clr="24"
+		bclr="5"
+		label="none"
+		clrmod="rule"
+		rulechan[0] = "$(T)c64_79:a0.SEVR"
+		rulechan[1] = "$(T)c64_79:a0.SEVR"
+		rulechan[2] = "$(T)c64_79:a0.SEVR"
+		rulechan[3] = "$(T)c64_79:a0.SEVR"
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs="C=$(T)c64_79:a0"
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="10"
+		ldl="-10"
+		prec="-1"
+		newunits="Volts"
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. right"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="562"
+		y="520"
+		width="105"
+		height="20"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)c64_79:a11.VAL"
+		clr="24"
+		bclr="5"
+		label="none"
+		clrmod="rule"
+		rulechan[0] = "$(T)c64_79:a11.SEVR"
+		rulechan[1] = "$(T)c64_79:a11.SEVR"
+		rulechan[2] = "$(T)c64_79:a11.SEVR"
+		rulechan[3] = "$(T)c64_79:a11.SEVR"
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs="C=$(T)c64_79:a11"
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="10"
+		ldl="-10"
+		prec="-1"
+		newunits="Volts"
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. right"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="562"
+		y="454"
+		width="105"
+		height="20"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)c48_63:a13.VAL"
+		clr="24"
+		bclr="5"
+		label="none"
+		clrmod="rule"
+		rulechan[0] = "$(T)c48_63:a13.SEVR"
+		rulechan[1] = "$(T)c48_63:a13.SEVR"
+		rulechan[2] = "$(T)c48_63:a13.SEVR"
+		rulechan[3] = "$(T)c48_63:a13.SEVR"
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs="C=$(T)c48_63:a13"
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="10"
+		ldl="-10"
+		prec="-1"
+		newunits="Volts"
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. right"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="562"
+		y="476"
+		width="104"
+		height="20"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)c64_79:a14.VAL"
+		clr="24"
+		bclr="5"
+		label="none"
+		clrmod="rule"
+		rulechan[0] = "$(T)c64_79:a14.SEVR"
+		rulechan[1] = "$(T)c64_79:a14.SEVR"
+		rulechan[2] = "$(T)c64_79:a14.SEVR"
+		rulechan[3] = "$(T)c64_79:a14.SEVR"
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs="C=$(T)c64_79:a14"
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="10"
+		ldl="-10"
+		prec="-1"
+		newunits="Volts"
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. right"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="562"
+		y="432"
+		width="104"
+		height="20"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)c64_79:a12.VAL"
+		clr="24"
+		bclr="5"
+		label="none"
+		clrmod="rule"
+		rulechan[0] = "$(T)c64_79:a12.SEVR"
+		rulechan[1] = "$(T)c64_79:a12.SEVR"
+		rulechan[2] = "$(T)c64_79:a12.SEVR"
+		rulechan[3] = "$(T)c64_79:a12.SEVR"
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs="C=$(T)c64_79:a12"
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="10"
+		ldl="-10"
+		prec="-1"
+		newunits="Volts"
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. right"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="575"
+		y="278"
+		width="100"
+		height="25"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)achvdBias.VAL"
+		clr="11"
+		bclr="5"
+		label="none"
+		clrmod="rule"
+		rulechan[0] = "$(T)achvdBias.SEVR"
+		rulechan[1] = "$(T)achvdBias.SEVR"
+		rulechan[2] = "$(T)achvdBias.SEVR"
+		rulechan[3] = "$(T)achvdBias.SEVR"
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs="C=$(T)achvdBias"
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="1"
+		ldl="-2"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. centered"
+	format="decimal"
+}
+"text entry" {
+	object {
+		x="197"
+		y="128"
+		width="265"
+		height="22"
+		groupid="0"
+	}
+	control {
+		chan="$(T)imName.VAL"
+		clr="0"
+		bclr="11"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	format="decimal"
+}
+"text entry" {
+	object {
+		x="197"
+		y="154"
+		width="264"
+		height="22"
+		groupid="0"
+	}
+	control {
+		chan="$(T)imNum.VAL"
+		clr="0"
+		bclr="11"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	format="decimal"
+}
+"text update" {
+	object {
+		x="687"
+		y="356"
+		width="285"
+		height="36"
+		groupid="0"
+	}
+	monitor {
+		chan="$(S)state.VAL"
+		clr="1"
+		bclr="5"
+		label="none"
+		clrmod="rule"
+		rulechan[0] = "$(S)state.VAL"
+		rulechan[1] = "$(S)state.VAL"
+		rulechan[2] = "$(S)state.VAL"
+		rulechan[3] = "$(S)state.VAL"
+		rulechan[4] = "$(S)state.VAL"
+		rulechan[5] = "$(S)state.VAL"
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="flashifbusy"
+		clrargs="C=$(S)state"
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. centered"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="141"
+		y="416"
+		width="108"
+		height="14"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)obsSetup.VALC"
+		clr="1"
+		bclr="5"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. left"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="141"
+		y="362"
+		width="107"
+		height="14"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)pMode"
+		clr="1"
+		bclr="5"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. left"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="141"
+		y="380"
+		width="108"
+		height="14"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)obsSetup.VALE"
+		clr="1"
+		bclr="5"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. left"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="141"
+		y="398"
+		width="109"
+		height="14"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)obsSetup.VALD"
+		clr="1"
+		bclr="5"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. left"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="387"
+		y="416"
+		width="65"
+		height="12"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)curMaxRow.VAL"
+		clr="11"
+		bclr="13"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. left"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="387"
+		y="435"
+		width="65"
+		height="12"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)curMaxCol.VAL"
+		clr="11"
+		bclr="13"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. left"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="258"
+		y="382"
+		width="39"
+		height="12"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)maxRow.VAL"
+		clr="11"
+		bclr="13"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. centered"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="352"
+		y="382"
+		width="39"
+		height="12"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)maxCol.VAL"
+		clr="11"
+		bclr="13"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. centered"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="687"
+		y="301"
+		width="285"
+		height="34"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)hkState.VAL"
+		clr="1"
+		bclr="5"
+		label="none"
+		clrmod="rule"
+		rulechan[0] = "$(T)hkState.VAL"
+		rulechan[1] = "$(T)hkState.VAL"
+		rulechan[2] = "$(T)hkState.VAL"
+		rulechan[3] = "$(T)hkState.VAL"
+		rulechan[4] = "$(T)hkState.VAL"
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="greyifnotbusy"
+		clrargs="C=$(T)hkState"
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. centered"
+	format="decimal"
+}
+"text entry" {
+	object {
+		x="180"
+		y="290"
+		width="124"
+		height="20"
+		groupid="0"
+	}
+	control {
+		chan="$(T)integTime.VAL"
+		clr="0"
+		bclr="6"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs="C=$(T)integTime"
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="1e+06"
+		ldl="0"
+		prec="-1"
+		newunits="Secs"
+		units="append"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	format="decimal"
+}
+"text update" {
+	object {
+		x="24"
+		y="293"
+		width="105"
+		height="20"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)minInt.VAL"
+		clr="1"
+		bclr="6"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. centered"
+	format="decimal"
+}
+"message button" {
+	object {
+		x="9"
+		y="325"
+		width="150"
+		height="30"
+		groupid="0"
+	}
+	control {
+		chan="$(T)observe.DIR"
+		clr="0"
+		bclr="9"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	inactive_label="Go"
+	pressed_label="Go"
+	press_msg="MARK"
+	release_msg="START"
+}
+"message button" {
+	object {
+		x="161"
+		y="325"
+		width="150"
+		height="30"
+		groupid="0"
+	}
+	control {
+		chan="$(T)abort.DIR"
+		clr="0"
+		bclr="9"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	inactive_label="Abort"
+	pressed_label="Abort"
+	press_msg="MARK"
+	release_msg="START"
+}
+"message button" {
+	object {
+		x="313"
+		y="325"
+		width="151"
+		height="30"
+		groupid="0"
+	}
+	control {
+		chan="$(T)stop.DIR"
+		clr="0"
+		bclr="9"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	inactive_label="Stop"
+	pressed_label="Stop"
+	press_msg="MARK"
+	release_msg="START"
+}
+"text update" {
+	object {
+		x="197"
+		y="182"
+		width="265"
+		height="22"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)hdrDet"
+		clr="1"
+		bclr="5"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. left"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="687"
+		y="244"
+		width="285"
+		height="34"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)observeC.VAL"
+		clr="1"
+		bclr="5"
+		label="none"
+		clrmod="rule"
+		rulechan[0] = "$(T)observeC.VAL"
+		rulechan[1] = "$(T)observeC.VAL"
+		rulechan[2] = "$(T)observeC.VAL"
+		rulechan[3] = "$(T)observeC.VAL"
+		rulechan[4] = "$(T)observeC.VAL"
+		rulechan[5] = "$(T)observeC.VAL"
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="flashifbusy"
+		clrargs="C=$(T)observeC"
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. centered"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="475"
+		y="278"
+		width="100"
+		height="26"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)arSetup.H"
+		clr="11"
+		bclr="5"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="1"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. centered"
+	format="decimal"
+}
+"text entry" {
+	object {
+		x="197"
+		y="102"
+		width="264"
+		height="22"
+		groupid="0"
+	}
+	control {
+		chan="$(T)imPath.VAL"
+		clr="0"
+		bclr="11"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	format="decimal"
+}
+"text update" {
+	object {
+		x="113"
+		y="517"
+		width="346"
+		height="20"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)arSetup.B"
+		clr="1"
+		bclr="5"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. left"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="113"
+		y="495"
+		width="346"
+		height="20"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)arSetup.A"
+		clr="1"
+		bclr="5"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. left"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="113"
+		y="540"
+		width="346"
+		height="20"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)arSetup.A"
+		clr="1"
+		bclr="5"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. left"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="569"
+		y="152"
+		width="70"
+		height="12"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)voltHlth.VAL"
+		clr="0"
+		bclr="12"
+		label="none"
+		clrmod="rule"
+		rulechan[0] = "$(T)voltHlth.VAL"
+		rulechan[1] = "$(T)voltHlth.VAL"
+		rulechan[2] = "$(T)voltHlth.VAL"
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="health"
+		clrargs="C=$(T)voltHlth"
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. centered"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="569"
+		y="165"
+		width="70"
+		height="12"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)preAmpHlth.VAL"
+		clr="0"
+		bclr="12"
+		label="none"
+		clrmod="rule"
+		rulechan[0] = "$(T)preAmpHlth.VAL"
+		rulechan[1] = "$(T)preAmpHlth.VAL"
+		rulechan[2] = "$(T)preAmpHlth.VAL"
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="health"
+		clrargs="C=$(T)preAmpHlth"
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. centered"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="569"
+		y="178"
+		width="70"
+		height="12"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)wFireHlth.VAL"
+		clr="0"
+		bclr="12"
+		label="none"
+		clrmod="rule"
+		rulechan[0] = "$(T)wFireHlth.VAL"
+		rulechan[1] = "$(T)wFireHlth.VAL"
+		rulechan[2] = "$(T)wFireHlth.VAL"
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="health"
+		clrargs="C=$(T)wFireHlth"
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. centered"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="732"
+		y="150"
+		width="70"
+		height="12"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)tempHlth.VAL"
+		clr="0"
+		bclr="12"
+		label="none"
+		clrmod="rule"
+		rulechan[0] = "$(T)tempHlth.VAL"
+		rulechan[1] = "$(T)tempHlth.VAL"
+		rulechan[2] = "$(T)tempHlth.VAL"
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="health"
+		clrargs="C=$(T)tempHlth"
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. centered"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="732"
+		y="163"
+		width="70"
+		height="12"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)adcHlth.VAL"
+		clr="0"
+		bclr="12"
+		label="none"
+		clrmod="rule"
+		rulechan[0] = "$(T)adcHlth.VAL"
+		rulechan[1] = "$(T)adcHlth.VAL"
+		rulechan[2] = "$(T)adcHlth.VAL"
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="health"
+		clrargs="C=$(T)adcHlth"
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. centered"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="732"
+		y="176"
+		width="70"
+		height="12"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)dcaHlth.VAL"
+		clr="0"
+		bclr="12"
+		label="none"
+		clrmod="rule"
+		rulechan[0] = "$(T)dcaHlth.VAL"
+		rulechan[1] = "$(T)dcaHlth.VAL"
+		rulechan[2] = "$(T)dcaHlth.VAL"
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="health"
+		clrargs="C=$(T)dcaHlth"
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. centered"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="569"
+		y="191"
+		width="70"
+		height="12"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)pwrSupHlth.VAL"
+		clr="0"
+		bclr="12"
+		label="none"
+		clrmod="rule"
+		rulechan[0] = "$(T)pwrSupHlth.VAL"
+		rulechan[1] = "$(T)pwrSupHlth.VAL"
+		rulechan[2] = "$(T)pwrSupHlth.VAL"
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="health"
+		clrargs="C=$(T)pwrSupHlth"
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. centered"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="732"
+		y="189"
+		width="70"
+		height="12"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)gfciHlth.VAL"
+		clr="0"
+		bclr="12"
+		label="none"
+		clrmod="rule"
+		rulechan[0] = "$(T)gfciHlth.VAL"
+		rulechan[1] = "$(T)gfciHlth.VAL"
+		rulechan[2] = "$(T)gfciHlth.VAL"
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="health"
+		clrargs="C=$(T)gfciHlth"
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. centered"
+	format="decimal"
+}
+"message button" {
+	object {
+		x="306"
+		y="255"
+		width="149"
+		height="20"
+		groupid="0"
+	}
+	control {
+		chan="$(T)obsSetup.DIR"
+		clr="0"
+		bclr="9"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	inactive_label="Set Integration"
+	pressed_label="Setting Integration"
+	press_msg="MARK"
+	release_msg="START"
+}
+"message button" {
+	object {
+		x="682"
+		y="401"
+		width="175"
+		height="50"
+		groupid="0"
+	}
+	control {
+		chan="$(T)arSetup.DIR"
+		clr="0"
+		bclr="6"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	inactive_label="Do Array Setup"
+	pressed_label=""
+	press_msg="MARK"
+	release_msg="START"
+}
+"message button" {
+	object {
+		x="682"
+		y="452"
+		width="175"
+		height="50"
+		groupid="0"
+	}
+	control {
+		chan="$(T)obsSetup.DIR"
+		clr="0"
+		bclr="6"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	inactive_label="Do Obs Setup"
+	pressed_label=""
+	press_msg="MARK"
+	release_msg="START"
+}
+"message button" {
+	object {
+		x="682"
+		y="503"
+		width="175"
+		height="50"
+		groupid="0"
+	}
+	control {
+		chan="$(T)drRoiSet.DIR"
+		clr="0"
+		bclr="6"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	inactive_label="Do DR ROI Setup"
+	pressed_label=""
+	press_msg="MARK"
+	release_msg="START"
+}
+"message button" {
+	object {
+		x="637"
+		y="47"
+		width="110"
+		height="35"
+		groupid="0"
+	}
+	control {
+		chan="$(T)clearErrors.J"
+		clr="27"
+		bclr="17"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	inactive_label="Clear Errors"
+	pressed_label="Clearing"
+	press_msg="1"
+	release_msg=""
+}
+"text update" {
+	object {
+		x="141"
+		y="434"
+		width="108"
+		height="14"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)obsSetup.VALF"
+		clr="10"
+		bclr="5"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. left"
+	format="decimal"
+}
+"related display" {
+	object {
+		x="753"
+		y="6"
+		width="225"
+		height="35"
+		groupid="0"
+	}
+	selfkill="off"
+	display[0] {
+		label="Overall Control"
+		name="gnaacEngDisp.dl"
+		args="T=$(T),S=$(S)"
+	}
+	display[1] {
+		label="Observation Setup"
+		name="obsrvCntrl.dl"
+		args="T=$(T),S=$(S)"
+	}
+	display[2] {
+		label="Array Setup"
+		name="arrayCntrl.dl"
+		args="T=$(T),S=$(S)"
+	}
+	display[3] {
+		label="WFire Control"
+		name="wFireCntrl.dl"
+		args="T=$(T),S=$(S)"
+	}
+	display[4] {
+		label="initWcsCad"
+		name="wcsCad.dl"
+		args="T=$(T),S=$(S)"
+	}
+	display[5] {
+		label="Temp. Control"
+		name="tempCntrl.dl"
+		args="T=$(T),S=$(S)"
+	}
+	display[6] {
+		label="Health"
+		name="health.dl"
+		args="T=$(T),S=$(S)"
+	}
+	display[7] {
+		label="Diagnostics"
+		name="diagCntrl.dl"
+		args="T=$(T),S=$(S)"
+	}
+	display[8] {
+		label=""
+		name=""
+		args=""
+	}
+	display[9] {
+		label=""
+		name=""
+		args=""
+	}
+	display[10] {
+		label=""
+		name=""
+		args=""
+	}
+	display[11] {
+		label=""
+		name=""
+		args=""
+	}
+	display[12] {
+		label=""
+		name=""
+		args=""
+	}
+	display[13] {
+		label=""
+		name=""
+		args=""
+	}
+	display[14] {
+		label=""
+		name=""
+		args=""
+	}
+	display[15] {
+		label=""
+		name=""
+		args=""
+	}
+	display[16] {
+		label=""
+		name=""
+		args=""
+	}
+	display[17] {
+		label=""
+		name=""
+		args=""
+	}
+	display[18] {
+		label=""
+		name=""
+		args=""
+	}
+	display[19] {
+		label=""
+		name=""
+		args=""
+	}
+	display[20] {
+		label=""
+		name=""
+		args=""
+	}
+	display[21] {
+		label=""
+		name=""
+		args=""
+	}
+	display[22] {
+		label=""
+		name=""
+		args=""
+	}
+	display[23] {
+		label=""
+		name=""
+		args=""
+	}
+	clr="0"
+	bclr="6"
+	menu_title="Additional Screens"
+	decorate="outward"
+}
+"related display" {
+	object {
+		x="753"
+		y="47"
+		width="225"
+		height="35"
+		groupid="0"
+	}
+	selfkill="off"
+	display[0] {
+		label="PreAmp HK Channels"
+		name="preAmpHK.dl"
+		args="T=$(T),S=$(S)"
+	}
+	display[1] {
+		label="ADC HK Channels"
+		name="adcHK.dl"
+		args="T=$(T),S=$(S)"
+	}
+	display[2] {
+		label=""
+		name=""
+		args=""
+	}
+	display[3] {
+		label=""
+		name=""
+		args=""
+	}
+	display[4] {
+		label=""
+		name=""
+		args=""
+	}
+	display[5] {
+		label=""
+		name=""
+		args=""
+	}
+	display[6] {
+		label=""
+		name=""
+		args=""
+	}
+	display[7] {
+		label=""
+		name=""
+		args=""
+	}
+	display[8] {
+		label=""
+		name=""
+		args=""
+	}
+	display[9] {
+		label=""
+		name=""
+		args=""
+	}
+	display[10] {
+		label=""
+		name=""
+		args=""
+	}
+	display[11] {
+		label=""
+		name=""
+		args=""
+	}
+	display[12] {
+		label=""
+		name=""
+		args=""
+	}
+	display[13] {
+		label=""
+		name=""
+		args=""
+	}
+	display[14] {
+		label=""
+		name=""
+		args=""
+	}
+	display[15] {
+		label=""
+		name=""
+		args=""
+	}
+	display[16] {
+		label=""
+		name=""
+		args=""
+	}
+	display[17] {
+		label=""
+		name=""
+		args=""
+	}
+	display[18] {
+		label=""
+		name=""
+		args=""
+	}
+	display[19] {
+		label=""
+		name=""
+		args=""
+	}
+	display[20] {
+		label=""
+		name=""
+		args=""
+	}
+	display[21] {
+		label=""
+		name=""
+		args=""
+	}
+	display[22] {
+		label=""
+		name=""
+		args=""
+	}
+	display[23] {
+		label=""
+		name=""
+		args=""
+	}
+	clr="16"
+	bclr="6"
+	menu_title="Raw HouseKeeping"
+	decorate="none"
+}
+"related display" {
+	object {
+		x="818"
+		y="180"
+		width="150"
+		height="25"
+		groupid="0"
+	}
+	selfkill="off"
+	display[0] {
+		label="Data Image Cntrl"
+		name="dhsCntrl.dl"
+		args="T=$(T),S=$(S)"
+	}
+	display[1] {
+		label=""
+		name=""
+		args=""
+	}
+	display[2] {
+		label=""
+		name=""
+		args=""
+	}
+	display[3] {
+		label=""
+		name=""
+		args=""
+	}
+	display[4] {
+		label=""
+		name=""
+		args=""
+	}
+	display[5] {
+		label=""
+		name=""
+		args=""
+	}
+	display[6] {
+		label=""
+		name=""
+		args=""
+	}
+	display[7] {
+		label=""
+		name=""
+		args=""
+	}
+	display[8] {
+		label=""
+		name=""
+		args=""
+	}
+	display[9] {
+		label=""
+		name=""
+		args=""
+	}
+	display[10] {
+		label=""
+		name=""
+		args=""
+	}
+	display[11] {
+		label=""
+		name=""
+		args=""
+	}
+	display[12] {
+		label=""
+		name=""
+		args=""
+	}
+	display[13] {
+		label=""
+		name=""
+		args=""
+	}
+	display[14] {
+		label=""
+		name=""
+		args=""
+	}
+	display[15] {
+		label=""
+		name=""
+		args=""
+	}
+	display[16] {
+		label=""
+		name=""
+		args=""
+	}
+	display[17] {
+		label=""
+		name=""
+		args=""
+	}
+	display[18] {
+		label=""
+		name=""
+		args=""
+	}
+	display[19] {
+		label=""
+		name=""
+		args=""
+	}
+	display[20] {
+		label=""
+		name=""
+		args=""
+	}
+	display[21] {
+		label=""
+		name=""
+		args=""
+	}
+	display[22] {
+		label=""
+		name=""
+		args=""
+	}
+	display[23] {
+		label=""
+		name=""
+		args=""
+	}
+	clr="1"
+	bclr="6"
+	menu_title=""
+	decorate="outward"
+}
+"related display" {
+	object {
+		x="818"
+		y="109"
+		width="150"
+		height="25"
+		groupid="0"
+	}
+	selfkill="off"
+	display[0] {
+		label="Array Setup Cntrl"
+		name="arrayCntrl.dl"
+		args="T=$(T),S=$(S)"
+	}
+	display[1] {
+		label=""
+		name=""
+		args=""
+	}
+	display[2] {
+		label=""
+		name=""
+		args=""
+	}
+	display[3] {
+		label=""
+		name=""
+		args=""
+	}
+	display[4] {
+		label=""
+		name=""
+		args=""
+	}
+	display[5] {
+		label=""
+		name=""
+		args=""
+	}
+	display[6] {
+		label=""
+		name=""
+		args=""
+	}
+	display[7] {
+		label=""
+		name=""
+		args=""
+	}
+	display[8] {
+		label=""
+		name=""
+		args=""
+	}
+	display[9] {
+		label=""
+		name=""
+		args=""
+	}
+	display[10] {
+		label=""
+		name=""
+		args=""
+	}
+	display[11] {
+		label=""
+		name=""
+		args=""
+	}
+	display[12] {
+		label=""
+		name=""
+		args=""
+	}
+	display[13] {
+		label=""
+		name=""
+		args=""
+	}
+	display[14] {
+		label=""
+		name=""
+		args=""
+	}
+	display[15] {
+		label=""
+		name=""
+		args=""
+	}
+	display[16] {
+		label=""
+		name=""
+		args=""
+	}
+	display[17] {
+		label=""
+		name=""
+		args=""
+	}
+	display[18] {
+		label=""
+		name=""
+		args=""
+	}
+	display[19] {
+		label=""
+		name=""
+		args=""
+	}
+	display[20] {
+		label=""
+		name=""
+		args=""
+	}
+	display[21] {
+		label=""
+		name=""
+		args=""
+	}
+	display[22] {
+		label=""
+		name=""
+		args=""
+	}
+	display[23] {
+		label=""
+		name=""
+		args=""
+	}
+	clr="1"
+	bclr="6"
+	menu_title=""
+	decorate="outward"
+}
+"related display" {
+	object {
+		x="818"
+		y="144"
+		width="149"
+		height="25"
+		groupid="0"
+	}
+	selfkill="off"
+	display[0] {
+		label="Observation Cntrl"
+		name="obsrvCntrl.dl"
+		args="T=$(T),S=$(S)"
+	}
+	display[1] {
+		label=""
+		name=""
+		args=""
+	}
+	display[2] {
+		label=""
+		name=""
+		args=""
+	}
+	display[3] {
+		label=""
+		name=""
+		args=""
+	}
+	display[4] {
+		label=""
+		name=""
+		args=""
+	}
+	display[5] {
+		label=""
+		name=""
+		args=""
+	}
+	display[6] {
+		label=""
+		name=""
+		args=""
+	}
+	display[7] {
+		label=""
+		name=""
+		args=""
+	}
+	display[8] {
+		label=""
+		name=""
+		args=""
+	}
+	display[9] {
+		label=""
+		name=""
+		args=""
+	}
+	display[10] {
+		label=""
+		name=""
+		args=""
+	}
+	display[11] {
+		label=""
+		name=""
+		args=""
+	}
+	display[12] {
+		label=""
+		name=""
+		args=""
+	}
+	display[13] {
+		label=""
+		name=""
+		args=""
+	}
+	display[14] {
+		label=""
+		name=""
+		args=""
+	}
+	display[15] {
+		label=""
+		name=""
+		args=""
+	}
+	display[16] {
+		label=""
+		name=""
+		args=""
+	}
+	display[17] {
+		label=""
+		name=""
+		args=""
+	}
+	display[18] {
+		label=""
+		name=""
+		args=""
+	}
+	display[19] {
+		label=""
+		name=""
+		args=""
+	}
+	display[20] {
+		label=""
+		name=""
+		args=""
+	}
+	display[21] {
+		label=""
+		name=""
+		args=""
+	}
+	display[22] {
+		label=""
+		name=""
+		args=""
+	}
+	display[23] {
+		label=""
+		name=""
+		args=""
+	}
+	clr="1"
+	bclr="6"
+	menu_title=""
+	decorate="outward"
+}
+"related display" {
+	object {
+		x="524"
+		y="6"
+		width="225"
+		height="35"
+		groupid="0"
+	}
+	selfkill="off"
+	display[0] {
+		label="Apply/Cad Test Screen"
+		name="cadSad.dl"
+		args="T=$(T),S=$(S)"
+	}
+	display[1] {
+		label=""
+		name=""
+		args=""
+	}
+	display[2] {
+		label=""
+		name=""
+		args=""
+	}
+	display[3] {
+		label=""
+		name=""
+		args=""
+	}
+	display[4] {
+		label=""
+		name=""
+		args=""
+	}
+	display[5] {
+		label=""
+		name=""
+		args=""
+	}
+	display[6] {
+		label=""
+		name=""
+		args=""
+	}
+	display[7] {
+		label=""
+		name=""
+		args=""
+	}
+	display[8] {
+		label=""
+		name=""
+		args=""
+	}
+	display[9] {
+		label=""
+		name=""
+		args=""
+	}
+	display[10] {
+		label=""
+		name=""
+		args=""
+	}
+	display[11] {
+		label=""
+		name=""
+		args=""
+	}
+	display[12] {
+		label=""
+		name=""
+		args=""
+	}
+	display[13] {
+		label=""
+		name=""
+		args=""
+	}
+	display[14] {
+		label=""
+		name=""
+		args=""
+	}
+	display[15] {
+		label=""
+		name=""
+		args=""
+	}
+	display[16] {
+		label=""
+		name=""
+		args=""
+	}
+	display[17] {
+		label=""
+		name=""
+		args=""
+	}
+	display[18] {
+		label=""
+		name=""
+		args=""
+	}
+	display[19] {
+		label=""
+		name=""
+		args=""
+	}
+	display[20] {
+		label=""
+		name=""
+		args=""
+	}
+	display[21] {
+		label=""
+		name=""
+		args=""
+	}
+	display[22] {
+		label=""
+		name=""
+		args=""
+	}
+	display[23] {
+		label=""
+		name=""
+		args=""
+	}
+	clr="16"
+	bclr="6"
+	menu_title=""
+	decorate="none"
+}
+"related display" {
+	object {
+		x="525"
+		y="47"
+		width="110"
+		height="35"
+		groupid="0"
+	}
+	selfkill="off"
+	display[0] {
+		label="View Errors"
+		name="ErrorDisp.dl"
+		args=""
+	}
+	display[1] {
+		label=""
+		name=""
+		args=""
+	}
+	display[2] {
+		label=""
+		name=""
+		args=""
+	}
+	display[3] {
+		label=""
+		name=""
+		args=""
+	}
+	display[4] {
+		label=""
+		name=""
+		args=""
+	}
+	display[5] {
+		label=""
+		name=""
+		args=""
+	}
+	display[6] {
+		label=""
+		name=""
+		args=""
+	}
+	display[7] {
+		label=""
+		name=""
+		args=""
+	}
+	display[8] {
+		label=""
+		name=""
+		args=""
+	}
+	display[9] {
+		label=""
+		name=""
+		args=""
+	}
+	display[10] {
+		label=""
+		name=""
+		args=""
+	}
+	display[11] {
+		label=""
+		name=""
+		args=""
+	}
+	display[12] {
+		label=""
+		name=""
+		args=""
+	}
+	display[13] {
+		label=""
+		name=""
+		args=""
+	}
+	display[14] {
+		label=""
+		name=""
+		args=""
+	}
+	display[15] {
+		label=""
+		name=""
+		args=""
+	}
+	display[16] {
+		label=""
+		name=""
+		args=""
+	}
+	display[17] {
+		label=""
+		name=""
+		args=""
+	}
+	display[18] {
+		label=""
+		name=""
+		args=""
+	}
+	display[19] {
+		label=""
+		name=""
+		args=""
+	}
+	display[20] {
+		label=""
+		name=""
+		args=""
+	}
+	display[21] {
+		label=""
+		name=""
+		args=""
+	}
+	display[22] {
+		label=""
+		name=""
+		args=""
+	}
+	display[23] {
+		label=""
+		name=""
+		args=""
+	}
+	clr="1"
+	bclr="17"
+	menu_title=""
+	decorate="none"
+}
+"kill display" {
+	object {
+		x="10"
+		y="46"
+		width="84"
+		height="31"
+		groupid="0"
+	}
+	label="EXIT"
+	clr="1"
+	bclr="9"
+	decorate="none"
+}

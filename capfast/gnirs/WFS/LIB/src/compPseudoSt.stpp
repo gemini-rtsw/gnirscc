@@ -1,0 +1,572 @@
+/*INDENT-OFF*
+ *
+ *   FILENAME
+ *   --------
+ *   compPseudoSt.stpp
+ *
+ *   PURPOSE
+ *   -------
+ *   This file contains the EPICS state transition language program for
+ *   managing one axis of a multi axis mechanism in the CICS where each
+ *   axis can be managed independently (e.g. a detector translation table)
+ *
+ *   FUNCTION NAME(S)
+ *   ----------------
+ *   compPseudo_ss      - Process commands for one axis of a multi-axis component
+ *
+ *   PROGRAM
+ *   --------
+ *   compPseudoSt
+ *
+ *   INVOCATION
+ *   -----------
+ *   Include the following line in the VxWorks startup script:
+ *
+ *   seq &compPseudoSt, "top=xxxx:cc:, sadtop=xxxx::cc:, eng=xxxx:eng:cc:, sys=sys, mech=trans"
+ *
+ *   PARAMETERS (all are input)
+ *   --------------------------
+ *      top      string    String to be substituted for the {top} macro
+ *                         used to for the top level name of the CICS
+ *                         EPICS database. The default value is "xxxx:"
+ *
+ *      sadtop   string    String to be substituted for the {sad} macro
+ *                         used for the name of the CICS Status/Alarm
+ *                         Database. The default value is "xxxx::"
+ *
+ *      eng      string    String to be substituted for the {eng} macro
+ *                         used for the name of the low-level engineering
+ *                         Functions. The default value is "xxxx:eng:cc:"
+ *
+ *      sys      string    String to be substituted for the {sys} macro
+ *                         used for the name of the CICS systemwide records.
+ *                         The default value is "sys".
+ *
+ *      mech     string    String to be substituted for the {mech} macro
+ *                         used for the mechanism name in the motor
+ *                         simulation database. The default value is "trans".
+ *
+ *   RETURN VALUE
+ *   ------------
+ *   N/A
+ *
+ *   GLOBALS
+ *   -------
+ *      EXTERNAL FUNCTIONS
+ *
+ *      This program makes use of the library functions included with the
+ *      EPICS state notation language (efTest, efClear, pvGet, pvPut, delay)
+ *
+ *      EXTERNAL VARIABLES
+ *
+ *      Several records in the CICS CAD, CAR, motor control and Status/Alarm
+ *      database are used as external variables. See the declarations in the
+ *      code for details
+ *
+ *   REQUIREMENTS
+ *   ------------
+ *   This program assumes that the an EPICS database has been loaded, and 
+ *   that this databases contain records whose names match those in the
+ *   "assign" declarations below (including parameters which are passed
+ *   in when the state program is started).  If any changes are made to
+ *   the names of these records, the changes must also be reflected in
+ *   this program (or the starting parameters). Failure to do this will
+ *   result in one or more channels not connecting when the program is
+ *   executed
+ *
+ *   The ordering of the arguments within each CAD record (A, B, C...) is
+ *   defined in the description of the interface between the CAD database
+ *   and its clients. Changes to that interface should be reflected in this
+ *   file.
+ *
+ *   AUTHOR
+ *   ------
+ *   Steven Beard  (smb@roe.ac.uk)
+ *   Hubert Yamada (yamada@ifa.hawaii.edu)
+ *
+ *   HISTORY
+ *   -------
+ *
+ * $Log: compPseudoSt.stpp,v $
+ * Revision 1.2  2009/05/27 19:34:56  fkraemer
+ * fkraemer - copied my complete working dir over trunk
+ *
+ * Revision 1.4  1999/11/15 20:30:52  yamada
+ * Got rid of "index" variables in favor of explicitly doing a pvIndex
+ * at subroutine-call time.
+ *
+ * Revision 1.3  1999/11/14 02:05:41  yamada
+ * Reformatted logs.
+ *
+ *
+ *INDENT-ON*
+ */
+
+#define HANDLEBUSY
+
+program compPseudoSt("top=xxxx:cc:, sadtop=xxxx::cc:, eng=xxxx:eng:cc:, sys=sys, mech=tmp")
+
+/*
+ * The following option is needed to make the code reentrant
+ */
+
+option +r;
+
+%%static char rcsid[]="$Id: compPseudoSt.stpp,v 1.2 2009/05/27 19:34:56 fkraemer Exp $";
+
+%%#include <stdlib.h>
+%%#include <stdioLib.h>
+%%#include <string.h>
+%%#include <time.h>
+%%#include <ctype.h>
+%%#include <devSup.h>
+%%#include <link.h>
+%%#include <stdarg.h>
+
+%%#include <cad.h>
+%%#include <car.h>
+
+#include <cicsConst.h>
+%%#include <cicsLib.h>
+
+/*
+ * SUBSYSTEM COMMAND DECLARATIONS
+ *
+ * The following declarations assign the variables which are responsible
+ * for detecting the subsystem "init" command.
+ *
+ * (1) "long" variables are assigned to counters which are incremented
+ *     in the database whenever a successful START directive is detected.
+ *     The STOP directive is not monitored because it is rejected by the
+ *     "init" CAD record.
+ *
+ * (2) An event flag is synchronised with each "long" variable, so the
+ *     flag is triggered whenever the variable changes. The net result
+ *     is that an event flag is triggered whenever a command is started
+ *     or stopped in the outside world.
+ */
+
+long initStart;         /* START counter attached to init CAD record */
+assign initStart to "{top}{sys}InitP:st.VAL";
+monitor initStart;
+
+evflag initStartFlag;   /* Event flag triggered by changes to initStart */
+sync initStart initStartFlag;
+
+long initID;            /* Initialisation client ID */
+assign initID to "{top}init.OCID";
+
+/*
+ * MECHANISM COMMAND DECLARATIONS
+ *
+ * The following declarations assign the variables which are shared
+ * by several commands for the same mechanism.
+ */
+
+/*
+ * SNL MECHANISM COMMAND DECLARATIONS
+ *
+ * The following declarations assign the variables which are responsible
+ * for detecting "select mechanism" commands.
+ *
+ * (1) "long" variables are assigned to counters which are incremented
+ *     in the database whenever a successful START or STOP directive is
+ *     detected.
+ *
+ * (2) An event flag is synchronised with each "long" variable, so the
+ *     flag is triggered whenever the variable changes. The net result
+ *     is that an event flag is triggered whenever a command is started
+ *     or stopped in the outside world.
+ *
+ * (3) Variables are also assigned to the command arguments.
+ */
+
+long snlExec;       /* Counter to trigger ${mech} snl command */
+assign snlExec to "{top}{mech}SnlExec.VAL";
+monitor snlExec;
+
+evflag snlExecFlag; /* Event flag triggered by changes to snlExec */
+sync snlExec snlExecFlag;
+
+long snlID;          /* Select mechanism client ID */
+assign snlID to "{top}{mech}SnlID.VAL";
+
+string snlArg;       /* Command-specific argument */
+assign snlArg to "{top}{mech}SnlArg.VAL";
+
+#define OP_SELECT   (1)
+#define OP_PARK     (2)
+#define OP_ENG_MOVE (3)
+#define OP_DIAG     (4) /* Used as a No-op */
+#define OP_RDTM     (5)
+#define OP_DATUM    (6)
+#define OP_STOP     (7)
+#define OP_FOLLOW   (8)
+
+short snlOp;            /* Operation code */
+assign snlOp to "{top}{mech}SnlOp.VAL";
+monitor snlOp;
+
+/*
+ * ICD14: Add variable assignments to the CAD records of new mechanism
+ * commands here. Use the name suite of variables as defined for "move"
+ * above.
+ */
+
+/*
+ * CAR AND SIR RECORD DECLARATIONS
+ *
+ * The following declarations assign variables to records in the Status/Alarm
+ * database, which are monitored by the outside world.
+ */
+
+long initCARin;          /* Input to the initC CAR record */
+assign initCARin to "{top}initC.IVAL";
+
+long initCARID;          /* Client ID input to the initC CAR record */
+assign initCARID to "{top}initID.VAL";
+
+long initCARerrin;       /* Error input to the initC CAR record */
+assign initCARerrin to "{top}initC.IERR";
+
+string initCARmessin;    /* Message input to the initC CAR record */
+assign initCARmessin to "{top}initC.IMSS";
+
+long compCARin;        /* Input to the {mech}C CAR record */
+assign compCARin to "{top}{mech}C.IVAL";
+
+long compCARID;        /* Client ID input to the ${mech}C CAR record */
+assign compCARID to "{top}{mech}ID.VAL";
+
+long compCARerrin;     /* Error input to the ${mech}C CAR record */
+assign compCARerrin to "{top}{mech}C.IERR";
+
+string compCARmessin;  /* Message input to the ${mech}C CAR record */
+assign compCARmessin to "{top}{mech}C.IMSS";
+
+int compBusy;    /* Used to keep track of completion of command */
+assign compBusy to "{eng}{mech}Busy.VAL";
+monitor compBusy;
+
+/*
+ * NIRI DATABASE DECLARATIONS
+ *
+ * The following declarations assign variables to the NIRI motor control
+ * database, which comes below this state notation code.
+ */
+
+string engSelect;        /* Mechanism snl position */
+assign engSelect to "{eng}{mech}Select.VAL";
+
+/*
+ * Temporary variables.
+ */
+
+char *cp;
+
+/*
+ * Function prototypes.
+ */
+
+%{
+
+static void cmdReceived(SS_ID, struct UserVar *, int, int);
+static void opBusy(SS_ID, struct UserVar *, int, int, int);
+
+}%
+
+/* ===================================================================== */
+
+/*+
+ *   Function name:
+ *   State set "compPseudo_ss"
+ *
+ *   Purpose:
+ *   Manage mechanism operations
+ *
+ *   This state set initializes the system. It then monitors the CAD records
+ *   and triggers appropriate actions in the mechanism database.
+ *
+ *   Invocation:
+ *   Invoked automatically when sequence program "compPseudoSt" started
+ *
+ *   Parameters: (">" input, "!" modified, "<" output)
+ *   None
+ *
+ *   Return value:
+ *   N/A
+ *
+ *   External functions:
+ *   EPICS sequencer functions used are
+ *   efClear    - Clear event flag
+ *   efTest     - Test event flag
+ *   pvGet      - Get a process variable
+ *   pvPut      - Put a process variable
+ *   delay      - Wait for a specified length of time
+ *
+ *   External variables:
+ *   See definitions above
+ *
+ *   Requirements:
+ *   Same as requirements for program "compPseudoSt"
+ *
+ *   Limitations:
+ *   Same as limitations for program "compPseudoSt"
+ *
+ *-
+ */
+
+ss compPseudo_ss {
+	/*******************************************************************
+	 * state init1 - This is the state the compPseudo_ss state set
+	 * begins in when it first starts running. Its purpose is just to
+	 * issue a message indicating that the CICS state notation code
+	 * has started. Execution then passes immediately to state init2.
+	 *******************************************************************/
+
+	state init1 {
+		when () {
+			/*
+			 * The initialization messages have been commented out
+			 * because they cluttered up the console screen. They
+			 * can be reinstated for system tests.
+			 */
+
+			/* cicsLogFmt(CICS_DB_LOG, "Component {mech} connecting..."); */
+		} state init2
+	}
+
+	/*********************************************************************
+	 * state init2 - In this state compPseudo_ss carries out all the
+	 * initialization which is necessary before commands can be executed.
+	 *********************************************************************/
+
+	state init2 {
+		/*
+		 * Wait until all the appropriate connections have been made.
+		 */
+
+		when (pvConnectCount() == pvChannelCount()) {
+			/***********************************************************
+			 * Here I will include other housekeeping actions, such as
+			 * reading lookup tables from a file.
+			 ***********************************************************/
+
+			/*
+			 * Ensure the event flags to be monitored later are
+			 * initially cleared.
+			 */
+
+			efClear(initStartFlag);
+			efClear(snlExecFlag);
+
+			/*
+			 * Jump to the "idle" state because a flag status
+			 * field cannot be datumed.
+			 */
+		} state idle
+	}
+
+	/*********************************************************************
+	 * state idle - This is the first state after initialization for
+	 * mechanisms which have absolute encoders. It is entered for other
+	 * types of mechanism after the datum has been successfully found
+	 * and the coordinate system established.
+	 **************************************************************************/
+
+	state idle {
+		/*
+		 * Wait until an event flag is triggered indicating when a CAD record
+		 * has been activated.  Perform the appropriate setup with the
+		 * CAD record, and print a descriptive message, then switch to 
+		 * the "starting" state, to actually execute the command.
+		 */
+
+		when (efTest(snlExecFlag)) {
+			efClear(snlExecFlag);
+			cmdReceived(ssId, pVar, pvIndex(snlID), pvIndex(snlOp));
+			opBusy(ssId, pVar, pvIndex(compCARID), pvIndex(compCARin), snlID);
+
+			pvGet(snlOp);
+
+			/*
+			 * If there is a field to monitor, then make sure that
+			 * compBusy is set before we start to wait for it.
+			 *
+			 * If compBusy is set to a negative value, it means that
+			 * the busy record should be ignored.
+			 */
+
+			if (compBusy >= 0)
+				compBusy = 1;
+
+			/*
+			 * Perform the desired operation.
+			 */
+
+			if (snlOp == OP_SELECT) {
+				pvGet(snlArg);
+				cicsLogFmt(CICS_DB_MIN, "Select position \"%s\"",
+					snlArg);
+
+				/*
+				 * Copy the demanded engineering position to the motors
+				 * database and enable motor movement.
+				 */
+
+				strcpy(engSelect, snlArg);
+				pvPut(engSelect);
+			} else if (snlOp == OP_DIAG) {
+				/* Treat this like a no-op */
+			} else {
+				cicsLogFmt(CICS_DB_ERROR, "comp1p - Unknown operation (%d)\n",
+					snlOp);
+			}
+		} state pending
+
+		/**************************************************************
+		 * Something else has triggered this action.  Set the CAR
+		 * to show that we are busy, then wait for completion.
+		 **************************************************************/
+
+		when (compBusy > 0) {
+			opBusy(ssId, pVar, pvIndex(compCARID), pvIndex(compCARin), -1);
+		} state pending
+
+		/**************************************************************
+		 * The init command will cause the mechanism to reset and
+		 * reinitialize.
+		 **************************************************************/
+
+		when (efTestAndClear(initStartFlag)) {
+		} state resetting
+	}
+
+	state pending {
+		when (compBusy <= 0) {
+			/*
+			 * We are required to remain busy for 50 ms (TODO: check
+			 * this requirement).  This would be better handled using
+			 * a delay(), but that would force us to wait for a full
+			 * second, which is normally not necessary.
+			 */
+
+			%{
+				{
+					struct timespec ts;
+					ts.tv_sec = 0;
+					ts.tv_nsec = 500000000;
+					nanosleep(&ts, NULL);   /* Wait for 50 milliseconds */
+				}
+			}%
+		} state finish
+	}
+
+	/*
+	 * All actions are complete.  Switch to the idle state.
+	 */
+
+	state finish {
+		when () {
+			compCARin = CAR_IDLE;
+			pvPut(compCARin);
+		} state idle
+	}
+
+	/********************************************************************
+	 * state resetting - This state is entered while the mechanism is
+	 * waiting for the system to start resetting. Once this happens, the
+	 * component is reset.
+	 ********************************************************************/
+
+	state resetting {
+		/* BUG WORK AROUND: This wait resulted in deadlock */
+
+		/*    when (strcmp(initCARout, "BUSY") == 0) */
+
+		when () {
+			/*
+			 * Obtain the client ID for the command
+			 */
+
+			pvGet(initID);
+
+			cicsLogFmt(CICS_DB_LOG, "comp1p - Init command activated. ID = %ld",
+				initID);
+
+			/*
+			 * Send a "busy" event to the component CAR record.
+			 */
+
+			opBusy(ssId, pVar, pvIndex(compCARID), pvIndex(compCARin), initID);
+
+			/*
+			 * Reset the mechanism CAR record
+			 */
+
+			compCARerrin = PASS;
+			pvPut(compCARerrin);
+
+			strcpy(compCARmessin, " ");
+			pvPut (compCARmessin);
+
+			compCARin = CAR_IDLE;
+			pvPut(compCARin);
+		} state idle
+	}
+}
+
+%{
+
+static void
+opBusy(SS_ID ssId, struct UserVar *pVar, int compCARID, int compCARin,
+	int clientId)
+{
+	/*
+	 * Send a "busy" event to the mechanism CAR record.
+	 */
+
+	pVar->compCARID = clientId;
+	seq_pvPut(ssId, compCARID);
+
+	pVar->compCARin = CAR_BUSY;
+	seq_pvPut(ssId, compCARin);
+}
+
+static void
+cmdReceived(SS_ID ssId, struct UserVar *pVar, int snlID, int snlOp)
+{
+	const char *cmd;
+
+	/*
+	 * Obtain the client ID and operation code for the command
+	 */
+
+	seq_pvGet(ssId, snlID);
+	seq_pvGet(ssId, snlOp);
+
+	switch (pVar->snlOp) {
+		case OP_SELECT:
+			cmd = "Select";
+			break;
+
+		case OP_DIAG:
+			cmd = "Null command";
+			break;
+
+		default:
+			cmd = NULL;
+			break;
+	}
+
+	if (!cmd) {
+		cicsLogFmt(CICS_DB_LOG,
+			"comp1p - Unknown command (%d) requested. ID = %ld",
+			pVar->snlID);
+	} else {
+		cicsLogFmt(CICS_DB_LOG, "comp1p - \"%s\" command requested. ID = %ld",
+			cmd, pVar->snlID);
+	}
+}
+
+}%

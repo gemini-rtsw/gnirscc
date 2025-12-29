@@ -1,0 +1,9 @@
+# $Id: lockObs.lut,v 1.2 2009/05/27 19:34:09 fkraemer Exp $
+
+#
+# Named positions for the NIRI interlocks.
+#
+
+# name	nval	steps	lowtol	hightol
+LOCKED		1	1	0	0
+UNLOCKED	1	0	0	0

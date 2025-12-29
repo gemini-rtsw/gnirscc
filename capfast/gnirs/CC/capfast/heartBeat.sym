@@ -1,0 +1,11 @@
+[symbol2]
+bbox 288 416 544 544
+uniq 3
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 150 0 0 304 448 CC heartbeat
+l 150 0 0 304 496 Generate NIRS
+r 0 288 416 544 544
+[comments]

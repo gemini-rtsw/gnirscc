@@ -1,0 +1,74 @@
+
+drvAscii README (V2.2)
+
+drvAscii.tar.gz contains the device and driver support for records 
+interfaced to a remote device which communicates with ascii strings 
+over a serial link. This driver must be layered on top of the serial 
+driver (drvSerial) written by Jhill for the Keck Observatory.
+
+The driver supports bi, bo, mbbi, mbbo, ai, ao, longin, longout, stringin, 
+stringout, mbbi direct, mbbo direct, and waveform (long stringin) records. 
+The mechanism for determining how to convert to/from strings and record 
+vals is embedded in the records' PARM fields (inp and outp).
+
+Special parm field tags (special records)  allow control over certain 
+comms features such as command terminators (carriage-return linefeed 
+by default). Unfortunately an anomoly exists with respect to the write 
+and read command terminators. Ideally one would want to set a specific 
+stringout record's PINI=YES and sets its initial val field to the desired 
+command terminator(s) (eg. '\r'), such that on record init the desired 
+terminator(s) would be in effect. The problem is that e2sr strips off 
+all backslashes.
+
+When implementing the driver I thought the best approach was to treat 
+the val strings as 'C' strings which may have character and numeric 
+escape codes embedded. I think any other solution is wrong. In any event, 
+one can use backslashes with dbpf (eg. '\r') and triple backslashes with 
+caput (eg. '\\\r') so... the desired command terminators can be setup 
+after record init with a script.  
+
+The documentation, such as it is, is simply the headers of the .c files.
+The changes from the previous version are enumerated at the bottom of
+this file.
+
+I have included a set of test databases which contain at least one
+record of each type. The test databases all have link specifications 
+which assume that they are connected via tnet. Please refer to the
+test.README file.
+
+
+One must obtain the serial driver written by Jeff Hill, said driver
+should be in the Keck ftp site.
+
+drvAscii.tar.gz contains the following files:
+         devAscii.c
+         drvAscii.c
+         drvAscii.h
+         drvAscii.README
+
+	 test.README
+	 analogIn.db
+	 analogIn.edf
+	 analogIn.sch
+	 analogOut.db
+	 analogOut.edf
+	 analogOut.sch
+	 integerIn.db
+	 integerIn.edf
+	 integerIn.sch
+	 integerOut.db
+	 integerOut.edf
+	 integerOut.sch
+	 strings.db
+	 strings.edf
+	 strings.sch
+
+Any suggestions, improvements, or fixes please contacted Allan Honey at
+ahoney@keck.hawaii.edu
+
+
+This along with the capfast schematic was copied from
+
+	~ahoney/kroot/kss/epcom/dev/drvAscii/drvAscii
+
+

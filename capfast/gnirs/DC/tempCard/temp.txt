@@ -1,0 +1,12 @@
+subOn = set to one on vxWorks machine to turn on debugging in conversion routines
+serOn = set to one on vxWorks machine to turn on debugging in epics device driver
+python prog = Displays a graph of detector temperature
+		python TempLog.py [device prefix name]
+				prefixes are:  niri, nirs, naac, sirs
+
+		There is a if-else structure in TempLog.py that must reflect the vxWorks 
+		machine that the temperature controller for the detector is connected to.
+
+
+				
+LOG

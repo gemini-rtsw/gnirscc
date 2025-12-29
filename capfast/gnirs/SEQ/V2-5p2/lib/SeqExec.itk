@@ -1,0 +1,967 @@
+#+
+#  SeqExec <- itk::Widget
+#
+#  Implements the sequence controller control panel widget.
+#
+#  Note that this file contains code for accessing the OCS-1 session queue
+#  that is commented out. Search for comments starting OCS-1 for instructions
+#  for enabling the OCS-1 features.
+#
+#  No other changes to the seqexec code are required.
+#
+#  D Terrett 28 October 2002
+#
+#  Copyright CCLRC
+#+
+
+itcl::class SeqExec {
+   inherit itk::Widget
+   constructor {args} {}
+   
+   public {
+      variable debug 0
+      method getfileseq { file }
+   }
+
+   private {
+      method dhsautotrace {n1 n2 op}
+      method errorproc {}
+      method getocsseq { obsid }
+      method ignoretcs {}
+      method loadseq {seqsrc name }
+      method movetopos {system}
+      method maxguidestep {name1 name2 op}
+      method pickfileseq {}
+      method pickocsseq {}
+      method nosequence {arglist}
+      method ocsenabletrace {n1 n2 op}
+      method ocsrun {}
+      method progress {name1 name2 op}
+      method reload {}
+      method selstep {index}
+      method userpref {args}
+      variable selstepindex -1
+      method tcsstate {name1 name2 op}
+      method view {}
+      variable filename ""
+      variable helptext
+      variable laststep ""
+      variable ignoretcsval 0
+      variable maxguidestepval 0.01
+      variable observeid ""
+      variable seqsrc ""
+      variable preferences
+      variable alarmFlag 0
+      method alarmBg {}
+      method alarmRaise {}
+      method alarmShut {}
+      common beep 0
+   }
+}
+
+itk::usual SeqExec {
+   keep -activebackground -activeforeground -background -cursor \
+         -disabledforeground -font -foreground -highlightcolor \
+         -highlightthickness
+}
+
+itcl::body SeqExec::constructor {args} {
+
+   set w $itk_interior
+
+# Menu bar and file menu.
+   itk_component add menus {
+      iwidgets::menubar $w.menus -menubuttons {
+         menubutton file -text File -menu {
+            options -tearoff false
+#OCS-1 uncomment this line to enable the "load sequence from OCS command"
+#            command ocs -label "Load sequence from OCS..." \
+                  -command [list [itcl::code $this pickocsseq]]
+            command file -label "Load sequence from file..." \
+                  -command [list [itcl::code $this pickfileseq]]
+            separator sep1
+            command view -label "View xml" \
+                  -command [list [itcl::code $this view]]
+            separator sep2
+            command exit -label Exit -command exit
+         }
+         menubutton edit -text Edit -menu {
+            options -tearoff false
+            command view -label "Preferences" \
+                  -command { UserPrefs::popWindow \"[itcl::code $this userpref]\" }
+         }
+      }
+   }
+
+   grid $itk_component(menus) -sticky ew
+
+# Current message.
+   itk_component add message {
+      label $w.message -relief sunken -textvariable ::Sequence::statemsg
+   }
+
+# Paned window for the plot and the progress list.
+   itk_component add progress {
+      iwidgets::panedwindow $w.progress -orient vertical -width 775 -height 420
+   }
+   $itk_component(progress) add left
+   $itk_component(progress) add right
+
+# Canvas for displaying a map of the offsets.
+   set w [$itk_component(progress) childsite left]
+
+# Widget for entering data header info.
+   itk_component add header {
+      HeaderInfo $w.header
+   }
+
+   itk_component add canvas {
+      iwidgets::scrolledcanvas $w.canvas -width 300 -height 300 \
+            -borderwidth 2 -relief sunken -autoresize 1 -sbwidth 11
+   }
+
+# Mark the center.
+   $itk_component(canvas) create line 130 150 170 150 -fill red -tags center
+   $itk_component(canvas) create line 150 130 150 170 -fill red -tags center
+
+# SequenceHierachyWidget for listing the sequence.
+   set w [$itk_component(progress) childsite right]
+   itk_component add proglist {
+      SequenceWidget $w.proglist -selectcommand [itcl::code $this selstep]
+   }
+
+# Create a trace on Sequence::current to highlight the current step.
+   trace variable ::Sequence::current w [itcl::code $this progress]
+
+   pack $itk_component(header) $itk_component(canvas) -expand yes -fill both
+   pack $itk_component(proglist) -expand yes -fill both
+
+# Frame for options.
+   set w $itk_interior
+   itk_component add -private options {
+      iwidgets::labeledframe $w.options -labeltext Options -labelpos nw
+   }
+   set w [$itk_component(options) childsite]
+
+# Automatic data label creation.
+   itk_component add autolabel {
+      checkbutton $w.auto -text "Generate DHS label automatically" \
+            -variable dhshdr::autodhslabel
+   }
+
+# Create a trace on dhshdr::autodhslabel to enable & disable the dhs
+# header field in the HeaderInfo widget.
+   trace variable ::dhshdr::autodhslabel w [itcl::code $this dhsautotrace]
+
+# Ignore TCS status.
+   itk_component add ignoretcs {
+      checkbutton $w.ignoretcs -text "Ignore TCS status" \
+             -command [itcl::code $this ignoretcs] \
+             -variable [itcl::scope ignoretcsval]
+   }
+
+# Step size configuration.
+   itk_component add maxguidestep {
+      iwidgets::entryfield $w.maxstep -validate real -width 4 \
+            -textvariable [itcl::scope maxguidestepval] \
+            -labeltext "Maximum guided step (arcsec)"
+   }
+   trace variable maxguidestepval w [itcl::code $this maxguidestep]
+   pack $itk_component(autolabel) $itk_component(ignoretcs) \
+         $itk_component(maxguidestep) -anchor w -side left -padx 5
+
+# Frame for sim states and reload button.
+   set w $itk_interior
+   itk_component add simrel {
+      frame $w.simrel
+   }
+
+# Frame for simulation states.
+   set w $itk_component(simrel)
+   itk_component add simstates {
+      iwidgets::labeledframe $w.simstates -labeltext "Active subsystems" \
+            -labelpos nw
+   }
+   set w [$itk_component(simstates) childsite]
+   itk_component add simtcs {
+      checkbutton $w.tcs -text TCS -variable Flags(simtcs) \
+            -onvalue 0 -offvalue 1
+   }
+   itk_component add simgcal {
+      checkbutton $w.gcal -text GCAL -variable Flags(simgcal) \
+            -onvalue 0 -offvalue 1
+   }
+   itk_component add simgpol {
+      checkbutton $w.gpol -text GPOL -variable Flags(simgpol) \
+            -onvalue 0 -offvalue 1
+   }
+   itk_component add siminst {
+      checkbutton $w.inst -text Instrument -variable Flags(siminst) \
+            -onvalue 0 -offvalue 1
+   }
+   itk_component add simdhs {
+      checkbutton $w.dhs -text DHS -variable Flags(simdhs) \
+            -onvalue 0 -offvalue 1
+   }
+   pack $itk_component(simtcs) $itk_component(simgcal) $itk_component(simgpol) \
+         $itk_component(siminst) $itk_component(simdhs) \
+         -side left -padx 20
+
+# Button for reloading current sequence.
+   set w $itk_component(simrel)
+   itk_component add reload {
+      button $w.reload -text "Reload sequence" \
+            -command [itcl::code $this reload]
+   }
+   pack $itk_component(simstates) -side left -expand 1 -fill x
+   pack $itk_component(reload) -side right -padx 20
+
+# Label for showing the captured tcs state.
+   set w $itk_interior
+   itk_component add tcsstate {
+      label $w.tcsstate
+   }
+   
+# Frame for buttons etc.
+   itk_component add -private buttons {
+      frame $w.buttons
+   }
+   set w $itk_component(buttons)
+
+# The configure buttons
+   itk_component add getstate {
+      button $w.getstate -text "CONFIGURE\nFROM\ncurrent TCS setup" \
+            -command ::RealTcs::gettcsstate
+   }
+
+   itk_component add -private confframe {
+     iwidgets::Labeledframe $w.confframe -labelpos nw \
+            -labeltext "System Configuration" -ipady 2
+   }
+   
+   set ww [$itk_component(confframe) childsite]
+   itk_component add confall {
+      button $ww.confall -text "ALL" \
+            -command [itcl::code $this movetopos all]
+   }
+   
+   itk_component add conftcs {
+      button $ww.conftcs -text "TCS" \
+            -command [itcl::code $this movetopos tcs]
+   }
+   
+   itk_component add confgcal {
+      button $ww.confgcal -text "GCAL" \
+            -command [itcl::code $this movetopos gcal]
+   }
+   
+   itk_component add confgpol {
+      button $ww.confgpol -text "GPOL" \
+            -command [itcl::code $this movetopos gpol]
+   }
+   
+   itk_component add confinst {
+      button $ww.confinst -text "INST" \
+            -command [itcl::code $this movetopos inst]
+   }
+
+   itk_component add -private conflabel {
+      label $ww.conflabel -text "for step: " -anchor e
+   }
+   
+   itk_component add which {
+      label $ww.which -width 12 -anchor w -relief sunken
+   }
+
+# The sequence control buttons
+   itk_component add -private seqlabel {
+      label $w.seqlabel -text "Sequence control:" -anchor e
+   }
+   itk_component add run {
+      button $w.run -text Run -width 6 -command [namespace \
+            code {sequence configure -pause 0; sequence moveindex 0}]
+   }
+   itk_component add pause {
+      button $w.pause -text Pause -width 6 -command \
+            [namespace code {sequence configure -pause 1}]
+   }
+   itk_component add continue {
+      button $w.continue -text Cont -width 6 -command \
+            [namespace code {sequence configure -pause 0; sequence next}]
+   }
+   itk_component add step {
+      button $w.step -text Step -width 6 -command \
+            [namespace code {sequence configure -pause 1; sequence next}]
+   }
+   itk_component add ocsrun {
+      button $w.ocsrun -text "OCS Run" -background red \
+            -command [itcl::code $this ocsrun] \
+            -activebackground red
+   } {
+      ignore -background -activebackground
+   }
+
+# The observe control buttons
+   itk_component add -private obslabel {
+      label $w.obslabel -text "Observe control:" -anchor e
+   }
+   itk_component add observe {
+      button $w.observe -text Observe -width 6 -command \
+            [namespace code {sequence configure -pause 1;\
+            sequence obsindex [sequence cget -current]}]
+   }
+   itk_component add stop {
+      button $w.stop -text Stop -width 6 \
+            -command [namespace code {sequence stopobs}]
+   }
+   itk_component add abort {
+      button $w.abort -text Abort -width 6 \
+            -command [namespace code {sequence abortobs}]
+   }
+   itk_component add opause {
+      button $w.opause -text Pause -width 6 \
+            -command [namespace code {sequence pauseobs}]
+   }
+   itk_component add ocontinue {
+      button $w.ocontinue -text Cont -width 6 \
+            -command [namespace code {sequence continueobs}]
+   }
+
+# Label for help string.
+   itk_component add help {
+      label $w.help -relief sunken -textvariable [itcl::scope helptext]
+   }
+
+# Create binding to display help when the pointer is over a control.
+   bind $itk_component(autolabel) <Enter> [list set [itcl::scope helptext] \
+         "Select to have DHS labels generated automatically"]
+   bind $itk_component(ignoretcs) <Enter> [list set [itcl::scope helptext] \
+         "Select to have the TCS in position status ignored"]
+   bind $itk_component(maxguidestep) <Enter> [list set [itcl::scope helptext] \
+         "Maximum telescope offset while continuing to guide"]
+   bind $itk_component(getstate) <Enter> [list set [itcl::scope helptext] \
+         "Configures the sequencer from the current state of the tcs"]
+   bind $itk_component(simtcs) <Enter> [list set [itcl::scope helptext] \
+         "Simulate TCS commands"]
+   bind $itk_component(simgcal) <Enter> [list set [itcl::scope helptext] \
+         "Simulate GCAL commands"]
+   bind $itk_component(simgpol) <Enter> [list set [itcl::scope helptext] \
+         "Simulate GPOL commands"]
+   bind $itk_component(simdhs) <Enter> [list set [itcl::scope helptext] \
+         "Simulate DHS commands"]
+   bind $itk_component(reload) <Enter> [list set [itcl::scope helptext] \
+         "Reload sequence definition"]
+   bind $itk_component(siminst) <Enter> [list set [itcl::scope helptext] \
+         "Simulate instrument commands"]
+   bind $itk_component(confall) <Enter> [list set [itcl::scope helptext] \
+         "Move telescope and configure all system to the nominated step"]
+   bind $itk_component(conftcs) <Enter> [list set [itcl::scope helptext] \
+         "Moves telescope to the nominated step"]
+   bind $itk_component(confgcal) <Enter> [list set [itcl::scope helptext] \
+         "Configure GCAL for the nominated step"]
+   bind $itk_component(confgpol) <Enter> [list set [itcl::scope helptext] \
+         "Configure GPOL for the nominated step"]
+   bind $itk_component(confinst) <Enter> [list set [itcl::scope helptext] \
+         "Configure the instrument for the nominated step"]
+   bind $itk_component(which) <Enter> [list set [itcl::scope helptext] \
+         "The step to which the Step and System Configuration buttons apply to"]
+   bind $itk_component(run) <Enter> [list set [itcl::scope helptext] \
+         "Runs the sequence from the first position"]
+   bind $itk_component(pause) <Enter> [list set [itcl::scope helptext] \
+         "Pauses the sequence after the next observe or telescope move"]
+   bind $itk_component(continue) <Enter> [list set [itcl::scope helptext] \
+         "Continues the sequence after it has been paused"]
+   bind $itk_component(ocsrun) <Enter> [list set [itcl::scope helptext] \
+         "Runs the sequence and updates the observing database"]
+   bind $itk_component(step) <Enter> [list set [itcl::scope helptext] \
+         "Executes the next observe or configure in the sequence pauses"]
+   bind $itk_component(observe) <Enter> [list set [itcl::scope helptext] \
+         "Sends an observe to the instrument"]
+   bind $itk_component(stop) <Enter> [list set [itcl::scope helptext] \
+         "Stops the current observation and readout data"]
+   bind $itk_component(abort) <Enter> [list set [itcl::scope helptext] \
+         "Aborts the current observation"]
+   bind $itk_component(opause) <Enter> [list set [itcl::scope helptext] \
+         "Pauses the current observation"]
+   bind $itk_component(ocontinue) <Enter> [list set [itcl::scope helptext] \
+         "Continues a paused observation"]
+
+# Clear the help when the pointer leaves.
+   bind $itk_component(options) <Leave> [list set [itcl::scope helptext] ""]
+   bind $itk_component(simstates) <Leave> [list set [itcl::scope helptext] ""]
+   bind $itk_component(buttons) <Leave> [list set [itcl::scope helptext] ""]
+   bind $itk_component(reload) <Leave> [list set [itcl::scope helptext] ""]
+   
+   grid  $itk_component(getstate) \
+         $itk_component(confframe) - - - - -padx 5 -pady 3 -sticky ew
+   grid  $itk_component(confall) $itk_component(conftcs) \
+         $itk_component(confgcal) $itk_component(confgpol) \
+         $itk_component(confinst) $itk_component(conflabel) \
+         $itk_component(which) -padx 5 -pady 3 -sticky ew
+   grid $itk_component(seqlabel) $itk_component(run) $itk_component(pause) \
+         $itk_component(continue) $itk_component(step) $itk_component(ocsrun) \
+         -padx 5 -pady 3 -sticky ew
+   grid $itk_component(obslabel) $itk_component(observe)  $itk_component(stop) \
+         $itk_component(abort) $itk_component(opause) \
+         $itk_component(ocontinue) -padx 5 -pady 3 -sticky ew
+   grid $itk_component(help) - - - - - -padx 5 -pady 3 -sticky ew
+
+#OCS-1 remove this line to enable the OCS Run button.
+   grid forget $itk_component(ocsrun)
+
+# Pack the frames etc.
+   grid $itk_component(message) -sticky ew
+   grid $itk_component(progress) -sticky nsew
+   grid $itk_component(options) -sticky ew
+   grid $itk_component(simrel) -sticky ew
+   grid $itk_component(tcsstate) -sticky ew
+   grid $itk_component(buttons) -sticky ew
+   grid rowconfigure $itk_interior 2 -weight 1
+   grid columnconfigure $itk_interior 0 -weight 1
+
+# empirical
+   $itk_component(progress) fraction 60 40
+
+
+# Create the one and only OCS session.
+#OCS-1 uncomment this line to enable the OCS-1 session queue.
+#   OcsSession ::ocssession sessionQueue
+
+# Connect the error reporting procedure.
+   set ::Sequence::errorproc [itcl::code $this errorproc]
+
+# Force loading of the real tcs class. If getgetstate fails (because not
+# all channels are connected) reschedule it after the widget has been created.
+   if { [catch {RealTcs::gettcsstate}] } {
+      after 1000 {RealTcs::gettcsstate}
+   }
+
+# Set up a trace on the the state array which updates the tcs state label.
+   trace variable ::RealTcs::tcsstartstate(oiwfsOn) w \
+         [itcl::code $this tcsstate]
+
+# Disable the buttons by defining sequence as a command that displays an
+# error dialog. When a sequence is successfully loaded this will be replaced
+# by the command that implements the sequence.
+   proc sequence {args} "[itcl::code $this nosequence] \$args"
+
+# Initialise and trace the global ocs flag.
+   set ::OcsEnable 0
+   trace variable ::OcsEnable w [itcl::code $this ocsenabletrace]
+
+# Create the SystemWidget popup now
+SystemWidget::withdrawWindow
+
+# Force the various class to be loaded so that their class common variables
+# are defined.
+   ::Step
+   ::Sequence
+   set preferences(beepstep) $::Step::beep
+   set preferences(beepsequence) $::Sequence::beep
+   set preferences(beeperror) $::SeqExec::beep   ;# redundant
+   set preferences(viewpopup) [$itk_component(proglist) cget -viewpopup]
+   set preferences(viewtree) [$itk_component(proglist) cget -viewtree]
+
+   eval itk_initialize $args
+}
+
+itcl::body SeqExec::pickfileseq {} {
+
+# Prompt for a file.
+   set file [tk_getOpenFile -defaultextension *.xml \
+         -filetypes {{{XML files} .xml } {{All files} * }}]
+
+   if { [string length $file] } {
+      getfileseq $file
+   }
+}
+
+itcl::body SeqExec::getfileseq { file } {
+
+# Open the file
+   set chanid [open $file RDONLY]
+
+# Read in the sequence
+   set seqsrc [read $chanid]
+
+# Log filename.
+   set name [file tail [file rootname $file]]
+   if { $debug } {
+      puts "Loaded $name from $file [clock format [clock seconds]]"
+   }
+
+# Close the file.
+   close $chanid
+
+# Load the sequence.
+   loadseq $seqsrc $name
+
+# Disable the OCS features
+   set ::OcsEnable 0
+   $itk_component(ocsrun) configure -state disabled
+
+# Save the file name.
+   set filename $file
+   set observeid ""
+   
+# Set the step to the first step
+   selstep 0
+   
+}
+
+itcl::body SeqExec::pickocsseq {} {
+
+# Create a dialog box for selecting the observation and center it.
+   set dialog  $itk_interior.ocsdialog
+   if { [winfo exists $dialog] } {
+      $dialog refresh
+   } else {
+      set dialog [ObsDialog $dialog -session ocssession \
+            -modality application -master $itk_interior]
+      $dialog center
+   }
+
+# Activate the dialog
+   if { [$dialog activate] } {
+
+# Get the obs id.
+      set obsid [$dialog get]
+
+# Load the sequence.
+      getocsseq $obsid
+   }
+}
+
+itcl::body SeqExec::getocsseq { obsid } {
+
+# Get the sequence.
+   if { [catch {set seqsrc [ocssession getSequence $obsid]} msg] } {
+
+# Display the error.
+      tk_messageBox -icon error -type ok -message $msg -parent $itk_interior
+   } else {
+
+# Load the sequence.
+      loadseq $seqsrc $obsid
+
+# Enable the "OCS Run" button.
+      $itk_component(ocsrun) configure -state normal
+
+# Set the state to not OCS mode (set when OCS run is pressed).
+      set ::OcsEnable 0
+
+# Disable the fields that are set from the sequence.
+      [$itk_component(header) component gemprgid] configure -state disabled
+      [$itk_component(header) component obsid] configure -state disabled
+
+# Save the observation id.
+      set observeid $obsid
+      set filename ""
+   }
+}
+
+itcl::body SeqExec::loadseq { seqsrc name } {
+
+   if { [string length $seqsrc] } {
+
+# Delete the current sequence.
+      catch {itcl::delete object sequence} msg
+      
+# Remove from canvas.
+      $itk_component(canvas) delete steps
+
+# Clear the progress list.
+      $itk_component(proglist) clear
+
+# Remove the "no sequence" error procedure"
+      if { [llength [info procs sequence]] } {
+         rename sequence {}
+      }
+
+# Try to create the sequence.
+      
+      SequenceFactory::getSequenceFromXml [namespace current]::sequence $seqsrc
+      
+      if { ! [string equal $Sequence::errormsg ""] } {
+
+# Display the error and delete the sequence.
+         tk_messageBox -icon error -type ok -message $Sequence::errormsg \
+               -parent $itk_interior
+         itcl::delete object sequence
+
+# Disable the buttons.
+         proc sequence {args} "[itcl::code $this nosequence] \$args"
+      
+      } else {
+
+# Enable the header fields that get set from the steps.
+         [$itk_component(header) component datalabel] configure -state normal
+         [$itk_component(header) component obstype] configure -state normal
+         [$itk_component(header) component object] configure -state normal
+
+# show view
+      if { [winfo exists .view.xml] } {
+         .view.xml configure -state normal
+         .view.xml delete 1.0 end
+         .view.xml insert end $seqsrc
+         .view.xml configure -state disabled
+      }
+      
+# Set the window title.
+         wm title . "seqexec ($name)"
+
+# verbose for the logs
+      if { $debug } {
+         puts "Loaded $name [clock format [clock seconds]]"
+         }
+         
+# Configure the maximum guide step and ignore tcs options of the sequence.
+         if { $maxguidestepval == "" } {
+            set maxguidestepval 0.0
+         }
+         sequence configure -maxguidestep $maxguidestepval \
+               -ignoretcs $ignoretcsval
+
+# Reset the selected step
+   $itk_component(which) config -text ""
+
+# Load the steps into the progess list.
+
+# Plot the steps on the canvas and load them into the progress list.
+         set pmax 0.0
+         set pmin 0.0
+         set qmax 0.0
+         set qmin 0.0
+         set lastp 0.0
+         set lastq 0.0
+
+
+         set idx 0
+         foreach step [sequence cget -steplist] {
+
+# Extract offsets and observe type and format for display.
+            set pq [sequence offset $step]
+            set p [lindex $pq 0]
+            if { ! [string equal "" $p] } {
+               set p [format %6.2f $p]
+            }
+            set q [lindex $pq 1]
+            if { ! [string equal "" $q] } {
+               set q [format %6.2f $q]
+            }
+            set obstype [sequence obstype $step]
+            if { ! [string equal "" $obstype] } {
+               set obstype [format %-10s $obstype]
+            }
+            
+            incr idx
+            
+# If p or q are blank then use the values from the previous step instead.
+            if { [string equal $p ""] } {
+               set p $lastp
+            }
+            set lastp $p
+            if { [string equal $q ""] } {
+               set q $lastp
+            }
+            set lastq $q
+
+# Plot on canvas.
+            $itk_component(canvas) create rectangle [expr {$p - 1}] \
+                  [expr {-1 - $q}] [expr {$p + 1}] [expr {1 - $q}] \
+                  -tags [list steps $step] -fill black -outline white
+            $itk_component(canvas) lower $this
+
+# Update the range variables.
+            if { $p < $pmin } {set pmin $p}
+            if { $p > $pmax } {set pmax $p}
+            if { $q < $qmin } {set qmin $q}
+            if { $q > $qmax } {set qmax $q}
+         }
+
+# Add the marker size to the limits.
+         set pmin [expr { $pmin - 3.0 }]
+         set pmax [expr { $pmax + 3.0 }]
+         set pmax [expr { $pmax > - $pmin ? $pmax : - $pmin }]
+         set qmin [expr { $qmin - 3.0 }]
+         set qmax [expr { $qmax + 3.0 }]
+         set qmax [expr { $qmax > - $qmin ? $qmax : - $qmin }]
+
+# Scale and shift the step markers on the canvas.
+         set w [$itk_component(canvas) cget -width]
+         set h [$itk_component(canvas) cget -height]
+         set pf [expr { ( $w - 50) / ( 2.0 * $pmax ) }]
+         set qf [expr { ( $h - 50) / ( 2.0 * $qmax ) }]
+         set f [expr { $pf < $qf ? $pf : $qf }]
+         $itk_component(canvas) scale steps 0.0 0.0 $f $f
+         $itk_component(canvas) move steps [expr { $w / 2.0 }] \
+               [expr { $h / 2.0 }]
+
+# Bring the center mark back to the top.
+         $itk_component(canvas) raise center
+      
+# Update the SequenceHierachyWidget.
+         $itk_component(proglist) configure -sequence [namespace current]::sequence
+
+# Reset the last step.
+         set laststep ""
+
+# Reset the data label.
+         set ::dhshdr::datalabel 001
+
+# Set class trace flags.
+         set RealTcs::trace $::Flags(tracetcs)
+         set RealGcal::trace $::Flags(tracegcal)
+         set RealGpol::trace $::Flags(tracegpol)
+      }
+   }
+}
+
+itcl::body SeqExec::movetopos {system} {
+   sequence configure -pause 1
+   if { [catch {sequence moveindex $selstepindex $system} msg] } {
+      alarmRaise
+      tk_messageBox -parent $itk_interior -message $msg -icon error -type ok
+      alarmShut
+   }
+}
+
+itcl::body SeqExec::maxguidestep {name1 name2 op} {
+   if { [llength [find objects sequence]] } {
+      if { $maxguidestepval != "" } {
+         sequence configure -maxguidestep $maxguidestepval
+      }
+   }
+}
+
+itcl::body SeqExec::ignoretcs {} {
+   if { [llength [find objects sequence]] } {
+      sequence configure -ignoretcs $ignoretcsval
+   }
+}
+
+itcl::body SeqExec::selstep {index} {
+   if { $index >= 0 } {
+      $itk_component(which) config -text\
+           [sequence shortdescription $index]
+      set selstepindex $index
+   }
+}
+
+itcl::body SeqExec::progress {name1 name2 op} {
+
+# Tracks the current step and highlights it in the progress list and on the
+# canvas.
+   $itk_component(proglist) highlight $::Sequence::current
+   set step [lindex [sequence cget -steplist] $::Sequence::current]
+   $itk_component(canvas) itemconfigure $step -fill yellow
+   $itk_component(canvas) raise $step
+   $itk_component(canvas) raise center
+
+# Restore the previously highlighted step.
+   if { $laststep != $step } {
+      $itk_component(canvas) itemconfigure $laststep -fill grey
+   }
+
+# Save the name of the last step.
+   set laststep $step
+}
+
+itcl::body SeqExec::errorproc {} {
+
+# Format the error message. If there is only one element in the list just
+# use that.
+   if { [llength $Sequence::errormsg] == 0 } {
+      set message "An unknown error occurred"
+   } elseif { [llength $Sequence::errormsg] == 1 } {
+      set message [lindex $Sequence::errormsg 0]
+   } else {
+      set message "The following errors occurred:"
+      foreach msg $Sequence::errormsg {
+         set message ${message}\n${msg}
+      }
+   }
+
+# verbose for the logs
+      if { $debug } {
+         puts "Sequence executor error [clock format [clock seconds]]: $message"
+         }
+
+   alarmRaise
+
+# Display the error message in a pop-up dialog.
+   tk_messageBox -icon error -parent $itk_interior \
+      -title "Sequence executor error" -type ok \
+      -message $message
+
+   alarmShut
+
+# Clear the error message.
+   set ::Sequence::errormsg ""
+}
+
+itcl::body SeqExec::view {} {
+
+# Creates a top level window that displays the source of the currently loaded
+# sequence.
+
+   if { ! [winfo exists .view] } {
+      toplevel .view
+      wm title .view "Sequence XML source"
+      iwidgets::scrolledtext .view.xml -wrap none
+      pack .view.xml -fill both -expand yes
+      .view.xml insert end $seqsrc
+      .view.xml configure -state disabled
+   }
+   wm deiconify .view
+}
+
+itcl::body SeqExec::nosequence {arglist} {
+
+# This method displays an error dialog saying that that there is no sequence
+# loaded.
+   if { [lindex $arglist 0] != "configure" } {
+      tk_messageBox -icon error -message "There is no sequence loaded" \
+         -parent $itk_interior -title "seqexec error" -type ok
+   }
+}
+
+itcl::body SeqExec::tcsstate {name1 name2 op} {
+
+# Add M1 ao info.
+  if { $RealTcs::tcsstartstate(m1GuideState) } {
+     set text "M1 ao from $RealTcs::tcsstartstate(m1GuideSource):"
+  } else {
+     set text "No M1 ao:"
+  }
+
+# Add M2 info.
+  if { $RealTcs::tcsstartstate(m2GuideState) } {
+     set text "  $text M2 tip/tilt from"
+     if { $RealTcs::tcsstartstate(m2p1Guide) } {
+        set text " $text PWFS1"
+     }
+     if { $RealTcs::tcsstartstate(m2p2Guide) } {
+        set text " $text PWFS2"
+     }
+     if { $RealTcs::tcsstartstate(m2oiGuide) } {
+        set text " $text OIWFS"
+     }
+     set test ${text}:
+  } else {
+     set text "$text  No M2 tip/tilt guiding:"
+  }
+
+# Add mount absorb info.
+  switch $RealTcs::tcsstartstate(absorbTipTilt) {
+     0 {
+        set text "$text  No absorb tip/tilt by mount"
+     }
+     3 {
+        set text "$text  Absorb tip/tilt from M2"
+     }
+     4 {
+        set text "$text  Guiding mount from PWFSs"
+     }
+  }
+  $itk_component(tcsstate) configure -text $text
+}
+
+itcl::body SeqExec::ocsrun {} {
+
+# Configure the sequence to run to completion.
+   sequence configure -pause 0
+
+# Disable the header fields that get set from the sequence steps.
+   [$itk_component(header) component datalabel] configure -state disabled
+   [$itk_component(header) component obstype] configure -state disabled
+   [$itk_component(header) component object] configure -state disabled
+
+# Set the ocsmode flag.
+   set ::OcsEnable 1
+
+# Move to the first step.
+   sequence moveindex 0
+}
+
+itcl::body SeqExec::ocsenabletrace {n1 n2 op} {
+   if { $::OcsEnable } {
+
+# Updating the OCS database is enabled so...
+
+# Disable the run and observe buttons.
+      $itk_component(run) configure -state disabled
+      $itk_component(ocsrun) configure -state disabled
+      $itk_component(observe) configure -state disabled
+
+# Set the step to the first step.
+      selstep 0
+  } else {
+
+# Enable everything again.
+      $itk_component(run) configure -state normal
+      $itk_component(ocsrun) configure -state normal
+      $itk_component(observe) configure -state normal
+  }
+}
+
+itcl::body SeqExec::dhsautotrace {n1 n2 op} {
+   if { $::dhshdr::autodhslabel } {
+      [$itk_component(header) component dhs] configure -state disabled
+   } else {
+      [$itk_component(header) component dhs] configure -state normal
+   }
+}
+
+itcl::body SeqExec::reload {} {
+
+# Reload the current sequence.
+   if { $filename != "" } {
+      getfileseq $filename
+   } elseif { $observeid != "" } {
+      getocsseq $observeid
+   }
+}
+
+itcl::body SeqExec::userpref {args} {
+   switch [lindex $args 0] {
+      "get" {
+         set preflist [lindex $args 1]
+         set rlist {}
+         foreach pref $preflist {
+            lappend rlist [set preferences($pref)]
+            }
+         return $rlist
+         }
+      "set" {
+         set preflist [lindex $args 1]
+         foreach pref $preflist {
+            set preferences([lindex $pref 0]) [lindex $pref 1]
+            }
+         set Step::beep $preferences(beepstep)
+         set Sequence::beep $preferences(beepsequence)
+         set SeqExec::beep $preferences(beeperror)
+         $itk_component(proglist) configure -viewpopup $preferences(viewpopup)
+         $itk_component(proglist) configure -viewtree  $preferences(viewtree)
+         }
+      }
+   }
+
+itcl::body SeqExec::alarmBg {} {
+   if {$alarmFlag} {
+      bell
+      if { $beep } {
+         after 1000 [itcl::code $this alarmBg]
+      }
+   }
+}
+
+itcl::body SeqExec::alarmRaise {} {
+   set alarmFlag 1
+   alarmBg
+}
+
+itcl::body SeqExec::alarmShut {} {
+   set alarmFlag 0
+   }
+

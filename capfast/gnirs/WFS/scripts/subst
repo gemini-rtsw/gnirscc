@@ -1,0 +1,13 @@
+#! /bin/sh
+
+#
+# This script is used by the Makefiles to make the following substitutions
+# to a text file:
+#
+# ". .applTop/config.par" is replaced by ". ${dir}/config.par"
+#
+#
+
+. .applTop/config.par
+
+sed -e 's;^\. \.applTop/config.par$;. '"${dir}/config.par"';g'

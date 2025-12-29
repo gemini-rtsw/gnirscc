@@ -1,0 +1,19 @@
+[symbol2]
+bbox 64 96 352 320
+uniq 512
+[tools]
+[attributes]
+p 80 128 100 768 1 set0:mech $(mech)Cool
+[layers]
+<symbol>
+l 100 4 0 208 256 tmpSadCool
+v 0 64 192
+352 192
+_
+v 0 64 320
+64 96
+352 96
+352 320
+64 320
+_
+[comments]

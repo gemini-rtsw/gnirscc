@@ -1,0 +1,19 @@
+#
+# This file contains site-specific information
+# 
+
+# Network stuff: Change to your default router if required
+routeAdd "0", "128.171.162.137"
+
+# Login stuff: If you use vxWorks security you might use one of the following
+# loginUserAdd "user", "GaRbAgEpWd"
+# < /usr/local/VxWorks/etc/passwd
+
+# Any other site-specific stuff
+
+#
+# Do the "nfsMount" here if you are using NFS
+#
+# nfsMount "<hostname>", "<Name of remote directory to mount>", "<Local device name>"
+
+cd "."

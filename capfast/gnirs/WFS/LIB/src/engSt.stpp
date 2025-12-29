@@ -1,0 +1,2058 @@
+/*INDENT-OFF*
+ *
+ *   FILENAME
+ *   --------
+ *   engSt.stpp
+ *
+ *   PURPOSE
+ *   -------
+ *   This file contains the EPICS state transition language program for
+ *   managing one axis of a multi axis mechanism in the CICS where each
+ *   axis can be managed independently (e.g. a detector translation table)
+ *
+ *   FUNCTION NAME(S)
+ *   ----------------
+ *   eng_ss      - Process commands for one axis of a multi-axis component
+ *
+ *   PROGRAM
+ *   --------
+ *   engSt
+ *
+ *   INVOCATION
+ *   -----------
+ *   Include the following line in the VxWorks startup script:
+ *
+ *   seq &engSt, "top=xxxx:cc:, sadtop=xxxx::cc:, eng=xxxx:eng:cc:, sys=sys, mech=trans"
+ *
+ *   PARAMETERS (all are input)
+ *   --------------------------
+ *      top      string    String to be substituted for the {top} macro
+ *                         used to for the top level name of the CICS
+ *                         EPICS database. The default value is "xxxx:"
+ *
+ *      sadtop   string    String to be substituted for the {sad} macro
+ *                         used for the name of the CICS Status/Alarm
+ *                         Database. The default value is "xxxx::"
+ *
+ *      eng      string    String to be substituted for the {eng} macro
+ *                         used for the name of the low-level engineering
+ *                         Functions. The default value is "xxxx:eng:cc:"
+ *
+ *      sys      string    String to be substituted for the {sys} macro
+ *                         used for the name of the CICS systemwide records.
+ *                         The default value is "sys".
+ *
+ *      mech     string    String to be substituted for the {mech} macro
+ *                         used for the mechanism name in the motor
+ *                         simulation database. The default value is "trans".
+ *
+ *   RETURN VALUE
+ *   ------------
+ *   N/A
+ *
+ *   GLOBALS
+ *   -------
+ *      EXTERNAL FUNCTIONS
+ *
+ *      This program makes use of the library functions included with the
+ *      EPICS state notation language (efTest, efClear, pvGet, pvPut, delay)
+ *
+ *      EXTERNAL VARIABLES
+ *
+ *      Several records in the CICS CAD, CAR, motor control and Status/Alarm
+ *      database are used as external variables. See the declarations in the
+ *      code for details
+ *
+ *   REQUIREMENTS
+ *   ------------
+ *   This program assumes that the EPICS database "cicsTop", has been
+ *   loaded, and that this databases contain records whose names match
+ *   those in the "assign" declarations below. If any changes are made to
+ *   the names of these records, the changes must also be reflected in
+ *   this program. Failure to do this will result in one or more channels
+ *   not connecting when the program is executed
+ *
+ *   The ordering of the arguments within each CAD record (A, B, C...) is
+ *   defined in the description of the interface between the CAD database
+ *   and its clients. Changes to that interface should be reflected in this
+ *   file.
+ *
+ *   The values of the constants DATUM_ON and DATUM_OFF depend on the
+ *   values expected by the binary input which switches the datum search
+ *   mode on and off in the motors database
+ *
+ *   LIMITATIONS
+ *   ------------
+ *   It is my intention eventually to use "option -c" to allow this program
+ *   to execute before all the connections are made. At the moment I have not
+ *   managed to get this option to work, so in the mean time having "init1"
+ *   and "init2" states may look superfluous. I am informed that the RGO
+ *   have not had any problems with "option -c".
+ *
+ *   The code in this file seems very monolithic, and I think it would be
+ *   easier to see the big picture if parts of it were contained in callable
+ *   functions. There are also several places where common code sequences
+ *   could be replaced by functions, the most notable being the state
+ *   "resetting", which exists merely to save duplication of the code for
+ *   the "init" action.
+ *
+ *   The setting of the "Parked" flag is something that would probably be
+ *   better off done in the EPICS database, since the park position is
+ *   contained in a lookup table readable by EPICS LUT records. I have not
+ *   implemented this yet.
+ *
+ *   STATE NAMES
+ *   -----------
+ *   All state names are used to track the progress of the snl code in
+ *   this module.  State names are arbitrary, with the following
+ *   special values.  All states that begin with follow_ are collectively
+ *   part of "follow mode," which is needed by the OIWFS to A&G interface.
+ *   States that end with _idle are idle states, which are useful for
+ *   determining that no mechanisms are in motion.
+ *
+ *   AUTHOR
+ *   ------
+ *   Steven Beard  (smb@roe.ac.uk)
+ *   Hubert Yamada  (yamada@newton.ifa.hawaii.edu)
+ *
+ *   HISTORY
+ *   -------
+ *
+ * $Log: engSt.stpp,v $
+ * Revision 1.2  2009/05/27 19:34:57  fkraemer
+ * fkraemer - copied my complete working dir over trunk
+ *
+ * Revision 1.17  2000/08/07 21:09:17  yamada
+ * Set limits on single-move operation and fixed a bug in one of the tests.
+ *
+ * Revision 1.16  1999/11/16 08:51:08  yamada
+ * Added support for 'present' variable.
+ *
+ * Revision 1.15  1999/11/16 07:39:19  yamada
+ * Added support for InToler.
+ *
+ * Revision 1.14  1999/11/16 06:06:56  yamada
+ * Can now set a different positioning error for each mechanism.
+ *
+ * Revision 1.13  1999/11/16 05:35:19  yamada
+ * Now displays the tracking error and attempts to compensate for the
+ * time to make the backlash correction.
+ *
+ * Revision 1.12  1999/11/15 22:53:13  yamada
+ * The error value is now the uncertainty in the positioning, not the
+ * servo error.
+ *
+ * Revision 1.11  1999/11/15 21:18:55  yamada
+ * Simplified the follow algorithm.  The health is now updated, even if
+ * the mechanism doesn't need to move.  Removed the index variables.
+ *
+ * Revision 1.10  1999/11/15 07:40:17  yamada
+ * The approximate error is now returned.
+ *
+ * Revision 1.9  1999/11/14 06:34:05  yamada
+ * Fixed a bug that caused the datumed flag to be cleared inadvertently
+ * if an operation is interrupted while the mechanism is waiting to move.
+ *
+ * Revision 1.8  1999/11/14 03:20:52  yamada
+ * Now updates the datumed flag if the datum operation is interrupted.
+ *
+ * Revision 1.7  1999/11/14 02:41:31  yamada
+ * Set the timeout to a reasonable value.
+ *
+ * Revision 1.6  1999/11/14 02:37:38  yamada
+ * Now, timeout sets a warning, but does not generate an ERR.
+ *
+ * Revision 1.5  1999/11/14 02:05:43  yamada
+ * Reformatted logs.
+ *
+ *
+ *   22-Jan-1997: Original version based on "comp1mSt.stpp".           (smb)
+ *   29-Jan-1997: Bug fix: Do not alter the "resetC" CAR record.      (smb)
+ *   13-Feb-1997: "reset" command removed. It has been replaced by
+ *                a master "datum" command.                           (smb)
+ *   26-May-1997: Modified for use by NIRI. Instead of activating
+ *                the CICS motor simulator the SNL activates the
+ *                NIRI drive mechanism. It also waits for the NIRI
+ *                mechanisms to stop before selecting a new position
+ *                or datuming from the "moving" state, and
+ *                recognises situation where the NIRI mechanisms are
+ *                commanded to find their datum by direct
+ *                intervention with the NIRI motor control and errors
+ *                reported by the NIRI mechanism control system.      (smb)
+ *   03-Jun-1997: Park position is now correctly obtained from the
+ *                database.                                           (smb)
+ * 
+ *INDENT-ON*
+ */
+
+program engSt("top=xxxx:cc:, sadtop=xxxx::cc:, eng=xxxx:eng:cc:, sys=sys, mech=trans")
+
+/*
+ * The following option is needed to make the code reentrant
+ */
+
+option +r;
+
+%%static char rcsid[]="$Id: engSt.stpp,v 1.2 2009/05/27 19:34:57 fkraemer Exp $";
+
+%%#include <stdlib.h>
+%%#include <stdioLib.h>
+%%#include <string.h>
+%%#include <time.h>
+%%#include <ctype.h>
+%%#include <devSup.h>
+%%#include <link.h>
+%%#include <stdarg.h>
+%%#include <limits.h>
+%%#include <timeLib.h>
+
+%%#include <cad.h>
+%%#include <car.h>
+
+#include <cicsConst.h>
+%%#include <compLib.h>
+%%#include <cicsLib.h>
+
+%%#include <recHallStep.h>
+
+/*
+ * Define DEBUG to enable extra print statements.
+ *
+ * WARNING:  This should NOT be enabled when this system is connected to
+ * the A&G system, because the A&G can send signals as fast as 20 Hz.
+ * We don't want all of these messages to be printed, even if the
+ * debug level is "FULL".
+ */
+
+/* #define DEBUG */
+
+/*
+ * The Engineering database uses the C convention that 0 is false,
+ * and anything else is true.  EPICS uses 0 to be true, and 1 to
+ * be false.
+ */
+
+#define HS_FALSE   0
+/* There is no HS_TRUE, because any non-false value is true */
+
+/*
+ * The following constant defines a time limit in seconds within which all
+ * movements should be carried out. Exceeding this limit will result in a
+ * timeout error. 300 seconds = 5 minutes.  This is rather excessive,
+ * but only a limited number of mechanisms may move at one time, and the
+ * datumming of the mechanisms is quite time consuming.
+ */
+
+#define TIMEOUT 300
+
+/*
+ * SUBSYSTEM COMMAND DECLARATIONS
+ *
+ * The following declarations assign the variables which are responsible
+ * for detecting the subsystem "init" command.
+ *
+ * (1) "long" variables are assigned to counters which are incremented
+ *     in the database whenever a successful START directive is detected.
+ *     The STOP directive is not monitored because it is rejected by the
+ *     "init" CAD record.
+ *
+ * (2) An event flag is synchronised with each "long" variable, so the
+ *     flag is triggered whenever the variable changes. The net result
+ *     is that an event flag is triggered whenever a command is started
+ *     or stopped in the outside world.
+ */
+
+long initStart;         /* START counter attached to init CAD record */
+assign initStart to "{top}{sys}InitP:st.VAL";
+monitor initStart;
+
+evflag initStartFlag;   /* Event flag triggered by changes to initStart */
+sync initStart initStartFlag;
+
+long initID;            /* Initialisation client ID */
+assign initID to "{top}init.OCID";
+
+/*
+ * MECHANISM COMMAND DECLARATIONS
+ *
+ * The following declarations assign the variables which are shared
+ * by several commands for the same mechanism.
+ */
+
+/*
+ * SNL MECHANISM COMMAND DECLARATIONS
+ *
+ * The following declarations assign the variables which are responsible
+ * for detecting "select mechanism" commands.
+ *
+ * (1) "long" variables are assigned to counters which are incremented
+ *     in the database whenever a successful START or STOP directive is
+ *     detected.
+ *
+ * (2) An event flag is synchronised with each "long" variable, so the
+ *     flag is triggered whenever the variable changes. The net result
+ *     is that an event flag is triggered whenever a command is started
+ *     or stopped in the outside world.
+ *
+ * (3) Variables are also assigned to the command arguments.
+ */
+
+long snlExec;       /* Counter to trigger ${mech} snl command */
+assign snlExec to "{top}{mech}SnlExec.VAL";
+monitor snlExec;
+
+evflag snlExecFlag; /* Event flag triggered by changes to snlExec */
+sync snlExec snlExecFlag;
+
+long snlID;          /* Select mechanism client ID */
+assign snlID to "{top}{mech}SnlID.VAL";
+
+string snlArg;       /* Command-specific argument 1 */
+assign snlArg to "{top}{mech}SnlArg.VAL";
+
+#define OP_SELECT   (1)
+#define OP_PARK     (2)
+#define OP_ENG_MOVE (3)
+#define OP_DIAG     (4)
+#define OP_RDTM     (5)
+#define OP_DATUM    (6)
+#define OP_STOP     (7)
+#define OP_FOLLOW   (8)
+
+short snlOp;            /* Operation code */
+assign snlOp to "{top}{mech}SnlOp.VAL";
+monitor snlOp;
+
+/*
+ * ICD14: Add variable assignments to the CAD records of new mechanism
+ * commands here. Use the name suite of variables as defined for "move"
+ * above.
+ */
+
+/*
+ * CAR AND SIR RECORD DECLARATIONS
+ *
+ * The following declarations assign variables to records in the Status/Alarm
+ * database, which are monitored by the outside world.
+ */
+
+long initCARin;          /* Input to the initC CAR record */
+assign initCARin to "{top}initC.IVAL";
+
+long initCARID;          /* Client ID input to the initC CAR record */
+assign initCARID to "{top}initID.VAL";
+
+long initCARerrin;       /* Error input to the initC CAR record */
+assign initCARerrin to "{top}initC.IERR";
+
+string initCARmessin;    /* Message input to the initC CAR record */
+assign initCARmessin to "{top}initC.IMSS";
+
+long compCARin;        /* Input to the {mech}C CAR record */
+assign compCARin to "{top}{mech}C.IVAL";
+
+long compCARID;        /* Client ID input to the ${mech}C CAR record */
+assign compCARID to "{top}{mech}ID.VAL";
+
+long compCARerrin;     /* Error input to the ${mech}C CAR record */
+assign compCARerrin to "{top}{mech}C.IERR";
+
+string compCARmessin;  /* Message input to the ${mech}C CAR record */
+assign compCARmessin to "{top}{mech}C.IMSS";
+
+string compState;      /* Mechanism state SIR record for this axis */
+assign compState to "{sadtop}{mech}State.VAL";
+
+string compHealthVal;     /* Mechanism health string record for this axis */
+assign compHealthVal to "{sadtop}{mech}SnlHealth.VAL";
+
+string compHealthMess; /* Mechanism health mechanism for this axis */
+assign compHealthMess to "{sadtop}{mech}SnlHealth.IMSS";
+
+short compDatumed;     /* Flag set when this axis of mechanism datumed */
+assign compDatumed to "{sadtop}{mech}Datumed.VAL";
+
+string compLabel;      /* Component label */
+assign compLabel to "{sadtop}{mech}Label.FDSC";
+
+/*
+ * NIRI DATABASE DECLARATIONS
+ *
+ * The following declarations assign variables to the NIRI motor control
+ * database, which comes below this state notation code.
+ */
+
+short engCancel;       /* Binary record to enable mechanism movement */
+assign engCancel to "{eng}{mech}Stop.VAL";
+
+short engOp;           /* Hall step record operation */
+assign engOp to "{eng}{mech}Op.VAL";
+
+long engDemand;        /* Mechanism demand position */
+assign engDemand to "{eng}{mech}MoveTo.VAL";
+
+string engSelect;        /* Mechanism snl position */
+assign engSelect to "{eng}{mech}Select.VAL";
+
+#define SELECT_DISABLED (0)
+
+long engCanSelect;
+assign engCanSelect to "{eng}{mech}CmdVMove.DISV";
+
+long engCanMove;
+
+long engCurrent;       /* Mechanism current position */
+assign engCurrent to "{eng}{mech}Mpos.VAL";
+
+short engBusy;         /* Binary field to show when mechanism is moving */
+assign engBusy to "{eng}{mech}Busy.VAL";
+monitor engBusy;
+
+short engDatm;     /* Binary field to show when mechanism is datumed */
+assign engDatm to "{eng}{mech}Hallstep.DATM";
+monitor engDatm;
+
+long engDoneStatus;    /* Operation completion status for mechanism */
+assign engDoneStatus to "{eng}{mech}Done.VAL";
+
+string engDoneMess;    /* Operation completion message for mechanism */
+assign engDoneMess to "{eng}{mech}Hallstep.MESS";
+
+long engMin;           /* Minimum engineering location */
+assign engMin to "{eng}{mech}Hallstep.LOPR";
+
+long engMax;           /* Maximum engineering location */
+assign engMax to "{eng}{mech}Hallstep.HOPR";
+
+long engBlsh;
+assign engBlsh to "{eng}{mech}Hallstep.BLSH";
+
+long engSpeed;
+assign engSpeed to "{eng}{mech}Motor.VELO";
+
+long engUncert;
+assign engUncert to "{eng}{mech}Uncert.VAL";
+
+/*
+ * THE A&G INTERFACE (FOLLOW COMMAND)
+ *
+ * The following declarations assign variables which are needed to
+ * implement the follow command.
+ */
+
+double agTAppl1;
+assign agTAppl1 to "{top}{mech}AgTAppl1";
+
+double agTarget;
+assign agTarget to "{top}{mech}AgTarget";
+
+double agTAppl2;
+assign agTAppl2 to "{top}{mech}AgTAppl2";
+monitor agTAppl2;
+
+evflag agTAppl2Flag; /* Event flag triggered by changes to agTAppl2 */
+sync agTAppl2 agTAppl2Flag;
+
+long agCheck;
+assign agCheck to "{top}{mech}AgCheck";
+monitor agCheck;
+
+evflag agCheckFlag; /* Event flag triggered by changes to update */
+sync agCheck agCheckFlag;
+
+long agThresh;
+assign agThresh to "{top}{mech}AgThresh";
+
+double agErr;
+assign agErr to "{top}{mech}AgErr";
+
+double agEngDiff;
+assign agEngDiff to "{sadtop}{mech}AgEngDiff";
+
+long agOut;
+assign agOut to "{top}{mech}AgOut";
+
+long engTol;
+assign engTol to "{top}{mech}EngTol";
+
+long inToler;
+assign inToler to "{sadtop}{mech}InToler";
+
+double agUpdate;
+long agDoUpdate;
+
+#define AG_NPOINTS 3
+double agTimeList[AG_NPOINTS];
+double agTargetList[AG_NPOINTS];
+int agTop;
+int agCount;
+
+/*
+ * Function prototypes
+ */
+
+%{
+
+static void cmdReceived(SS_ID, struct UserVar *, int, int);
+static void opBusy(SS_ID, struct UserVar *, int, int, int);
+static void opExecute(SS_ID, struct UserVar *, int, int);
+static void stopExecute(SS_ID, struct UserVar *, int);
+static void stopIgnore(SS_ID, struct UserVar *);
+static void unexpectedMove(SS_ID, struct UserVar *, int, int);
+static void setState(SS_ID, struct UserVar *, int, const char []);
+static int calcDest(SS_ID, struct UserVar *, int, int, double *, double);
+
+}%
+
+/* ===================================================================== */
+
+/*+
+ *   Function name:
+ *   State set "eng_ss"
+ *
+ *   Purpose:
+ *   Manage mechanism operations
+ *
+ *   This state set initializes the system. It then monitors the CAD records
+ *   and triggers appropriate actions in the motor simulation database.
+ *
+ *   Invocation:
+ *   Invoked automatically when sequence program "engSt" started
+ *
+ *   Parameters: (">" input, "!" modified, "<" output)
+ *   None
+ *
+ *   Return value:
+ *   N/A
+ *
+ *   External functions:
+ *   EPICS sequencer functions used are
+ *   efClear    - Clear event flag
+ *   efTest     - Test event flag
+ *   pvGet      - Get a process variable
+ *   pvPut      - Put a process variable
+ *   delay      - Wait for a specified length of time
+ *
+ *   External variables:
+ *   See definitions above
+ *
+ *   Requirements:
+ *   Same as requirements for program "engSt"
+ *
+ *   Limitations:
+ *   Same as limitations for program "engSt"
+ *
+ *-
+ */
+
+ss eng_ss {
+	/*******************************************************************
+	 * state init1 - This is the state the eng_ss state set
+	 * begins in when it first starts running. Its purpose is just to
+	 * issue a message indicating that the CICS state notation code
+	 * has started. Execution then passes immediately to state init2.
+	 *******************************************************************/
+
+	state init1 {
+		when () {
+			/*
+			 * The initialization messages have been commented out
+			 * because they cluttered up the console screen. They
+			 * can be reinstated for system tests.
+			 */
+
+			/* cicsLogFmt(CICS_DB_LOG, "Component {mech} connecting..."); */
+		} state init2
+	}
+
+	/*********************************************************************
+	 * state init2 - In this state eng_ss carries out all the
+	 * initialization which is necessary before commands can be executed.
+	 *********************************************************************/
+
+	state init2 {
+		/*
+		 * Wait until all the appropriate connections have been made.
+		 */
+
+		when (pvConnectCount() == pvChannelCount()) {
+			/*
+			 * Set the initial component state and health.
+			 */
+
+			setState(ssId, pVar, pvIndex(compState), "INITIALIZING");
+
+			strcpy(compHealthVal, "GOOD");
+			pvPut(compHealthVal);
+
+			strcpy(compHealthMess, "");
+			pvPut(compHealthMess);
+
+			/*
+			 * Initialise the mechanism flags in the Status/Alarm database
+			 */
+
+			compDatumed = EPICS_FALSE;
+			pvPut(compDatumed);
+
+			/***********************************************************
+			 * Here I will include other housekeeping actions, such as
+			 * reading lookup tables from a file.
+			 ***********************************************************/
+
+			/*
+			 * Obtain the label for the component
+			 */
+
+			pvGet(compLabel);
+
+			/*
+			 * Ensure the event flags to be monitored later are
+			 * initially cleared.
+			 */
+
+			efClear(initStartFlag);
+			efClear(snlExecFlag);
+			efClear(agTAppl2Flag);
+
+			/*
+			 * Initialisation complete, so set the mechanism state.
+			 */
+
+			setState(ssId, pVar, pvIndex(compState), "NOT DATUMED+IDLE");
+
+			/*
+			 * Jump to the "not_datumed_idle" state because the mechanism
+			 * is assumed to use either incremental encoders or
+			 * movement by dead reckoning.  If the mechanism used
+			 * absolute encoders you could jump straight to the "idle"
+			 * state from here.
+			 */
+		} state not_datumed_idle
+	}
+
+	/******************************************************************
+	 * state not_datumed_idle - This is the first state after initialization
+	 * for mechanisms which have incremental encoders, or which are
+	 * moved by dead reckoning, and hence need to be datumed before
+	 * they can be positioned.  This state might also be entered if
+	 * the position of the mechanism is lost for any reason.
+	 ******************************************************************/
+
+	state not_datumed_idle {
+		/*
+		 * Wait until an event flag is triggered indicating when a
+		 * CAD record has been activated.
+		 */
+
+		when (efTest(snlExecFlag) && snlOp == OP_DATUM) {
+			efClear(snlExecFlag);
+			cmdReceived(ssId, pVar, pvIndex(snlID), pvIndex(snlOp));
+			opBusy(ssId, pVar, pvIndex(compCARID), pvIndex(compCARin), snlID);
+			setState(ssId, pVar, pvIndex(compState), "STARTING DATUM");
+		} state starting_datum
+
+		when (efTest(snlExecFlag) && snlOp == OP_FOLLOW) {
+			efClear(snlExecFlag);
+			cmdReceived(ssId, pVar, pvIndex(snlID), pvIndex(snlOp));
+			opBusy(ssId, pVar, pvIndex(compCARID), pvIndex(compCARin), snlID);
+			setState(ssId, pVar, pvIndex(compState), "FOLLOW+INIT");
+		} state follow_init
+
+		when (efTest(snlExecFlag) && snlOp == OP_STOP) {
+			efClear(snlExecFlag);
+			cmdReceived(ssId, pVar, pvIndex(snlID), pvIndex(snlOp));
+			stopIgnore(ssId, pVar);
+		} state not_datumed_idle
+
+		when (efTest(snlExecFlag) && snlOp != OP_FOLLOW
+				&& snlOp != OP_DATUM && snlOp != OP_STOP) {
+			efClear(snlExecFlag);
+			cmdReceived(ssId, pVar, pvIndex(snlID), pvIndex(snlOp));
+		} state reject_not_datumed
+
+		/****************************************************************
+		 * ICD14: Add "when" statements to check for new commands here.
+		 * Use the same event flag test used for move above.
+		 ****************************************************************/
+
+		/****************************************************************
+		 * Change state according to the status of the mechanism control
+		 * flags
+		 ****************************************************************/
+
+		/*
+		 * This is a really weird situation in which the mechanism
+		 * has started moving when it has not been commanded to, and while
+		 * it has still not yet been datumed. The best the SNL can do is
+		 * guess that an operation has been commanded by direct poking
+		 * of the motor control database.
+		 *
+		 * Unfortunately, when the mechanism finishes moving, it will report
+		 * that the position was 'lost spontaneously.'  The error message
+		 * is spurious, but difficult to avoid, without duplicating
+		 * the 'moving' state.
+		 */
+
+		when (engBusy) {
+			unexpectedMove(ssId, pVar, pvIndex(compCARID), pvIndex(compCARin));
+			setState(ssId, pVar, pvIndex(compState), "MOVING");
+		} state moving
+
+		/*
+		 * This is a really weird situation where, by some external
+		 * action, the motor controller suddenly decides it knows where
+		 * the datum is. A datum search is no longer necessary, so go
+		 * directly to the "idle" state.
+		 */
+
+		when (engDatm) {
+			cicsLogFmt(CICS_DB_LOG,
+				"%s INFO: Mechanism position found spontaneously!", compLabel);
+
+			/*
+			 * Update the datumed flag in the status alarm database.
+			 */
+
+			compDatumed = EPICS_TRUE;
+			pvPut(compDatumed);
+
+			setState(ssId, pVar, pvIndex(compState), "READY+IDLE");
+		} state ready_idle
+
+		/*
+		 * The init command will cause the mechanism to reset and reinitialize.
+		 */
+
+		when (efTestAndClear(initStartFlag)) {
+		} state resetting
+	}
+
+	/********************************************************************
+	 * state reject_not_datumed - This state is entered whenever the
+	 * mechanism receives a positioning command while it is in the
+	 * not_datumed_idle state.  The command should have been rejected, but
+	 * since we somehow received it, we generate an error, and return
+	 * to the not_datumed_idle state.
+	 ********************************************************************/
+
+	state reject_not_datumed {
+		when () {
+			cicsLogFmt(CICS_DB_ERROR, "%s ERROR: Cannot move until datumed",
+				compLabel);
+
+			compCARerrin = FAIL;
+			pvPut(compCARerrin);
+
+			strcpy(compCARmessin, "Cannot move until datumed");
+			pvPut(compCARmessin);
+
+			compCARin = CAR_ERROR;
+			pvPut(compCARin);
+		} state not_datumed_idle
+	}
+
+	/********************************************************************
+	 * state finding_datum - This state is only used for
+	 * mechanisms which have incremental encoders, or which are moved by
+	 * dead reckoning, and hence need to be datumed before they can be
+	 * positioned. The state is entered when the mechanism is in the
+	 * process of finding its datum.
+	 ********************************************************************/
+
+	state finding_datum {
+		/*
+		 * Datum search completes when the mechanism stops moving and the
+		 * "datumed" flag is set.
+		 */
+
+		when (!engBusy && engDatm) {
+			cicsLogFmt(CICS_DB_MIN, "%s: Datum found.",
+				compLabel);
+
+			/*
+			 * Set the "mechanism datumed" flag true in the Status/Alarm
+			 * database.
+			 */
+
+			compDatumed = EPICS_TRUE;
+			pvPut(compDatumed);
+
+			/*
+			 * Send an "idle" or "error" event to the mechanism CAR
+			 * record, depending on the status reported by the mechanism.
+			 * No new client ID is specified, so the old client ID will
+			 * be preserved in the mechanism CAR record.
+			 */
+
+			pvGet(engDoneStatus);
+
+			if (engDoneStatus == 0) {
+				cicsLogFmt(CICS_DB_FULL, "%s: Motor control successful.",
+					compLabel);
+
+				compCARin = CAR_IDLE;
+				pvPut(compCARin);
+			} else {
+				compCARerrin = FAIL;
+				pvPut(compCARerrin);
+
+				pvGet(engDoneMess);
+				strcpy(compCARmessin, engDoneMess);
+				pvPut(compCARmessin);
+
+				compCARin = CAR_ERROR;
+				pvPut(compCARin);
+
+				cicsLogFmt(CICS_DB_ERROR, "%s ERROR: %s.",
+					compLabel, engDoneMess);
+			}
+
+			/*
+			 * Ensure the engBusy flag is FALSE so that the next
+			 * change in state will be triggered by a FALSE to TRUE
+			 * transition.
+			 */
+
+			engBusy = HS_FALSE;
+
+			/*
+			 * Switch to the "idle" state next.
+			 */
+
+			setState(ssId, pVar, pvIndex(compState), "READY+IDLE");
+		} state ready_idle
+
+		/*
+		 * Datum search stops prematurely if the mechanism stops
+		 * moving and the "datumed" flag is not set.
+		 */
+
+		when (!engBusy && !engDatm) {
+			cicsLogFmt(CICS_DB_MIN, "%s: Datum search stopped.", compLabel);
+
+			/*
+			 * Clear the "mechanism datumed" flag true in the Status/Alarm
+			 * database.
+			 */
+
+			compDatumed = EPICS_FALSE;
+			pvPut(compDatumed);
+
+			/*
+			 * Send an "idle" or "error" event to the mechanism CAR
+			 * record, depending on the status reported by the mechanism. No
+			 * new client ID is specified, so the old client ID will be
+			 * preserved in the mechanism CAR record.
+			 */
+
+			pvGet(engDoneStatus);
+
+			if (engDoneStatus == 0) {
+				cicsLogFmt(CICS_DB_FULL,
+					"%s: Motor control successful.", compLabel);
+
+				compCARin = CAR_IDLE;
+				pvPut(compCARin);
+
+				strcpy(compCARmessin, "Datum search stopped");
+				pvPut(compCARmessin);
+			} else {
+				compCARerrin = FAIL;
+				pvPut(compCARerrin);
+
+				pvGet(engDoneMess);
+				strcpy(compCARmessin, engDoneMess);
+				pvPut(compCARmessin);
+
+				compCARin = CAR_ERROR;
+				pvPut(compCARin);
+
+				cicsLogFmt(CICS_DB_ERROR, "%s ERROR: %s.",
+					compLabel, engDoneMess);
+			}
+
+			/*
+			 * Ensure the engBusy flag is FALSE so that the next change
+			 * in state will be triggered by a FALSE to TRUE transition.
+			 */
+
+			engBusy = HS_FALSE;
+
+			/*
+			 * Switch back to the "not_datumed_idle" state next.
+			 */
+
+			setState(ssId, pVar, pvIndex(compState), "NOT DATUMED+IDLE");
+		} state not_datumed_idle
+
+		/*
+		 * Got another datum command, while the previous datum command
+		 * was being processed.  This command will have no effect
+		 * because the datum search is already in progress.
+		 */
+
+		when (efTest(snlExecFlag) && snlOp == OP_DATUM) {
+			efClear(snlExecFlag);
+			cmdReceived(ssId, pVar, pvIndex(snlID), pvIndex(snlOp));
+			cicsLogFmt(CICS_DB_LOG,
+				"%s INFO: Datum search already in progress.", compLabel);
+			opBusy(ssId, pVar, pvIndex(compCARID), pvIndex(compCARin), snlID);
+		} state finding_datum
+
+		/*
+		 * Wait until an event flag is triggered indicating when a
+		 * stop CAD directive has been activated.
+		 */
+
+		when (efTest(snlExecFlag) && snlOp == OP_STOP) {
+			efClear(snlExecFlag);
+			cmdReceived(ssId, pVar, pvIndex(snlID), pvIndex(snlOp));
+			stopExecute(ssId, pVar, pvIndex(engCancel));
+
+			/*
+			 * Carry on with the "finding_datum" state. This will
+			 * quickly switch back to the "not_datumed_idle" state when the
+			 * mechanism stops moving.
+			 */
+		} state finding_datum
+
+		/*
+		 * Wait until an event flag is triggered indicating when a
+		 * move CAD record has been activated.
+		 *
+		 * It is not possible to position the mechanism until the datum
+		 * search has finished. The command should have been rejected.
+		 */
+
+		when (efTest(snlExecFlag) && snlOp != OP_FOLLOW
+				&& snlOp != OP_DATUM && snlOp != OP_STOP) {
+			efClear(snlExecFlag);
+			cmdReceived(ssId, pVar, pvIndex(snlID), pvIndex(snlOp));
+			cicsLogFmt(CICS_DB_ERROR,
+				"%s ERROR: Cannot move until datum search finishes.",
+				compLabel);
+		} state finding_datum
+
+		/******************************************************************
+		 * ICD14: Add "when" statements to check for new commands here.
+		 * Use the same event flag test used for move above.
+		 ******************************************************************/
+
+		/*
+		 * The init command will cause the mechanism to reset and
+		 * reinitialize.
+		 */
+
+		when (efTestAndClear(initStartFlag)) {
+		} state resetting
+	}
+
+	/*********************************************************************
+	 * state ready_idle - This is the first state after initialization for
+	 * mechanisms which have absolute encoders. It is entered for other
+	 * types of mechanism after the datum has been successfully found
+	 * and the coordinate system established.
+	 **************************************************************************/
+
+	state ready_idle {
+		/*
+		 * Wait until an event flag is triggered indicating when a CAD record
+		 * has been activated.  Perform the appropriate setup with the
+		 * CAD record, and print a descriptive message, then switch to
+		 * the "starting" state, to actually execute the command.
+		 */
+
+		when (efTest(snlExecFlag) && snlOp == OP_DATUM) {
+			efClear(snlExecFlag);
+			cmdReceived(ssId, pVar, pvIndex(snlID), pvIndex(snlOp));
+			opBusy(ssId, pVar, pvIndex(compCARID), pvIndex(compCARin), snlID);
+			setState(ssId, pVar, pvIndex(compState), "STARTING DATUM");
+		} state starting_datum
+
+		when (efTest(snlExecFlag) && snlOp == OP_STOP) {
+			efClear(snlExecFlag);
+			cmdReceived(ssId, pVar, pvIndex(snlID), pvIndex(snlOp));
+			stopIgnore(ssId, pVar);
+		} state ready_idle
+
+		when (efTest(snlExecFlag) && snlOp == OP_FOLLOW) {
+			efClear(snlExecFlag);
+			cmdReceived(ssId, pVar, pvIndex(snlID), pvIndex(snlOp));
+			opBusy(ssId, pVar, pvIndex(compCARID), pvIndex(compCARin), snlID);
+			setState(ssId, pVar, pvIndex(compState), "FOLLOW+INIT");
+		} state follow_init
+
+		when (efTest(snlExecFlag) && snlOp != OP_DATUM && snlOp != OP_STOP
+				&& snlOp != OP_FOLLOW) {
+			efClear(snlExecFlag);
+			cmdReceived(ssId, pVar, pvIndex(snlID), pvIndex(snlOp));
+			opBusy(ssId, pVar, pvIndex(compCARID), pvIndex(compCARin), snlID);
+			setState(ssId, pVar, pvIndex(compState), "STARTING SNL");
+		} state starting_snl
+
+		/**************************************************************
+		 * Change state according to the status of the mechanism
+		 * control flags.
+		 **************************************************************/
+
+		/*
+		 * This is a really weird situation in which the mechanism
+		 * has started moving when it has not been commanded to.
+		 * The best the SNL can do is guess that some operation has been
+		 * commanded by direct poking of the motor control database.
+		 */
+
+		when (engBusy) {
+			unexpectedMove(ssId, pVar, pvIndex(compCARID), pvIndex(compCARin));
+			setState(ssId, pVar, pvIndex(compState), "MOVING");
+		} state moving
+
+		/*
+		 * Whenever there is a loss of mechanism position the controller should
+		 * return to the "not_datumed_idle" state.
+		 */
+
+		when (!engDatm) {
+			cicsLogFmt(CICS_DB_ERROR,
+				"%s ERROR: Mechanism position unknown or lost spontaneously.",
+					compLabel);
+
+			/*
+			 * Update the datumed flag in the status alarm database.
+			 */
+
+			compDatumed = EPICS_FALSE;
+			pvPut(compDatumed);
+
+			setState(ssId, pVar, pvIndex(compState), "NOT DATUMED+IDLE");
+		} state not_datumed_idle
+
+		/**************************************************************
+		 * The init command will cause the mechanism to reset and
+		 * reinitialize.
+		 **************************************************************/
+
+		when (efTestAndClear(initStartFlag)) {
+		} state resetting
+	}
+
+	/***********************************************************************
+	 * state moving - This state is entered when the mechanism is moving to
+	 * a demanded location.
+	 ***********************************************************************/
+
+	/*
+	 * Wait until an event flag is triggered indicating when a CAD
+	 * record has been activated. Incoming commands do not change the
+	 * current state directly, but the state will change when the
+	 * commands cause the "compDatumed" and "engBusy" flags to
+	 * change.
+	 */
+
+	state moving {
+		/********************************************************************
+		 * A "datum", "move", "redatum", or "diagnose" command has been
+		 * received while the mechanism is still moving.  The mechanism
+		 * must first be stopped. The start flag is _not_ cleared yet
+		 * because it will be tested later.
+		 ********************************************************************/
+
+		when (efTest(snlExecFlag) && snlOp != OP_STOP) {
+			cmdReceived(ssId, pVar, pvIndex(snlID), pvIndex(snlOp));
+			cicsLogFmt(CICS_DB_LOG, "%s INFO: Current movement abandoned.",
+				compLabel);
+			opBusy(ssId, pVar, pvIndex(compCARID), pvIndex(compCARin), snlID);
+			stopExecute(ssId, pVar, pvIndex(engCancel));
+			setState(ssId, pVar, pvIndex(compState), "STOPPING");
+		} state stopping
+
+		/*
+		 * Note that after stopping the mechanism, this action will leave
+		 * the system in the "moving" state. This will quickly
+		 * switch back to the "idle" state when the mechanism stops
+		 * moving.
+		 */
+
+		when (efTest(snlExecFlag) && snlOp == OP_STOP) {
+			efClear(snlExecFlag);
+			cmdReceived(ssId, pVar, pvIndex(snlID), pvIndex(snlOp));
+			stopExecute(ssId, pVar, pvIndex(engCancel));
+		} state moving
+
+		/********************************************************************
+		 * Motion completed successfully.
+		 ********************************************************************/
+
+		when (!engBusy) {
+			cicsLogFmt(CICS_DB_MIN,
+				"%s: Mechanism stopped moving.", compLabel);
+
+			/*
+			 * BUG WORK AROUND: There appears to be a problem in which
+			 * the variable engCurrent reports an incorrect value. This
+			 * is due to a timing problem in the NIRI mechanism control
+			 * and is worked around by waiting 300ms after engBusy has
+			 * gone FALSE before attempting to read engCurrent.
+			 */
+
+			%{
+				{
+					struct timespec ts;
+					ts.tv_sec = 0;
+					ts.tv_nsec = 300000000;
+					nanosleep(&ts, NULL);   /* Wait for 300 milliseconds */
+				}
+			}%
+
+			/*
+			 * Send an "idle" or "error" event to the mechanism CAR
+			 * record, depending on the status reported by the
+			 * mechanism. No new client ID is specified, so the old
+			 * client ID will be preserved in the mechanism CAR record.
+			 */
+
+			pvGet(engDoneStatus);
+
+			if (engDoneStatus == 0) {
+				cicsLogFmt(CICS_DB_FULL, "%s: Motor control successful.",
+					compLabel);
+
+				compCARin = CAR_IDLE;
+				pvPut(compCARin);
+			} else {
+				compCARerrin = FAIL;
+				pvPut(compCARerrin);
+
+				pvGet(engDoneMess);
+				strcpy(compCARmessin, engDoneMess);
+				pvPut(compCARmessin);
+
+				compCARin = CAR_ERROR;
+				pvPut(compCARin);
+
+				cicsLogFmt(CICS_DB_ERROR, "%s ERROR: %s.",
+					compLabel, engDoneMess);
+			}
+
+			/* 
+			 * All warning messages are dynamic.  When the motion
+			 * completes, warnings should be cleared.
+			 */
+
+			strcpy(compHealthVal, "GOOD");
+			pvPut(compHealthVal);
+
+			strcpy(compHealthMess, "");
+			pvPut(compHealthMess);
+
+			/*
+			 * Switch to the "idle" state.
+			 */
+
+			setState(ssId, pVar, pvIndex(compState), "READY+IDLE");
+		} state ready_idle
+
+		/********************************************************************
+		 * Motion timed out.
+		 ********************************************************************/
+
+		when (delay(TIMEOUT)) {
+			cicsLogFmt(CICS_DB_ERROR,
+				"%s ERROR: Movement timed out - still trying.", compLabel);
+
+			/*
+			 * Since an error has occurred from which recovery is
+			 * possible, the health of the mechanism changes to WARNING.
+			 */
+
+			strcpy(compHealthVal, "WARNING");
+			pvPut(compHealthVal);
+
+			strcpy(compHealthMess, "Timed out (moving)");
+			pvPut(compHealthMess);
+
+			/*
+			 * Continue in the "moving" state and wait for the operator
+			 * to do something.
+			 */
+		} state moving
+
+		/********************************************************************
+		 * The init command will cause the mechanism to reset and reinitialize.
+		 ********************************************************************/
+
+		when (efTestAndClear(initStartFlag)) {
+		} state resetting
+	}
+
+	/***********************************************************************
+	 * state stopping - This state is entered when the mechanism is stopping
+	 * when a move has been interrupted by a new command.
+	 ***********************************************************************/
+
+	state stopping {
+		/*
+		 * Wait until the mechanism stops moving, then start whichever
+		 * command terminated the previous command.
+		 */
+
+		when (!engBusy && efTest(snlExecFlag) && snlOp == OP_DATUM) {
+			efClear(snlExecFlag);
+			cicsLogFmt(CICS_DB_MIN,
+				"%s: Mechanism stopped moving.", compLabel);
+			setState(ssId, pVar, pvIndex(compState), "STARTING DATUM");
+		} state starting_datum
+
+		when (!engBusy && efTest(snlExecFlag) && snlOp == OP_FOLLOW) {
+			efClear(snlExecFlag);
+			cicsLogFmt(CICS_DB_MIN,
+				"%s: Mechanism stopped moving.", compLabel);
+			setState(ssId, pVar, pvIndex(compState), "FOLLOW+INIT");
+		} state follow_init
+
+		when (!engBusy && efTest(snlExecFlag) && snlOp != OP_DATUM
+				&& snlOp != OP_FOLLOW) {
+			efClear(snlExecFlag);
+			cicsLogFmt(CICS_DB_MIN,
+				"%s: Mechanism stopped moving.", compLabel);
+
+			/* 
+			 * All warning messages are dynamic.  When the motion
+			 * completes, warnings should be cleared.
+			 */
+
+			strcpy(compHealthVal, "GOOD");
+			pvPut(compHealthVal);
+
+			strcpy(compHealthMess, "");
+			pvPut(compHealthMess);
+
+			setState(ssId, pVar, pvIndex(compState), "STARTING SNL");
+		} state starting_snl
+
+		when (delay(TIMEOUT)) {
+			cicsLogFmt(CICS_DB_ERROR,
+				"%s ERROR: Stop request timed out - still trying.",
+				compLabel);
+
+			/*
+			 * Send an "err" event to the mechanism CAR record. No new
+			 * client ID is specified, so the old client ID will be
+			 * preserved in the mechanism CAR record.
+			 */
+
+			compCARerrin = FAIL;
+			pvPut(compCARerrin);
+
+			strcpy(compCARmessin, "Stop timed out");
+			pvPut (compCARmessin);
+
+			compCARin = CAR_ERROR;
+			pvPut(compCARin);
+
+			/*
+			 * Since an error has occurred from which recovery is possible,
+			 * the health of the mechanism changes to WARNING.
+			 */
+
+			strcpy(compHealthVal, "WARNING");
+			pvPut(compHealthVal);
+
+			strcpy(compHealthMess, "Timeout (still moving)");
+			pvPut(compHealthMess);
+
+			/*
+			 * Continue in the "stopping" state and wait for the operator to do
+			 * something.
+			 */
+		} state stopping
+
+		/*
+		 * The init command will cause the mechanism to reset and
+		 * reinitialize.
+		 */
+
+		when (efTestAndClear(initStartFlag)) {
+		} state resetting
+	}
+
+	/********************************************************************
+	 * state starting_datum - This state is entered after the
+	 * mechanism has acknowledged a datum command and is ready to
+	 * start it.  It is also reached when an active command has been
+	 * successfully interrupted.  This is a transient state, and should
+	 * immediately switch to another state.
+	 ********************************************************************/
+
+	 state starting_datum {
+		when () {
+			/*
+			 * Ensure the engBusy flag is TRUE so that the next change
+			 * in state will be triggered by a TRUE to FALSE transition.
+			 * (Failing to do this could cause an immediate change of
+			 * state if, due to some latency, the underlying mechanism
+			 * has not yet started moving).
+			 */
+
+			engBusy = !HS_FALSE;
+
+			/*
+			 * Set the motors database into datum search mode and enable
+			 * motor movement.
+			 */
+
+			engOp = HS_OPDATUMDIAG;
+			pvPut(engOp);
+
+			/*
+			 * Switch to the "finding_datum" state.
+			 */
+
+			setState(ssId, pVar, pvIndex(compState), "FINDING DATUM");
+		} state finding_datum
+	}
+
+	/********************************************************************
+	 * state starting_snl - This state is entered after the
+	 * mechanism has acknowledged a snl command and is ready to
+	 * start it.  It is also reached when an active command has been
+	 * successfully interrupted.  This is a transient state, and should
+	 * immediately switch to another state.
+	 ********************************************************************/
+
+	state starting_snl {
+		when () {
+			/*
+			 * Assume that we can move, unless told otherwise
+			 */
+
+			engCanMove = 1;
+
+			/*
+			 * What operation was requested?
+			 */
+
+			pvGet(snlOp);
+
+			/*
+			 * Ensure the engBusy flag is TRUE so that the next change
+			 * in state will be triggered by a TRUE to FALSE
+			 * transition. (Failing to do this could cause an immediate
+			 * change of state if, due to some latency, the
+			 * underlying mechanism has not yet started moving).
+			 */
+
+			engBusy = !HS_FALSE;
+
+			/*
+			 * Perform the desired operation.
+			 */
+
+			if (snlOp == OP_PARK) {
+				cicsLogFmt(CICS_DB_MIN, "%s: Park", compLabel);
+
+				/*
+				 * Copy the demanded engineering position to the motors
+				 * database and enable motor movement.
+				 */
+
+				pvGet(engCanSelect);
+				if (engCanSelect == SELECT_DISABLED) {
+					engCanMove = 0;
+					engBusy = HS_FALSE;
+				} else {
+					strcpy(engSelect, "park");
+					pvPut(engSelect);
+				}
+			} else if (snlOp == OP_SELECT) {
+				pvGet(snlArg);
+				cicsLogFmt(CICS_DB_MIN, "%s: Select position \"%s\"",
+					compLabel, snlArg);
+
+				/*
+				 * Copy the demanded engineering position to the motors
+				 * database and enable motor movement.  If the select
+				 * is disabled, then we will transition to an error state
+				 * instead.
+				 */
+
+				pvGet(engCanSelect);
+				if (engCanSelect == SELECT_DISABLED) {
+					engCanMove = 0;
+					engBusy = HS_FALSE;
+				} else {
+					strcpy(engSelect, snlArg);
+					pvPut(engSelect);
+				}
+			} else if (snlOp == OP_ENG_MOVE) {
+				pvGet(snlArg);
+				cicsLogFmt(CICS_DB_MIN, "%s: Demanded position = %s",
+					compLabel, snlArg);
+
+				/*
+				 * Copy the demanded engineering position to the motors
+				 * database and enable motor movement.  If the select
+				 * is disabled, then we will transition to an error
+				 * state, instead.
+				 */
+
+				engDemand = atol(snlArg);
+				pvPut(engDemand);
+			} else if (snlOp == OP_DIAG) {
+				opExecute(ssId, pVar, pvIndex(engOp), HS_OPDIAGNOSE);
+			} else if (snlOp == OP_RDTM) {
+				opExecute(ssId, pVar, pvIndex(engOp), HS_OPREDATUM);
+			} else { /* This error should be impossible */
+				cicsLogFmt(CICS_DB_ERROR, "%s ERROR: Unknown operation (%d)\n",
+					compLabel, snlOp);
+				break;
+			}
+
+			/*
+			 * Now set the state to "PRE_MOVE"
+			 */
+
+			setState(ssId, pVar, pvIndex(compState), "PRE MOVE");
+		} state pre_move
+	}
+
+	/*
+	 * This state exists only because it isn't possible to select the
+	 * next state based on a computation, using more direct means.
+	 *
+	 * If engCanMove is not set, then the system will make a transition to
+	 * the idle state.
+	 */
+
+	state pre_move {
+		when (!engCanMove) {
+			cicsLogFmt(CICS_DB_ERROR, "%s ERROR: Move not permitted",
+				compLabel);
+
+			compCARerrin = FAIL;
+			pvPut(compCARerrin);
+
+			strcpy(compCARmessin, "Move not permited");
+			pvPut(compCARmessin);
+
+			compCARin = CAR_ERROR;
+			pvPut(compCARin);
+
+			setState(ssId, pVar, pvIndex(compState), "READY+IDLE");
+		} state ready_idle
+
+		when (engCanMove) {
+			setState(ssId, pVar, pvIndex(compState), "MOVING");
+		} state moving
+	}
+
+	/********************************************************************
+	 * state follow_*
+	 ********************************************************************/
+
+	/*
+	 * This state insures that BUSY is asserted for 50 ms, as
+	 * required.  I'm not sure how to handle BUSY/IDLE for the
+	 * follow command.  Should BUSY be asserted until the follow
+	 * command is completed, or should IDLE be asserted as soon
+	 * as the command is accepted (which is what I do).
+	 */
+
+	state follow_init {
+		when () {
+			%{
+				{
+					struct timespec ts;
+					ts.tv_sec = 0;
+					ts.tv_nsec = 50000000;
+					nanosleep(&ts, NULL);   /* Wait for 50 milliseconds */
+				}
+			}%
+
+			pvGet(engMin);
+			pvGet(engMax);
+			pvGet(engUncert);
+
+			compCARin = CAR_IDLE;
+			pvPut(compCARin);
+
+			cicsLogFmt(CICS_DB_LOG, "%s INFO: Follow mode beginning.",
+				compLabel);
+
+			agDoUpdate = EPICS_FALSE;
+			agTop = 0;
+			agCount = 0;
+
+			agErr = LONG_MAX;
+			pvPut(agErr);
+
+			inToler = EPICS_FALSE;
+			pvPut(inToler);
+
+			setState(ssId, pVar, pvIndex(compState), "FOLLOW+IDLE");
+		} state follow_idle
+	}
+
+	/*********************************************************************
+	 *********************************************************************/
+
+	state follow_idle {
+		/*****************************************************************
+		 * A command has been received.  This terminates follow
+		 * mode.  The start flag is _not_ cleared yet because it will
+		 * be tested later.  We just transfer control to the moving
+		 * state, and let it take appropraite action.
+		 *****************************************************************/
+
+		when (efTest(snlExecFlag) && snlOp != OP_STOP) {
+			strcpy(compHealthVal, "GOOD");
+			pvPut(compHealthVal);
+
+			strcpy(compHealthMess, "");
+			cmdReceived(ssId, pVar, pvIndex(snlID), pvIndex(snlOp));
+
+			cicsLogFmt(CICS_DB_LOG, "%s INFO: Follow mode ended.",
+				compLabel);
+			setState(ssId, pVar, pvIndex(compState), "MOVING");
+		} state moving
+
+		/*****************************************************************
+		 *****************************************************************/
+
+		when (efTest(snlExecFlag) && snlOp == OP_STOP) {
+			strcpy(compHealthVal, "GOOD");
+			pvPut(compHealthVal);
+
+			strcpy(compHealthMess, "");
+			pvPut(compHealthMess);
+
+			cicsLogFmt(CICS_DB_LOG, "%s INFO: Follow mode ended.",
+				compLabel);
+
+			setState(ssId, pVar, pvIndex(compState), "READY+IDLE");
+		} state ready_idle
+
+		/*****************************************************************
+		 *****************************************************************/
+
+		when (efTest(agTAppl2Flag)) {
+#if defined(DEBUG)
+			cicsLogFmt(CICS_DB_FULL, "agTAppl2 updated.");
+#endif
+			pvGet(agTAppl1);
+			pvGet(agTarget);
+			pvGet(agTAppl2); /* Do this last */
+			efClear(agTAppl2Flag);
+
+			if (agTAppl1 == agTAppl2) { /* Valid data */
+				agTimeList[agTop] = agTAppl1;
+				agTargetList[agTop] = agTarget;
+
+				agTop = (agTop + 1) % AG_NPOINTS;
+				agCount++;
+			} else {
+				cicsLogFmt(CICS_DB_LOG,
+					"%s INFO: Data rate exceeded.", compLabel);
+			}
+		} state follow_idle
+
+		/*****************************************************************
+		 *****************************************************************/
+
+		 when (efTest(agCheckFlag)) {
+			efClear(agCheckFlag);
+
+			/*
+			 * Compute the expected position, taking into account the
+			 * backlash correction.
+			 */
+
+			pvGet(engBlsh);
+			pvGet(engSpeed);
+
+			if (calcDest(ssId, pVar, pvIndex(compHealthVal), 
+					pvIndex(compHealthMess),
+					&agUpdate, 2.0 * engBlsh / engSpeed) == OK) {
+				cicsLogFmt(CICS_DB_FULL, "%s: agUpdate=%.0f",
+					compLabel, agUpdate);
+				agDoUpdate = EPICS_TRUE;
+			} else {
+				agDoUpdate = EPICS_FALSE;
+			}
+
+			if (agDoUpdate == EPICS_TRUE && agUpdate < engMin) {
+				agUpdate = engMin; /* Get as close as possible */
+
+				strcpy(compHealthVal, "WARNING");
+				pvPut(compHealthVal);
+
+				strcpy(compHealthMess, "Target out of range");
+				pvPut(compHealthMess);
+
+				cicsLogFmt(CICS_DB_FULL, "%s: Target out of range.", compLabel);
+			}
+
+			if (agDoUpdate == EPICS_TRUE && agUpdate > engMax) {
+				agUpdate = engMax; /* Get as close as possible */
+
+				strcpy(compHealthVal, "WARNING");
+				pvPut(compHealthVal);
+
+				strcpy(compHealthMess, "Target out of range");
+				pvPut(compHealthMess);
+
+				cicsLogFmt(CICS_DB_FULL, "%s: Target out of range.", compLabel);
+			}
+
+			pvGet(engCurrent);
+			pvGet(agThresh);
+			if (agDoUpdate == EPICS_TRUE
+					&& fabs(agUpdate - engCurrent) < agThresh) {
+				cicsLogFmt(CICS_DB_FULL, "|%ld - %ld| < %ld",
+					agUpdate, engCurrent, agThresh);
+				agDoUpdate = EPICS_FALSE; /* Don't need to update */
+			}
+
+			if (agDoUpdate == EPICS_TRUE &&
+					agUpdate > engCurrent + 20 * agThresh)
+				agUpdate = engCurrent + 20 * agThresh;
+
+			if (agDoUpdate == EPICS_TRUE &&
+					agUpdate < engCurrent - 20 * agThresh)
+				agUpdate = engCurrent - 20 * agThresh;
+
+			/*
+			 * Start motion if needed.  Otherwise, just update values.
+			 */
+
+			if (agDoUpdate == EPICS_TRUE) {
+				inToler = EPICS_FALSE;
+				pvPut(inToler);
+
+				agErr = engBlsh + fabs(agUpdate - engCurrent) + engUncert;
+				pvPut(agErr);
+				agOut = engCurrent;
+				pvPut(agOut); /* Triggers processing of output */
+
+				/* 
+				 * Ensure that the next operation will be triggered by 
+				 * the true to false transition
+				 */
+
+				engBusy = !HS_FALSE; 
+
+				/*
+				 * Start motion.
+				 */
+
+				engDemand = agUpdate;
+				pvPut(engDemand); /* Triggers motion */
+			} else if (agDoUpdate == EPICS_FALSE) { /* Just write values */
+				if (calcDest(ssId, pVar, pvIndex(compHealthVal),
+						pvIndex(compHealthMess), &agUpdate, 0) == OK) {
+					pvGet(engCurrent);
+					pvGet(engTol);
+
+					agEngDiff = agUpdate - engCurrent;
+					pvPut(agEngDiff);
+
+					if (fabs(agUpdate - engCurrent) <= engTol)
+						inToler = EPICS_TRUE;
+					else
+						inToler = EPICS_FALSE;
+					pvPut(inToler);
+
+					agErr = engUncert; 
+					pvPut(agErr);
+					agOut = engCurrent;
+					pvPut(agOut); /* Triggers processing of output record */
+				}
+			}
+
+			setState(ssId, pVar, pvIndex(compState), "FOLLOW+CHECK");
+		 } state follow_check
+
+		/*****************************************************************
+		 * This is unexpected.  The mechanism has suddenly lost its
+		 * datum.  This can only happen if someone is directly
+		 * manipulating the low-level database.  There is not much that
+		 * we can do at this point, so just report an error and go to
+		 * the not_datumed_idle state.
+		 *****************************************************************/
+
+		when (!engDatm) {
+			cicsLogFmt(CICS_DB_ERROR,
+				"%s ERROR: Mechanism position lost spontaneously.", compLabel);
+			cicsLogFmt(CICS_DB_LOG, "%s INFO: Cancelling \"follow\" mode.",
+				compLabel);
+
+			/*
+			 * Update the datumed flag in the status alarm database.
+			 */
+
+			compDatumed = EPICS_FALSE;
+			pvPut(compDatumed);
+
+			setState(ssId, pVar, pvIndex(compState), "NOT DATUMED+IDLE");
+		} state not_datumed_idle
+
+		/*
+		 * This is a really weird situation in which the mechanism
+		 * has started moving when it has not been commanded to.  We
+		 * assume that someone has been tweaking the low-level
+		 * engineering database, so we treat it as if a command
+		 * were entered.
+		 */
+
+		when (engBusy) {
+			unexpectedMove(ssId, pVar, pvIndex(compCARID), pvIndex(compCARin));
+			cicsLogFmt(CICS_DB_LOG, "%s INFO: Cancelling \"follow\" mode.",
+				compLabel);
+			setState(ssId, pVar, pvIndex(compState), "MOVING");
+		} state moving
+	}
+
+	state follow_check {
+		when (agDoUpdate == EPICS_TRUE) {
+			setState(ssId, pVar, pvIndex(compState), "FOLLOW+MOVING");
+		} state follow_moving
+
+		when (agDoUpdate == EPICS_FALSE) {
+			setState(ssId, pVar, pvIndex(compState), "FOLLOW+IDLE");
+		} state follow_idle
+	}
+
+	state follow_moving {
+		when (!engBusy) {
+			cicsLogFmt(CICS_DB_FULL, "%s: Follow complete", compLabel);
+
+			pvGet(engDoneStatus);
+			if (engDoneStatus == 0) {
+				cicsLogFmt(CICS_DB_FULL, "%s: Motor control successful.",
+					compLabel);
+
+				strcpy(compHealthVal, "GOOD");
+				pvPut(compHealthVal);
+
+				strcpy(compHealthMess, "");
+				pvPut(compHealthMess);
+			} else {
+				strcpy(compHealthVal, "WARNING");
+				pvPut(compHealthVal);
+
+				pvGet(engDoneMess);
+				strcpy(compHealthMess, engDoneMess);
+				pvPut(compHealthMess);
+
+				cicsLogFmt(CICS_DB_ERROR, "%s ERROR: %s.",
+					compLabel, engDoneMess);
+			}
+
+			if (calcDest(ssId, pVar, pvIndex(compHealthVal),
+					pvIndex(compHealthMess), &agUpdate, 0) == OK) {
+				pvGet(engCurrent);
+				pvGet(engTol);
+
+				if (fabs(agUpdate - engCurrent) <= engTol)
+					inToler = EPICS_TRUE;
+				else
+					inToler = EPICS_FALSE;
+				pvPut(inToler);
+
+				agEngDiff = agUpdate - engCurrent;
+				pvPut(agEngDiff);
+
+				agErr = engUncert;
+				pvPut(agErr);
+				agOut = engCurrent;
+				pvPut(agOut); /* Triggers processing of output record */
+			}
+
+			setState(ssId, pVar, pvIndex(compState), "FOLLOW+IDLE");
+		} state follow_idle
+	}
+
+	/********************************************************************
+	 * state resetting - This state is entered while the mechanism is
+	 * waiting for the system to start resetting. Once this happens, the
+	 * component is reset.
+	 ********************************************************************/
+
+	state resetting {
+		/* BUG WORK AROUND: This wait resulted in deadlock */
+
+		/*    when (strcmp(initCARout, "BUSY") == 0) */
+
+		when () {
+			/*
+			 * Obtain the client ID for the command
+			 */
+
+			pvGet(initID);
+
+			cicsLogFmt(CICS_DB_LOG, "%s: Init command activated. ID = %ld",
+				compLabel, initID);
+
+			/*
+			 * Send a "busy" event to the component CAR record.
+			 */
+
+			opBusy(ssId, pVar, pvIndex(compCARID), pvIndex(compCARin), initID);
+
+			/*
+			 * Reset the status/alarm database and health records
+			 */
+
+			compDatumed = EPICS_FALSE;
+			pvPut(compDatumed);
+
+			strcpy(compHealthVal, "GOOD");
+			pvPut(compHealthVal);
+
+			strcpy(compHealthMess, "");
+			pvPut(compHealthMess);
+
+			/*
+			 * Reset the mechanism CAR record
+			 */
+
+			compCARerrin = PASS;
+			pvPut(compCARerrin);
+
+			strcpy(compCARmessin, " ");
+			pvPut (compCARmessin);
+
+			compCARin = CAR_IDLE;
+			pvPut(compCARin);
+
+			/*
+			 * Finally switch to the "not datumed" state.
+			 */
+
+			setState(ssId, pVar, pvIndex(compState), "NOT DATUMED+IDLE");
+		} state not_datumed_idle
+	}
+}
+
+%{
+
+static void
+opBusy(SS_ID ssId, struct UserVar *pVar, int compCARID, int compCARin,
+	int clientId)
+{
+	/*
+	 * Send a "busy" event to the mechanism CAR record.
+	 */
+
+	pVar->compCARID = clientId;
+	seq_pvPut(ssId, compCARID);
+
+	pVar->compCARin = CAR_BUSY;
+	seq_pvPut(ssId, compCARin);
+}
+
+static void
+setState(SS_ID ssId, struct UserVar *pVar, int compState, const char newState[])
+{
+	/*
+	 * Set the new state of the mechanism.
+	 */
+
+	strcpy(pVar->compState, newState);
+	seq_pvPut(ssId, compState);
+}
+
+static void
+opExecute(SS_ID ssId, struct UserVar *pVar, int engOp, int op)
+{
+	/*
+	 * Ensure the engBusy flag is FALSE so that the next
+	 * change in state will be triggered by a FALSE to TRUE
+	 * transition.
+	 */
+
+	pVar->engBusy = !HS_FALSE;
+
+	/*
+	 * Start the function.
+	 */
+
+	pVar->engOp = op;
+	seq_pvPut(ssId, engOp);
+
+	cicsLogFmt(CICS_DB_MIN, "%s: Start operation.", pVar->compLabel);
+}
+
+static void
+unexpectedMove(SS_ID ssId, struct UserVar *pVar, int compCARID, int compCARin)
+{
+	cicsLogFmt(CICS_DB_ERROR,
+		"%s ERROR: Mechanism started moving spontaneously!", pVar->compLabel);
+
+	/*
+	 * Send a "busy" event to the mechanism CAR record. In this
+	 * case the client ID is unknown (and set to zero). The event
+	 * is probably the result of an engineer poking around with
+	 * the database.
+	 */
+
+	opBusy(ssId, pVar, compCARID, compCARin, 0);
+}
+
+static void
+cmdReceived(SS_ID ssId, struct UserVar *pVar, int snlID, int snlOp)
+{
+	const char *cmd;
+
+	/*
+	 * Obtain the client ID and operation code for the command
+	 */
+
+	seq_pvGet(ssId, snlID);
+	seq_pvGet(ssId, snlOp);
+
+	switch (pVar->snlOp) {
+		case OP_SELECT:
+			cmd = "Select";
+			break;
+
+		case OP_PARK:
+			cmd = "Park";
+			break;
+
+		case OP_ENG_MOVE:
+			cmd = "Eng Move";
+			break;
+
+		case OP_DIAG:
+			cmd = "Diagnose";
+			break;
+
+		case OP_RDTM:
+			cmd = "Redatum";
+			break;
+
+		case OP_DATUM:
+			cmd = "Datum";
+			break;
+
+		case OP_STOP:
+			cmd = "Stop";
+			break;
+
+		case OP_FOLLOW:
+			cmd = "Follow";
+			break;
+
+		default:
+			cmd = NULL;
+			break;
+	}
+
+	if (!cmd) {
+		cicsLogFmt(CICS_DB_ERROR,
+			"%s ERROR: Unknown command requested. ID = %ld",
+			pVar->compLabel, pVar->snlID);
+	} else {
+		cicsLogFmt(CICS_DB_LOG, "%s INFO: \"%s\" command requested. ID = %ld",
+			pVar->compLabel, cmd, pVar->snlID);
+	}
+}
+
+static void
+stopIgnore(SS_ID ssId, struct UserVar *pVar)
+{
+	/*
+	 * Although the "stop" command is acceptable, a warning
+	 * should be issued because the command is not expected
+	 * unless the mechanism is moving.
+	 */
+
+	cicsLogFmt(CICS_DB_ERROR,
+		"%s WARNING: Mechanism not moving - stop command ignored.",
+			pVar->compLabel);
+}
+
+static void
+stopExecute(SS_ID ssId, struct UserVar *pVar, int engCancel)
+{
+	/*
+	 * Disable motor movement.
+	 */
+
+	pVar->engCancel = !HS_FALSE;
+	seq_pvPut(ssId, engCancel);
+}
+
+static int
+calcDest(SS_ID ssId, struct UserVar *pVar, int compHealthVal,
+	int compHealthMess, double *pDest, double delay)
+{
+	double curTime;
+	int status = OK;
+
+	strcpy(pVar->compHealthVal, "GOOD");
+	strcpy(pVar->compHealthMess, "");
+
+	if (status == OK) {
+		if ((curTime = compTime()) == 0.0) {
+			cicsLogFmt(CICS_DB_ERROR, "%s ERROR: Failed to get time stamp.",
+				pVar->compLabel);
+			strncpy(pVar->compHealthVal, "WARNING", MAX_STRING_SIZE);
+			strncpy(pVar->compHealthMess, "Unable to read time",
+				MAX_STRING_SIZE);
+			status = ERROR;
+		}
+	}
+
+	/* Check if not enough data points */
+
+	if (status == OK && pVar->agCount < AG_NPOINTS) { 
+		cicsLogFmt(CICS_DB_MIN, "%s ERROR: Not enough data points (have %d).",
+			pVar->compLabel, pVar->agCount);
+		strncpy(pVar->compHealthVal, "WARNING", MAX_STRING_SIZE);
+		strncpy(pVar->compHealthMess, "Not enough points", MAX_STRING_SIZE);
+		status = ERROR;
+	}
+
+	/* Check that there are no identical points */
+
+	if (status == OK && 
+			(  pVar->agTimeList[0] == pVar->agTimeList[1]
+			|| pVar->agTimeList[0] == pVar->agTimeList[2]
+			|| pVar->agTimeList[1] == pVar->agTimeList[2])) {
+		cicsLogFmt(CICS_DB_ERROR, "%s ERROR: Identical data points.",
+			pVar->compLabel);
+		strncpy(pVar->compHealthVal, "WARNING", MAX_STRING_SIZE);
+		strncpy(pVar->compHealthMess, "Identical times", MAX_STRING_SIZE);
+		status = ERROR;
+	}
+
+	curTime += delay;
+	if (status == OK) {
+		*pDest =
+			pVar->agTargetList[0]
+				* (pVar->agTimeList[1] - curTime)
+				* (pVar->agTimeList[2] - curTime)
+				/ (pVar->agTimeList[1] - pVar->agTimeList[0]) 
+				/ (pVar->agTimeList[2] - pVar->agTimeList[0])
+			+ pVar->agTargetList[1]
+				* (pVar->agTimeList[2] - curTime)
+				* (pVar->agTimeList[0] - curTime)
+				/ (pVar->agTimeList[2] - pVar->agTimeList[1])
+				/ (pVar->agTimeList[0] - pVar->agTimeList[1])
+			+ pVar->agTargetList[2]
+				* (pVar->agTimeList[0] - curTime)
+				* (pVar->agTimeList[1] - curTime)
+				/ (pVar->agTimeList[0] - pVar->agTimeList[2])
+				/ (pVar->agTimeList[1] - pVar->agTimeList[2]);
+	}
+
+	seq_pvPut(ssId, compHealthVal);
+	seq_pvPut(ssId, compHealthMess);
+
+	return status;
+}
+
+}%

@@ -1,0 +1,15 @@
+# $Id: tmp.lut,v 1.2 2009/05/27 19:34:09 fkraemer Exp $
+
+#
+# Named temperature values
+#
+
+# name nval    tmp lowtol hightol
+  warm    4    0.0  -30.0    30.0
+               0.0  -30.0    30.0
+               0.0  -30.0    30.0
+              warm      0       0
+  cold    4 -200.0  -30.0    30.0
+            -200.0  -30.0    30.0
+            -200.0  -30.0    30.0
+		      cold      0       0

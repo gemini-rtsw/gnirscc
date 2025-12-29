@@ -1,0 +1,12 @@
+# $Id: focus.lut,v 1.1 2008/04/24 16:16:48 gemvx Exp $
+
+#
+# Filters loaded on NIRI filter wheel 1.
+#
+# List the most common name for a position first, followed by alternate
+#Filter Wheel 1
+
+#number name		pos		lowtol	hightol
+
+1		auto		a1		0		
+2		manual		b1		0		0	

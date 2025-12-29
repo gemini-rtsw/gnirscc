@@ -1,0 +1,52 @@
+[symbol2]
+bbox -416 160 352 352
+port 336 192 100 2048 CFLNK symbol 2 352 192 0
+port 336 224 100 2048 CVAL symbol 3 352 224 0
+port -400 288 100 1536 DIR symbol 3 -416 288 0
+port -400 256 100 1536 CLID symbol 3 -416 256 0
+port -400 224 100 1536 VAL symbol 3 -416 224 0
+port -400 192 100 1536 MESS symbol 3 -416 192 0
+uniq 10
+[tools]
+[attributes]
+p -336 288 100 768 1 set0:cad NoName
+p -32 288 100 768 1 set1:op $(opStop)
+p -336 256 100 768 1 set2:inam CADcompInit
+p -32 256 100 768 1 set3:snam CADcompNop
+p -336 224 100 768 1 set4:ignore 0
+p -336 192 100 768 1 set5:desc $(desc) $(cad) record
+p -416 128 100 768 0 setim:inpm 0
+p -416 96 100 768 0 setin:inpn 0
+p -416 64 100 768 0 setio:inpo 0
+p -416 32 100 768 0 setip:inpp 0
+p -416 0 100 768 0 setiq:inpq 0
+p -416 -32 100 768 0 setir:inpr 0
+p -416 -64 100 768 0 setis:inps 0
+p -416 -96 100 768 0 setit:inpt 0
+p -32 128 100 768 0 setom:outm 0
+p -32 96 100 768 0 seton:outn 0
+p -32 64 100 768 0 setoo:outo 0
+p -32 32 100 768 0 setop:outp 0
+p -32 0 100 768 0 setoq:outq 0
+p -32 -32 100 768 0 setor:outr 0
+p -32 -64 100 768 0 setos:outs 0
+p -32 -96 100 768 0 setot:outt 0
+[layers]
+<symbol>
+l 75 5 0 240 320 2-Axis Commands
+l 100 3 0 -208 320 comp2mCadCmd
+v 0 -320 320
+-320 352
+-416 352
+-416 160
+352 160
+352 352
+256 352
+256 320
+-320 320
+_
+v 1 -224 320
+-224 352
+256 352
+_
+[comments]

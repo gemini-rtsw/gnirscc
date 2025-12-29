@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sequence PUBLIC "-//Gemini Observatory//DTD for OT Science Program Sequence//EN" "Seq.dtd">
+<sequence version="0.1">
+  <step name="step 1">
+    <system name="nodshuffle">
+      <param name="nsIter" value="4" />
+      <param name="nsRows" value="1536" />
+      <param name="nsMode" value="STANDARD" />
+    </system>
+    <system name="instrument">
+      <param name="exposureTime" value="1.0"/>
+      <param name="instrument" value="GMOS"/>
+    </system>
+    <system name="telescope">
+      <param name="version" value="2002A.0" />
+      <param name="guideWithOIWFS" value="OIWFS-1" />
+      <param name="q" value="0.0" />
+      <param name="p" value="0.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="1.0"/>
+      <param name="observeType" value="OBJECT" />
+    </system>
+  </step>
+  <step name="step 2">
+    <system name="telescope">
+      <param name="guideWithOIWFS" value="OIWFS-1" />
+      <param name="q" value="5.0" />
+      <param name="p" value="0.0" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="1.0"/>
+      <param name="observeType" value="OBJECT" />
+    </system>
+  </step>
+</sequence>
+

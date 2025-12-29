@@ -1,0 +1,123 @@
+#+
+# SystemWidget <- itk::Widget
+#
+# A SystemWidget gives a visual representation for Step sub-system object.
+#
+#+
+
+itcl::class SystemWidget {
+   inherit itk::Widget
+   constructor {args} {}
+   itk_option define -selectcommand selectCommand Command ""
+   public {
+      method refresh { object }
+      proc popWindow { object }
+      proc withdrawWindow {}
+   }
+   private {
+   }
+}
+
+itk::usual SystemWidget {
+   keep -selectbackground
+}
+
+itcl::body SystemWidget::constructor {args} {
+   
+   itk_component add text {
+      text $itk_interior.text -width 60
+   }
+   pack $itk_component(text) -expand 1 -fill both
+   
+   eval itk_initialize $args
+}
+
+itcl::body SystemWidget::popWindow { object } {
+   if [winfo exists .popupSystemWidget] {
+      wm deiconify .popupSystemWidget
+      raise .popupSystemWidget
+   } else {
+      toplevel .popupSystemWidget
+      wm title .popupSystemWidget "Step Description"
+      SystemWidget .popupSystemWidget.top
+      pack .popupSystemWidget.top -expand 1 -fill both
+      }
+   .popupSystemWidget.top refresh $object
+   wm geometry .popupSystemWidget +[expr [winfo x .] + 20]+[expr [winfo y .] +20]
+   grab .popupSystemWidget
+   }
+
+itcl::body SystemWidget::withdrawWindow {} {
+   if { ![winfo exists .popupSystemWidget] } {
+      toplevel .popupSystemWidget
+      wm withdraw .popupSystemWidget
+      wm overrideredirect .popupSystemWidget 1
+      bind .popupSystemWidget <ButtonRelease> SystemWidget::withdrawWindow
+      SystemWidget .popupSystemWidget.top
+      pack .popupSystemWidget.top -expand 1 -fill both
+      } else {
+      wm withdraw .popupSystemWidget
+      grab release .popupSystemWidget
+      }
+   }
+
+
+itcl::body SystemWidget::refresh { object } {
+   
+   [component text] configure -state normal
+   [component text] delete 0.0 end
+   # this gets lost if set in the constructor ?
+   [component text] configure\
+      -background #0099ff\
+      -relief flat\
+      -borderwidth 0\
+      -cursor hand2\
+      -selectborderwidth 0
+      
+   [component text] tag configure titleTag\
+      -background #0099ff\
+      -lmargin1 10
+      
+   [component text] tag configure paramTag\
+      -background #99ccff -tabs {0.5c 5c}
+
+   [component text] tag configure valTag\
+      -background white
+
+   if { [$object isa Step] } {
+      lappend objlist [list TCS [$object cget -tcsobj ]]
+      lappend objlist [list GCAL [$object cget -gcalobj]]
+      lappend objlist [list GPOL [$object cget -gpolobj]]
+      lappend objlist [list INSTRUMENT [[$object cget -instobj] cget -instobj]]
+   } elseif { [$object isa RealTcs] } {
+      lappend objlist [list TCS $object]
+   } elseif { [$object isa RealGcal] } {
+      lappend objlist [list GCAL $object]
+   } elseif { [$object isa RealGpol] } {
+      lappend objlist [list GPOL $object]
+   } elseif { [$object isa GenericInst] } {
+      lappend objlist [list INSTRUMENT [$object cget -instobj]]
+   }
+   
+   foreach objt $objlist {  
+      set objtype [lindex $objt 0]
+      set obj [lindex $objt 1]
+      if { [ string is space $obj ] } {
+         continue
+         }
+      [component text] insert end "$objtype\n" titleTag
+      set params [lsort [$obj configure]]
+      foreach p $params {
+         set name [lindex $p 0]
+         set value [lindex $p 2]
+         ###
+         if { ![string is space $value] } {
+            [component text] insert end [format "\t%-10s\t" [string range $name 1 end]] paramTag
+            [component text] insert end "$value\n" valTag
+            }
+         ###
+         }
+      }
+   [component text] configure -height [expr [lindex [split [[component text] index end] .] 0] - 2 ]
+   [component text] configure -state disable
+}

@@ -1,0 +1,12 @@
+SIR record ("niri:" or "nirs:" +)	FITS Keyword	FITS Included	Type	Units	Comments
+dcAbort	DCABRT	Never	LONG	0/1	Shows that an abort is in progress
+debugMode	DMODE	Never	STRING		Debugging mode [NOLOG|NONE|MIN|FULL]
+health	HLTH	Never	STRING		Instrument health [GOOD|WARNING|BAD]
+heartBeat	HRTB	Never	LONG	count	Heartbeat: Shows that IS is still alive
+historyLog	HLOG	Never	STRING		History-log record (should be BIGSTRING)
+issPort	ISSPT	Start	LONG	number	ISS port on which instrument is installed
+label	LABEL	Never	STRING		The FDSC field describes the Instrument
+name	NAME	Never	STRING		Instrument Name
+simMode	SMODE	Start	STRING		Instrument simulation mode [NONE|FULL|FAST|VSM]
+state	STATE	Never	STRING		Inst. state [BOOTING|INITIALIZING|RUNNING|CONFIGURING]
+wfsBeam	WFSBM	Start	LONG	0/1	Is the WFS detector unobstructed [YES=0|NO=1]?

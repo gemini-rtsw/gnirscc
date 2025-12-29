@@ -1,0 +1,37 @@
+#+
+# gpol.ca
+#
+# Channel access configuration file for GPOL
+#
+#-
+
+# Define the GPOL apply record.
+
+   apply gpol::Apply gp:apply gp:seqC Primary GPOL Apply Record
+   status gpol::Apply Apply message
+   {
+   mess       gp:seqC.OMSS                0     Command completion message
+   }
+
+   command gpol::seq gpol::Apply Assemblies Sequencer
+   {
+      state1  gp:seqState:plate1 0 Plate1 State
+      angle1  gp:seq.B           0 Plate1 Angle
+      state2  gp:seqState:plate2 0 Plate2 State
+      angle2  gp:seq.D           0 Plate2 Angle
+      state3  gp:seqState:plate3 0 Plate3 State
+      angle3  gp:seq.F           0 Plate3 Angle
+   }
+   
+   status gpol::status
+   {
+   parkSwitch1 gp:carUpParkSwitch         0 Plate1 parkSwitch
+   parkSwitch2 gp:carMidParkSwitch        0 Plate2 parkSwitch
+   parkSwitch3 gp:carLowParkSwitch        0 Plate3 parkSwitch
+   beamSwitch1 gp:sad:upperBeamSwitch     0 Plate1 beamSwitch
+   beamSwitch2 gp:sad:middleBeamSwitch    0 Plate2 beamSwitch
+   beamSwitch3 gp:sad:lowerBeamSwitch     0 Plate3 beamSwitch
+   angle1      gp:sad:upperPlateAngle     0 Plate1 Angle
+   angle2      gp:sad:middlePlateAngle    0 Plate2 Angle
+   angle3      gp:sad:lowerPlateAngle     0 Plate3 Angle
+   }

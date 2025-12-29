@@ -1,0 +1,438 @@
+#! /bin/sh
+
+#
+# A quick-and-dirty script to list all SIR records, for documentation
+# purposes.
+#
+
+. ../.applTop/config.par
+
+sub () {
+	output="$1"
+	section="$2"
+	shift 2
+
+	cat $@ | nawk '
+		BEGIN {
+			print "SIR record (\"niri:\" or \"nirs:\" +)	FITS Keyword	FITS Included	Type	Units	Comments"
+		}
+
+		/^[	 ]*record\(/ {
+			gsub(/^[ 	]*record\(/,"")
+			gsub(/\)[ 	]*{[ 	]*$/,"") #}
+
+			record=$0
+			gsub(/,.*/,"",record)
+
+			name=$0
+			gsub(/^[0-9a-zA-Z]*,"/,"",name)
+			gsub(/"$/,"",name)
+			gsub(/'${sadprefix}'/,"",name)
+
+			#
+			# Figure out which table to use
+			#
+
+			if ( name ~ /^wfs:lock/ ) {
+				tab="wfsLock"
+			} else if ( name ~ /^wfs:/ ) {
+				tab="wfs"
+			} else if ( name ~ /^cc:lock/ ) {
+				tab="ccLock"
+			} else if (name ~ /^cc:/ ) {
+				tab="cc"
+			} else {
+				tab="is"
+			}
+
+			#
+			# Strip off the prefix and component prefix into a fits prefix
+			#
+
+			if ( name ~ /^cc:tmp[A-Z:]/ ) {
+				fitsprefix="CCTP"
+				prefix="cc:tmp"
+				gsub(/^cc:tmp/,"",name)
+			} else if ( name ~ /^cc:sys1[A-Z:]/ ) {
+				fitsprefix="CCSY1"
+				prefix="cc:sys1"
+				gsub(/^cc:sys1/,"",name)
+			} else if ( name ~ /^cc:sys[A-Z:]/ ) {
+				fitsprefix="CCSY"
+				prefix="cc:sys"
+				gsub(/^cc:sys/,"",name)
+			} else if ( name ~ /^wfs:sys[A-Z:]/ ) {
+				fitsprefix="WSSY"
+				prefix="wfs:sys"
+				gsub(/^wfs:sys/,"",name)
+			} else if ( name ~ /^cc:ster[A-Z:]/ ) {
+				fitsprefix="CCST"
+				prefix="cc:ster"
+				gsub(/^cc:ster/,"",name)
+			} else if ( name ~ /^cc:ster1[A-Z:]/ ) {
+				fitsprefix="CCST1"
+				prefix="cc:ster1"
+				gsub(/^cc:ster1/,"",name)
+			} else if ( name ~ /^cc:ster2[A-Z:]/ ) {
+				fitsprefix="CCST2"
+				prefix="cc:ster2"
+				gsub(/^cc:ster2/,"",name)
+			} else if ( name ~ /^cc:splt[A-Z:]/ ) {
+				fitsprefix="CCSP"
+				prefix="cc:splt"
+				gsub(/^cc:splt/,"",name)
+			} else if ( name ~ /^cc:puvw[A-Z:]/ ) {
+				fitsprefix="CCPV"
+				prefix="cc:puvw"
+				gsub(/^cc:puvw/,"",name)
+			} else if ( name ~ /^wfs:prby[A-Z:]/ ) {
+				fitsprefix="WSPBY"
+				prefix="wfs:prby"
+				gsub(/^wfs:prby/,"",name)
+			} else if ( name ~ /^wfs:prbx[A-Z:]/ ) {
+				fitsprefix="WSPBX"
+				prefix="wfs:prbx"
+				gsub(/^wfs:prbx/,"",name)
+			} else if ( name ~ /^wfs:prbSky[A-Z:]/ ) {
+				fitsprefix="WSPBS"
+				prefix="wfs:prbSky"
+				gsub(/^wfs:prbSky/,"",name)
+			} else if ( name ~ /^wfs:prb[A-Z:]/ ) {
+				fitsprefix="WSPB"
+				prefix="wfs:prb"
+				gsub(/^wfs:prb/,"",name)
+			} else if ( name ~ /^cc:lock[A-Z:]/ ) {
+				fitsprefix="CCLK"
+				prefix="cc:lock"
+				gsub(/^cc:lock/,"",name)
+			} else if ( name ~ /^wfs:lock[A-Z:]/ ) {
+				fitsprefix="WSLK"
+				prefix="wfs:lock"
+				gsub(/^wfs:lock/,"",name)
+			} else if ( name ~ /^cc:fopl[A-Z:]/ ) {
+				fitsprefix="CCFP"
+				prefix="cc:fopl"
+				gsub(/^cc:fopl/,"",name)
+			} else if ( name ~ /^wfs:fol[A-Z:]/ ) {
+				fitsprefix="WSFL"
+				prefix="wfs:fol"
+				gsub(/^wfs:fol/,"",name)
+			} else if ( name ~ /^cc:foc[A-Z:]/ ) {
+				fitsprefix="CCFOC"
+				prefix="cc:foc"
+				gsub(/^cc:foc/,"",name)
+			} else if ( name ~ /^wfs:foc[A-Z:]/ ) {
+				fitsprefix="WSFOC"
+				prefix="wfs:foc"
+				gsub(/^wfs:foc/,"",name)
+			} else if ( name ~ /^wfs:filt[A-Z:]/ ) {
+				fitsprefix="WSFL"
+				prefix="wfs:filt"
+				gsub(/^wfs:filt/,"",name)
+			} else if ( name ~ /^cc:filt1[A-Z:]/ ) {
+				fitsprefix="CCFL1"
+				prefix="cc:filt1"
+				gsub(/^cc:filt1/,"",name)
+			} else if ( name ~ /^cc:filt2[A-Z:]/ ) {
+				fitsprefix="CCFL2"
+				prefix="cc:filt2"
+				gsub(/^cc:filt2/,"",name)
+			} else if ( name ~ /^cc:filt3[A-Z:]/ ) {
+				fitsprefix="CCFL3"
+				prefix="cc:filt3"
+				gsub(/^cc:filt3/,"",name)
+			} else if ( name ~ /^cc:cov[A-Z:]/ ) {
+				fitsprefix="CCCV"
+				prefix="cc:cov"
+				gsub(/^cc:cov/,"",name)
+			} else if ( name ~ /^cc:/ ) { # Must be last cc: rule
+				fitsprefix="CC"
+				prefix="cc:"
+				gsub(/^cc:/,"",name)
+			} else if ( name ~ /^wfs:/ ) { # Must be last wfs: rule
+				fitsprefix="WS"
+				prefix="wfs:"
+				gsub(/^wfs:/,"",name)
+			} else {
+				prefix=""
+				fitsprefix=""
+			}
+
+			#
+			# Should the value of this value be added to the fits header?
+			#
+
+			included="Never"
+			if ( name ~ /^Active$/ ) {
+				fits="ACT"
+			} else if (name ~ /^:xPos$/ ) {
+				fits="XPS"
+			} else if (name ~ /^:yPos$/ ) {
+				fits="YPS"
+			} else if (name ~ /^AgDiff$/ ) {
+				fits="ADF"
+			} else if (name ~ /^AgEngDiff$/ ) {
+				fits="AEF"
+			} else if (name ~ /^C1Health$/ ) {
+				fits="C1H"
+			} else if (name ~ /^C1Setp$/) {
+				included="Start"
+				fits="C1S"
+			} else if (name ~ /^C1Tmp$/) {
+				fits="C1T"
+			} else if (name ~ /^C2Health$/) {
+				fits="C2H"
+			} else if (name ~ /^C2Setp$/) {
+				included="Start"
+				fits="C2S"
+			} else if (name ~ /^C2Tmp$/) {
+				fits="C2T"
+			} else if (name ~ /^C3Health$/) {
+				fits="C3H"
+			} else if (name ~ /^C3Setp$/) {
+				included="Start"
+				fits="C3S"
+			} else if (name ~ /^C3Tmp$/) {
+				fits="C3T"
+			} else if (name ~ /^Cfg$/) {
+				fits="CFG"
+			} else if (name ~ /^CfgHealth$/) {
+				fits="GNH"
+			} else if (name ~ /^CoolBusy$/) {
+				fits="CBY"
+			} else if (name ~ /^CoolHealth$/) {
+				fits="CLH"
+			} else if (name ~ /^CoolModeHealth$/) {
+				fits="CMH"
+			} else if (name ~ /^CoolName$/) {
+				fits="CNM"
+			} else if (name ~ /^CoolRate1$/) {
+				fits="CR1"
+			} else if (name ~ /^CoolRate2$/) {
+				fits="CR2"
+			} else if (name ~ /^DatumHealth$/) {
+				fits="DTH"
+			} else if (name ~ /^Datumed$/) {
+				fits="DTM"
+			} else if (name ~ /^EngCyclic$/) {
+				fits="ECY"
+			} else if (name ~ /^EngMax$/) {
+				fits="EMX"
+			} else if (name ~ /^EngMin$/) {
+				fits="EMN"
+			} else if (name ~ /^EngName$/) {
+				included="Start"
+				fits="ENM"
+			} else if (name ~ /^EngPos$/) {
+				included="Start"
+				fits="EPS"
+			} else if (name ~ /^Gen$/) {
+				fits="GEN"
+			} else if (name ~ /^GenHealth$/) {
+				fits="GNH"
+			} else if (name ~ /^HallHealth$/) {
+				fits="HLH"
+			} else if (name ~ /^Health$/) {
+				fits="HLT"
+			} else if (name ~ /^InToler$/) {
+				fits="INT"
+			} else if (name ~ /^Init$/) {
+				fits="INI"
+			} else if (name ~ /^InitHealth$/) {
+				fits="INH"
+			} else if (name ~ /^IsFollow$/) {
+				fits="FOL"
+			} else if (name ~ /^IsIdle$/) {
+				fits="IDL"
+			} else if (name ~ /^Label$/) {
+				fits="LBL"
+			} else if (name ~ /^Lock$/) {
+				fits="LCK"
+			} else if (name ~ /^Max$/) {
+				fits="MAX"
+			} else if (name ~ /^MaxMove$/) {
+				fits="MXM"
+			} else if (name ~ /^Min$/) {
+				fits="MIN"
+			} else if (name ~ /^ModeHealth$/) {
+				fits="MDH"
+			} else if (name ~ /^ModuleHealth$/) {
+				fits="MDH"
+			} else if (name ~ /^Moving$/) {
+				fits="MVG"
+			} else if (name ~ /^Name$/) {
+				included="Start"
+				fits="NAM"
+			} else if (name ~ /^Obs$/) {
+				fits="OBS"
+			} else if (name ~ /^ObsHealth$/) {
+				fits="OBH"
+			} else if (name ~ /^Parked$/) {
+				fits="PRK"
+			} else if (name ~ /^Pos$/) {
+				included="Start"
+				fits="POS"
+			} else if (name ~ /^Pos$/) {
+				fits="POS"
+			} else if (name ~ /^PosErrHealth$/) {
+				fits="PEH"
+			} else if (name ~ /^Present$/) {
+				fits="PRS"
+			} else if (name ~ /^RdtmVal$/) {
+				fits="RDT"
+			} else if (name ~ /^Reject$/) {
+				fits="REJ"
+			} else if (name ~ /^S1Health$/) {
+				fits="S1H"
+			} else if (name ~ /^S1Tmp1$/) {
+				fits="ST1"
+			} else if (name ~ /^S1Tmp2$/) {
+				fits="ST2"
+			} else if (name ~ /^S1Tmp3$/) {
+				fits="ST3"
+			} else if (name ~ /^S1Tmp4$/) {
+				fits="ST4"
+			} else if (name ~ /^S1Tmp5$/) {
+				fits="ST5"
+			} else if (name ~ /^S1Tmp6$/) {
+				fits="ST6"
+			} else if (name ~ /^S1Tmp7$/) {
+				fits="ST7"
+			} else if (name ~ /^S1Tmp8$/) {
+				fits="ST8"
+			} else if (name ~ /^SnlHealth$/) {
+				fits="SNH"
+			} else if (name ~ /^State$/) {
+				fits="STE"
+			} else if (name ~ /^TmpCheckHealth$/) {
+				fits="TCH"
+			} else if (name ~ /^Tmp$/) {
+				fits="TBH"
+			} else if (name ~ /^TmpBusyHealth$/) {
+				fits="TBH"
+			} else if (name ~ /^TmpHB$/) {
+				fits="THB"
+			} else if (name ~ /^TmpHBHealth$/) {
+				fits="THH"
+			} else if (name ~ /^TmpHealth$/) {
+				fits="TMH"
+			} else if (name ~ /^TmpUpdate$/) {
+				fits="TUP"
+			} else if (name ~ /^TmpVal$/) {
+				fits="TPV"
+			} else if (name ~ /^Tol$/) {
+				fits="TOL"
+			} else if (name ~ /^Units$/) {
+				included="Start"
+				fits="UNT"
+			} else if (name ~ /^dcAbort$/) {
+				fits="DCABRT"
+			} else if (name ~ /^debugMode$/) {
+				fits="DMODE"
+			} else if (name ~ /^health$/) {
+				fits="HLTH"
+			} else if (name ~ /^heartBeat$/) {
+				fits="HRTB"
+			} else if (name ~ /^historyLog$/) {
+				fits="HLOG"
+			} else if (name ~ /^issPort$/) {
+				included="Start"
+				fits="ISSPT"
+			} else if (name ~ /^label$/) {
+				fits="LABEL"
+			} else if (name ~ /^name$/) {
+				fits="NAME"
+			} else if (name ~ /^simMode$/) {
+				included="Start"
+				fits="SMODE"
+			} else if (name ~ /^state$/) {
+				fits="STATE"
+			} else if (name ~ /^wfsBeam$/) {
+				fits="WFSBM"
+				included="Start"
+			}
+
+			doPrint=1
+
+			#
+			# The wfs components that are capable of automatic tracking
+			# must be handled specially.
+			#
+
+			if (prefix == "wfs:foc" || prefix == "wfs:prbx" \
+					|| prefix == "wfs:prby") {
+				if (name == "Pos" || name == "Units")
+					included="Always"
+			} else if (name == "Tol" || name == "AgEngDiff" \
+					|| name == "InToler" || name == "AgDiff") {
+				doPrint=0
+			}
+
+			next
+		}
+
+		/^[	 ]*record\(/ { record="" }
+
+		/^[	 ]*field\(/ {
+			if (record == "sir") {
+				gsub(/^[ 	]*field\(/,"")
+				gsub(/\)$/,"")
+
+				field=$0
+				gsub(/,.*/,"",field)
+
+				value=$0
+				gsub(/^[0-9a-zA-Z]*,"/,"",value)
+				gsub(/"$/,"",value)
+
+				if (field == "DESC") {
+					desc=value
+				}
+
+				if (field == "FDSC") {
+					fdsc=value
+				}
+
+				if (field == "EGU") {
+					egu=value
+				}
+
+				if (field == "FTVL") {
+					ftvl=value
+				}
+			}
+		}
+
+		# {
+		/}/ {
+			if (record == "sir" && doPrint \
+					&& tab == "'$section'") {
+				if ("'$output'" == "table") {
+					printf "%s	%s	%s	%s	%s	%s\n", \
+						prefix name, fitsprefix fits, included, ftvl, egu, desc
+				}
+				if ("'$output'" == "short") {
+					printf "%-23s %-8s %-6s %-6s %-10s\n", \
+						prefix name, fitsprefix fits, included, ftvl, egu
+				}
+				if ("'$output'" == "fdsc") {
+					printf "%-23s %s\n", prefix name, fdsc
+				}
+				if ("'$output'" == "desc") {
+					printf "%-23s %s\n", prefix name, desc
+				}
+			}
+		}
+
+		{ next }
+	'
+}
+
+echo sirCc.txt
+sub table cc $ccdir/data/*.db | sort > sirCc.txt
+
+echo sirIs.txt
+sub table is $isdir/data/*.db | sort > sirIs.txt
+
+echo sirWfs.txt
+sub table wfs $wfsdir/data/*.db | sort > sirWfs.txt

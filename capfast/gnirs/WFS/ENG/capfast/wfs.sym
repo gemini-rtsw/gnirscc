@@ -1,0 +1,19 @@
+[symbol2]
+bbox -320 0 32 256
+uniq 0
+[tools]
+[attributes]
+p -304 128 100 768 1 set1:follow $(top)wfs:
+p -304 96 100 768 1 set2:top $(top)eng:wfs:
+p -304 64 100 768 1 set3:name $(name) WFS
+p -304 32 100 768 1 set4:ident wfs
+[layers]
+<symbol>
+l 100 4 0 -144 192 Wfs
+v 0 -320 256
+-320 0
+32 0
+32 256
+-320 256
+_
+[comments]

@@ -1,0 +1,36 @@
+
+include Target.include
+include .applTop/config/CONFIG
+
+# You can change the way the sf2db and sch2edif tools work by adding to
+# the following flags
+# SF2DB_FLAGS    =
+# SCH2EDIF_FLAGS =
+#
+# Updates done for RGO setup (March 1996) by PBT :
+# E2SR_SYSFLAGS has our edb.def location and no -t command option
+# SF2DB has the correct binary location for sf2db
+# SCH2EDIF uses the installed version of sch2edif
+#
+
+# ** E2SR_SYSFLAGS modified temporarily to refer to private copy of
+# ** edb.def containing LUT record.
+# ** BUG WORK AROUND: E2SR_FLAGS also modified from -ate to -atec to solve
+# ** problem with CALC records in EPICS R3.12.1Gem2.
+
+# E2SR_SYSFLAGS = -aet -d $(EPICS_EXTENSIONS)/src/edif/lib/edb.def
+E2SR_SYSFLAGS = -atec -d ../edb.def
+SF2DB         = $(EPICS_BASE)/bin/$(HOST_ARCH)/sf2db
+SCH2EDIF      = $(CAPDIR)/sch2edif
+
+# List of ASCII database (*.db) files 
+# DEPSCHS is a list of schematics they depend on
+
+#DEPSCHS = $(wildcard ../*.sch)
+#DATA	= $(patsubst ../%.sch, %.db, $(wildcard ../*.sch))
+
+# No not build any products from this directory. It contains utilities only.
+DEPSCHS = $(wildcard ../*.sch)
+DATA	=
+
+include .applTop/config/RULES.Build

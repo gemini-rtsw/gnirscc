@@ -1,0 +1,8 @@
+# $Id: done.VWS,v 1.2 2009/05/27 19:34:48 fkraemer Exp $
+
+#
+# All initialization should be complete.  Clear the interlock, so that
+# commands may be executed. 
+#
+
+dbpf "@(prefix)eng:lockInitMenu","READY"

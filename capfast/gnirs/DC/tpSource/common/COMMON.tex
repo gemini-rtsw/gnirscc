@@ -1,0 +1,178 @@
+% History:
+% 30Dec91	created							dak
+% 3 Jan92	complete						dak
+
+\baselineskip 18truept
+
+\centerline {\bf Transputer Common Library Routines}
+\centerline {\bf 30 Dec 91}
+
+\vskip 20truept
+\item {\bf Introduction}
+	These are the routines and macros that make up the ``common'' 
+	subdirectory.  To use them, put a {\tt include ../com.make} in
+	your makefile and tack {\tt \$(COMMON\_OBJS) \$(OPTIONAL\_OBJS)} onto
+	the end of your {\tt OBJS} line.
+
+\vskip 20truept
+\item {\bf commands.c}  
+	This is a file that you must put in your own directory.  It has
+	declarations for all of the variables and commands that the libraries
+	support.  This file should include {\tt <conc.h>} and {\tt "common.h"}
+	in that order.  These are the things that must be defined in {\tt
+	commands.c}:
+\itemitem {\bf MEMORY}  
+		This tells the memory management routines how much memory is
+		available.  This is just a macro which defines some variables,
+		and it wants the number of bytes as an argument.  An example
+		is {\tt MEMORY(3*1024*1024 + 512*1024);} to reserve 3.5
+		megabytes of memory.
+\itemitem {\bf command}
+		Is an array of type {\tt command\_form} which contains pointers
+		to functions.  These functions correspond to the protocol
+		commands, one function for each command.  If a command
+		is to be ignored you can use a {\tt NULL} function pointer
+		to have the controller dispose of te message.  The format of
+		the functions to be called is discussed in the {\bf control.c}
+		section.
+\itemitem {\bf num\_commands}
+		Tells the controller how many positions there are in the command
+		array.  This is normally 18 for all messages.
+\itemitem {\bf var\_ptr}
+		Is an array of integer pointers which correspond to the
+		protocol variables.
+\itemitem {\bf setv\_cmnds}
+		Is an array of functions pointers (type {\tt command\_form})
+		which match up with the variables in the {\tt var\_ptr} array.
+		These functions are called when a variable is being set.
+		These can all be set to {\tt set\_var} which is described in
+		the {\bf var\_sr.c} section.
+\itemitem {\bf readv\_cmnds}
+		Is an array of functions pointers (see above) for actions to
+		take when reading a variable.  These can be set to 
+		{\tt read\_var}.
+\itemitem {\bf chan\_list}
+		Is an array of channels for the controller to watch.  Because
+		you will probably use dynamically allocated channels, you will
+		have to put {\tt NULL} placeholders in and fill it in at 
+		runtime.
+
+\vskip 20truept
+\item {\bf talk.c}
+	contains {\tt reader} and {\tt writer} functions that must be run as
+	processes.
+\itemitem {\bf reader}
+		watches all input channels defined in the {\tt chan\_list}
+		array.
+\itemitem {\bf writer}
+		watches the {\tt Reader\_to\_Writer} channel for things to
+		send.  It calls the router function to decide which channel
+		to send through.  If the message is sent to the current
+		transputer, it will be sent through the 
+		{\tt Writer\_to\_Control} channel for the controller to deal
+		with (see {\bf control.c}).
+
+\vskip 20truept
+\item {\bf control.c}
+	handles all messages.  The {\tt main()} program should call 
+	{\tt control()} as the last thing that it does.  Control never
+	returns, rather it receives messages through the 
+	{\tt Writer\_to\_Control} channel and dispatches the according to the
+	{\tt command} structure defined in {\bf commands.c}.  If the function
+	pointer has a {\tt NULL} value then the message will be discarded.
+	Control also disposes of the buffer when the function returns.  Each
+	function that is called should receive two arguments, {\tt int header},
+	and {\tt int *buf} in that order.  The header can be decoded using the
+	routines in {\tt protocol.h} if necessary.
+
+\vskip 20truept
+\item {\bf var.c}
+	deals with variable set and reads.  It call the appropriate routine
+	based on the {\tt readv\_cmnds} and {\tt setv\_cmnds} arrays defined
+	in {\bf commands.c}.  The {\tt READ\_VAR} and {\tt SET\_VAR} commands
+	should call {\tt var()}.
+
+\vskip 20truept
+\item {\bf var\_sr.c}
+	has two routines for setting and reading of normal variables.  The 
+	{\tt readv\_cmnds} and {\tt setv\_cmnds} arrays for normal variables
+	should have pointers
+	to {\tt read\_var} and {\tt set\_var()} respectively.
+
+\vskip 20truept
+\item {\bf mem.c}
+	is a memory management package.  It uses the memory set aside in the
+	{\bf commands.c} files using {\tt MEMORY}.  This is used to control
+	where memory is allocated and to also provide a simple garbage
+	collection mechanism.
+\itemitem {\bf mem\_init}
+		sets all of memory to be free.  This should be called from
+		{\tt main()}.
+\itemitem {\bf mem\_alloc}
+		returns a pointer to a block of memory of the given size.  This
+		routine returns a NULL if the memory cannot be allocated.
+\itemitem {\bf mem\_free}
+		returns a block of memory to the system heap.  If the memory is
+		outside of the heap or was not allocated the routine returns
+		without taking any action.
+
+\vskip 20truept
+\item {\bf common.h}
+	provides function prototypes for all of the common routines.  This
+	file also provides some useful macros and constants that configure the
+	common routines.  One useful macro is {\tt SEND(header, buf, channel)}.
+
+\vskip 20truept
+\item {\bf monitor.c}
+	has a watchdog process. ({\it not implemented})
+
+\vskip 20truept
+\item {\bf proc.c}
+	Defines functions for downloading code on the fly.  The {\tt common.h}
+	file also defines some macros that let your controller communicate with
+	the downloaded process.  Specifically there is a control register,
+	{\tt register}, and a channel, {\tt PROC\_to\_Control}.
+\itemitem {\bf prog}  
+	is the downloaded program.  This is really just an integer array of
+	size {\tt PROG\_LEN} ints.  Just include this in the {\tt var\_ptr}
+	array so that programs can be downloaded.
+\itemitem {\bf kill\_proc}
+	will ``kill'' the current process.  This relies on the process checking
+	the contents of {\tt register} frequently.  When {\tt register} contains
+	the value {\tt DIE}, it should send an int through the 
+	{\tt PROC\_to\_Control} channel to signify completion and finally
+	call ProcHalt().
+\itemitem {\bf execute\_proc}
+	starts the downloaded process.  It allocates a stack of size 
+	{\tt P\_STACK}, sets {\tt register} to 0, and runs the process
+	at low priority.
+\itemitem {\bf register}
+	is an int located in a static location that can be used to communicate
+	with the downloaded process.  The process must recognize the {\tt DIE}
+	command.
+\itemitem {\bf PROC\_to\_Control}
+	is a channel located in a static location and it may be used to
+	communicate with the downloaded process.  The process should send
+	an int out of this channel to signal that it is dying.
+
+\vskip 20truept
+\item {\bf queue.c}
+	provides queue manipulation routines.  For sake of efficiency the
+	queue routines do not provide error checking.  If this is necessary,
+	you must make a call to emptyq yourself.
+\itemitem {\bf q\_alloc}
+		allocates an empty queue.  The queue has size {\tt QUEUE\_SIZE}.
+\itemitem {\bf enq}
+		adds an element (an integer size piece of data) to the tail of
+		the queue.
+\itemitem {\bf deq}
+		removes and returns an element from the head of the queue.
+\itemitem {\bf emptyq}
+		returns a true value if the queue is empty, false if it is not.
+
+\vskip 20truept
+\item {\bf debug.c}
+	provides a way of sending debugging messages up to the sun.
+	Simply make a call to {\tt send\_debug(char *format, ...)} and it will
+	do the rest.  The {\bf reader} must be watching {\tt DEBUG\_CHAN}.
+\end

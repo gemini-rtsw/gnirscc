@@ -1,0 +1,26 @@
+[symbol2]
+bbox -608 -96 -224 64
+port -592 32 100 1536 ICID symbol 1 -608 32 0
+port -592 -64 100 1536 ISPL symbol 1 -608 -64 0
+port -592 0 100 1536 ARG symbol 3 -608 0 0
+port -592 -32 100 1536 ISTL symbol 1 -608 -32 0
+uniq 29
+[tools]
+[attributes]
+p -528 -32 100 768 1 set0:mech $(mech)
+p -528 -64 100 768 1 set1:op $(op)
+p -528 -96 100 768 1 set2:cmd $(cad)
+[layers]
+<symbol>
+l 100 4 0 -416 0 compSnlCmd
+v 0 -512 32
+-512 64
+-608 64
+-608 -96
+-224 -96
+-224 64
+-320 64
+-320 32
+-512 32
+_
+[comments]

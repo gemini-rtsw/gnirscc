@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sequence PUBLIC "-//Gemini Observatory//DTD for OT Science Program Sequence//EN" "Seq.dtd">
+<sequence version="0.1">
+  <step name="step 1">
+    <system name="instrument">
+      <param name="posAngle" value="0" />
+      <param name="clfilter" value="V-green" />
+      <param name="instrument" value="Acquisition Camera" />
+      <param name="exposureTime" value="60" />
+    </system>
+    <system name="telescope">
+      <param name="q" value="0.0" />
+      <param name="p" value="0.0" />
+      <param name="guideWithPWFS1" value="PWFS1-1" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60" />
+      <param name="observeType" value="OBJECT" />
+    </system>
+  </step>
+  <step name="step 2">
+    <system name="instrument">
+      <param name="exposureTime" value="60" />
+      <param name="instrument" value="Acquisition Camera" />
+      <param name="clfilter" value="I-red3" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60" />
+      <param name="observeType" value="OBJECT" />
+    </system>
+  </step>
+  <step name="step 3">
+    <system name="telescope">
+      <param name="q" value="337.879" />
+      <param name="p" value="-162.115" />
+      <param name="guideWithPWFS1" value="freeze" />
+    </system>
+    <system name="instrument">
+      <param name="exposureTime" value="60" />
+      <param name="instrument" value="Acquisition Camera" />
+      <param name="clfilter" value="V-green" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60" />
+      <param name="observeType" value="OBJECT" />
+    </system>
+  </step>
+  <step name="step 4">
+    <system name="instrument">
+      <param name="exposureTime" value="60" />
+      <param name="instrument" value="Acquisition Camera" />
+      <param name="clfilter" value="I-red3" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60" />
+      <param name="observeType" value="OBJECT" />
+    </system>
+  </step>
+  <step name="step 5">
+    <system name="telescope">
+      <param name="q" value="0.0" />
+      <param name="p" value="0.0" />
+      <param name="guideWithPWFS1" value="PWFS1-1" />
+    </system>
+    <system name="instrument">
+      <param name="exposureTime" value="60" />
+      <param name="instrument" value="Acquisition Camera" />
+      <param name="clfilter" value="V-green" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60" />
+      <param name="observeType" value="OBJECT" />
+    </system>
+  </step>
+  <step name="step 6">
+    <system name="instrument">
+      <param name="exposureTime" value="60" />
+      <param name="instrument" value="Acquisition Camera" />
+      <param name="clfilter" value="I-red3" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60" />
+      <param name="observeType" value="OBJECT" />
+    </system>
+  </step>
+  <step name="step 7">
+    <system name="telescope">
+      <param name="q" value="0.0" />
+      <param name="p" value="0.0" />
+    </system>
+    <system name="instrument">
+      <param name="exposureTime" value="60" />
+      <param name="instrument" value="Acquisition Camera" />
+      <param name="clfilter" value="V-green" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60" />
+      <param name="observeType" value="OBJECT" />
+    </system>
+  </step>
+  <step name="step 8">
+    <system name="instrument">
+      <param name="exposureTime" value="60" />
+      <param name="instrument" value="Acquisition Camera" />
+      <param name="clfilter" value="I-red3" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60" />
+      <param name="observeType" value="OBJECT" />
+    </system>
+  </step>
+  <step name="step 9">
+    <system name="telescope">
+      <param name="q" value="337.879" />
+      <param name="p" value="-162.115" />
+      <param name="guideWithPWFS1" value="freeze" />
+    </system>
+    <system name="instrument">
+      <param name="exposureTime" value="60" />
+      <param name="instrument" value="Acquisition Camera" />
+      <param name="clfilter" value="V-green" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60" />
+      <param name="observeType" value="OBJECT" />
+    </system>
+  </step>
+  <step name="step 10">
+    <system name="instrument">
+      <param name="exposureTime" value="60" />
+      <param name="instrument" value="Acquisition Camera" />
+      <param name="clfilter" value="I-red3" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60" />
+      <param name="observeType" value="OBJECT" />
+    </system>
+  </step>
+  <step name="step 11">
+    <system name="telescope">
+      <param name="q" value="0.0" />
+      <param name="p" value="0.0" />
+      <param name="guideWithPWFS1" value="PWFS1-1" />
+    </system>
+    <system name="instrument">
+      <param name="exposureTime" value="60" />
+      <param name="instrument" value="Acquisition Camera" />
+      <param name="clfilter" value="V-green" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60" />
+      <param name="observeType" value="OBJECT" />
+    </system>
+  </step>
+  <step name="step 12">
+    <system name="instrument">
+      <param name="exposureTime" value="60" />
+      <param name="instrument" value="Acquisition Camera" />
+      <param name="clfilter" value="I-red3" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60" />
+      <param name="observeType" value="OBJECT" />
+    </system>
+  </step>
+  <step name="step 13">
+    <system name="telescope">
+      <param name="q" value="0.0" />
+      <param name="p" value="0.0" />
+    </system>
+    <system name="instrument">
+      <param name="exposureTime" value="60" />
+      <param name="instrument" value="Acquisition Camera" />
+      <param name="clfilter" value="V-green" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60" />
+      <param name="observeType" value="OBJECT" />
+    </system>
+  </step>
+  <step name="step 14">
+    <system name="instrument">
+      <param name="exposureTime" value="60" />
+      <param name="instrument" value="Acquisition Camera" />
+      <param name="clfilter" value="I-red3" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60" />
+      <param name="observeType" value="OBJECT" />
+    </system>
+  </step>
+  <step name="step 15">
+    <system name="telescope">
+      <param name="q" value="337.879" />
+      <param name="p" value="-162.115" />
+      <param name="guideWithPWFS1" value="freeze" />
+    </system>
+    <system name="instrument">
+      <param name="exposureTime" value="60" />
+      <param name="instrument" value="Acquisition Camera" />
+      <param name="clfilter" value="V-green" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60" />
+      <param name="observeType" value="OBJECT" />
+    </system>
+  </step>
+  <step name="step 16">
+    <system name="instrument">
+      <param name="exposureTime" value="60" />
+      <param name="instrument" value="Acquisition Camera" />
+      <param name="clfilter" value="I-red3" />
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="60" />
+      <param name="observeType" value="OBJECT" />
+    </system>
+  </step>
+</sequence>
+

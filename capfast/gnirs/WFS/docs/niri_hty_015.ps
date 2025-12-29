@@ -1,0 +1,3433 @@
+%!PS-Adobe-3.0
+%%BoundingBox: (atend)
+%%Pages: (atend)
+%%PageOrder: (atend)
+%%DocumentFonts: (atend)
+%%Creator: Frame 5.0
+%%DocumentData: Clean7Bit
+%%EndComments
+%%BeginProlog
+%
+% Frame ps_prolog 5.0, for use with Frame 5.0 products
+% This ps_prolog file is Copyright (c) 1986-1995 Frame Technology
+% Corporation.  All rights reserved.  This ps_prolog file may be
+% freely copied and distributed in conjunction with documents created
+% using FrameMaker, FrameMaker/SGML and FrameViewer as long as this 
+% copyright notice is preserved.
+%
+% FrameMaker users specify the proper paper size for each print job in the
+% "Print" dialog's "Printer Paper Size" "Width" and "Height~ fields.  If the
+% printer that the PS file is sent to does not support the requested paper
+% size, or if there is no paper tray of the proper size currently installed, 
+% then the job will not be printed.  The following flag, if set to true, will
+% cause the job to print on the default paper in such cases.
+/FMAllowPaperSizeMismatch            false def
+%
+% Frame products normally print colors as their true color on a color printer
+% or as shades of gray, based on luminance, on a black-and white printer. The
+% following flag, if set to true, forces all non-white colors to print as pure
+% black. This has no effect on bitmap images.
+/FMPrintAllColorsAsBlack             false def
+%
+% Frame products can either set their own line screens or use a printer's 
+% default settings. Three flags below control this separately for no 
+% separations, spot separations and process separations. If a flag
+% is true, then the default printer settings will not be changed. If it is
+% false, Frame products will use their own settings from a table based on
+% the printer's resolution.
+/FMUseDefaultNoSeparationScreen      true  def
+/FMUseDefaultSpotSeparationScreen    true  def
+/FMUseDefaultProcessSeparationScreen false def
+%
+% For any given PostScript printer resolution, Frame products have two sets of 
+% screen angles and frequencies for printing process separations, which are 
+% recomended by Adobe. The following variable chooses the higher frequencies
+% when set to true or the lower frequencies when set to false. This is only
+% effective if the appropriate FMUseDefault...SeparationScreen flag is false.
+/FMUseHighFrequencyScreens true def
+%
+% The following is a set of predefined optimal frequencies and angles for various
+% common dpi settings. This is taken from "Advances in Color Separation Using
+% PostScript Software Technology," from Adobe Systems (3/13/89 P.N. LPS 0043)
+% and corrolated with information which is in various PPD (4.0) files.
+%
+% The "dpiranges" figure is the minimum dots per inch device resolution which
+% can support this setting. The "low" and "high" values are controlled by the
+% setting of the FMUseHighFrequencyScreens flag above. The "TDot" flags control
+% the use of the "Yellow Triple Dot" feature whereby the frequency id divided by
+% three, but the dot function is "trippled" giving a block of 3x3 dots per cell.
+%
+% PatFreq is a compromise pattern frequency for ps Level 2 printers which is close
+% to the ideal WYSIWYG pattern frequency of 9 repetitions/inch but does not beat
+% (too badly) against the screen frequencies of any separations for that DPI.
+/dpiranges   [  2540    2400    1693     1270    1200     635      600      0      ] def
+/CMLowFreqs  [ 100.402  94.8683 89.2289 100.402  94.8683  66.9349  63.2456 47.4342 ] def
+/YLowFreqs   [  95.25   90.0    84.65    95.25   90.0     70.5556  66.6667 50.0    ] def
+/KLowFreqs   [  89.8026 84.8528 79.8088  89.8026 84.8528  74.8355  70.7107 53.033  ] def
+/CLowAngles  [  71.5651 71.5651 71.5651 71.5651  71.5651  71.5651  71.5651 71.5651 ] def
+/MLowAngles  [  18.4349 18.4349 18.4349 18.4349  18.4349  18.4349  18.4349 18.4349 ] def
+/YLowTDot    [  true    true    false    true    true     false    false   false   ] def
+/CMHighFreqs [ 133.87  126.491 133.843  108.503 102.523  100.402   94.8683 63.2456 ] def
+/YHighFreqs  [ 127.0   120.0   126.975  115.455 109.091   95.25    90.0    60.0    ] def
+/KHighFreqs  [ 119.737 113.137 119.713  128.289 121.218   89.8026  84.8528 63.6395 ] def
+/CHighAngles [  71.5651 71.5651 71.5651  70.0169 70.0169  71.5651  71.5651 71.5651 ] def
+/MHighAngles [  18.4349 18.4349 18.4349  19.9831 19.9831  18.4349  18.4349 18.4349 ] def
+/YHighTDot   [  false   false   true     false   false    true     true    false   ] def
+/PatFreq     [	10.5833 10.0     9.4055  10.5833 10.0	  10.5833  10.0	   9.375   ] def
+%
+% PostScript Level 2 printers contain an "Accurate Screens" feature which can
+% improve process separation rendering at the expense of compute time. This 
+% flag is ignored by PostScript Level 1 printers.
+/FMUseAcccurateScreens true def
+%
+% The following PostScript procedure defines the spot function that Frame
+% products will use for process separations. You may un-comment-out one of
+% the alternative functions below, or use your own.
+%
+% Dot function
+/FMSpotFunction {abs exch abs 2 copy add 1 gt 
+		{1 sub dup mul exch 1 sub dup mul add 1 sub }
+		{dup mul exch dup mul add 1 exch sub }ifelse } def
+%
+% Line function
+% /FMSpotFunction { pop } def
+%
+% Elipse function
+% /FMSpotFunction { dup 5 mul 8 div mul exch dup mul exch add 
+%		sqrt 1 exch sub } def
+%
+%
+/FMversion (5.0) def 
+/fMLevel1 /languagelevel where {pop languagelevel} {1} ifelse 2 lt def
+/FMPColor
+	fMLevel1 {
+		false
+		/colorimage where {pop pop true} if
+	} {
+		true
+	} ifelse
+def
+/FrameDict 400 dict def 
+systemdict /errordict known not {/errordict 10 dict def
+		errordict /rangecheck {stop} put} if
+% The readline in PS 23.0 doesn't recognize cr's as nl's on AppleTalk
+FrameDict /tmprangecheck errordict /rangecheck get put 
+errordict /rangecheck {FrameDict /bug true put} put 
+FrameDict /bug false put 
+mark 
+% Some PS machines read past the CR, so keep the following 3 lines together!
+currentfile 5 string readline
+00
+0000000000
+cleartomark 
+errordict /rangecheck FrameDict /tmprangecheck get put 
+FrameDict /bug get { 
+	/readline {
+		/gstring exch def
+		/gfile exch def
+		/gindex 0 def
+		{
+			gfile read pop 
+			dup 10 eq {exit} if 
+			dup 13 eq {exit} if 
+			gstring exch gindex exch put 
+			/gindex gindex 1 add def 
+		} loop
+		pop 
+		gstring 0 gindex getinterval true 
+		} bind def
+	} if
+/FMshowpage /showpage load def
+/FMquit /quit load def
+/FMFAILURE { 
+	dup = flush 
+	FMshowpage 
+	/Helvetica findfont 12 scalefont setfont
+	72 200 moveto show
+	72 220 moveto show
+	FMshowpage 
+	FMquit 
+	} def 
+/FMVERSION {
+	FMversion ne {
+		(Frame product version does not match ps_prolog!  Check installation;)
+		(also check ~/fminit and ./fminit for old versions) FMFAILURE
+		} if
+	} def 
+/FMBADEPSF { 
+	(Adobe's PostScript Language Reference Manual, 2nd Edition, section H.2.4)
+	(says your EPS file is not valid, as it calls X              )
+	dup dup (X) search pop exch pop exch pop length 
+	5 -1 roll 
+	putinterval 
+	FMFAILURE
+	} def
+/fmConcatProcs
+	{
+	/proc2 exch cvlit def/proc1 exch cvlit def/newproc proc1 length proc2 length add array def
+	newproc 0 proc1 putinterval newproc proc1 length proc2 putinterval newproc cvx
+}def
+FrameDict begin [
+	/ALDsave
+	/FMdicttop
+	/FMoptop
+	/FMpointsize
+	/FMsaveobject
+	/b
+	/bitmapsave
+	/blut
+	/bpside
+	/bs
+	/bstring
+	/bwidth
+	/c
+	/cf
+	/cs
+	/cynu
+	/depth
+	/edown
+	/fh
+	/fillvals
+	/fw
+	/fx
+	/fy
+	/g
+	/gfile
+	/gindex
+	/grnt
+	/gryt
+	/gstring
+	/height
+	/hh
+	/i
+	/im
+	/indx
+	/is
+	/k
+	/kk
+	/landscape
+	/lb
+	/len
+	/llx
+	/lly
+	/m
+	/magu
+	/manualfeed
+	/n
+	/offbits
+	/onbits
+	/organgle
+	/orgbangle
+	/orgbfreq
+	/orgbproc
+	/orgbxfer
+	/orgfreq
+	/orggangle
+	/orggfreq
+	/orggproc
+	/orggxfer
+	/orgmatrix
+	/orgproc
+	/orgrangle
+	/orgrfreq
+	/orgrproc
+	/orgrxfer
+	/orgxfer
+	/pagesave
+	/paperheight
+	/papersizedict
+	/paperwidth
+	/pos
+	/pwid
+	/r
+	/rad
+	/redt
+	/sl
+	/str
+	/tran
+	/u
+	/urx
+	/ury
+	/val
+	/width
+	/width
+	/ws
+	/ww
+	/x
+	/x1
+	/x2
+	/xindex
+	/xpoint
+	/xscale
+	/xx
+	/y
+	/y1
+	/y2
+	/yelu
+	/yindex
+	/ypoint
+	/yscale
+	/yy
+] { 0 def } forall
+/FmBD {bind def} bind def
+systemdict /pdfmark known {
+	/fMAcrobat true def
+	
+	/FmPD /pdfmark load def
+	
+	
+	/FmPT /show load def
+	
+	
+	currentdistillerparams /CoreDistVersion get 2000 ge {
+	
+		
+		/FmPD2 /pdfmark load def
+		
+		
+		
+		
+		
+		/FmPA { mark exch /Dest exch 5 3 roll 
+				/View [ /XYZ null 6 -2 roll FmDC exch pop null] /DEST FmPD 
+		}FmBD
+	} {
+		
+		/FmPD2 /cleartomark load def
+		/FmPA {pop pop pop}FmBD
+	} ifelse
+} {
+	
+	/fMAcrobat false def
+	/FmPD /cleartomark load def
+	/FmPD2 /cleartomark load def
+	/FmPT /pop load def
+	/FmPA {pop pop pop}FmBD
+} ifelse
+/FmDC {
+	transform fMDefaultMatrix itransform cvi exch cvi exch
+}FmBD
+/FmBx {
+	dup 3 index lt {3 1 roll exch} if 
+	1 index 4 index lt {4 -1 roll 3 1 roll exch 4 1 roll} if
+}FmBD
+/FMnone 0 def
+/FMcyan 1 def
+/FMmagenta 2 def
+/FMyellow 3 def
+/FMblack 4 def
+/FMcustom 5 def
+/fMNegative false def 
+/FrameSepIs FMnone def 
+/FrameSepBlack 0 def
+/FrameSepYellow 0 def
+/FrameSepMagenta 0 def
+/FrameSepCyan 0 def
+/FrameSepRed 1 def
+/FrameSepGreen 1 def
+/FrameSepBlue 1 def
+/FrameCurGray 1 def
+/FrameCurPat null def
+/FrameCurColors [ 0 0 0 1 0 0 0 ] def 
+/FrameColorEpsilon .001 def	
+/eqepsilon {		
+	sub dup 0 lt {neg} if
+	FrameColorEpsilon le
+} bind def
+/FrameCmpColorsCMYK { 
+	2 copy 0 get exch 0 get eqepsilon {
+		2 copy 1 get exch 1 get eqepsilon {
+			2 copy 2 get exch 2 get eqepsilon {
+				3 get exch 3 get eqepsilon
+			} {pop pop false} ifelse
+		}{pop pop false} ifelse
+	} {pop pop false} ifelse
+} bind def
+/FrameCmpColorsRGB { 
+	2 copy 4 get exch 0 get eqepsilon {
+		2 copy 5 get exch 1 get eqepsilon {
+			6 get exch 2 get eqepsilon
+		}{pop pop false} ifelse
+	} {pop pop false} ifelse
+} bind def
+/RGBtoCMYK { 
+	1 exch sub 
+	3 1 roll 
+	1 exch sub 
+	3 1 roll 
+	1 exch sub 
+	3 1 roll 
+	3 copy 
+	2 copy 
+	le { pop } { exch pop } ifelse 
+	2 copy 
+	le { pop } { exch pop } ifelse 
+	dup dup dup 
+	6 1 roll 
+	4 1 roll 
+	7 1 roll 
+	sub 
+	6 1 roll 
+	sub 
+	5 1 roll 
+	sub 
+	4 1 roll 
+} bind def
+/CMYKtoRGB { 
+	dup dup 4 -1 roll add 						  
+	5 1 roll 3 -1 roll add 						  
+	4 1 roll add 								  
+	1 exch sub dup 0 lt {pop 0} if 3 1 roll 	  
+	1 exch sub dup 0 lt {pop 0} if exch 	      
+	1 exch sub dup 0 lt {pop 0} if exch	  		  
+} bind def
+/FrameSepInit {
+	1.0 RealSetgray
+} bind def
+/FrameSetSepColor { 
+	/FrameSepBlue exch def
+	/FrameSepGreen exch def
+	/FrameSepRed exch def
+	/FrameSepBlack exch def
+	/FrameSepYellow exch def
+	/FrameSepMagenta exch def
+	/FrameSepCyan exch def
+	/FrameSepIs FMcustom def
+	setCurrentScreen	
+} bind def
+/FrameSetCyan {
+	/FrameSepBlue 1.0 def
+	/FrameSepGreen 1.0 def
+	/FrameSepRed 0.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 1.0 def
+	/FrameSepIs FMcyan def
+	setCurrentScreen	
+} bind def
+ 
+/FrameSetMagenta {
+	/FrameSepBlue 1.0 def
+	/FrameSepGreen 0.0 def
+	/FrameSepRed 1.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 1.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMmagenta def
+	setCurrentScreen
+} bind def
+ 
+/FrameSetYellow {
+	/FrameSepBlue 0.0 def
+	/FrameSepGreen 1.0 def
+	/FrameSepRed 1.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 1.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMyellow def
+	setCurrentScreen
+} bind def
+ 
+/FrameSetBlack {
+	/FrameSepBlue 0.0 def
+	/FrameSepGreen 0.0 def
+	/FrameSepRed 0.0 def
+	/FrameSepBlack 1.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMblack def
+	setCurrentScreen
+} bind def
+ 
+/FrameNoSep { 
+	/FrameSepIs FMnone def
+	setCurrentScreen
+} bind def
+/FrameSetSepColors { 
+	FrameDict begin
+	[ exch 1 add 1 roll ]
+	/FrameSepColors  
+	exch def end
+	} bind def
+/FrameColorInSepListCMYK { 
+	FrameSepColors {  
+       		exch dup 3 -1 roll 
+       		FrameCmpColorsCMYK 
+       		{ pop true exit } if
+    	} forall 
+	dup true ne {pop false} if
+	} bind def
+/FrameColorInSepListRGB { 
+	FrameSepColors {  
+       		exch dup 3 -1 roll 
+       		FrameCmpColorsRGB 
+       		{ pop true exit } if
+    	} forall 
+	dup true ne {pop false} if
+	} bind def
+/RealSetgray /setgray load def
+/RealSetrgbcolor /setrgbcolor load def
+/RealSethsbcolor /sethsbcolor load def
+end 
+/setgray { 
+	FrameDict begin
+	FrameSepIs FMnone eq
+		{ RealSetgray } 
+		{ 
+		FrameSepIs FMblack eq 
+			{ RealSetgray } 
+			{ FrameSepIs FMcustom eq 
+			  FrameSepRed 0 eq and
+			  FrameSepGreen 0 eq and
+			  FrameSepBlue 0 eq and {
+			  	RealSetgray
+			  } {
+				1 RealSetgray pop 
+			  } ifelse
+			} ifelse
+		} ifelse
+	end
+} bind def
+/setrgbcolor { 
+	FrameDict begin
+	FrameSepIs FMnone eq
+	{  RealSetrgbcolor }
+	{
+		3 copy [ 4 1 roll ] 
+		FrameColorInSepListRGB
+		{
+				FrameSepBlue eq exch 
+			 	FrameSepGreen eq and exch 
+			 	FrameSepRed eq and
+			 	{ 0 } { 1 } ifelse
+		}
+		{
+			FMPColor {
+				RealSetrgbcolor
+				currentcmykcolor
+			} {
+				RGBtoCMYK
+			} ifelse
+			FrameSepIs FMblack eq
+			{1.0 exch sub 4 1 roll pop pop pop} {
+			FrameSepIs FMyellow eq
+			{pop 1.0 exch sub 3 1 roll pop pop} {
+			FrameSepIs FMmagenta eq
+			{pop pop 1.0 exch sub exch pop } {
+			FrameSepIs FMcyan eq
+			{pop pop pop 1.0 exch sub } 
+			{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+		} ifelse
+		RealSetgray
+	} 
+	ifelse
+	end
+} bind def
+/sethsbcolor {
+	FrameDict begin
+	FrameSepIs FMnone eq 
+	{ RealSethsbcolor } 
+	{
+		RealSethsbcolor 
+		currentrgbcolor  
+		setrgbcolor 
+	} 
+	ifelse
+	end
+} bind def
+FrameDict begin
+/setcmykcolor where {
+	pop /RealSetcmykcolor /setcmykcolor load def
+} {
+	/RealSetcmykcolor {
+		4 1 roll
+		3 { 3 index add 0 max 1 min 1 exch sub 3 1 roll} repeat 
+		RealSetrgbcolor pop
+	} bind def
+} ifelse
+userdict /setcmykcolor { 
+		FrameDict begin
+		FrameSepIs FMnone eq
+		{ RealSetcmykcolor } 
+		{
+			4 copy [ 5 1 roll ]
+			FrameColorInSepListCMYK
+			{
+				FrameSepBlack eq exch 
+				FrameSepYellow eq and exch 
+				FrameSepMagenta eq and exch 
+				FrameSepCyan eq and 
+				{ 0 } { 1 } ifelse
+			}
+			{
+				FrameSepIs FMblack eq
+				{1.0 exch sub 4 1 roll pop pop pop} {
+				FrameSepIs FMyellow eq
+				{pop 1.0 exch sub 3 1 roll pop pop} {
+				FrameSepIs FMmagenta eq
+				{pop pop 1.0 exch sub exch pop } {
+				FrameSepIs FMcyan eq
+				{pop pop pop 1.0 exch sub } 
+				{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+			} ifelse
+			RealSetgray
+		}
+		ifelse
+		end
+	} bind put
+fMLevel1 { 
+	
+	
+	
+	/patScreenDict 7 dict dup begin
+		<0f1e3c78f0e1c387> [ 45  { pop } {exch pop} 		.5   2 sqrt] FmBD
+		<0f87c3e1f0783c1e> [ 135 { pop } {exch pop}			.5   2 sqrt] FmBD
+		<cccccccccccccccc> [ 0   { pop } dup				.5   2	   ] FmBD
+		<ffff0000ffff0000> [ 90  { pop } dup				.5   2	   ] FmBD
+		<8142241818244281> [ 45  { 2 copy lt {exch} if pop}	dup .75  2 sqrt] FmBD
+		<03060c183060c081> [ 45  { pop } {exch pop}			.875 2 sqrt] FmBD
+		<8040201008040201> [ 135 { pop } {exch pop}			.875 2 sqrt] FmBD
+	end def
+} { 
+	
+	/patProcDict 5 dict dup begin
+		<0f1e3c78f0e1c387> { 3 setlinewidth -1 -1 moveto 9 9 lineto stroke 
+											4 -4 moveto 12 4 lineto stroke
+											-4 4 moveto 4 12 lineto stroke} bind def
+		<0f87c3e1f0783c1e> { 3 setlinewidth -1 9 moveto 9 -1 lineto stroke 
+											-4 4 moveto 4 -4 lineto stroke
+											4 12 moveto 12 4 lineto stroke} bind def
+		<8142241818244281> { 1 setlinewidth -1 9 moveto 9 -1 lineto stroke
+											-1 -1 moveto 9 9 lineto stroke } bind def
+		<03060c183060c081> { 1 setlinewidth -1 -1 moveto 9 9 lineto stroke 
+											4 -4 moveto 12 4 lineto stroke
+											-4 4 moveto 4 12 lineto stroke} bind def
+		<8040201008040201> { 1 setlinewidth -1 9 moveto 9 -1 lineto stroke 
+											-4 4 moveto 4 -4 lineto stroke
+											4 12 moveto 12 4 lineto stroke} bind def
+	end def
+	/patDict 15 dict dup begin
+		/PatternType 1 def		
+		/PaintType 2 def		
+		/TilingType 3 def		
+		/BBox [ 0 0 8 8 ] def 	
+		/XStep 8 def			
+		/YStep 8 def			
+		/PaintProc {
+			begin
+			patProcDict bstring known {
+				patProcDict bstring get exec
+			} {
+				8 8 true [1 0 0 -1 0 8] bstring imagemask
+			} ifelse
+			end
+		} bind def
+	end def
+} ifelse
+/combineColor {
+    FrameSepIs FMnone eq
+	{
+		graymode fMLevel1 or not {
+			
+			[/Pattern [/DeviceCMYK]] setcolorspace
+			FrameCurColors 0 4 getinterval aload pop FrameCurPat setcolor
+		} {
+			FrameCurColors 3 get 1.0 ge {
+				FrameCurGray RealSetgray
+			} {
+				fMAcrobat not FMPColor graymode and and {
+					0 1 3 { 
+						FrameCurColors exch get
+						1 FrameCurGray sub mul
+					} for
+					RealSetcmykcolor
+				} {
+					4 1 6 {
+						FrameCurColors exch get
+						graymode {
+							1 exch sub 1 FrameCurGray sub mul 1 exch sub
+						} {
+							1.0 lt {FrameCurGray} {1} ifelse
+						} ifelse
+					} for
+					RealSetrgbcolor
+				} ifelse
+			} ifelse
+		} ifelse
+	} { 
+		FrameCurColors 0 4 getinterval aload
+		FrameColorInSepListCMYK {
+			FrameSepBlack eq exch 
+			FrameSepYellow eq and exch 
+			FrameSepMagenta eq and exch 
+			FrameSepCyan eq and
+			FrameSepIs FMcustom eq and
+			{ FrameCurGray } { 1 } ifelse
+		} {
+			FrameSepIs FMblack eq
+			{FrameCurGray 1.0 exch sub mul 1.0 exch sub 4 1 roll pop pop pop} {
+			FrameSepIs FMyellow eq
+			{pop FrameCurGray 1.0 exch sub mul 1.0 exch sub 3 1 roll pop pop} {
+			FrameSepIs FMmagenta eq
+			{pop pop FrameCurGray 1.0 exch sub mul 1.0 exch sub exch pop } {
+			FrameSepIs FMcyan eq
+			{pop pop pop FrameCurGray 1.0 exch sub mul 1.0 exch sub } 
+			{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+		} ifelse
+		graymode fMLevel1 or not {
+			
+			[/Pattern [/DeviceGray]] setcolorspace
+			FrameCurPat setcolor
+		} { 
+			graymode not fMLevel1 and {
+				
+				dup 1 lt {pop FrameCurGray} if
+			} if
+			RealSetgray
+		} ifelse
+	} ifelse
+} bind def
+/savematrix {
+	orgmatrix currentmatrix pop
+	} bind def
+/restorematrix {
+	orgmatrix setmatrix
+	} bind def
+/fMDefaultMatrix matrix defaultmatrix def
+/fMatrix2 matrix def
+/dpi    72 0 fMDefaultMatrix dtransform
+    dup mul exch   dup mul add   sqrt def
+	
+/freq dpi dup 72 div round dup 0 eq {pop 1} if 8 mul div def
+/sangle 1 0 fMDefaultMatrix dtransform exch atan def
+	sangle fMatrix2 rotate 
+	fMDefaultMatrix fMatrix2 concatmatrix 
+	dup 0 get /sflipx exch def
+	    3 get /sflipy exch def
+/screenIndex {
+	0 1 dpiranges length 1 sub { dup dpiranges exch get 1 sub dpi le {exit} {pop} ifelse } for
+} bind def
+/getCyanScreen {
+	FMUseHighFrequencyScreens { CHighAngles CMHighFreqs} {CLowAngles CMLowFreqs} ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get /FMSpotFunction load
+} bind def
+/getMagentaScreen {
+	FMUseHighFrequencyScreens { MHighAngles CMHighFreqs } {MLowAngles CMLowFreqs} ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get /FMSpotFunction load
+} bind def
+/getYellowScreen {
+	FMUseHighFrequencyScreens { YHighTDot YHighFreqs} { YLowTDot YLowFreqs } ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get { 3 div
+			{2 { 1 add 2 div 3 mul dup floor sub 2 mul 1 sub exch} repeat
+			FMSpotFunction } } {/FMSpotFunction load } ifelse
+			0.0 exch
+} bind def
+/getBlackScreen  {
+	FMUseHighFrequencyScreens { KHighFreqs } { KLowFreqs } ifelse
+		screenIndex get 45.0 /FMSpotFunction load 
+} bind def
+/getSpotScreen {
+	getBlackScreen
+} bind def
+/getCompositeScreen {
+	getBlackScreen
+} bind def
+/FMSetScreen 
+	fMLevel1 { /setscreen load 
+	}{ {
+		8 dict begin
+		/HalftoneType 1 def
+		/SpotFunction exch def
+		/Angle exch def
+		/Frequency exch def
+		/AccurateScreens FMUseAcccurateScreens def
+		currentdict end sethalftone
+	} bind } ifelse
+def
+/setDefaultScreen {
+	FMPColor {
+		orgrxfer cvx orggxfer cvx orgbxfer cvx orgxfer cvx setcolortransfer
+	}
+	{
+		orgxfer cvx settransfer
+	} ifelse
+	orgfreq organgle orgproc cvx setscreen
+} bind def
+/setCurrentScreen {
+	FrameSepIs FMnone eq {
+		FMUseDefaultNoSeparationScreen {
+			setDefaultScreen
+		} {
+			getCompositeScreen FMSetScreen
+		} ifelse
+	} {
+		FrameSepIs FMcustom eq {
+			FMUseDefaultSpotSeparationScreen {
+				setDefaultScreen
+			} {
+				getSpotScreen FMSetScreen
+			} ifelse
+		} {
+			FMUseDefaultProcessSeparationScreen {
+				setDefaultScreen
+			} {
+				FrameSepIs FMcyan eq {
+					getCyanScreen FMSetScreen
+				} {
+					FrameSepIs FMmagenta eq {
+						getMagentaScreen FMSetScreen
+					} {
+						FrameSepIs FMyellow eq {
+							getYellowScreen FMSetScreen
+						} {
+							getBlackScreen FMSetScreen
+						} ifelse
+					} ifelse
+				} ifelse
+			} ifelse
+		} ifelse
+	} ifelse 
+} bind def
+end
+	
+/FMDOCUMENT { 
+	array /FMfonts exch def 
+	/#copies exch def
+	FrameDict begin
+	0 ne /manualfeed exch def
+	/paperheight exch def
+	/paperwidth exch def
+	0 ne /fMNegative exch def 
+	0 ne /edown exch def 
+	/yscale exch def
+	/xscale exch def
+	fMLevel1 {
+		manualfeed {setmanualfeed} if
+		/FMdicttop countdictstack 1 add def 
+		/FMoptop count def 
+		setpapername 
+		manualfeed {true} {papersize} ifelse 
+		{manualpapersize} {false} ifelse 
+		{desperatepapersize} {false} ifelse 
+		{papersizefailure} if
+		count -1 FMoptop {pop pop} for
+		countdictstack -1 FMdicttop {pop end} for 
+		}
+		{2 dict
+		 dup /PageSize [paperwidth paperheight] put
+		 manualfeed {dup /ManualFeed manualfeed put} if
+		 {setpagedevice} stopped {papersizefailure} if
+		}
+	ifelse 
+	
+	FMPColor {
+		currentcolorscreen
+			cvlit /orgproc exch def
+				  /organgle exch def 
+				  /orgfreq exch def
+			cvlit /orgbproc exch def
+				  /orgbangle exch def 
+				  /orgbfreq exch def
+			cvlit /orggproc exch def
+				  /orggangle exch def 
+				  /orggfreq exch def
+			cvlit /orgrproc exch def
+				  /orgrangle exch def 
+				  /orgrfreq exch def
+			currentcolortransfer 
+			fMNegative {
+				1 1 4 { 
+					pop { 1 exch sub } fmConcatProcs 4 1 roll
+				} for
+				4 copy
+				setcolortransfer
+			} if
+			cvlit /orgxfer exch def
+			cvlit /orgbxfer exch def
+			cvlit /orggxfer exch def
+			cvlit /orgrxfer exch def
+	} {
+		currentscreen 
+			cvlit /orgproc exch def
+				  /organgle exch def 
+				  /orgfreq exch def
+				  
+		currenttransfer 
+		fMNegative {
+			{ 1 exch sub } fmConcatProcs
+			dup settransfer
+		} if 
+		cvlit /orgxfer exch def
+	} ifelse
+	end 
+} def 
+/FMBEGINPAGE { 
+	FrameDict begin 
+	/pagesave save def
+	3.86 setmiterlimit
+	/landscape exch 0 ne def
+	landscape { 
+		90 rotate 0 exch dup /pwid exch def neg translate pop 
+	}{
+		pop /pwid exch def
+	} ifelse
+	edown { [-1 0 0 1 pwid 0] concat } if
+	0 0 moveto paperwidth 0 lineto paperwidth paperheight lineto 
+	0 paperheight lineto 0 0 lineto 1 setgray fill
+	xscale yscale scale
+	/orgmatrix matrix def
+	gsave 
+} def 
+/FMENDPAGE {
+	grestore 
+	pagesave restore
+	end 
+	showpage
+	} def 
+/FMFONTDEFINE { 
+	FrameDict begin
+	findfont 
+	ReEncode 
+	1 index exch 
+	definefont 
+	FMfonts 3 1 roll 
+	put
+	end 
+	} def 
+/FMFILLS {
+	FrameDict begin dup
+	array /fillvals exch def
+	dict /patCache exch def
+	end 
+	} def 
+/FMFILL {
+	FrameDict begin
+	 fillvals 3 1 roll put
+	end 
+	} def 
+/FMNORMALIZEGRAPHICS { 
+	newpath
+	1 setlinewidth
+	0 setlinecap
+	0 0 0 sethsbcolor
+	0 setgray 
+	} bind def
+/FMBEGINEPSF { 
+	end 
+	/FMEPSF save def 
+	/showpage {} def 
+% See Adobe's "PostScript Language Reference Manual, 2nd Edition", page 714.
+% "...the following operators MUST NOT be used in an EPS file:" (emphasis ours)
+	/banddevice {(banddevice) FMBADEPSF} def
+	/clear {(clear) FMBADEPSF} def
+	/cleardictstack {(cleardictstack) FMBADEPSF} def 
+	/copypage {(copypage) FMBADEPSF} def
+	/erasepage {(erasepage) FMBADEPSF} def
+	/exitserver {(exitserver) FMBADEPSF} def
+	/framedevice {(framedevice) FMBADEPSF} def
+	/grestoreall {(grestoreall) FMBADEPSF} def
+	/initclip {(initclip) FMBADEPSF} def
+	/initgraphics {(initgraphics) FMBADEPSF} def
+	/quit {(quit) FMBADEPSF} def
+	/renderbands {(renderbands) FMBADEPSF} def
+	/setglobal {(setglobal) FMBADEPSF} def
+	/setpagedevice {(setpagedevice) FMBADEPSF} def
+	/setshared {(setshared) FMBADEPSF} def
+	/startjob {(startjob) FMBADEPSF} def
+	/lettertray {(lettertray) FMBADEPSF} def
+	/letter {(letter) FMBADEPSF} def
+	/lettersmall {(lettersmall) FMBADEPSF} def
+	/11x17tray {(11x17tray) FMBADEPSF} def
+	/11x17 {(11x17) FMBADEPSF} def
+	/ledgertray {(ledgertray) FMBADEPSF} def
+	/ledger {(ledger) FMBADEPSF} def
+	/legaltray {(legaltray) FMBADEPSF} def
+	/legal {(legal) FMBADEPSF} def
+	/statementtray {(statementtray) FMBADEPSF} def
+	/statement {(statement) FMBADEPSF} def
+	/executivetray {(executivetray) FMBADEPSF} def
+	/executive {(executive) FMBADEPSF} def
+	/a3tray {(a3tray) FMBADEPSF} def
+	/a3 {(a3) FMBADEPSF} def
+	/a4tray {(a4tray) FMBADEPSF} def
+	/a4 {(a4) FMBADEPSF} def
+	/a4small {(a4small) FMBADEPSF} def
+	/b4tray {(b4tray) FMBADEPSF} def
+	/b4 {(b4) FMBADEPSF} def
+	/b5tray {(b5tray) FMBADEPSF} def
+	/b5 {(b5) FMBADEPSF} def
+	FMNORMALIZEGRAPHICS 
+	[/fy /fx /fh /fw /ury /urx /lly /llx] {exch def} forall 
+	fx fw 2 div add fy fh 2 div add  translate
+	rotate
+	fw 2 div neg fh 2 div neg translate
+	fw urx llx sub div fh ury lly sub div scale 
+	llx neg lly neg translate 
+	/FMdicttop countdictstack 1 add def 
+	/FMoptop count def 
+	} bind def
+/FMENDEPSF {
+	count -1 FMoptop {pop pop} for 
+	countdictstack -1 FMdicttop {pop end} for 
+	FMEPSF restore
+	FrameDict begin 
+	} bind def
+FrameDict begin 
+/setmanualfeed {
+%%BeginFeature *ManualFeed True
+	 statusdict /manualfeed true put
+%%EndFeature
+	} bind def
+/max {2 copy lt {exch} if pop} bind def
+/min {2 copy gt {exch} if pop} bind def
+/inch {72 mul} def
+/pagedimen { 
+	paperheight sub abs 16 lt exch 
+	paperwidth sub abs 16 lt and
+	{/papername exch def} {pop} ifelse
+	} bind def
+/setpapername { 
+	/papersizedict 14 dict def 
+	papersizedict begin
+	/papername /unknown def 
+		/Letter 8.5 inch 11.0 inch pagedimen
+		/LetterSmall 7.68 inch 10.16 inch pagedimen
+		/Tabloid 11.0 inch 17.0 inch pagedimen
+		/Ledger 17.0 inch 11.0 inch pagedimen
+		/Legal 8.5 inch 14.0 inch pagedimen
+		/Statement 5.5 inch 8.5 inch pagedimen
+		/Executive 7.5 inch 10.0 inch pagedimen
+		/A3 11.69 inch 16.5 inch pagedimen
+		/A4 8.26 inch 11.69 inch pagedimen
+		/A4Small 7.47 inch 10.85 inch pagedimen
+		/B4 10.125 inch 14.33 inch pagedimen
+		/B5 7.16 inch 10.125 inch pagedimen
+	end
+	} bind def
+/papersize {
+	papersizedict begin
+		/Letter {lettertray letter} def
+		/LetterSmall {lettertray lettersmall} def
+		/Tabloid {11x17tray 11x17} def
+		/Ledger {ledgertray ledger} def
+		/Legal {legaltray legal} def
+		/Statement {statementtray statement} def
+		/Executive {executivetray executive} def
+		/A3 {a3tray a3} def
+		/A4 {a4tray a4} def
+		/A4Small {a4tray a4small} def
+		/B4 {b4tray b4} def
+		/B5 {b5tray b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	statusdict begin stopped end 
+	} bind def
+/manualpapersize {
+	papersizedict begin
+		/Letter {letter} def
+		/LetterSmall {lettersmall} def
+		/Tabloid {11x17} def
+		/Ledger {ledger} def
+		/Legal {legal} def
+		/Statement {statement} def
+		/Executive {executive} def
+		/A3 {a3} def
+		/A4 {a4} def
+		/A4Small {a4small} def
+		/B4 {b4} def
+		/B5 {b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	stopped 
+	} bind def
+/desperatepapersize {
+	statusdict /setpageparams known
+		{
+		paperwidth paperheight 0 1 
+		statusdict begin
+		{setpageparams} stopped 
+		end
+		} {true} ifelse 
+	} bind def
+/papersizefailure {
+	FMAllowPaperSizeMismatch not
+		{
+(The requested paper size is not available in any currently-installed tray)
+(Edit the PS file to "FMAllowPaperSizeMismatch true" to use default tray)
+		 FMFAILURE } if
+	} def
+/DiacriticEncoding [
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /space /exclam /quotedbl
+/numbersign /dollar /percent /ampersand /quotesingle /parenleft
+/parenright /asterisk /plus /comma /hyphen /period /slash /zero /one
+/two /three /four /five /six /seven /eight /nine /colon /semicolon
+/less /equal /greater /question /at /A /B /C /D /E /F /G /H /I /J /K
+/L /M /N /O /P /Q /R /S /T /U /V /W /X /Y /Z /bracketleft /backslash
+/bracketright /asciicircum /underscore /grave /a /b /c /d /e /f /g /h
+/i /j /k /l /m /n /o /p /q /r /s /t /u /v /w /x /y /z /braceleft /bar
+/braceright /asciitilde /.notdef /Adieresis /Aring /Ccedilla /Eacute
+/Ntilde /Odieresis /Udieresis /aacute /agrave /acircumflex /adieresis
+/atilde /aring /ccedilla /eacute /egrave /ecircumflex /edieresis
+/iacute /igrave /icircumflex /idieresis /ntilde /oacute /ograve
+/ocircumflex /odieresis /otilde /uacute /ugrave /ucircumflex
+/udieresis /dagger /.notdef /cent /sterling /section /bullet
+/paragraph /germandbls /registered /copyright /trademark /acute
+/dieresis /.notdef /AE /Oslash /.notdef /.notdef /.notdef /.notdef
+/yen /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/ordfeminine /ordmasculine /.notdef /ae /oslash /questiondown
+/exclamdown /logicalnot /.notdef /florin /.notdef /.notdef
+/guillemotleft /guillemotright /ellipsis /.notdef /Agrave /Atilde
+/Otilde /OE /oe /endash /emdash /quotedblleft /quotedblright
+/quoteleft /quoteright /.notdef /.notdef /ydieresis /Ydieresis
+/fraction /currency /guilsinglleft /guilsinglright /fi /fl /daggerdbl
+/periodcentered /quotesinglbase /quotedblbase /perthousand
+/Acircumflex /Ecircumflex /Aacute /Edieresis /Egrave /Iacute
+/Icircumflex /Idieresis /Igrave /Oacute /Ocircumflex /.notdef /Ograve
+/Uacute /Ucircumflex /Ugrave /dotlessi /circumflex /tilde /macron
+/breve /dotaccent /ring /cedilla /hungarumlaut /ogonek /caron
+] def
+/ReEncode { 
+	dup 
+	length 
+	dict begin 
+	{
+	1 index /FID ne 
+		{def} 
+		{pop pop} ifelse 
+	} forall 
+	0 eq {/Encoding DiacriticEncoding def} if 
+	currentdict 
+	end 
+	} bind def
+FMPColor 
+	
+	{
+	/BEGINBITMAPCOLOR { 
+		BITMAPCOLOR} def
+	/BEGINBITMAPCOLORc { 
+		BITMAPCOLORc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUECOLOR } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUECOLORc } def
+	/BEGINBITMAPCMYK { 
+		BITMAPCMYK } def
+	/BEGINBITMAPCMYKc { 
+		BITMAPCMYKc } def
+	}
+	
+	{
+	/BEGINBITMAPCOLOR { 
+		BITMAPGRAY} def
+	/BEGINBITMAPCOLORc { 
+		BITMAPGRAYc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUEGRAY } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUEGRAYc } def
+	/BEGINBITMAPCMYK { 
+		BITMAPCMYKGRAY } def
+	/BEGINBITMAPCMYKc { 
+		BITMAPCMYKGRAYc } def
+	}
+ifelse
+/K { 
+	FMPrintAllColorsAsBlack {
+		dup 1 eq 2 index 1 eq and 3 index 1 eq and not
+			{7 {pop} repeat 0 0 0 1 0 0 0} if
+	} if 
+	FrameCurColors astore 
+	pop combineColor
+} bind def
+/graymode true def
+fMLevel1 {
+	/fmGetFlip {
+		fMatrix2 exch get mul 0 lt { -1 } { 1 } ifelse
+	} FmBD
+} if
+/setPatternMode {
+	fMLevel1 {
+		2 index patScreenDict exch known {
+			pop pop
+			patScreenDict exch get aload pop 
+			freq 								
+			mul									
+			5 2 roll							
+			fMatrix2 currentmatrix 1 get 0 ne {
+				3 -1 roll 90 add 3 1 roll 		
+				sflipx 1 fmGetFlip sflipy 2 fmGetFlip neg mul
+			} {  								
+				sflipx 0 fmGetFlip sflipy 3 fmGetFlip mul 
+			} ifelse
+			0 lt {exch pop} {pop} ifelse 		
+			fMNegative { 
+				{neg} fmConcatProcs 			
+			} if
+			bind
+			
+			
+			
+			systemdict /setscreen get exec		
+			/FrameCurGray exch def
+		} {
+			/bwidth  exch def
+			/bpside  exch def
+			/bstring exch def
+			/onbits 0 def  /offbits 0 def
+			freq sangle landscape {90 add} if 
+				{/ypoint exch def
+				 /xpoint exch def
+				 /xindex xpoint 1 add 2 div bpside mul cvi def
+				 /yindex ypoint 1 add 2 div bpside mul cvi def
+				 bstring yindex bwidth mul xindex 8 idiv add get
+				 1 7 xindex 8 mod sub bitshift and 0 ne fMNegative {not} if
+				 {/onbits  onbits  1 add def 1}
+				 {/offbits offbits 1 add def 0}
+				 ifelse
+				}
+				setscreen
+			offbits offbits onbits add div fMNegative {1.0 exch sub} if
+			/FrameCurGray exch def
+		} ifelse
+	} { 
+		pop pop
+		dup patCache exch known {
+			patCache exch get
+		} { 
+			dup
+			patDict /bstring 3 -1 roll put
+			patDict 
+			9 PatFreq screenIndex get div dup matrix scale
+			makepattern
+			dup 
+			patCache 4 -1 roll 3 -1 roll put
+		} ifelse
+		/FrameCurGray 0 def
+		/FrameCurPat exch def
+	} ifelse
+	/graymode false def
+	combineColor
+} bind def
+/setGrayScaleMode {
+	graymode not {
+		/graymode true def
+		fMLevel1 {
+			setCurrentScreen
+		} if
+	} if
+	/FrameCurGray exch def
+	combineColor
+} bind def
+/normalize {
+	transform round exch round exch itransform
+	} bind def
+/dnormalize {
+	dtransform round exch round exch idtransform
+	} bind def
+/lnormalize { 
+	0 dtransform exch cvi 2 idiv 2 mul 1 add exch idtransform pop
+	} bind def
+/H { 
+	lnormalize setlinewidth
+	} bind def
+/Z {
+	setlinecap
+	} bind def
+	
+/PFill {
+	graymode fMLevel1 or not {
+		gsave 1 setgray eofill grestore
+	} if
+} bind def
+/PStroke {
+	graymode fMLevel1 or not {
+		gsave 1 setgray stroke grestore
+	} if
+	stroke
+} bind def
+/X { 
+	fillvals exch get
+	dup type /stringtype eq
+	{8 1 setPatternMode} 
+	{setGrayScaleMode}
+	ifelse
+	} bind def
+/V { 
+	PFill gsave eofill grestore
+	} bind def
+/Vclip {
+	clip
+	} bind def
+/Vstrk {
+	currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/N { 
+	PStroke
+	} bind def
+/Nclip {
+	strokepath clip newpath
+	} bind def
+/Nstrk {
+	currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/M {newpath moveto} bind def
+/E {lineto} bind def
+/D {curveto} bind def
+/O {closepath} bind def
+/L { 
+ 	/n exch def
+	newpath
+	normalize
+	moveto 
+	2 1 n {pop normalize lineto} for
+	} bind def
+/Y { 
+	L 
+	closepath
+	} bind def
+/R { 
+	/y2 exch def
+	/x2 exch def
+	/y1 exch def
+	/x1 exch def
+	x1 y1
+	x2 y1
+	x2 y2
+	x1 y2
+	4 Y 
+	} bind def
+/rarc 
+	{rad 
+	 arcto
+	} bind def
+/RR { 
+	/rad exch def
+	normalize
+	/y2 exch def
+	/x2 exch def
+	normalize
+	/y1 exch def
+	/x1 exch def
+	mark
+	newpath
+	{
+	x1 y1 rad add moveto
+	x1 y2 x2 y2 rarc
+	x2 y2 x2 y1 rarc
+	x2 y1 x1 y1 rarc
+	x1 y1 x1 y2 rarc
+	closepath
+	} stopped {x1 y1 x2 y2 R} if 
+	cleartomark
+	} bind def
+/RRR { 
+	/rad exch def
+	normalize /y4 exch def /x4 exch def
+	normalize /y3 exch def /x3 exch def
+	normalize /y2 exch def /x2 exch def
+	normalize /y1 exch def /x1 exch def
+	newpath
+	normalize moveto 
+	mark
+	{
+	x2 y2 x3 y3 rarc
+	x3 y3 x4 y4 rarc
+	x4 y4 x1 y1 rarc
+	x1 y1 x2 y2 rarc
+	closepath
+	} stopped
+	 {x1 y1 x2 y2 x3 y3 x4 y4 newpath moveto lineto lineto lineto closepath} if
+	cleartomark
+	} bind def
+/C { 
+	grestore
+	gsave
+	R 
+	clip
+	setCurrentScreen
+} bind def
+/CP { 
+	grestore
+	gsave
+	Y 
+	clip
+	setCurrentScreen
+} bind def
+/F { 
+	FMfonts exch get
+	FMpointsize scalefont
+	setfont
+	} bind def
+/Q { 
+	/FMpointsize exch def
+	F 
+	} bind def
+/T { 
+	moveto show
+	} bind def
+/RF { 
+	rotate
+	0 ne {-1 1 scale} if
+	} bind def
+/TF { 
+	gsave
+	moveto 
+	RF
+	show
+	grestore
+	} bind def
+/P { 
+	moveto
+	0 32 3 2 roll widthshow
+	} bind def
+/PF { 
+	gsave
+	moveto 
+	RF
+	0 32 3 2 roll widthshow
+	grestore
+	} bind def
+/S { 
+	moveto
+	0 exch ashow
+	} bind def
+/SF { 
+	gsave
+	moveto
+	RF
+	0 exch ashow
+	grestore
+	} bind def
+/B { 
+	moveto
+	0 32 4 2 roll 0 exch awidthshow
+	} bind def
+/BF { 
+	gsave
+	moveto
+	RF
+	0 32 4 2 roll 0 exch awidthshow
+	grestore
+	} bind def
+/G { 
+	gsave
+	newpath
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	PFill fill
+	grestore
+	} bind def
+/Gstrk {
+	savematrix
+    newpath
+    2 index 2 div add exch 3 index 2 div sub exch 
+    normalize 2 index 2 div sub exch 3 index 2 div add exch 
+    translate
+    scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    restorematrix
+    currentlinewidth exch setlinewidth PStroke setlinewidth
+    } bind def
+/Gclip { 
+	newpath
+	savematrix
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	clip newpath
+	restorematrix
+	} bind def
+/GG { 
+	gsave
+	newpath
+	normalize translate 0.0 0.0 moveto 
+	rotate 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath
+	PFill
+	fill
+	grestore
+	} bind def
+/GGclip { 
+	savematrix
+	newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath
+	clip newpath
+	restorematrix
+	} bind def
+/GGstrk { 
+	savematrix
+    newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath 
+	restorematrix
+    currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/A { 
+	gsave
+	savematrix
+	newpath
+	2 index 2 div add exch 3 index 2 div sub exch 
+	normalize 2 index 2 div sub exch 3 index 2 div add exch 
+	translate 
+	scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	restorematrix
+	PStroke
+	grestore
+	} bind def
+/Aclip {
+	newpath
+	savematrix
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	strokepath clip newpath
+	restorematrix
+} bind def
+/Astrk {
+	Gstrk
+} bind def
+/AA { 
+	gsave
+	savematrix
+	newpath
+	
+	3 index 2 div add exch 4 index 2 div sub exch 
+	
+	normalize 3 index 2 div sub exch 4 index 2 div add exch
+	translate 
+	rotate 
+	scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	restorematrix
+	PStroke
+	grestore
+	} bind def
+/AAclip {
+	savematrix
+	newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath
+	strokepath clip newpath
+	restorematrix
+} bind def
+/AAstrk {
+	GGstrk
+} bind def
+/BEGINPRINTCODE { 
+	/FMdicttop countdictstack 1 add def 
+	/FMoptop count 7 sub def 
+	/FMsaveobject save def
+	userdict begin 
+	/showpage {} def 
+	FMNORMALIZEGRAPHICS 
+	3 index neg 3 index neg translate
+	} bind def
+/ENDPRINTCODE {
+	count -1 FMoptop {pop pop} for 
+	countdictstack -1 FMdicttop {pop end} for 
+	FMsaveobject restore 
+	} bind def
+/gn { 
+	0 
+	{	46 mul 
+		cf read pop 
+		32 sub 
+		dup 46 lt {exit} if 
+		46 sub add 
+		} loop
+	add 
+	} bind def
+/cfs { 
+	/str sl string def 
+	0 1 sl 1 sub {str exch val put} for 
+	str def 
+	} bind def
+/ic [ 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0
+	{0 hx} {1 hx} {2 hx} {3 hx} {4 hx} {5 hx} {6 hx} {7 hx} {8 hx} {9 hx}
+	{10 hx} {11 hx} {12 hx} {13 hx} {14 hx} {15 hx} {16 hx} {17 hx} {18 hx}
+	{19 hx} {gn hx} {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12}
+	{13} {14} {15} {16} {17} {18} {19} {gn} {0 wh} {1 wh} {2 wh} {3 wh}
+	{4 wh} {5 wh} {6 wh} {7 wh} {8 wh} {9 wh} {10 wh} {11 wh} {12 wh}
+	{13 wh} {14 wh} {gn wh} {0 bl} {1 bl} {2 bl} {3 bl} {4 bl} {5 bl} {6 bl}
+	{7 bl} {8 bl} {9 bl} {10 bl} {11 bl} {12 bl} {13 bl} {14 bl} {gn bl}
+	{0 fl} {1 fl} {2 fl} {3 fl} {4 fl} {5 fl} {6 fl} {7 fl} {8 fl} {9 fl}
+	{10 fl} {11 fl} {12 fl} {13 fl} {14 fl} {gn fl}
+	] def
+/ms { 
+	/sl exch def 
+	/val 255 def 
+	/ws cfs 
+	/im cfs 
+	/val 0 def 
+	/bs cfs 
+	/cs cfs 
+	} bind def
+400 ms 
+/ip { 
+	is 
+	0 
+	cf cs readline pop 
+	{	ic exch get exec 
+		add 
+		} forall 
+	pop 
+	
+	} bind def
+/rip { 
+	   
+	  
+	  bis ris copy pop 
+      is
+      0
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop 
+	  ris gis copy pop 
+	  dup is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  gis bis copy pop 
+	  dup add is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+      pop 
+      
+      } bind def
+/rip4 { 
+	   
+	  
+	  kis cis copy pop 
+      is
+      0
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop 
+	  cis mis copy pop 
+	  dup is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  mis yis copy pop 
+	  dup dup add is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  yis kis copy pop 
+	  3 mul is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+      pop 
+      
+      } bind def
+/wh { 
+	/len exch def 
+	/pos exch def 
+	ws 0 len getinterval im pos len getinterval copy pop
+	pos len 
+	} bind def
+/bl { 
+	/len exch def 
+	/pos exch def 
+	bs 0 len getinterval im pos len getinterval copy pop
+	pos len 
+	} bind def
+/s1 1 string def
+/fl { 
+	/len exch def 
+	/pos exch def 
+	/val cf s1 readhexstring pop 0 get def
+	pos 1 pos len add 1 sub {im exch val put} for
+	pos len 
+	} bind def
+/hx { 
+	3 copy getinterval 
+	cf exch readhexstring pop pop 
+	} bind def
+/wbytes { 
+      dup dup
+      8 gt { pop 8 idiv mul }
+      { 8 eq {pop} {1 eq {7 add 8 idiv} {3 add 4 idiv} ifelse} ifelse } ifelse
+	} bind def
+/BEGINBITMAPBWc { 
+	1 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAPGRAYc { 
+	8 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAP2BITc { 
+	2 {} COMMONBITMAPc
+	} bind def
+/COMMONBITMAPc { 
+		 
+	/cvtProc exch def
+	/depth exch def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+	cvtProc                
+	/is im 0 lb getinterval def 
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height depth [width 0 0 height neg 0 height] 
+	{ip} image 
+	bitmapsave restore 
+	grestore
+	} bind def
+/BEGINBITMAPBW { 
+	1 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAPGRAY { 
+	8 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAP2BIT { 
+	2 {} COMMONBITMAP
+	} bind def
+/COMMONBITMAP { 
+	/cvtProc exch def
+	/depth exch def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/bitmapsave save def 
+	cvtProc              
+	/is width depth wbytes string def
+	/cf currentfile def 
+	width height depth [width 0 0 height neg 0 height] 
+	{cf is readhexstring pop} image
+	bitmapsave restore 
+	grestore
+	} bind def
+/ngrayt 256 array def
+/nredt 256 array def
+/nbluet 256 array def
+/ngreent 256 array def
+fMLevel1 {
+/colorsetup {
+	currentcolortransfer
+	/gryt exch def
+	/blut exch def
+	/grnt exch def
+	/redt exch def
+	0 1 255 {
+		/indx exch def
+		/cynu 1 red indx get 255 div sub def
+		/magu 1 green indx get 255 div sub def
+		/yelu 1 blue indx get 255 div sub def
+		/kk cynu magu min yelu min def
+		/u kk currentundercolorremoval exec def
+%		/u 0 def
+		nredt indx 1 0 cynu u sub max sub redt exec put
+		ngreent indx 1 0 magu u sub max sub grnt exec put
+		nbluet indx 1 0 yelu u sub max sub blut exec put
+		ngrayt indx 1 kk currentblackgeneration exec sub gryt exec put
+	} for
+	{255 mul cvi nredt exch get}
+	{255 mul cvi ngreent exch get}
+	{255 mul cvi nbluet exch get}
+	{255 mul cvi ngrayt exch get}
+	setcolortransfer
+	{pop 0} setundercolorremoval
+	{} setblackgeneration
+	} bind def
+}
+{
+/colorSetup2 {
+	[ /Indexed /DeviceRGB 255 
+		{dup red exch get 255 div 
+		 exch dup green exch get 255 div 
+		 exch blue exch get 255 div}
+	] setcolorspace
+} bind def
+} ifelse
+/fakecolorsetup {
+	/tran 256 string def
+	0 1 255 {/indx exch def 
+		tran indx
+		red indx get 77 mul
+		green indx get 151 mul
+		blue indx get 28 mul
+		add add 256 idiv put} for
+	currenttransfer
+	{255 mul cvi tran exch get 255.0 div}
+	exch fmConcatProcs settransfer
+} bind def
+/BITMAPCOLOR { 
+	/depth 8 def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/bitmapsave save def
+	fMLevel1 {	
+		colorsetup
+		/is width depth wbytes string def
+		/cf currentfile def 
+		width height depth [width 0 0 height neg 0 height] 
+		{cf is readhexstring pop} {is} {is} true 3 colorimage 
+	} {
+		colorSetup2
+		/is width depth wbytes string def
+		/cf currentfile def 
+		7 dict dup begin
+			/ImageType 1 def
+			/Width width def
+			/Height height def
+			/ImageMatrix [width 0 0 height neg 0 height] def
+			/DataSource {cf is readhexstring pop} bind def
+			/BitsPerComponent depth def
+			/Decode [0 255] def
+		end image	
+	} ifelse
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPCOLORc { 
+	/depth 8 def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+	fMLevel1 {	
+		colorsetup
+		/is im 0 lb getinterval def 
+		ws 0 lb getinterval is copy pop 
+		/cf currentfile def 
+		width height depth [width 0 0 height neg 0 height] 
+		{ip} {is} {is} true 3 colorimage
+	} {
+		colorSetup2
+		/is im 0 lb getinterval def 
+		ws 0 lb getinterval is copy pop 
+		/cf currentfile def 
+		7 dict dup begin
+			/ImageType 1 def
+			/Width width def
+			/Height height def
+			/ImageMatrix [width 0 0 height neg 0 height] def
+			/DataSource {ip} bind def
+			/BitsPerComponent depth def
+			/Decode [0 255] def
+		end image	
+	} ifelse
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPTRUECOLORc { 
+	/depth 24 def
+        gsave
+ 	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/ris im 0 width getinterval def	
+	/gis im width width getinterval def	
+	/bis im width 2 mul width getinterval def 
+        
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height 8 [width 0 0 height neg 0 height] 
+	{width rip pop ris} {gis} {bis} true 3 colorimage
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPCMYKc { 
+	/depth 32 def
+        gsave
+ 	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/cis im 0 width getinterval def	
+	/mis im width width getinterval def	
+	/yis im width 2 mul width getinterval def 
+	/kis im width 3 mul width getinterval def 
+        
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	width height 8 [width 0 0 height neg 0 height] 
+	{width rip4 pop cis} {mis} {yis} {kis} true 4 colorimage
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPTRUECOLOR { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /gis width string def
+        /bis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop } 
+        { cf gis readhexstring pop } 
+        { cf bis readhexstring pop } 
+        true 3 colorimage 
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYK { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /mis width string def
+        /yis width string def
+        /kis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop } 
+        { cf mis readhexstring pop } 
+        { cf yis readhexstring pop } 
+        { cf kis readhexstring pop } 
+        true 4 colorimage 
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPTRUEGRAYc { 
+	/depth 24 def
+        gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+        /bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/ris im 0 width getinterval def	
+	/gis im width width getinterval def	
+	/bis im width 2 mul width getinterval def 
+        ws 0 lb getinterval is copy pop 
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        {width rip pop ris gis bis width gray} image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYKGRAYc { 
+	/depth 32 def
+        gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/height exch def /width exch def
+	/lb width depth wbytes def 
+	sl lb lt {lb ms} if 
+        /bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/cis im 0 width getinterval def	
+	/mis im width width getinterval def	
+	/yis im width 2 mul width getinterval def 
+	/kis im width 3 mul width getinterval def 
+        ws 0 lb getinterval is copy pop 
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        {width rip pop cis mis yis kis width cgray} image
+        bitmapsave restore 
+        grestore
+        } bind def
+/cgray { 
+        /ww exch def
+        /k exch def
+        /y exch def
+        /m exch def
+        /c exch def
+        0 1 ww 1 sub { /i exch def c i get m i get y i get k i get CMYKtoRGB
+				.144 mul 3 1 roll .587 mul 3 1 roll .299 mul add add
+				c i 3 -1 roll floor cvi put } for
+        c
+ 		} bind def
+/gray { 
+        /ww exch def
+        /b exch def
+        /g exch def
+        /r exch def
+        0 1 ww 1 sub { /i exch def r i get .299 mul g i get .587 mul
+			b i get .114 mul add add r i 3 -1 roll floor cvi put } for
+        r
+        } bind def
+/BITMAPTRUEGRAY { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /gis width string def
+        /bis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop 
+          cf gis readhexstring pop 
+          cf bis readhexstring pop width gray}  image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPCMYKGRAY { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/height exch def /width exch def
+        /bitmapsave save def 
+        /is width string def
+        /yis width string def
+        /mis width string def
+        /kis width string def
+        /cf currentfile def 
+        width height 8 [width 0 0 height neg 0 height] 
+        { cf is readhexstring pop 
+          cf mis readhexstring pop 
+          cf yis readhexstring pop 
+          cf kis readhexstring pop width cgray}  image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPGRAY { 
+	8 {fakecolorsetup} COMMONBITMAP
+	} bind def
+/BITMAPGRAYc { 
+	8 {fakecolorsetup} COMMONBITMAPc
+	} bind def
+/ENDBITMAP {
+	} bind def
+end 
+	/ALDmatrix matrix def ALDmatrix currentmatrix pop
+/StartALD {
+	/ALDsave save def
+	 savematrix
+	 ALDmatrix setmatrix
+	} bind def
+/InALD {
+	 restorematrix
+	} bind def
+/DoneALD {
+	 ALDsave restore
+	} bind def
+/I { setdash } bind def
+/J { [] 0 setdash } bind def
+%%EndProlog
+%%BeginSetup
+(5.0) FMVERSION
+1 1 0 0 612 792 0 1 12 FMDOCUMENT
+0 0 /Helvetica-Bold FMFONTDEFINE
+1 0 /Times-Bold FMFONTDEFINE
+2 0 /Times-Roman FMFONTDEFINE
+3 0 /Helvetica FMFONTDEFINE
+32 FMFILLS
+0 0 FMFILL
+1 0.1 FMFILL
+2 0.3 FMFILL
+3 0.5 FMFILL
+4 0.7 FMFILL
+5 0.9 FMFILL
+6 0.97 FMFILL
+7 1 FMFILL
+8 <0f1e3c78f0e1c387> FMFILL
+9 <0f87c3e1f0783c1e> FMFILL
+10 <cccccccccccccccc> FMFILL
+11 <ffff0000ffff0000> FMFILL
+12 <8142241818244281> FMFILL
+13 <03060c183060c081> FMFILL
+14 <8040201008040201> FMFILL
+16 1 FMFILL
+17 0.9 FMFILL
+18 0.7 FMFILL
+19 0.5 FMFILL
+20 0.3 FMFILL
+21 0.1 FMFILL
+22 0.03 FMFILL
+23 0 FMFILL
+24 <f0e1c3870f1e3c78> FMFILL
+25 <f0783c1e0f87c3e1> FMFILL
+26 <3333333333333333> FMFILL
+27 <0000ffff0000ffff> FMFILL
+28 <7ebddbe7e7dbbd7e> FMFILL
+29 <fcf9f3e7cf9f3f7e> FMFILL
+30 <7fbfdfeff7fbfdfe> FMFILL
+%%EndSetup
+%%Page: "i" 1
+%%BeginPaperSize: Letter
+%%EndPaperSize
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+J
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.68 558 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Created:J) 72 741 T
+(une 28, 2001) 113.33 741 T
+72 885/G531 FmPA
+(Modi\336ed:J) 72 730 T
+(ul) 116.82 730 T
+(y 3, 2001) 124.69 730 T
+72 874/G535 FmPA
+72 444.68 558 444.68 2 L
+2 Z
+N
+72 62.08 558 62.08 2 L
+0.25 H
+N
+(OIWFS \321 Mec) 72 47.11 T
+(hanism T) 132.92 47.11 T
+(esting) 171.89 47.11 T
+( niri_hty_015) 414.08 47.11 T
+0 10 Q
+(/) 469.1 47.11 T
+0 9 Q
+(00) 471.88 47.11 T
+0 10 Q
+(i) 513.96 47.11 T
+0 9 Q
+( of) 516.74 47.11 T
+0 10 Q
+(vi) 530.24 47.11 T
+72 191/G554 FmPA
+72 468 198 720 R
+V
+0 0 0 0 1 1 1 K
+0 0 0 1 0 0 0 K
+72 852/G555 FmPA
+0 0 0 0 1 1 1 K
+1 20 Q
+7 X
+0 0 0 0 1 1 1 K
+(Gemini) 81 684.67 T
+0 0 0 1 0 0 0 K
+72 829/G556 FmPA
+0 0 0 0 1 1 1 K
+1 18 Q
+(Near) 81 662 T
+0 0 0 1 0 0 0 K
+0 0 0 0 1 1 1 K
+(Infra-Red) 81 640 T
+0 0 0 1 0 0 0 K
+0 0 0 0 1 1 1 K
+(Imager) 81 618 T
+0 0 0 1 0 0 0 K
+0 0 0 0 1 1 1 K
+(and) 81 596 T
+0 0 0 1 0 0 0 K
+0 0 0 0 1 1 1 K
+(W) 81 574 T
+(a) 97.83 574 T
+(v) 106.38 574 T
+(efr) 115.2 574 T
+(ont) 136.85 574 T
+0 0 0 1 0 0 0 K
+72 718/G557 FmPA
+0 0 0 0 1 1 1 K
+(Sensor) 81 552 T
+0 0 0 1 0 0 0 K
+108 513 135 540 R
+4 X
+0 0 0 1 0 0 0 K
+V
+0.5 H
+0 X
+N
+135 486 162 513 R
+4 X
+V
+135 513 162 540 R
+3 X
+V
+108 486 135 513 R
+V
+1 1 0 0 0 0 1 K
+0 14 Q
+0 X
+1 1 0 0 0 0 1 K
+(NIRI) 120.5 511.95 T
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+108 486 162 540 R
+3 H
+1 X
+0 0 0 1 0 0 0 K
+N
+0 0 0 1 0 0 0 K
+1 1 0 0 0 0 1 K
+0 X
+1 1 0 0 0 0 1 K
+(OIWFS) 111.55 497.95 T
+0 0 0 1 0 0 0 K
+207 681.6 558 696 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+207 688.8 675 688.8 2 L
+1.5 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+2 24 Q
+0 X
+0 0 0 1 0 0 0 K
+-0.17 (OIWFS \321 Mechanism T) 207 704 S
+-0.17 (esting) 445.49 704 S
+207 848/G56 FmPA
+1 12 Q
+(Hubert Y) 207 657.6 T
+(amada) 254.98 657.6 T
+207 802/G58 FmPA
+3 11 Q
+(nir) 207 633.27 T
+(i_hty_015 / 1.00 / 2001-07-02) 219.39 633.27 T
+207 777/G685 FmPA
+0 10 Q
+(This document describes the pr) 207 592.93 T
+(ocedure f) 357.95 592.93 T
+(or verifying that the OIWFS) 402.76 592.93 T
+207 737/G688 FmPA
+(mec) 207 579.93 T
+(hanical components are pr) 226.91 579.93 T
+(operl) 353.97 579.93 T
+(y w) 378.27 579.93 T
+(orking.) 394.19 579.93 T
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+72 411 558 420 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171 420 549 420 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 420 162 420 2 L
+0 Z
+N
+0 0 612 792 C
+1 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(1) 147 424 T
+(Intr) 171 424 T
+(oduction) 191.45 424 T
+72 568/G60 FmPA
+1 10 Q
+(1.1) 140.5 384.33 T
+(Pur) 171 384.33 T
+(pose) 187.01 384.33 T
+72 528/G62 FmPA
+2 F
+-0.08 (This document describes the procedure for insuring that the OIWFS mechanical components are) 171 368.33 P
+72 512/G825 FmPA
+-0.33 (w) 171 356.33 P
+-0.33 (orking properly) 178.12 356.33 P
+-0.33 (. It assumes that all wiring has already been v) 239.63 356.33 P
+-0.33 (eri\336ed for correctness, and that the) 418.66 356.33 P
+(def) 171 344.33 T
+(ault channels are used for all input and output boards. It assumes that all of the boards ha) 183.67 344.33 T
+(v) 538.97 344.33 T
+(e) 543.82 344.33 T
+(been correctly con\336gured) 171 332.33 T
+2 8 Q
+(1) 273.19 336.33 T
+2 10 Q
+(.) 277.19 332.33 T
+-0.03 (Note that although the Digital Input / Output board is intended to permit the OIWFS to interf) 171.21 308.33 P
+-0.03 (ace) 542.21 308.33 P
+72 452/G842 FmPA
+(to the interlock b) 171.21 296.33 T
+(us, there is no requirement that it actually must connect to the interlock b) 239.06 296.33 T
+(us.) 531.05 296.33 T
+(Support for the interlock b) 171.21 284.33 T
+(us is minimal, and is pro) 277.11 284.33 T
+(vided so that the user may de\336ne instrument-) 375.3 284.33 T
+(speci\336c support, as required.) 171.21 272.33 T
+(The current release of the OIWFS softw) 171.21 248.33 T
+(are requires a Bancomm board to interf) 331.62 248.33 T
+(ace to the A&G) 488.7 248.33 T
+72 392/G843 FmPA
+-0.16 (system. It can, ho) 171.21 236.33 P
+-0.16 (we) 240.75 236.33 P
+-0.16 (v) 252.16 236.33 P
+-0.16 (er) 257.01 236.33 P
+-0.16 (, be tested without the Bancomm board. The only operations that will f) 264.38 236.33 P
+-0.16 (ail) 545.66 236.33 P
+(are those that relate to the \322follo) 171.21 224.33 T
+(w\323 command.) 299.82 224.33 T
+-0.02 (Note that the OIWFS w) 171.21 200.33 P
+-0.02 (as initially designed to w) 266.02 200.33 P
+-0.02 (ork with NIRI. Since deli) 365.83 200.33 P
+-0.02 (v) 466.88 200.33 P
+-0.02 (ery of NIRI, changes) 471.73 200.33 P
+72 344/G852 FmPA
+(ha) 171.21 188.33 T
+(v) 180.45 188.33 T
+(e been made to the NIRI softw) 185.3 188.33 T
+(are \050including the OIWFS softw) 307.95 188.33 T
+(are\051. Later changes ha) 436.72 188.33 T
+(v) 524.81 188.33 T
+(e not) 529.66 188.33 T
+-0.17 (been propag) 171.21 176.33 P
+-0.17 (ated into the NIRI de) 220.14 176.33 P
+-0.17 (v) 303.64 176.33 P
+-0.17 (elopers\325 softw) 308.49 176.33 P
+-0.17 (are, so some changes may need to be performed) 365.15 176.33 P
+(by the Gemini staf) 171.21 164.33 T
+(f in order to inte) 245.12 164.33 T
+(grate the OIWFS with the Gemini control system.) 309.96 164.33 T
+72 112.25 558 128.25 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171.21 120.25 341.29 120.25 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 0 612 792 C
+2 9 Q
+0 X
+0 0 0 1 0 0 0 K
+(1.) 171.21 105.59 T
+2 10 Q
+-0.24 (Note: F) 185.39 105.59 P
+-0.24 (or GNIRS, all boards e) 215.27 105.59 P
+-0.24 (xcept the Digital Input/Output board were correctly con\336gured) 306.09 105.59 P
+72 250/G835 FmPA
+-0.19 (at the time that the system w) 185.39 94.59 P
+-0.19 (as shipped. The Digital Input/Output board should be con\336gured) 298.6 94.59 P
+(according to Gemini standards, as described in [30].) 185.39 83.59 T
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/Creator(FrameMaker xm5.0.1P1j)/DOCINFO FmPD2
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.i/DEST FmPD2
+[/Rect[375 80 391 91]/Border[0 0 0]/Dest/M9.16149.Doclist.21.gscggrp.ICD.13..Standard.Controller.Peregrine.McGehee.Gemini.8m.Tele/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Title(A)/Rect[198 459 567 729]/ARTICLE FmPD2
+[/Title(A)/Rect[63 67 567 441]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "i" 1
+%%Page: "ii" 2
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.68 540 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Precautions) 114.8 733.66 T
+54 878/G448 FmPA
+54 726.98 540 726.98 2 L
+0.25 H
+N
+52.58 54.99 538.58 54.99 2 L
+2 Z
+N
+0 10 Q
+(ii) 52.58 38.89 T
+0 9 Q
+( of) 58.14 38.89 T
+0 10 Q
+(vi) 71.92 38.89 T
+0 9 Q
+( niri_hty_015) 113.39 38.89 T
+0 10 Q
+(/) 168.41 38.89 T
+0 9 Q
+(00) 171.19 38.89 T
+(OIWFS \321 Mec) 395.46 38.89 T
+(hanism T) 456.38 38.89 T
+(esting) 495.35 38.89 T
+53 183/G467 FmPA
+1 12 Q
+(1.2) 129 679.33 T
+(De\336nitions, Acr) 153 679.33 T
+(onyms and Ab) 233.45 679.33 T
+(br) 307.34 679.33 T
+(e) 319.13 679.33 T
+(viations) 324.28 679.33 T
+54 823/G1143 FmPA
+2 10 Q
+(See \322Near IR Imager \050NIRI\051\321De\336nitions, Abbre) 153.21 661.66 T
+(viations, and References\323.) 351.24 661.66 T
+54 806/G1144 FmPA
+1 12 Q
+(1.3) 129 627.33 T
+(Stylistic Con) 153 627.33 T
+(v) 217.52 627.33 T
+(entions) 223.4 627.33 T
+54 771/G1145 FmPA
+2 10 Q
+(References to documents in Section) 153.21 609.66 T
+(1.5, \322References,) 299.02 609.66 T
+(\323 on page) 367.18 609.66 T
+(2 of \322Near IR Imager) 408 609.66 T
+54 754/G1149 FmPA
+(\050NIRI\051\321De\336nitions, Abbre) 153.21 597.66 T
+(viations, and References\323 are gi) 264.61 597.66 T
+(v) 391.82 597.66 T
+(en lik) 396.67 597.66 T
+(e this; [1].) 419.07 597.66 T
+1 12 Q
+(1.4) 129 563.33 T
+(Refer) 153 563.33 T
+(ences) 181.43 563.33 T
+54 707/G1153 FmPA
+2 10 Q
+(See \322Near IR Imager \050NIRI\051\321De\336nitions, Abbre) 153.21 545.66 T
+(viations, and References\323.) 351.24 545.66 T
+54 690/G1154 FmPA
+54 666/G1141 FmPA
+54 472.33 523.28 481.33 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+153 481.33 531 481.33 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+54 481.33 144 481.33 2 L
+0 Z
+N
+0 0 612 792 C
+1 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(2) 129 485.33 T
+(Pr) 153 485.33 T
+(ecautions) 165.44 485.33 T
+54 629/G853 FmPA
+1 10 Q
+(2.1) 122.5 445.66 T
+(T) 153 445.66 T
+(emperatur) 158.75 445.66 T
+(e) 204.11 445.66 T
+54 590/G855 FmPA
+2 F
+(The mechanisms should ne) 153 429.66 T
+(v) 261.35 429.66 T
+(er be operated while the instrument is being cooled or w) 266.2 429.66 T
+(armed.) 491.06 429.66 T
+54 574/G856 FmPA
+(This is particularly important if the mechanism is being tested in a small liquid-nitrogen) 153 417.66 T
+(cooled de) 153 405.66 T
+(w) 191.35 405.66 T
+(ar) 198.47 405.66 T
+(. Se) 205.69 405.66 T
+(v) 220.44 405.66 T
+(ere temperature gradients may occur) 225.29 405.66 T
+(, which can cause the mechanisms to) 370.95 405.66 T
+(bind. Operating under those circumstances can break the mechanism.) 153 393.66 T
+(It is strongly recommended that a temperature sensor be placed on a part of the mechanism) 153.21 369.66 T
+54 514/G857 FmPA
+(which is as f) 153.21 357.66 T
+(ar a) 203.38 357.66 T
+(w) 217.94 357.66 T
+(ay from the source of heating or cooling, in order to v) 225.06 357.66 T
+(erify that the entire) 439.87 357.66 T
+(mechanism has reached thermal equilibrium before operation. Note that for the focus stage,) 153.21 345.66 T
+(the mo) 153.21 333.66 T
+(ving part of the mechanism has v) 180.56 333.66 T
+(ery poor thermal contact with the rest of the mecha-) 313.17 333.66 T
+(nism. Also, the motor shaft has v) 153.21 321.66 T
+(ery poor thermal contact with the motor housing.) 285.28 321.66 T
+1 F
+(2.2) 122.5 291.66 T
+(Motor Heating) 153 291.66 T
+54 436/G854 FmPA
+2 F
+(The mechanisms are not intended to be operated continuously for e) 153 275.66 T
+(xtended periods of time) 421.69 275.66 T
+54 420/G860 FmPA
+(\050i.e., longer than \336v) 153 263.66 T
+(e minutes.\051 During prolonged, continuous operation, the motors can) 231.73 263.66 T
+-0.1 (become hot. This should be a) 153 251.66 P
+-0.1 (v) 269.53 251.66 P
+-0.1 (oided. It is recommended that an) 274.33 251.66 P
+-0.1 (y tests which require continu-) 404.79 251.66 P
+(ous motion of the mechanisms should be performed intermittently) 153 239.66 T
+(, with adequate time to) 416.78 239.66 T
+(permit the motor to cool.) 153 227.66 T
+1 F
+(2.3) 122.5 197.66 T
+(W) 153 197.66 T
+(ear) 162.35 197.66 T
+54 342/G873 FmPA
+2 F
+(The mechanisms are not intended to be operated continuously) 153 181.66 T
+(. A) 400.09 181.66 T
+(v) 411.57 181.66 T
+(oid day-long tests, as this) 416.37 181.66 T
+54 326/G874 FmPA
+(will reduce the lifetime of the mechanisms.) 153 169.66 T
+54 120.33 523.28 129.33 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+153 129.33 531 129.33 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+54 129.33 144 129.33 2 L
+0 Z
+N
+0 0 612 792 C
+1 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(3) 129 133.33 T
+(Pr) 153 133.33 T
+(ocedur) 165.44 133.33 T
+(e f) 200.56 133.33 T
+(or T) 212.58 133.33 T
+(esting Mechanisms) 233.81 133.33 T
+54 277/G70 FmPA
+2 10 Q
+(The procedure described here assumes that the OIWFS control softw) 153 103.66 T
+(are \050at least the Engi-) 428.67 103.66 T
+54 248/G72 FmPA
+(neering subsystem\051 has already been con\336gured and installed, as described in the release) 153 91.66 T
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.ii/DEST FmPD2
+[/Rect[267 606 413 617]/Border[0 0 0]/Dest/M9.40713.Heading2.15.References/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Rect[446 594 457 605]/Border[0 0 0]/Dest/M9.25768.Doclist1.1.nirihty000fm.obsolete.superseded.by.this.document.and.by.2.NIRI.Optical/Action/GoToR/File(niri_hty_009.fm.pdf)/LNK FmPD2
+[/Title(A)/Rect[45 60 532 696]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "ii" 2
+%%Page: "iii" 3
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.68 558 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Filter Wheel) 132.8 733.66 T
+72 878/G482 FmPA
+72 726.98 558 726.98 2 L
+0.25 H
+N
+72 62.08 558 62.08 2 L
+2 Z
+N
+(OIWFS \321 Mec) 72 45.45 T
+(hanism T) 132.92 45.45 T
+(esting) 171.89 45.45 T
+( niri_hty_015) 414.08 45.45 T
+0 10 Q
+(/) 469.1 45.45 T
+0 9 Q
+(00) 471.88 45.45 T
+0 10 Q
+(iii) 511.09 45.45 T
+0 9 Q
+( of) 519.43 45.45 T
+0 10 Q
+(vi) 532.93 45.45 T
+72 189/G501 FmPA
+2 F
+-0.18 (notes. It assumes that the Engineering subsystem has been v) 171 680.66 P
+-0.18 (eri\336ed to w) 409.78 680.66 P
+-0.18 (ork correctly in simu-) 454.88 680.66 P
+(lation mode.) 171 668.66 T
+1 F
+(3.1) 140.5 638.66 T
+(Pr) 171 638.66 T
+(eparation) 181.37 638.66 T
+72 783/G74 FmPA
+0 9 Q
+(1.) 171.21 622.66 T
+2 10 Q
+(Source your local con\336guration \336le) 185.39 622.66 T
+72 767/G785 FmPA
+0 9 Q
+(2.) 171.21 607.66 T
+2 10 Q
+(Run niriEngStart. This will bring up the top le) 185.39 607.66 T
+(v) 369.87 607.66 T
+(el engineering screen.) 374.72 607.66 T
+72 752/G786 FmPA
+0 9 Q
+(3.) 171.21 592.66 T
+2 10 Q
+(Press the Interlocks b) 185.39 592.66 T
+(utton. This will bring up the interlocks screen.) 271.01 592.66 T
+72 737/G787 FmPA
+0 9 Q
+(4.) 171.21 577.66 T
+2 10 Q
+(Press the \322W) 185.39 577.66 T
+(ARM\323 b) 236.4 577.66 T
+(utton, to set the system temperature. \050F) 270.92 577.66 T
+(or cold tests, the \322COLD\323) 426.87 577.66 T
+72 722/G86 FmPA
+-0.34 (b) 185.39 565.66 P
+-0.34 (utton should be used instead.\051 W) 190.19 565.66 P
+-0.34 (ait for one minute. Y) 318.81 565.66 P
+-0.34 (ou must set the system temperature) 399.97 565.66 P
+(each time that the IOC is rebooted. Y) 185.39 553.66 T
+(ou must set the temperature each time that the sys-) 333.71 553.66 T
+(tem completes w) 185.39 541.66 T
+(arming or cooling. It is strongly recommended that the system tempera-) 253.06 541.66 T
+-0.25 (ture be set to \322CHANGING\323 while the system is being w) 185.39 529.66 P
+-0.25 (armed or cooled; this will set an) 412.2 529.66 P
+(interlock that will protect the mechanisms by k) 185.39 517.66 T
+(eeping them from mo) 373.33 517.66 T
+(ving.) 459.56 517.66 T
+0 9 Q
+(5.) 171.21 502.66 T
+2 10 Q
+(Close the Interlocks screen.) 185.39 502.66 T
+72 647/G88 FmPA
+0 9 Q
+(6.) 171.21 487.66 T
+2 10 Q
+(Return to the top le) 185.39 487.66 T
+(v) 262.36 487.66 T
+(el engineering screen.) 267.21 487.66 T
+72 632/G90 FmPA
+0 9 Q
+(7.) 171.21 472.66 T
+2 10 Q
+-0.05 (Press the \322W) 185.39 472.66 P
+-0.05 (a) 236.7 472.66 P
+-0.05 (v) 240.94 472.66 P
+-0.05 (efront Sensor CC\323 b) 245.79 472.66 P
+-0.05 (utton. This will bring up the top-le) 326.83 472.66 P
+-0.05 (v) 464.36 472.66 P
+-0.05 (el W) 469.21 472.66 P
+-0.05 (a) 487.52 472.66 P
+-0.05 (v) 491.76 472.66 P
+-0.05 (efront Sen-) 496.61 472.66 P
+72 617/G92 FmPA
+(sor Components screen.) 185.39 460.66 T
+72 411.33 541.28 420.33 C
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+171 420.33 549 420.33 2 L
+0.25 H
+2 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+72 420.33 162 420.33 2 L
+0 Z
+N
+0 0 612 792 C
+1 12 Q
+0 X
+0 0 0 1 0 0 0 K
+(4) 147 424.33 T
+(Filter Wheel) 171 424.33 T
+72 568/G885 FmPA
+0 9 Q
+(1.) 171.21 394.66 T
+2 10 Q
+(From the top-le) 185.39 394.66 T
+(v) 247.36 394.66 T
+(el W) 252.21 394.66 T
+(a) 270.57 394.66 T
+(v) 274.81 394.66 T
+(efront Sensor Components screen, press the \322Filter wheel\323 b) 279.66 394.66 T
+(ut-) 521.35 394.66 T
+72 539/G888 FmPA
+(ton. This will bring up the \336lter wheel engineering screen.) 185.39 382.66 T
+0 9 Q
+(2.) 171.21 367.66 T
+2 10 Q
+(Identify the motor dri) 185.39 367.66 T
+(v) 271.52 367.66 T
+(er module which will be used to dri) 276.37 367.66 T
+(v) 418.05 367.66 T
+(e the \336lter wheel.) 422.9 367.66 T
+72 512/G99 FmPA
+0 9 Q
+(3.) 171.21 352.66 T
+2 10 Q
+-0.19 (Enter a number in the ne) 185.39 352.66 P
+-0.19 (w position \050\322Ne) 282.76 352.66 P
+-0.19 (w Pos\323\051 \336eld that is 40000 more than the current) 346.01 352.66 P
+72 497/G782 FmPA
+(position \050\322Cur Pos\323\051.) 185.39 340.66 T
+0 9 Q
+(4.) 171.21 325.66 T
+2 10 Q
+-0.21 (Y) 185.39 325.66 P
+-0.21 (ou should see all of the follo) 191.51 325.66 P
+-0.21 (wing things happen. If an) 303.89 325.66 P
+-0.21 (y of these does not, then there is a) 404.84 325.66 P
+72 470/G108 FmPA
+(problem with the mechanism.) 185.39 313.66 T
+0 9 Q
+(5.) 171.21 298.66 T
+2 10 Q
+(The LED on the motor dri) 185.39 298.66 T
+(v) 289.85 298.66 T
+(er module should turn yello) 294.7 298.66 T
+(w) 405 298.66 T
+(.) 411.57 298.66 T
+72 443/G110 FmPA
+(If it is of) 185.39 283.66 T
+(f, then the motor is not enabled) 219.86 283.66 T
+72 428/G112 FmPA
+(If it is green, then the motor is enabled, b) 185.39 268.66 T
+(ut not recei) 349.89 268.66 T
+(ving pulses) 394.63 268.66 T
+72 413/G114 FmPA
+-0.12 (If it is red, then the dri) 185.39 253.66 P
+-0.12 (v) 274.15 253.66 P
+-0.12 (er is in a f) 279 253.66 P
+-0.12 (ault state. T) 318.42 253.66 P
+-0.12 (urn the motor dri) 364.67 253.66 P
+-0.12 (v) 432.12 253.66 P
+-0.12 (er box of) 436.98 253.66 P
+-0.12 (f for 20 seconds,) 472.59 253.66 P
+72 398/G116 FmPA
+(then turn it back on ag) 185.39 241.66 T
+(ain. If the LED ag) 275.05 241.66 T
+(ain turns red, then there is a problem with the) 347.48 241.66 T
+(electronics, motor) 185.39 229.66 T
+(, or wiring.) 257.2 229.66 T
+0 9 Q
+(6.) 171.21 214.66 T
+2 10 Q
+(The motor should immediately start mo) 185.39 214.66 T
+(ving.) 343.85 214.66 T
+72 359/G118 FmPA
+0 9 Q
+(7.) 171.21 199.66 T
+2 10 Q
+(The v) 185.39 199.66 T
+(alue of the sensors mark) 208.19 199.66 T
+(ed 1P and 1B should change slightly) 305.29 199.66 T
+(, b) 450.75 199.66 T
+(ut should be less) 460.55 199.66 T
+72 344/G120 FmPA
+(than 0.100 V most of the time. Occasionally) 185.39 187.66 T
+(, the sensor v) 361.67 187.66 T
+(alues will rise up or drop do) 414.19 187.66 T
+(wn) 526.15 187.66 T
+(to a much lar) 185.39 175.66 T
+(ger v) 237.7 175.66 T
+(alue, and then immediately return back to a lo) 257.72 175.66 T
+(w v) 441.05 175.66 T
+(alue. It will tak) 455.52 175.66 T
+(e con-) 515.97 175.66 T
+(stant inspection of the meters to see this happen.) 185.39 163.66 T
+-0.21 (If all of these happen, then the motor is turning, the system is w) 185.39 148.66 P
+-0.21 (orking at a minimal le) 437.2 148.66 P
+-0.21 (v) 524.42 148.66 P
+-0.21 (el,) 529.27 148.66 P
+72 293/G122 FmPA
+(b) 185.39 136.66 T
+(ut is not necessarily performing to speci\336cation.) 190.19 136.66 T
+0 9 Q
+(8.) 171.21 121.66 T
+2 10 Q
+(Press the Datum/Diag b) 185.39 121.66 T
+(utton. This will \336nd the home position for the mechanism and) 280.46 121.66 T
+72 266/G124 FmPA
+(immediately perform a quick mechanism check. Check the Status and Error/Info box) 185.39 109.66 T
+(es.) 525.17 109.66 T
+-0.32 (If all goes well, the system should return to the Idle state. There should be no messages in) 185.39 97.66 P
+(the Error/Info box at this time. If there are an) 185.39 85.66 T
+(y messages, then the system has f) 365.75 85.66 T
+(ailed the) 499.8 85.66 T
+(test. See the calibration procedure.) 185.39 73.66 T
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.iii/DEST FmPD2
+[/Title(A)/Rect[63 60 550 696]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "iii" 3
+%%Page: "iv" 4
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.68 540 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Filter Wheel) 114.8 733.66 T
+54 878/G448 FmPA
+54 726.98 540 726.98 2 L
+0.25 H
+N
+52.58 54.99 538.58 54.99 2 L
+2 Z
+N
+0 10 Q
+(iv) 52.58 38.89 T
+0 9 Q
+( of) 60.92 38.89 T
+0 10 Q
+(vi) 74.7 38.89 T
+0 9 Q
+( niri_hty_015) 113.39 38.89 T
+0 10 Q
+(/) 168.41 38.89 T
+0 9 Q
+(00) 171.19 38.89 T
+(OIWFS \321 Mec) 395.46 38.89 T
+(hanism T) 456.38 38.89 T
+(esting) 495.35 38.89 T
+53 183/G467 FmPA
+(9.) 153.21 680.66 T
+2 10 Q
+-0.17 (If all goes well, press the \322c) 167.39 680.66 P
+-0.17 (ycle\323 b) 277.56 680.66 P
+-0.17 (utton. This will perform a continuous mechanism test.) 305.78 680.66 P
+54 825/G983 FmPA
+-0.13 (T) 167.39 668.66 P
+-0.13 (wenty or thirty c) 172.7 668.66 P
+-0.13 (ycles should be suf) 238.53 668.66 P
+-0.13 (\336cient to v) 314.26 668.66 P
+-0.13 (erify correct operation. End the c) 356.62 668.66 P
+-0.13 (ycle test) 487.99 668.66 P
+(by pressing the stop b) 167.39 656.66 T
+(utton.) 254.41 656.66 T
+1 F
+(4.1) 122.5 626.66 T
+(F) 153 626.66 T
+(ocus Stage) 158.86 626.66 T
+54 771/G126 FmPA
+0 9 Q
+(1.) 153.21 610.66 T
+2 10 Q
+-0.37 (From the top-le) 167.39 610.66 P
+-0.37 (v) 228.63 610.66 P
+-0.37 (el W) 233.48 610.66 P
+-0.37 (a) 251.47 610.66 P
+-0.37 (v) 255.71 610.66 P
+-0.37 (efront Sensor Components screen, press the \322F) 260.56 610.66 P
+-0.37 (ocus stage\323 b) 445.69 610.66 P
+-0.37 (utton.) 498.08 610.66 P
+54 755/G902 FmPA
+(This will bring up the \336lter wheel engineering screen.) 167.39 598.66 T
+0 9 Q
+(2.) 153.21 583.66 T
+2 10 Q
+(Locate the motor which is to dri) 167.39 583.66 T
+(v) 295.46 583.66 T
+(e the focus stage) 300.31 583.66 T
+54 728/G130 FmPA
+0 9 Q
+(3.) 153.21 568.66 T
+2 10 Q
+(By hand, with motor of) 167.39 568.66 T
+(f, turn the main gear of the mechanism near the center of tra) 260.75 568.66 T
+(v) 500.76 568.66 T
+(el) 505.61 568.66 T
+54 713/G132 FmPA
+0 9 Q
+(4.) 153.21 553.66 T
+2 10 Q
+(Enter a number in the ne) 167.39 553.66 T
+(w position \050\322Ne) 265.73 553.66 T
+(w Pos\323\051 \336eld that is 500 more than the current) 329.36 553.66 T
+54 698/G906 FmPA
+(position \050\322Cur Pos\323\051.) 167.39 541.66 T
+0 9 Q
+(5.) 153.21 526.66 T
+2 10 Q
+(V) 167.39 526.66 T
+(erify that the motor turns and then stops.) 173.5 526.66 T
+54 671/G142 FmPA
+0 9 Q
+(6.) 153.21 511.66 T
+2 10 Q
+(V) 167.39 511.66 T
+(erify that the hall-ef) 173.5 511.66 T
+(fect sensor meters \050labelled 2P and 2B\051 mo) 252.95 511.66 T
+(v) 425.27 511.66 T
+(e.) 430.11 511.66 T
+54 656/G144 FmPA
+0 9 Q
+(7.) 153.21 496.66 T
+2 10 Q
+(Press the Datum/Diag b) 167.39 496.66 T
+(utton.) 262.46 496.66 T
+54 641/G146 FmPA
+0 9 Q
+(8.) 153.21 481.66 T
+2 10 Q
+(W) 167.39 481.66 T
+(atch and listen to the mechanism v) 176.03 481.66 T
+(ery carefully) 314.2 481.66 T
+(. If you can see or hear the mechanism) 364.36 481.66 T
+54 626/G148 FmPA
+(hit a limit, stop it immediately) 167.39 469.66 T
+(. If this happens, there is a serious problem with the mech-) 287.87 469.66 T
+(anism or its sensors. Lo) 167.39 457.66 T
+(w-le) 261.86 457.66 T
+(v) 279.38 457.66 T
+(el calibration may be required.) 284.23 457.66 T
+0 9 Q
+(9.) 153.21 442.66 T
+2 10 Q
+(Press the Datum/Diag b) 167.39 442.66 T
+(utton. This will \336nd the home position for the mechanism and) 262.46 442.66 T
+54 587/G918 FmPA
+(immediately perform a quick mechanism check. Check the Status and Error/Info box) 167.39 430.66 T
+(es.) 507.17 430.66 T
+-0.32 (If all goes well, the system should return to the Idle state. There should be no messages in) 167.39 418.66 P
+(the Error/Info box at this time. If there are an) 167.39 406.66 T
+(y messages, then the system has f) 347.75 406.66 T
+(ailed the) 481.8 406.66 T
+(test. See the calibration procedure.) 167.39 394.66 T
+0 9 Q
+(10.) 153.21 379.66 T
+2 10 Q
+-0.17 (If all goes well, press the \322c) 167.39 379.66 P
+-0.17 (ycle\323 b) 277.56 379.66 P
+-0.17 (utton. This will perform a continuous mechanism test.) 305.78 379.66 P
+54 524/G987 FmPA
+-0.13 (T) 167.39 367.66 P
+-0.13 (wenty or thirty c) 172.7 367.66 P
+-0.13 (ycles should be suf) 238.53 367.66 P
+-0.13 (\336cient to v) 314.26 367.66 P
+-0.13 (erify correct operation. End the c) 356.62 367.66 P
+-0.13 (ycle test) 487.99 367.66 P
+(by pressing the stop b) 167.39 355.66 T
+(utton.) 254.41 355.66 T
+1 F
+(4.2) 122.5 325.66 T
+(Gimbal) 153 325.66 T
+54 470/G156 FmPA
+2 F
+(Only the x-axis will be described here. The y-axis is tested identically) 153 309.66 T
+(.) 431.75 309.66 T
+54 454/G932 FmPA
+0 9 Q
+(1.) 153.21 291.66 T
+2 10 Q
+(From the top-le) 167.39 291.66 T
+(v) 229.36 291.66 T
+(el W) 234.21 291.66 T
+(a) 252.57 291.66 T
+(v) 256.81 291.66 T
+(efront Sensor Components screen, press the \322Gimbal X\323 b) 261.66 291.66 T
+(utton.) 495.02 291.66 T
+54 436/G936 FmPA
+(This will bring up the gimbal x-axis engineering screen.) 167.39 279.66 T
+0 9 Q
+(2.) 153.21 264.66 T
+2 10 Q
+(Locate the motor which is to dri) 167.39 264.66 T
+(v) 295.46 264.66 T
+(e the \336lter wheel) 300.31 264.66 T
+54 409/G934 FmPA
+0 9 Q
+(3.) 153.21 249.66 T
+2 10 Q
+(Mo) 167.39 249.66 T
+(v) 181.13 249.66 T
+(e the mechanism a) 185.98 249.66 T
+(w) 259.98 249.66 T
+(ay from the limits of tra) 267.1 249.66 T
+(v) 362.17 249.66 T
+(el. \050May require mechanical adjust-) 367.02 249.66 T
+54 394/G162 FmPA
+(ment\051.) 167.39 237.66 T
+0 9 Q
+(4.) 153.21 222.66 T
+2 10 Q
+-0.19 (Enter a number in the ne) 167.39 222.66 P
+-0.19 (w position \050\322Ne) 264.76 222.66 P
+-0.19 (w Pos\323\051 \336eld that is 70000 more than the current) 328.01 222.66 P
+54 367/G950 FmPA
+(position \050\322Cur Pos\323\051.) 167.39 210.66 T
+0 9 Q
+(5.) 153.21 195.66 T
+2 10 Q
+(V) 167.39 195.66 T
+(erify that the motor turns and then stops.) 173.5 195.66 T
+54 340/G172 FmPA
+0 9 Q
+(6.) 153.21 180.66 T
+2 10 Q
+-0.34 (V) 167.39 180.66 P
+-0.34 (erify that the mirror support mo) 173.5 180.66 P
+-0.34 (v) 298.58 180.66 P
+-0.34 (es. Note that because of the high gear ratio, this motion) 303.43 180.66 P
+54 325/G951 FmPA
+(is v) 167.39 168.66 T
+(ery dif) 181.41 168.66 T
+(\336cult to see.) 207.54 168.66 T
+0 9 Q
+(7.) 153.21 153.66 T
+2 10 Q
+(V) 167.39 153.66 T
+(erify that the tw) 173.5 153.66 T
+(o right hall-ef) 237 153.66 T
+(fect sensor meters \050mark) 291.74 153.66 T
+(ed 2P and 2B\051 mo) 390.22 153.66 T
+(v) 462.29 153.66 T
+(e.) 467.14 153.66 T
+54 298/G174 FmPA
+0 9 Q
+(8.) 153.21 138.66 T
+2 10 Q
+(V) 167.39 138.66 T
+(erify that the tw) 173.5 138.66 T
+(o left hall-ef) 237 138.66 T
+(fect sensor meters \050mark) 286.18 138.66 T
+(ed 1P and 1B\051 mo) 384.66 138.66 T
+(v) 456.73 138.66 T
+(e. Note that) 461.58 138.66 T
+54 283/G969 FmPA
+(these meters will normally ha) 167.39 126.66 T
+(v) 285.51 126.66 T
+(e a v) 290.36 126.66 T
+(alue that is close to 0. The) 308.99 126.66 T
+(y will mo) 413.55 126.66 T
+(v) 451.74 126.66 T
+(e of) 456.59 126.66 T
+(f-zero v) 471.61 126.66 T
+(ery) 502.83 126.66 T
+(brie\337y) 167.39 114.66 T
+(. It tak) 192.85 114.66 T
+(es careful observ) 218.58 114.66 T
+(ation to see this motion. If no motion is seen, repeat from) 286.08 114.66 T
+-0.23 (step 4, with a v) 167.39 102.66 P
+-0.23 (alue that is 70000 less than the starting position. If motion is still not seen,) 227.04 102.66 P
+(then the hall sensors are not being read properly or the entire gear train is not turning.) 167.39 90.66 T
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.iv/DEST FmPD2
+167 373/M9.14441.Numbered.4.Enter.a.number.in.the.new.position.New.Pos.field.that.is.70000.more.than.the.cur FmPA
+167 373/I1.960 FmPA
+[/Rect[186 99 191 110]/Border[0 0 0]/Page 4/View[/XYZ null 167 373 FmDC exch pop null]/LNK FmPD
+[/Title(A)/Rect[45 60 532 696]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "iv" 4
+%%Page: "v" 5
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 750.68 558 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Filter Wheel) 132.8 733.66 T
+72 878/G482 FmPA
+72 726.98 558 726.98 2 L
+0.25 H
+N
+72 62.08 558 62.08 2 L
+2 Z
+N
+(OIWFS \321 Mec) 72 45.45 T
+(hanism T) 132.92 45.45 T
+(esting) 171.89 45.45 T
+( niri_hty_015) 414.08 45.45 T
+0 10 Q
+(/) 469.1 45.45 T
+0 9 Q
+(00) 471.88 45.45 T
+0 10 Q
+(v) 513.87 45.45 T
+0 9 Q
+( of) 519.43 45.45 T
+0 10 Q
+(vi) 532.93 45.45 T
+72 189/G501 FmPA
+0 9 Q
+(9.) 171.21 680.66 T
+2 10 Q
+(Press the Datum/Diag b) 185.39 680.66 T
+(utton. This will \336nd the home position for the mechanism and) 280.46 680.66 T
+72 825/G976 FmPA
+(immediately perform a quick mechanism check. Check the Status and Error/Info box) 185.39 668.66 T
+(es.) 525.17 668.66 T
+-0.32 (If all goes well, the system should return to the Idle state. There should be no messages in) 185.39 656.66 P
+(the Error/Info box at this time. If there are an) 185.39 644.66 T
+(y messages, then the system has f) 365.75 644.66 T
+(ailed the) 499.8 644.66 T
+(test. See the calibration procedure.) 185.39 632.66 T
+0 9 Q
+(10.) 171.21 617.66 T
+2 10 Q
+-0.17 (If all goes well, press the \322c) 185.39 617.66 P
+-0.17 (ycle\323 b) 295.56 617.66 P
+-0.17 (utton. This will perform a continuous mechanism test.) 323.78 617.66 P
+72 762/G977 FmPA
+-0.34 (Because of the v) 185.39 605.66 P
+-0.34 (ery lar) 250.57 605.66 P
+-0.34 (ge range of tra) 275.86 605.66 P
+-0.34 (v) 332.66 605.66 P
+-0.34 (el of this mechanism, tw) 337.51 605.66 P
+-0.34 (o or three c) 434.08 605.66 P
+-0.34 (ycles should be) 478.15 605.66 P
+(suf) 185.39 593.66 T
+(\336cient to v) 197.36 593.66 T
+(erify correct operation. End the c) 239.99 593.66 T
+(ycle test by pressing the stop b) 372.02 593.66 T
+(utton.) 494.58 593.66 T
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.v/DEST FmPD2
+[/Title(A)/Rect[63 60 550 696]/ARTICLE FmPD2
+FMENDPAGE
+%%EndPage: "v" 5
+%%Page: "vi" 6
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+[ 1 0 1 0.4 0 0.6 0]
+[ 0.5 1 0.2 0.3 0.2 0 0.5]
+[ 0 0.5 1 0 1 0.5 0]
+ 10 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 750.68 540 750.68 2 L
+2 H
+0 Z
+0 X
+0 0 0 1 0 0 0 K
+N
+0 9 Q
+(Filter Wheel) 114.8 733.66 T
+54 878/G448 FmPA
+54 726.98 540 726.98 2 L
+0.25 H
+N
+52.58 54.99 538.58 54.99 2 L
+2 Z
+N
+0 10 Q
+(vi) 52.58 38.89 T
+0 9 Q
+( of) 60.92 38.89 T
+0 10 Q
+(vi) 74.7 38.89 T
+0 9 Q
+( niri_hty_015) 113.39 38.89 T
+0 10 Q
+(/) 168.41 38.89 T
+0 9 Q
+(00) 171.19 38.89 T
+(OIWFS \321 Mec) 395.46 38.89 T
+(hanism T) 456.38 38.89 T
+(esting) 495.35 38.89 T
+53 183/G467 FmPA
+0 1 1 0 1 0 0 K
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+[/CropBox[0 0 FmDC 612 792 FmDC FmBx]/PAGE FmPD
+[/Dest/P.vi/DEST FmPD2
+[/Title(A)/Rect[45 60 532 696]/ARTICLE FmPD2
+[/Page 1/View[/XYZ null 207 864 FmDC exch pop null]/Title(OIWFS \204 Mechanism Testing)/Count 4/OUT FmPD
+[/Page 1/View[/XYZ null 171 576 FmDC exch pop null]/Title(1 Introduction)/Count 4/OUT FmPD
+[/Page 1/View[/XYZ null 171 535 FmDC exch pop null]/Title(1.1 Purpose)/OUT FmPD
+[/Page 2/View[/XYZ null 153 831 FmDC exch pop null]/Title(1.2 Definitions, Acronyms and Abbreviations)/OUT FmPD
+[/Page 2/View[/XYZ null 153 779 FmDC exch pop null]/Title(1.3 Stylistic Conventions)/OUT FmPD
+[/Page 2/View[/XYZ null 153 715 FmDC exch pop null]/Title(1.4 References)/OUT FmPD
+[/Page 2/View[/XYZ null 153 637 FmDC exch pop null]/Title(2 Precautions)/Count 3/OUT FmPD
+[/Page 2/View[/XYZ null 153 596 FmDC exch pop null]/Title(2.1 Temperature)/OUT FmPD
+[/Page 2/View[/XYZ null 153 442 FmDC exch pop null]/Title(2.2 Motor Heating)/OUT FmPD
+[/Page 2/View[/XYZ null 153 348 FmDC exch pop null]/Title(2.3 Wear)/OUT FmPD
+[/Page 2/View[/XYZ null 153 285 FmDC exch pop null]/Title(3 Procedure for Testing Mechanisms)/Count 1/OUT FmPD
+[/Page 3/View[/XYZ null 171 789 FmDC exch pop null]/Title(3.1 Preparation)/Count -7/OUT FmPD
+[/Page 3/View[/XYZ null 185 773 FmDC exch pop null]/Title(1. Source your local configuration file)/OUT FmPD
+[/Page 3/View[/XYZ null 185 758 FmDC exch pop null]/Title(2. Run niriEngStart. This will bring up the top le...)/OUT FmPD
+[/Page 3/View[/XYZ null 185 743 FmDC exch pop null]/Title(3. Press the Interlocks button. This will bring up...)/OUT FmPD
+[/Page 3/View[/XYZ null 185 728 FmDC exch pop null]/Title(4. Press the \215WARM\216 button, to set the system temp...)/OUT FmPD
+[/Page 3/View[/XYZ null 185 653 FmDC exch pop null]/Title(5. Close the Interlocks screen.)/OUT FmPD
+[/Page 3/View[/XYZ null 185 638 FmDC exch pop null]/Title(6. Return to the top level engineering screen.)/OUT FmPD
+[/Page 3/View[/XYZ null 185 623 FmDC exch pop null]/Title(7. Press the \215Wavefront Sensor CC\216 button. This wi...)/OUT FmPD
+[/Page 3/View[/XYZ null 171 576 FmDC exch pop null]/Title(4 Filter Wheel)/Count 11/OUT FmPD
+[/Page 3/View[/XYZ null 185 545 FmDC exch pop null]/Title(1. From the top-level Wavefront Sensor Components ...)/OUT FmPD
+[/Page 3/View[/XYZ null 185 518 FmDC exch pop null]/Title(2. Identify the motor driver module which will be ...)/OUT FmPD
+[/Page 3/View[/XYZ null 185 503 FmDC exch pop null]/Title(3. Enter a number in the new position \(\215New Pos\216\) ...)/OUT FmPD
+[/Page 3/View[/XYZ null 185 476 FmDC exch pop null]/Title(4. You should see all of the following things happ...)/OUT FmPD
+[/Page 3/View[/XYZ null 185 449 FmDC exch pop null]/Title(5. The LED on the motor driver module should turn ...)/OUT FmPD
+[/Page 3/View[/XYZ null 185 365 FmDC exch pop null]/Title(6. The motor should immediately start moving.)/OUT FmPD
+[/Page 3/View[/XYZ null 185 350 FmDC exch pop null]/Title(7. The value of the sensors marked 1P and 1B shoul...)/OUT FmPD
+[/Page 3/View[/XYZ null 185 272 FmDC exch pop null]/Title(8. Press the Datum/Diag button. This will find the...)/OUT FmPD
+[/Page 4/View[/XYZ null 167 831 FmDC exch pop null]/Title(9. If all goes well, press the \215cycle\216 button. Thi...)/OUT FmPD
+[/Page 4/View[/XYZ null 153 777 FmDC exch pop null]/Title(4.1 Focus Stage)/Count -10/OUT FmPD
+[/Page 4/View[/XYZ null 167 761 FmDC exch pop null]/Title(1. From the top-level Wavefront Sensor Components ...)/OUT FmPD
+[/Page 4/View[/XYZ null 167 734 FmDC exch pop null]/Title(2. Locate the motor which is to drive the focus st...)/OUT FmPD
+[/Page 4/View[/XYZ null 167 719 FmDC exch pop null]/Title(3. By hand, with motor off, turn the main gear of ...)/OUT FmPD
+[/Page 4/View[/XYZ null 167 704 FmDC exch pop null]/Title(4. Enter a number in the new position \(\215New Pos\216\) ...)/OUT FmPD
+[/Page 4/View[/XYZ null 167 677 FmDC exch pop null]/Title(5. Verify that the motor turns and then stops.)/OUT FmPD
+[/Page 4/View[/XYZ null 167 662 FmDC exch pop null]/Title(6. Verify that the hall-effect sensor meters \(labe...)/OUT FmPD
+[/Page 4/View[/XYZ null 167 647 FmDC exch pop null]/Title(7. Press the Datum/Diag button.)/OUT FmPD
+[/Page 4/View[/XYZ null 167 632 FmDC exch pop null]/Title(8. Watch and listen to the mechanism very carefull...)/OUT FmPD
+[/Page 4/View[/XYZ null 167 593 FmDC exch pop null]/Title(9. Press the Datum/Diag button. This will find the...)/OUT FmPD
+[/Page 4/View[/XYZ null 167 530 FmDC exch pop null]/Title(10. If all goes well, press the \215cycle\216 button. Th...)/OUT FmPD
+[/Page 4/View[/XYZ null 153 476 FmDC exch pop null]/Title(4.2 Gimbal)/Count -10/OUT FmPD
+[/Page 4/View[/XYZ null 167 442 FmDC exch pop null]/Title(1. From the top-level Wavefront Sensor Components ...)/OUT FmPD
+[/Page 4/View[/XYZ null 167 415 FmDC exch pop null]/Title(2. Locate the motor which is to drive the filter w...)/OUT FmPD
+[/Page 4/View[/XYZ null 167 400 FmDC exch pop null]/Title(3. Move the mechanism away from the limits of trav...)/OUT FmPD
+[/Page 4/View[/XYZ null 167 373 FmDC exch pop null]/Title(4. Enter a number in the new position \(\215New Pos\216\) ...)/OUT FmPD
+[/Page 4/View[/XYZ null 167 346 FmDC exch pop null]/Title(5. Verify that the motor turns and then stops.)/OUT FmPD
+[/Page 4/View[/XYZ null 167 331 FmDC exch pop null]/Title(6. Verify that the mirror support moves. Note that...)/OUT FmPD
+[/Page 4/View[/XYZ null 167 304 FmDC exch pop null]/Title(7. Verify that the two right hall-effect sensor me...)/OUT FmPD
+[/Page 4/View[/XYZ null 167 289 FmDC exch pop null]/Title(8. Verify that the two left hall-effect sensor met...)/OUT FmPD
+[/Page 5/View[/XYZ null 185 831 FmDC exch pop null]/Title(9. Press the Datum/Diag button. This will find the...)/OUT FmPD
+[/Page 5/View[/XYZ null 185 768 FmDC exch pop null]/Title(10. If all goes well, press the \215cycle\216 button. Th...)/OUT FmPD
+FMENDPAGE
+%%EndPage: "vi" 6
+%%Trailer
+%%BoundingBox: 0 0 612 792
+%%PageOrder: Ascend
+%%Pages: 6
+%%DocumentFonts: Helvetica-Bold
+%%+ Times-Bold
+%%+ Times-Roman
+%%+ Helvetica
+%%EOF

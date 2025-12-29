@@ -1,0 +1,40 @@
+*************************************************************
+*V1-11
+- Fix REL-2470 where:
+     getDbInfoT(dbTop, OBSERVE_CAR ".IVAL", dummy,DBF_LONG,&lVal);
+  was using the wrong OBSERVE_CAR output. It was changed to: 
+     getDbInfoT(dbSadTop, OBSERVE_CAR ".VAL", dummy, DBF_STRING, carVAL);
+
+
+*V1-10
+DC2:
+
+- fix getDbCaInfo.c such that it releases Channel Access connections after using them
+  (this is the "channel access leak" impacting the TCS and DC2
+- fix the cctop name in nirsTop.sch so that the camera can be correctly read from the cc.
+- for the astCtx genSub, set the type for VALB and VALC to STRING so that the Track Frame 
+  and Equinox values read from the TCS can be used internally
+- remove links to non-existent records in the sysCar schematic
+- resolve a problem where the top level CAR went IDLE-BUSY-IDLE rather than BUSY-IDLE when observations 
+  were sequenced from the seqexec ... this caused the seqexec to skip steps
+- improve the loading of CA connections from the TCS and A&G at bootup.
+
+DC1:
+- changed the dhs connection code to not connect to the DHS automatically at bootup.
+  This removes a primary cause for DHS connection instability after reboots.
+- changed shell prompt to say DC1
+
+*V1-91 AWE
+- This is the head of the repository before development work on V1-10.
+- V1-9 was released (see CR-10 0813) but not tagged
+- I think that this is consistent with the release directory V1-9.
+- the main change in this version is the top level name in order to support
+  the use of an alias gateway.
+- There was also a variety of code that had not been checked into CVS and was thus missing.
+  It has all been tracked down and checked in as of this tag
+
+*V1-8:
+- WCS automated loading for input files depending on camera,
+  AO-fold and ISS port. Adheres to new WCS ICD as of November 2010.
+
+--Starting GNIRS north DC RELEASE.NOTES

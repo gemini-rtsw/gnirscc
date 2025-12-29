@@ -1,0 +1,33 @@
+# $Id: fw1.lut,v 1.13 2017/09/07 02:33:08 gemvx Exp $
+#
+# Filters loaded on GNIRS filter wheel 1.
+#
+# List the most common name for a position first, followed by alternate
+# Filter Wheel 2
+# Note that a1=1-0, b1=1-1, ... j1=1-9
+
+# filter name - name loaded into epics menu
+# filter positon - must match gnirsFilters file
+
+# 2017-Aug-21, astephens, swap positions of Dark and RightMask
+
+#		filter		filter
+#number 	name		position	lowtol		hightol
+#		(epics menu)	(same as	(unused)	(unused)
+#				gnirsFilters)
+
+1		Open		a1		0		0
+2		PupilViewer	b1		0		0
+3		ND100X		c1		0		0
+4		Y-MK		d1		0		0
+5		J-MK		e1		0		0
+6		K-MK		f1		0		0
+7		Vacant		g1		0		0
+8		RightMask	h1		0		0
+9		LeftMask	i1		0		0
+10		Dark		j1		0		0
+
+#datum   1   home    0   0
+#home    1   home    0   0
+#park    1   park    0   0
+

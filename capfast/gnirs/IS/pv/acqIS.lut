@@ -1,0 +1,16 @@
+#
+# File: deckerIS.lut
+#
+# Database of available slits.
+#
+#
+
+
+# name         code
+In		1		0	0
+Out		2		0	0
+#c		3		0	0
+#d		4		0	0
+#e		5		0	0
+#f		6		0	0
+	

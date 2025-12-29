@@ -1,0 +1,18 @@
+[symbol2]
+bbox -320 32 32 256
+uniq 0
+[tools]
+[attributes]
+p -304 128 100 768 1 set1:top $(top)eng:cc:
+p -304 96 100 768 1 set2:name $(name) CC
+p -304 64 100 768 1 set3:ident cc
+[layers]
+<symbol>
+l 100 4 0 -144 192 cc
+v 0 -320 256
+-320 32
+32 32
+32 256
+-320 256
+_
+[comments]

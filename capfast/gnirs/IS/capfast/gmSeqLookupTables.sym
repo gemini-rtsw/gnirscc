@@ -1,0 +1,26 @@
+[symbol2]
+bbox 288 560 768 640
+port 352 576 100 0 ICID symbol 1 288 576 0
+port 688 576 100 0 MESS symbol 2 768 576 0
+port 688 608 100 0 VAL symbol 2 768 608 0
+port 368 608 100 0 DIR symbol 1 288 608 0
+uniq 1
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 416 592 NIRS Seq motor Names
+r 0 352 560 736 640
+v 0 768 576
+736 576
+_
+v 0 768 608
+736 608
+_
+v 0 288 576
+352 576
+_
+v 0 288 608
+352 608
+_
+[comments]

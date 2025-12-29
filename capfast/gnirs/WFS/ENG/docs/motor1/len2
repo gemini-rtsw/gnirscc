@@ -1,0 +1,16 @@
+*) -make UAE environment
+   applSetup
+*) -place motor source code in motor subdirectory
+   mkdir motor
+   mv ...
+*) -copy source code to src directory
+   cp motor/src/drvOms* motor/src/devOms* motor/src/recMotor.c src
+   cp motor/src/motor.h motor/src/choiceMotor.h src
+*) -edit src/Makefile.Vx
+   cd src
+   vi Makefile.Vx
+   -change the SRCS.c line
+   SRCS.c  = ../drvOms.c ../drvOms58.c ../devOms.c ../devOms58.c ../recMotor.c
+   -change the INC line
+   INC     = choiceMotor.h
+*)

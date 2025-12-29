@@ -1,0 +1,143 @@
+#+
+#  UserPrefs <- itk::Widget
+#
+#  A megawidget for user preferences
+#  A wrapper to popup such a thing
+#
+#  Methods:
+#
+#  D Terrett, M Bec 29 November 2001
+#
+#  Copyright CCLRC, Gemini
+#+
+
+itcl::class UserPrefs {
+   inherit itk::Widget
+
+   constructor {args} {}
+   private {
+      variable beepstep
+      variable beepsequence
+      variable beeperror
+      variable viewpopup
+      variable viewtree
+      method ok
+      method cancel
+      }
+
+   public {
+      proc popWindow {prefproc}
+      variable userpref
+      method refresh {}
+      }
+}
+
+itk::usual UserPrefs {
+   keep -borderwidth -cursor -highlightthickness -insertborderwidth \
+         -insertofftime -insertontime -insertwidth -labelfont -popupcursor \
+         -selectborderwidth -textfont
+}
+
+itcl::body UserPrefs::constructor {args} {
+   set w $itk_interior
+
+# Beeps pref
+   itk_component add beeps {
+      iwidgets::Labeledframe $w.beeps -labelpos nw \
+            -labeltext "Beep" -ipadx 5 -ipady 5
+   }
+   set ww [$itk_component(beeps) childsite]
+	
+# Beeps step
+   itk_component add step {
+      checkbutton $ww.step -text "on step completion" -variable [itcl::scope beepstep] -anchor w
+   }
+
+# Beeps sequence
+   itk_component add sequence {
+      checkbutton $ww.sequence -text "on sequence completion" -variable [itcl::scope beepsequence] -anchor w
+   }
+# Beeps errors
+   itk_component add error {
+      checkbutton $ww.error -text "until errors are acknowledged" -variable [itcl::scope beeperror] -anchor w
+   }
+
+# View pref
+   itk_component add view {
+      iwidgets::Labeledframe $w.view -labelpos nw \
+            -labeltext "Views" -ipadx 5 -ipady 5
+   }
+   set ww [$itk_component(view) childsite]
+	
+# View  popup
+   itk_component add popup {
+      checkbutton $ww.popup -text "enable popups" -variable [itcl::scope viewpopup] -anchor w
+   }
+# View tree
+   itk_component add tree {
+      checkbutton $ww.tree -text "enable hierachy tree" -variable [itcl::scope viewtree] -anchor w
+   }
+
+# ok/cancel
+   itk_component add ok {
+      button $w.ok -text "OK" -command [itcl::code $this ok]
+      }
+
+   itk_component add cancel {
+      button $w.cancel -text "CANCEL" -command [itcl::code $this cancel]
+   }
+
+
+   grid $itk_component(step) -sticky ew
+   grid $itk_component(sequence) -sticky ew
+   grid $itk_component(error) -sticky ew
+   grid $itk_component(popup) -sticky ew
+   grid $itk_component(tree) -sticky ew
+   
+   
+   grid $itk_component(beeps) -sticky ew -columnspan 2
+   grid $itk_component(view)  -sticky ew -columnspan 2
+   grid $itk_component(ok)  $itk_component(cancel)  -sticky ew -padx 10 -pady 10 
+   
+   eval itk_initialize $args
+}
+
+itcl::body UserPrefs::refresh {} {
+   # refresh the current state
+   set pref [$userpref get { beepstep beepsequence beeperror viewpopup viewtree}]
+   set beepstep [lindex $pref 0]
+   set beepsequence [lindex $pref 1]
+   set beeperror [lindex $pref 2]
+   set viewpopup [lindex $pref 3]
+   set viewtree [lindex $pref 4]
+   }
+   
+itcl::body UserPrefs::ok {} {
+   $userpref set [list \
+         [list beepstep $beepstep]\
+         [list beepsequence $beepsequence]\
+         [list beeperror $beeperror]\
+         [list viewpopup $viewpopup]\
+         [list viewtree $viewtree]\
+         ]
+   wm withdraw .popupUserPrefs
+   }
+itcl::body UserPrefs::cancel {} {
+   wm withdraw .popupUserPrefs
+   }
+
+itcl::body UserPrefs::popWindow {prefproc} {
+   
+   if [winfo exists .popupUserPrefs] {
+      wm deiconify .popupUserPrefs
+      raise .popupUserPrefs
+   } else {
+      toplevel .popupUserPrefs
+      wm title .popupUserPrefs "User Preferences"
+      UserPrefs .popupUserPrefs.top
+      .popupUserPrefs.top configure -userpref $prefproc
+      
+      pack .popupUserPrefs.top -expand 1 -fill both
+      }
+   .popupUserPrefs.top refresh
+   }

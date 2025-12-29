@@ -1,0 +1,349 @@
+#+
+#  seqpars::
+#
+# The seqpars namespace contains a set of classes for parsing an XML 
+# description of an OT sequence in conjunction with the xml package.
+#
+# Each time a new element is encountered an object with a matching type
+# is created; all elementstart and elementend callbacks are then passed
+# to this object until the elementend method indicates that it has found
+# the end of the element definition (by returning zero).
+#
+# These object store a list of the elements objects that they contain plus any
+# attributes and their values.
+#
+# When an element object is destroyed it destroys all the objects it contains,
+# therefore deleting the top-level sequence object removes them all.
+#
+# D Terrett 4 October 2002
+#
+# Copyright CLRC
+#+
+
+itcl::class seqparse::sequence {
+   destructor {
+      foreach el $subellist {itcl::delete object $el}
+   }
+   public {
+      proc findpar {step system name} {
+         # Finds the value of a parameter in a specified system and step.
+            foreach sysobj [$step cget -subellist] {
+               if { [string equal [$sysobj cget -name] $system] } {
+                  foreach param [$sysobj cget -subellist] {
+                     if { [string equal [$param cget -name] $name] } {
+                        return [$param cget -value]
+                     }
+                  }
+               }
+            }
+            return ""
+         }
+      method getparam {param} {
+         foreach subel $subellist {
+            if { [$subel isa seqparse::param]} {
+               if { [string equal [$subel cget -name] $param] } {
+                  return [$subel cget -value]
+               }
+            }
+         }
+         return ""
+      }
+      method elementstart {elname attlist args} {
+         if { ! $started } {
+            if { [string equal $elname sequence] } {
+               foreach {att val} $attlist {
+                  switch $att {
+                     version {
+                        set $att $val
+                     }
+                     type {
+                        set $att $val
+                     }
+                     default {
+                        error "attribute \"$att\" not recognised"
+                     }
+                  }
+               }
+               set started 1
+            } else {
+               error "input file is not a sequence"
+            }
+         } else {
+            if { $subel } {
+               $currentsubel elementstart $elname $attlist $args
+            } else {
+               switch $elname {
+                  param -
+                  step {
+                     set currentsubel [uplevel #0 seqparse::$elname #auto \
+                           [list $attlist] $args]
+                     lappend subellist $currentsubel
+                  }
+                  sequence {
+                     error "a sequence cannot contain a sequence"
+                  }
+                  default {
+                     set currentsubel [seqparse::ignore #auto]
+                  }
+               }
+               set subel 1
+            }
+         }
+      }
+      method elementend {elname args} {
+         if { $subel } {
+            if { [$currentsubel elementend $elname $args] } {
+               set subel 0
+               if { [$currentsubel isa seqparse::ignore] } {
+                  itcl::delete object $currentsubel
+               }
+            }
+            return 0
+         } else {
+            return 1
+         }
+      }
+      variable version
+      variable type "standard"
+      variable subellist ""
+      variable started 0
+   }
+   private {
+      variable subel 0
+      variable currentsubel ""
+   }
+}
+
+# A step can contain anything except another step but only systems are 
+# recognised. The only attribute allowed is "name".
+
+itcl::class seqparse::step {
+   constructor {attlist args} {
+      foreach {att val} $attlist {
+         switch $att {
+            name {
+               set $att $val
+            }
+            default {
+               error "attribute \"$att\" not recognised"
+            }
+         }
+      }
+   }
+   destructor {
+      foreach el $subellist {itcl::delete object $el}
+   }
+   public {
+      method elementstart {elname attlist args} {
+         if { $subel } {
+            $currentsubel elementstart $elname $attlist $args
+         } else {
+            switch $elname {
+               system {
+                  set currentsubel [uplevel #0 seqparse::$elname #auto \
+                        [list $attlist] $args]
+                  lappend subellist $currentsubel
+               }
+               step {
+                  error "a step cannot contain another step"
+               }
+               default {
+                  set currentsubel [seqparse::ignore #auto]
+               }
+            }
+            set subel 1
+         }
+      }
+      method elementend {elname args} {
+         if { $subel } {
+            if { [$currentsubel elementend $elname $args] } {
+               set subel 0
+               if { [$currentsubel isa seqparse::ignore] } {
+                  itcl::delete object $currentsubel
+               }
+            }
+            return 0
+         } else {
+            return 1
+         }
+      }
+      variable name
+      variable subellist ""
+   }
+   private {
+      variable subel 0
+      variable currentsubel ""
+   }
+}
+
+# A system can contain anything except another system but only params and
+# paramsets are recognised. The only attribute allowed is "name".
+
+itcl::class seqparse::system {
+   constructor {attlist args} {
+      foreach {att val} $attlist {
+         switch $att {
+            name {
+               set $att $val
+            }
+            default {
+               error "attribute \"$att\" not recognised"
+            }
+         }
+      }
+   }
+   destructor {
+      foreach el $subellist {itcl::delete object $el}
+   }
+   public {
+      method elementstart {elname attlist args} {
+         if { $subel } {
+            $currentsubel elementstart $elname $attlist $args
+         } else {
+            switch $elname {
+               param {
+                  set currentsubel [uplevel #0 seqparse::$elname #auto \
+                        [list $attlist] $args]
+                  lappend subellist $currentsubel
+               }
+               paramset {
+                  set currentsubel [uplevel #0 seqparse::$elname #auto \
+                        [list $attlist] $args]
+               }
+               system {
+                  error "a step cannot contain another step"
+               }
+               default {
+                  set currentsubel [seqparse::ignore #auto]
+               }
+            }
+            set subel 1
+         }
+      }
+      method elementend {elname args} {
+         if { $subel } {
+            if { [$currentsubel elementend $elname $args] } {
+               set subel 0
+               if { [$currentsubel isa seqparse::ignore] || \
+                     [$currentsubel isa seqparse::paramset] } {
+                  itcl::delete object $currentsubel
+               }
+            }
+            return 0
+         } else {
+            return 1
+         }
+      }
+      variable name
+      variable subellist ""
+   }
+   private {
+      variable subel 0
+      variable currentsubel ""
+   }
+}
+
+# param elements must be empty have and a name, a value attribute and an 
+# optional units attribute.
+
+itcl::class seqparse::param {
+   constructor {attlist args} {
+      foreach {att val} $attlist {
+         switch $att {
+            name -
+            value -
+            units {
+               set $att $val
+            }
+            default {
+               error "attribute \"$att\" not recognised"
+            }
+         }
+      }
+   }
+   public {
+      method elementstart {elname attlist args} {
+         error "param elements cannot contain other elements"
+      }
+      method elementend {elname args} {
+         if { [string equal $name <undefined>] } {
+            error "param elements must have a name attribute"
+         }
+         if { [string equal $name <undefined>] } {
+            error "param elements must have a value attribute"
+         }
+         return 1
+      }
+      variable name
+      variable value
+      variable units
+   }
+}
+
+# paramset elements can contain only param elements and must have a name
+# attribute. The enclosed param elements are added to the enclosing
+# element's list of subelement so that the paramset effectively disappears.
+
+itcl::class seqparse::paramset {
+   constructor {attlist args} {
+      foreach {att val} $attlist {
+         if { ![string equal $att name] } {
+            error "attribute \"$att\" not recognised"
+         }
+      }
+   }
+   public {
+      method elementstart {elname attlist args} {
+         if { $subel } {
+            uplevel 1 $currentsubel elementstart $elname [list $attlist] $args
+         } else {
+            switch $elname {
+               param {
+                  set currentsubel [uplevel #0 seqparse::$elname #auto \
+                        [list $attlist] $args]
+                  uplevel 1 lappend subellist $currentsubel
+                  set subel 1
+               }
+               default {
+                   error "paramsets cannot contain elements of type \"$elname\""
+               }
+            }
+         }
+      }
+      method elementend {elname args} {
+         if { $subel } {
+            if { [uplevel 1 $currentsubel elementend $elname $args] } {
+               set subel 0
+            }
+            return 0
+         } else {
+            return 1
+         }
+      }
+   }
+   private {
+      variable subel 0
+      variable currentsubel ""
+   }
+}
+
+# The "ignore" class simply counts element starts and ends effectively
+# ignoring everything it contains.
+
+itcl::class seqparse::ignore {
+   public {
+      method elementstart {elname attlist args} {
+         incr count
+      }
+      method elementend {elname args} {
+         if { [incr count -1] } {
+            return 0
+         } else {
+            return 1
+         }
+      }
+   }
+   private {
+      variable count 1
+   }
+}

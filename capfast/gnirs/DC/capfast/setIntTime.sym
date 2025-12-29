@@ -1,0 +1,19 @@
+[symbol2]
+bbox -64 96 160 320
+port -108 260 100 0 {seqIntTime} symbol 1 -64 256 0
+port -76 200 100 0 {seqFDly} symbol 1 -64 192 0
+uniq 183
+[tools]
+[attributes]
+p 40 80 65 1536 1 set1:top $(top)
+[layers]
+<symbol>
+l 100 0 0 40 288 setIntTime
+r 0 32 96 160 320
+v 0 -64 192
+32 192
+_
+v 0 -64 256
+32 256
+_
+[comments]

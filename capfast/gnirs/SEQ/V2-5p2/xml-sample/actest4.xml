@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sequence PUBLIC "-//Gemini Observatory//DTD for OT Science Program Sequence//EN" "Seq.dtd">
+<sequence version="0.1">
+  <step name="Object">
+    <system name="instrument">
+       <param name="instrument" value="Acquisition Camera"/>
+    </system>
+    <system name="observe">
+      <param name="exposureTime" value="10"/>
+      <param name="observeType" value="OBJECT"/>
+    </system>
+  </step>
+  <step name="Sky">
+    <system name="observe">
+      <param name="exposureTime" value="10"/>
+      <param name="observeType" value="SKY"/>
+    </system>
+  </step>
+  <step name="Bias">
+    <system name="observe">
+      <param name="exposureTime" value="10"/>
+      <param name="observeType" value="BIAS"/>
+    </system>
+  </step>
+  <step name="Flat">
+    <system name="observe">
+      <param name="exposureTime" value="10"/>
+      <param name="observeType" value="FLAT"/>
+    </system>
+  </step>
+  <step name="Dark">
+    <system name="observe">
+      <param name="exposureTime" value="10"/>
+      <param name="observeType" value="DARK"/>
+    </system>
+  </step>
+</sequence>

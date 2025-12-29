@@ -1,0 +1,434 @@
+static struct {
+        void *v;
+        char *c;
+} rcsid = {
+        &rcsid,
+        "$Id: bc350time.c,v 1.2 2009/05/27 19:33:34 fkraemer Exp $"
+};
+/******************************************************************************
+ * Program:     Routines to manange the Time and Frequency
+                Processer bc635VME card 
+ * File:        time.c 
+ * Purpose:     Manage the time on the bc635VME card 
+ *              Set the time and date from input
+ *              Set the time and day fron a server.
+ *              Print out the time and day of the year
+ *              Return a struct with the local time
+                Return a struct with the UV time.  
+ * Author:      Sharlot Prokop 
+ * Copyright:   Aura Inc.  All rights reserved.
+ * History:
+ *              31July97 created 
+ *
+ ******************************************************************************/
+int curMonth,curDay,curYear;
+#include <stdio.h>
+#include <vxWorks.h>
+#include <time.h>
+#include <stdlib.h>
+#include "vxSockUtil.h"
+
+#include "bc350Time.h"
+#include <cicsLib.h>
+static time_t getServerTime(void);
+static void sendPacket(char *charptr);
+static void readTime (void);
+
+static char tmp[80];
+
+/*****************************************************************************
+*
+*    Static variables for this file only
+*
+******************************************************************************/
+static struct time_struct timeSt;
+static short *readptrslp;
+static short dummyslp;
+static short timeslp[5];
+static int   i;
+
+/******************************************************************************
+ * Routine: setTime 
+ * Purpose: to set the time on the bc635VME
+ * Inputs:  hour minute second
+ * Returns: OK or ERROR
+ *
+ ******************************************************************************/
+int setTime (int hour, int min, int sec)
+{
+     char packet[11];                         /* packet to set the time */
+    
+     if (hour > 23 || hour < 0 || min > 59 || min < 0 || sec > 59 || sec < 0)
+     {
+       sprintf(tmp,"Error in time entered\n hour = %d min = %d sec = %d\n",hour,min,sec);
+      /*  cicsLogMessage(0,tmp); */
+       return ERROR; 
+     }
+     readTime ();
+     packet[0] = 'B';
+     packet[1] = timeslp[0] & 0x000F;            /* days hundreds  */
+     packet[2] = (timeslp[1] & 0xF000) >> 12;    /* days tens */
+     packet[3] = (timeslp[1] & 0x0F00) >> 8;     /* days units */
+     packet[4] = hour / 10;                      /* hours tens */
+     packet[5] = hour % 10;                      /* hours units */
+     packet[6] = min / 10;                       /* mins tens */
+     packet[7] = min % 10;	                 /* mins units */
+     packet[8] = sec / 10;                       /* secs tens */
+     packet[9] = sec % 10;                       /* secs units */
+     packet[10] = 0;                             /* end of string */
+     for (i=1; i<10; i++)
+       packet[i] += 0x30;                        /* change to ascii digets*/
+     sendPacket("A1");                           /* select mode 1 */
+     *INTSTAT = 0X08;                            /* clear INTSTAT IPPS bit */
+     while(!(*INTSTAT & 0x08));                  /* wait for IPPS */
+     sendPacket(packet);
+     return OK;
+}
+
+/******************************************************************************
+ * Routine: setDate
+ * Purpose: set the date on the bc635VME
+ * Inputs:  month day year
+ * Returns: OK or ERROR
+ *
+ ******************************************************************************/
+int setDate (int mon, int day, int year)
+{
+     char packet[11];      /*  packet to set the time */
+     int count[11] = {31,28,31,30,31,30,31,31,30,31,30}; 
+         /* leave off dec, never add all of dec */ 
+     int date = 0;
+     int i;
+
+     if (mon > 12 || mon < 1 || day > 31 || day < 1)
+        return ERROR;  
+     if ((year % 4) == 0) 
+        ++count[1];                     /* if leep year add a day to feb */
+     mon--;                             /* count mojnts from 0 not 1 */
+     for (i=0; i<mon; i++)
+        date += count[i];
+     date += day;
+     sendPacket("A1");                           /* select mode 1 */
+     *INTSTAT = 0X08;                            /* clear INTSTAT IPPS bit */
+     while(!(*INTSTAT & 0x08));                  /* wait for IPPS */
+     packet[0] = 'B';
+     packet[1] = date / 100;                     /* days hundreds  */
+     date = date % 100;
+     packet[2] = date / 10;                      /* days tens */
+     packet[3] = date % 10;                      /* days units */
+     readTime ();    /* get the time from th bc635VME into the array timeslp */
+     packet[4] = (timeslp[1] & 0x00F0) >> 4;     /* hours tens */
+     packet[5] =  timeslp[1] & 0x000F;           /* hours units */
+     packet[6] = (timeslp[2] & 0xF000) >> 12;    /* mins tens */
+     packet[7] = (timeslp[2] & 0x0F00) >> 8;     /* mins units */
+     packet[8] = (timeslp[2] & 0x00F0) >> 4;     /* secs tens */
+     packet[9] =  timeslp[2] & 0x000F;           /* secs units */
+     packet[10] = 0;                             /* end of string */
+     for (i=1; i<10; i++)
+       packet[i] += 0x30;                        /* change to ascii digets*/
+     sendPacket(packet);
+     return OK;
+}
+
+/******************************************************************************
+ * Routine: printTime
+ * Purpose: get the time from the bc635VME and print it out
+ * Inputs:  none
+ * Returns: none
+ *
+ ******************************************************************************/
+void printTime ()
+{
+     /***********************************************************
+     int hour, min, sec, day;
+     readTime ();
+     day = (timeslp[0] & 0x000F) * 100;
+     day += ((((timeslp[1] & 0xF000) >> 12) * 10) + ((timeslp[1] & 0x0F00) >> 8));
+     hour = (((timeslp[1] & 0x00F0) >> 4) * 10) + (timeslp[1] & 0x000F);
+     min = (((timeslp[2] & 0xF000) >> 12) * 10) + ((timeslp[2] & 0x0F00) >> 8);
+     sec = (((timeslp[2] & 0x00F0) >> 4) * 10) + (timeslp[2] & 0x000F); 
+     printf ("Day is: %d  Time is: %02d:%02d:%02d\n",day,hour,min,sec); 
+     ************************************************************/
+     getTime(&timeSt);
+     printf ("Day is: %d  Time is: %02d:%02d:%02d\n",timeSt.day,
+                                                     timeSt.hour,
+                                                     timeSt.min,
+                                                     timeSt.sec); 
+}
+
+
+/******************************************************************************
+ * Routine: readTime
+ * Purpose: used by other routines in this file to read the time
+ *          from the bc635VME into a static area
+ * Inputs:  none
+ * Returns: none
+ *
+ ******************************************************************************/
+static void readTime ()
+{
+   readptrslp = (short*)(BASE+0x0A);      /* initialize pointer */
+   dummyslp = *readptrslp++;
+   for (i=0; i<5; i++)
+   {
+     timeslp[i] = *readptrslp++;          /* read the time registers */ 
+   }
+}
+
+/******************************************************************************
+ * Routine: getTime
+ * Purpose: get the time from the bc635VME and put it into a struct
+ * Inputs:  none
+ * Returns: none
+ *
+ ******************************************************************************/
+struct time_struct *getTime(struct time_struct *timeSt)
+{
+   readTime();   /* get the time from the bc635VME into the array timeslp */
+   /******************************************************************
+    *  
+    *  Put the time into the struct 
+    *
+    ******************************************************************/
+   timeSt->day = (timeslp[0] & 0x000F) * 100;
+   timeSt->day += ((((timeslp[1] & 0xF000) >> 12) * 10) + ((timeslp[1] & 0x0F00) >> 8));
+   timeSt->hour = (((timeslp[1] & 0x00F0) >> 4) * 10) + (timeslp[1] & 0x000F);
+   timeSt->min = (((timeslp[2] & 0xF000) >> 12) * 10) + ((timeslp[2] & 0x0F00) >> 8);
+   timeSt->sec = (((timeslp[2] & 0x00F0) >> 4) * 10) + (timeslp[2] & 0x000F);
+
+   timeSt->msec  = (((timeslp[3] & 0XF000) >> 12) * 1000000);
+   timeSt->msec += (((timeslp[3] & 0X0F00) >>  8) * 100000);
+   timeSt->msec += (((timeslp[3] & 0X00F0) >>  4) * 10000);
+   timeSt->msec += (((timeslp[3] & 0X000F))       * 1000);
+   timeSt->msec += (((timeslp[4] & 0XF000) >> 12) * 100);
+   timeSt->msec += (((timeslp[4] & 0X0F00) >>  8) * 10);
+   timeSt->msec += (((timeslp[4] & 0X00F0) >>  4));
+
+   return (timeSt);
+}
+
+/******************************************************************************
+ * Routine: *getUTime
+ * Purpose: to put the time from the bc635VME into Uv time and put
+ *          it into a struct
+ * Inputs:  none
+ * Returns: pointer to a struct, time_struct, containing day or year, hour, 
+ *          min, sec, micro sec
+ *
+ ******************************************************************************/
+struct time_struct *getUTime(struct time_struct *timeSt)
+{
+   char *env;          /*  place to read in enviromental variables  */
+   int daylight;       /*  offset for daylight savings time         */
+   int timezone;       /*  offset for time zone in hours from GMT   */
+
+   env = getenv("DAYLIGHT");
+   if (*env = 'T' || *env == 't' || *env == 'Y' || *env == 'y')
+      daylight = -1;   /* it is daylight savings time  */
+   else
+      daylight = 0;    /* it is not daylight savings time */
+   env = getenv("TIMEZONE");
+   timezone = atoi(env);
+
+   getTime(timeSt);      /* get the time from the bc635VME in a struct */
+   timeSt->hour -= (timezone + daylight);  /* adjust to UV time        */
+
+   /****** Remember timezone can be either + or -   *******************/
+   /****** adjust both ways                         *******************/
+
+   if (timeSt->hour > 23)   /* check if too many hours - it may be next day */
+   {
+      timeSt->hour -= 24;
+      timeSt->day++;
+      if (timeSt->day > 365)  /* check if too many days - it may be next year */
+         timeSt->day = 1;
+   }
+   else if (timeSt->hour < 0)  /* check if hours are too few */
+   {
+      timeSt->hour += 24;
+      timeSt->day--;
+      if (timeSt->day < 1)      /* check if days too few */
+         timeSt->day = 365;
+   }
+   return (timeSt);
+}
+
+/******************************************************************************
+ * Routine: sendPacket
+ * Purpose: used by other routines in this file to send a packet
+ *          to the bc635VME
+ * Inputs:  s -- packet to send in ASCII as a string
+ * Returns: none
+ *
+ ******************************************************************************/
+static void sendPacket(char *charptr)
+{
+ 
+    *FIFO = SOH;                     /* first char must always be SOH */
+    while (*charptr) 
+       *FIFO = *charptr++;
+    *FIFO = ETB;                     /* end of packet            */
+    *ACK = 0x81;                     /* command TFP & clear ACK  */
+    while (!(*ACK & 0x01));          /* wait for TFP acknowledge */
+
+
+}
+
+/******************************************************************************
+ * Routine: setSource
+ * Purpose: sets the source of clock to use by the bc635VME to 
+ *          internal or external
+ * Inputs:  I or E for internal or external clock
+ * Returns: OK or ERROR
+ *
+ ******************************************************************************/
+int setSource (char input)
+{
+     char source[3] = {'I',0,0};      /* packet to send to set the source */
+
+     if (input != 'I' && input != 'E')
+     {
+
+       sprintf (tmp,"incorrect input must be either E or I not %c\n",input);
+      /*  cicsLogMessage(0,tmp); */
+        return ERROR;
+     }
+     source[1] = input;
+     *INTSTAT = 0X08;                             /* clear INTSTAT IPPS bit */
+     while(!(*INTSTAT & 0x08));                   /* wait for IPPS */
+     sendPacket(source);
+     return OK;
+}
+
+/******************************************************************************
+ * Routine: initTime
+ * Purpose: get the time from the server and use it to set the clock
+ * Inputs:  none
+ * Returns: OK or ERROR
+ *
+ ******************************************************************************/
+int initTime (int uT)
+{
+    struct tm *tm;      /* struct holding time and date in verious fields */
+    time_t clock;       /* time in seconds since a 01/01/1970  */
+    int date;           /* day of the year */
+    int month;          /* month of the year */
+    int timezone = -7;  /* hours between GMT and local time */
+    int daylight = 0;   /* for daylight savings   */
+    char packet[11];    /* packet to send to bc635VME to set the time */
+    time_t adjust;      /* adjustment to time for timezone and daylight */
+    char *env;          /* to read in enviromental variables */
+    
+    clock = getServerTime();  /* get the time from the server */
+    if (!uT)
+      {
+	env = getenv("DAYLIGHT");
+	if (*env = 'T' || *env == 't' || *env == 'Y' || *env == 'y')
+	  daylight = -1;      /* it is daylight savings time */
+	else
+	  daylight = 0;       /* not daylight savings time */
+	env = getenv("TIMEZONE");
+	timezone = atoi(env);
+	adjust = (time_t)(timezone+daylight);
+	adjust *= (60*60);        /* change from hours to sec     */
+	adjust++;                 /* add 1 sec to allow time for setting */
+	
+	clock += adjust;          /* adjust to local time         */
+      }
+    tm = gmtime(&clock);      /* put time into a struct tm    */
+    date = tm->tm_yday + 1;   /* day of year counts from 0 in struct
+                                 but from 1 for card and human reading */
+    month = tm->tm_mon + 1;   /* month counts from 0 in struct */
+ 
+    /*****  Set up the packet to set the time in the bc635VME  ***********/
+    packet[0] = 'B';
+    packet[1] = date / 100;                     /* days hundreds  */
+    date = date % 100;
+    packet[2] = date / 10;                      /* days tens */
+    packet[3] = date % 10;                      /* days units */
+    packet[4] = tm->tm_hour / 10;               /* hours tens */
+    packet[5] = tm->tm_hour % 10;               /* hours units */
+    packet[6] = tm->tm_min / 10;                /* mins tens */
+    packet[7] = tm->tm_min % 10;                /* mins units */
+    packet[8] = tm->tm_sec / 10;                /* secs tens */
+    packet[9] = tm->tm_sec % 10;                /* secs units */
+    packet[10] = 0;                             /* end of string */
+
+    for (i=1; i<10; i++)
+      packet[i] += 0x30;                        /* change to ascii digets*/
+
+    sendPacket("A1");                           /* select mode 1 */
+    *INTSTAT = 0X08;                            /* clear INTSTAT IPPS bit */
+    while(!(*INTSTAT & 0x08));                  /* wait for IPPS */
+    sendPacket(packet); 
+    curMonth = month;
+    curDay = tm->tm_mday;
+    curYear = tm->tm_year+1900; /* fix for year 2k*/
+  
+    return OK;
+}
+
+/******************************************************************************
+ * Routine: getServerTime
+ * Purpose: used by initTime to get the time from the server
+ * Inputs:  none
+ * Returns: time_t the seconds since 01/01/1970
+ *
+ ******************************************************************************/
+
+void getTime1()
+{
+    time_t t;
+    char *timeString;
+/*     struct timespec tp; */
+    
+/*     lock_getres(CLOCK_REALTIME, struct timespec *res); */
+/*     clock_gettime(CLOCK_REALTIME, &tp); */
+    time(&t);
+    printf("seconds = %d\n",t);
+    timeString = ctime(&t);
+    printf("time = %s\n",timeString);
+
+
+}
+
+static time_t getServerTime()
+{
+   time_t clock;     /* holds the time in seconds since some known time */
+   int sfd;          /* sock discriptor    */
+   char *address;    /* network address of server from which to get time */
+  
+   address = getenv("SERVER");
+   if (address == NULL)
+      address = TIME_SERVER; 
+   /* try clock_gettime */
+
+
+   sfd = sockConnect(37, address);
+   sockRead(sfd, (char *)&clock, 4);   /* time ret in secs since 01/01/1900 */
+   clock -= BASE_1970;                 /* adjust tp 1970 */
+
+   return (clock); 
+}
+
+
+int checkTime()
+{
+   struct time_struct timeSt;
+   struct time_struct *oneSt;
+
+   oneSt = getTime(&timeSt);
+   printf ("&timeSt = 0x%8.8x, oneSt = 0x%8.8x\n", (unsigned int)&timeSt, (unsigned int)oneSt);
+   printf ("Day is: %d  Time is: %02d:%02d:%02d.%07d\n",timeSt.day,
+                                                   timeSt.hour,
+                                                   timeSt.min,
+                                                   timeSt.sec,
+                                                   timeSt.msec);
+   printf ("pointer Day is: %d  Time is: %02d:%02d:%02d.%07d\n",oneSt->day,
+                                                   oneSt->hour,
+                                                   oneSt->min,
+                                                   oneSt->sec,
+                                                   oneSt->msec);
+   return OK;
+}
+

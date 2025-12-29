@@ -1,0 +1,16 @@
+
+
+Traceback (most recent call last):
+  File "logger.py", line 727, in ?
+    root.mainloop()
+  File "/opt/local/lib/python2.1/lib-tk/Tkinter.py", line 930, in mainloop
+    self.tk.mainloop(n)
+  File "logger.py", line 600, in plotPoints
+    graphs.plotPoints(s,mask)
+  File "logger.py", line 220, in plotPoints
+    (val,p)=nextFloat(data,p)
+  File "logger.py", line 509, in nextFloat
+    f = string.atof(str)
+  File "/opt/local/lib/python2.1/string.py", line 199, in atof
+    return _float(s)
+ValueError: invalid literal for float(): 51.³44

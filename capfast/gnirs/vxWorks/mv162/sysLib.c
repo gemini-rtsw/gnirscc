@@ -1,0 +1,1173 @@
+/* sysLib.c - Motorola MVME162,MVME162LX system-dependent library */
+
+/* Copyright 1984-1994 Wind River Systems, Inc. */
+#include "copyright_wrs.h"
+
+/*
+modification history
+--------------------
+01d,24mar94,vin  mmu tagging in sysHwInit2() only if shared memory included.
+01c,17mar94,vin  inhibited snooping on vmeChip2. Added code to mark the
+		 shared memory pages as non cacheable in sysHwInit2().
+01b,10mar94,dzb  Added support for 4 serial channel, MCECC, SRAM sizing.
+01a,04jan93,ccc  created by modifying version 02b of mv167/sysLib.c.
+*/
+
+/*
+DESCRIPTION
+This library provides board-specific routines.  The chip drivers included are:
+    mccTimer.c - MCchip Timer library
+    vmeChip2Vme.c - VME Chip library
+    nvRam.c - non-volatile RAM library
+
+INCLUDE FILES: sysLib.h
+
+SEE ALSO:
+.pG "Configuration"
+*/
+
+#include "vxWorks.h"
+#include "vme.h"
+#include "memLib.h"
+#include "cacheLib.h"
+#include "sysLib.h"
+#include "config.h"
+#include "string.h"
+#include "intLib.h"
+#include "logLib.h"
+#include "taskLib.h"
+#include "vxLib.h"
+#include "tyLib.h"
+#include "bspVersion.h"
+#include "private/vmLibP.h"
+#include "drv/scsi/ncr710.h"
+#include "drv/serial/z8530.h"
+
+/* globals */
+
+#ifndef	MV162_68EC040
+PHYS_MEM_DESC sysPhysMemDesc [] =
+    {
+    /* adrs and length parameters must be page-aligned (multiples of 0x2000) */
+
+    /* ram */
+    {
+    (void *) LOCAL_MEM_LOCAL_ADRS,
+    (void *) LOCAL_MEM_LOCAL_ADRS,
+    0x2000000,				/* 32 Mbytes (adjust if necessary) */
+    VM_STATE_MASK_VALID	| VM_STATE_MASK_WRITABLE | VM_STATE_MASK_CACHEABLE,
+    VM_STATE_VALID	| VM_STATE_WRITABLE	 | VM_STATE_CACHEABLE
+    },
+
+#ifdef DATACUBE
+    /* Datacube */
+      /*  A32 VME 0x10000000 - 0x13000000  */
+      /*  3 Datacube boards  */
+    {
+    (void *) 0x10000000,
+    (void *) 0x10000000,
+    0x3000000,               /* 48 (3 * 16)  Mbytes */
+    VM_STATE_MASK_VALID	| VM_STATE_MASK_WRITABLE | VM_STATE_MASK_CACHEABLE,
+    VM_STATE_VALID	| VM_STATE_WRITABLE      | VM_STATE_CACHEABLE_NOT
+    },
+#endif /* DATACUBE */
+
+#ifdef IP_OCTAL
+    /* IP-Octal (Trilogic) */
+    {
+    (void *) 0xe0000000,
+    (void *) 0xe0000000,
+    0x2000000,               /* 32 Mbytes */
+    VM_STATE_MASK_VALID	| VM_STATE_MASK_WRITABLE | VM_STATE_MASK_CACHEABLE,
+    VM_STATE_VALID	| VM_STATE_WRITABLE      | VM_STATE_CACHEABLE_NOT
+    },
+#endif /* IP_OCTAL */
+
+    /* rom */
+    {
+    (void *) ROM_BASE_ADRS,
+    (void *) ROM_BASE_ADRS,
+    0x400000,
+    VM_STATE_MASK_VALID	| VM_STATE_MASK_WRITABLE | VM_STATE_MASK_CACHEABLE,
+    VM_STATE_VALID	| VM_STATE_WRITABLE_NOT  | VM_STATE_CACHEABLE_NOT
+    },
+
+    /* sram */
+    {
+    (void *) 0xffe00000,
+    (void *) 0xffe00000,
+    0x20000,
+    VM_STATE_MASK_VALID	| VM_STATE_MASK_WRITABLE | VM_STATE_MASK_CACHEABLE,
+    VM_STATE_VALID	| VM_STATE_WRITABLE      | VM_STATE_CACHEABLE
+    },
+
+    /* local i/o devices */
+    {
+    (void *) 0xfff00000,
+    (void *) 0xfff00000,
+    0x40000,
+    VM_STATE_MASK_VALID	| VM_STATE_MASK_WRITABLE | VM_STATE_MASK_CACHEABLE,
+    VM_STATE_VALID	| VM_STATE_WRITABLE      | VM_STATE_CACHEABLE_NOT
+    },
+
+#ifdef	INCLUDE_VMECHIP2
+    /* VMEchip2 */
+    {
+    (void *) 0xfff40000,
+    (void *) 0xfff40000,
+    0x2000,
+    VM_STATE_MASK_VALID | VM_STATE_MASK_WRITABLE | VM_STATE_MASK_CACHEABLE,
+    VM_STATE_VALID      | VM_STATE_WRITABLE      | VM_STATE_CACHEABLE_NOT
+    },
+
+    /* some a32 vme */
+    {
+    (void *) 0x2000000,
+    (void *) 0x2000000,
+    0x1000000,				/* 16 Mbytes */
+    VM_STATE_MASK_VALID	| VM_STATE_MASK_WRITABLE | VM_STATE_MASK_CACHEABLE,
+    VM_STATE_VALID	| VM_STATE_WRITABLE	 | VM_STATE_CACHEABLE_NOT
+    },
+
+    /* a24 vme */
+    {
+    (void *) 0xf0000000,
+    (void *) 0xf0000000,
+    0x1000000,				/* 16 Mbytes */
+    VM_STATE_MASK_VALID	| VM_STATE_MASK_WRITABLE | VM_STATE_MASK_CACHEABLE,
+    VM_STATE_VALID	| VM_STATE_WRITABLE      | VM_STATE_CACHEABLE_NOT
+    },
+
+    /* a16 vme */
+    {
+    (void *) 0xffff0000,
+    (void *) 0xffff0000,
+    0x10000,				/* 64 Kbytes */
+    VM_STATE_MASK_VALID	| VM_STATE_MASK_WRITABLE | VM_STATE_MASK_CACHEABLE,
+    VM_STATE_VALID	| VM_STATE_WRITABLE      | VM_STATE_CACHEABLE_NOT
+    },
+#endif	/* INCLUDE_VMECHIP2 */
+
+    /* local i/o devices */
+    {
+    (void *) 0xfff42000,
+    (void *) 0xfff42000,
+    0xae000,
+    VM_STATE_MASK_VALID | VM_STATE_MASK_WRITABLE | VM_STATE_MASK_CACHEABLE,
+    VM_STATE_VALID      | VM_STATE_WRITABLE      | VM_STATE_CACHEABLE_NOT
+    }
+    };
+
+int sysPhysMemDescNumEnt = NELEMENTS (sysPhysMemDesc);
+#endif	/* MV162_68EC040 */
+
+int   sysBus      = BUS;                /* system bus type (VME_BUS, etc)    */
+int   sysCpu      = CPU;                /* system CPU type (MC680x0)         */
+char *sysBootLine = BOOT_LINE_ADRS;	/* address of boot line              */
+char *sysExcMsg   = EXC_MSG_ADRS;	/* catastrophic message area         */
+int   sysFlags;				/* boot flags                        */
+char  sysBootHost [BOOT_FIELD_LEN];	/* name of host from which we booted */
+char  sysBootFile [BOOT_FIELD_LEN];	/* name of file from which we booted */
+TY_CO_DEV tyCoDv [NUM_TTY];
+
+/* All 6 bytes are initialized in sysHwInit from BBRAM */
+unsigned char eiEnetAddr [6] = { 0x08, 0x00, 0x3e, 0x00, 0x00, 0x00 };
+
+/* Locals */
+
+LOCAL int sysProcNum;			/* processor number of this CPU */
+
+#include "timer/mccTimer.c"
+#include "mem/nvRam.c"
+
+#ifdef	INCLUDE_VMECHIP2		/* defined in config.h if included */
+#include "vme/vmeChip2Vme.c"
+#else	/* INCLUDE_VMECHIP2 */
+#include "vme/nullVme.c"
+#endif	/* INCLUDE_VMECHIP2 */
+
+#ifdef	 INDUSTRY_PACK_C_FILE
+#include INDUSTRY_PACK_C_FILE
+#endif	 /* INDUSTRY_PACK_C_FILE */
+
+/*******************************************************************************
+*
+* sysModel - return the model name of the CPU board
+*
+* This routine returns the model name of the CPU board.
+*
+* RETURNS: A pointer to the string "Motorola MVME162" or "Motorola MVME162LX".
+*/
+
+char *sysModel (void)
+    {
+#ifdef	MVME162LX
+    return ("Motorola MVME162LX");
+#else	/* MVME162LX */
+    return ("Motorola MVME162");
+#endif	/* MVME162LX */
+    }
+
+/*******************************************************************************
+*
+* sysBspRev - return the bsp version with the revision eg 1.0/<x>
+*
+* This function returns a pointer to a bsp version with the revision.
+* for eg. 1.0/<x>. BSP_REV defined in config.h is concatanated to
+* BSP_VERSION defined in bspVersion.h and returned.
+*
+* RETURNS: A pointer to the BSP version/revision string.
+*/
+
+char * sysBspRev (void)
+    {
+    static char bspRev [80];
+ 
+    bzero (bspRev, sizeof (bspRev));
+    (void) strcpy (bspRev, BSP_VERSION);
+    return (strcat (bspRev, BSP_REV));
+    }
+
+/*******************************************************************************
+*
+* sysHwInit - initialize hardware
+*
+* This routine initializes various features of the MVME162 and MVME162LX.
+* It sets up the control registers, initializes the Memory Controller ASIC
+* (MCchip), disables the timers, and sets up the VMEchip2.  It is called
+* from usrInit() in usrConfig.c.
+*
+* The sysProcNumSet() routine maps any local memory on the VMEbus.
+*
+* NOTE
+* This routine should not be called by the user.
+*
+* RETURNS: N/A
+*/
+
+void sysHwInit (void)
+    {
+    int temp;   /* temp storage */
+
+    /*
+     * Set up the MCchip.  This does the following:
+     *   - Initialize the MCchip Interrupt Vector Base (upper 4 bits)
+     *   - Disable and Initialize the Tick Timer Counter to zero
+     *   - Disable SCC Interrupts
+     *   - Disable LANC Interrupts
+     *   - Disable SCSI Interrupts
+     */
+
+    *MCC_VBR = MCC_INT_VEC_BASE;
+    *MCC_PARITY_ICR = PARITY_ICR_DIS;   /* diable parity error interrupt */
+
+    /* fail LED on, and RESET switch enabled */
+
+    *MCC_RESET_CR = RESET_CR_BDFLO | RESET_CR_RSWE;
+
+    /* turn off watchdog timer */
+
+    *MCC_WD_TIMER_CR = WD_TIMER_CR_DIS;
+    *MCC_WD_TIMEOUT_REG = WD_TIMEOUT_REG_WD_16MS |
+			  WD_TIMEOUT_REG_LB_256US;
+
+    /* setup SRAM base address and enable */
+
+    *MCC_SRAM_BASE_AR_HIGH = (char) (LOCAL_SRAM_LOCAL_ADRS >> 24);
+    *MCC_SRAM_BASE_AR_LOW  = (char) (LOCAL_SRAM_LOCAL_ADRS >> 16);
+
+    temp = (*MCC_DRAM_SRAM_OPTIONS & DRAM_SRAM_OPTIONS_SMASK) >> 3;
+    if (temp == 0)				/* treat 128Kb as 512Kb */
+	temp |= SRAM_SPACE_512K;
+    *MCC_SRAM_SPACE_SIZE = temp | SRAM_SPACE_ENABLE; 
+
+    /* setup MCECC chip(s) if ECC DRAM module is installed */
+
+    if ((*MCC_DRAM_SPACE_SIZE == 6) && (MCECC_SCRUB_PERIOD > 0))
+	{
+	/* set the scrubber period */
+
+	*MCECC_SPR_HI = MCECC_SCRUB_PERIOD & 0xff00;
+	*MCECC_SPR_LO = MCECC_SCRUB_PERIOD & 0x00ff;
+	*MCECC_STR = MCECC_STR_OFF_16 | MCECC_STR_ON_1;
+	*MCECC_DCR = 0x0;
+
+        *MCECC_SCR = MCECC_SCR_SCRBEN;		/* enable DRAM scrubber */
+	}
+
+    /* Initialize the Tick Timer Counters to zero */
+
+    *MCC_TIMER4_CR	    = TIMER4_CR_DIS; /* make sure counters are off */
+    *MCC_TIMER3_CR          = TIMER3_CR_DIS;
+    *MCC_TIMER2_CR          = TIMER2_CR_DIS;
+    *MCC_TIMER1_CR	    = TIMER1_CR_DIS;
+
+    *MCC_TIMER1_CNT	    = 0x00;
+    *MCC_TIMER2_CNT	    = 0x00;
+    *MCC_TIMER3_CNT         = 0x00;
+    *MCC_TIMER4_CNT         = 0x00;
+    *MCC_TIMER1_CMP         = 0x00;
+    *MCC_TIMER2_CMP         = 0x00;
+    *MCC_TIMER3_CMP         = 0x00;
+    *MCC_TIMER4_CMP         = 0x00;
+
+    if (*MCC_VERSION_REG & 0x01)	/* check clock speed */
+	{
+        *MCC_PRESCALE_CLK_ADJ  = 256 - 33;	/* for 33 MHz board */
+        *MCC_PRESCALE          = 256 - 33;
+	*MCC_BUS_CLK_REG       = 33;
+	}
+    else
+	{
+	*MCC_PRESCALE_CLK_ADJ  = 256 - 25;	/* for 25 MHz board */
+	*MCC_PRESCALE          = 256 - 25;
+	*MCC_BUS_CLK_REG       = 25;
+	}
+
+    *MCC_T4_IRQ_CR	    = T4_IRQ_CR_DIS; /* make sure interrupts are off */
+    *MCC_T3_IRQ_CR	    = T3_IRQ_CR_DIS; /* will be enabled later if used */
+    *MCC_T2_IRQ_CR          = T2_IRQ_CR_DIS;
+    *MCC_T1_IRQ_CR          = T1_IRQ_CR_DIS;
+
+    /* Set up the LANC Interrupt Control Registers
+     * For now leave the Interrupts disabled to
+     * prevent the interrupts from causing problems until
+     * we are ready to use them in the LANC drive
+     */
+
+    *MCC_LANC_IRQ_CR	= LANC_IRQ_CR_DIS;	/* Disable Interrupts for now */
+    *MCC_LANC_BEICR	= LANC_BEICR_DIS |	/* Disable Bus Error Ints */
+			  LANC_BEICR_SINK_DATA;
+
+    /* Set up the SCSI Interrupt Control Registers
+     * For now leave the Interrupts disabled to
+     * prevent the interrupts from causing problems until
+     * we are ready to use them in the SCSI driver
+     */
+
+    *MCC_SCSI_IRQ_CR	= SCSI_IRQ_CR_DIS;	/* Disable Interrupts for now */
+
+    /* now see if there is an Industry Pack driver to call */
+
+#ifdef	INDUSTRY_PACK_C_FILE
+    sysIndPackInit ();		/* initialization specific to the IP module */
+#endif	/* INDUSTRY_PACK_C_FILE */
+
+#ifdef	INCLUDE_VMECHIP2
+    /* disable VME access to on-board ram and VMEchip slave write posting.
+     * (VME access is later enabled for processor 0 in sysProcNumSet.)
+     *
+     * Set-up VMEbus access as follows:
+     *
+     *   SHORT_IO	0xffff0000 - 0xffffffff
+     *   STD (A24/D16)  0xf0000000 - 0xf0ffffff
+     *   EXT (A32/D32)  sysMemTop  - 0xdfffffff
+     */
+
+    /* set VMEbus short access and enable map */
+
+    temp = *VMECHIP2_LBTVCR & 0xfffff0ff;
+    *VMECHIP2_LBTVCR		= temp         |
+				  LBTVCR_I1SUP |
+				  LBTVCR_I1D16 |
+				  LBTVCR_I1EN;
+
+    /* set VMEbus std access and enable map */
+
+    temp = *VMECHIP2_LBTVCR & 0xffff0fff;
+    *VMECHIP2_LBTVCR		 = temp          |
+				   LBTVCR_I2SUP  |
+				   LBTVCR_I2DATA |
+				   LBTVCR_I2EN;
+
+    /* set VMEbus ext access and enable map */
+
+    *VMECHIP2_LBSAR1		= 0xdfff0000 |
+				  (int)sysMemTop() >> 16;
+    temp = *VMECHIP2_LBSAR & 0xffffff00;
+    *VMECHIP2_LBSAR		 = temp |
+				   LBSAR1_AM_EXT_USR_DATA |
+				   LBSAR1_D32;
+    *VMECHIP2_LBTVCR		|= LBTVCR_EN1;
+
+    /* make sure map 2-4 is disabled */
+
+    *VMECHIP2_LBTVCR		&= ~(LBTVCR_EN2 | LBTVCR_EN3 | LBTVCR_EN4);
+
+    /* set VMEbus global timeout to 256us
+     * set VMEbus access timeout to 32ms
+     * set local bus timeout to 256us
+     * set watchdog timeout to 16ms
+     * and set prescaler register
+     */
+
+    if (*MCC_VERSION_REG & 1)
+	{
+        *VMECHIP2_TIMEOUTCR	    = (TIMEOUTCR_VGTO_256US |
+				       TIMEOUTCR_VATO_32MS  |
+				       TIMEOUTCR_LBTO_256US |
+				       TIMEOUTCR_WDTO_16MS) |
+				       (256 - 33);	/* for 33MHz board */
+        }
+    else
+	{
+        *VMECHIP2_TIMEOUTCR         = (TIMEOUTCR_VGTO_256US |
+				       TIMEOUTCR_VATO_32MS  |
+				       TIMEOUTCR_LBTO_256US |
+				       TIMEOUTCR_WDTO_16MS) |
+				       (256 - 25);	/* for 25MHz board */
+	}
+
+    /* all VMEbus vectors with 1:1 mapping */
+
+    *VMECHIP2_ILR4		= (ILR4_VIRQ7_LEVEL7	|
+				   ILR4_VIRQ6_LEVEL6	|
+				   ILR4_VIRQ5_LEVEL5	|
+				   ILR4_VIRQ4_LEVEL4	|
+				   ILR4_VIRQ3_LEVEL3	|
+				   ILR4_VIRQ2_LEVEL2	|
+				   ILR4_VIRQ1_LEVEL1);
+
+    /*
+     * setup VMEbus requester control:
+     * priority arbiter, release when done, level 3.
+     */
+
+    *VMECHIP2_DMACR1		= (DMACR1_PRIORITY	|
+				   DMACR1_LVRWD		|
+				   DMACR1_LVREQ_L3);
+
+    /* master enable chip interrupts */
+
+    *VMECHIP2_IOCR		= (IOCR_MEIN			|
+				   (UTIL_INT_VEC_BASE0 << 24)	|
+				   (UTIL_INT_VEC_BASE1 << 20));
+
+    /* turn LED off, disable watchdog, disable timers */
+
+    temp = *VMECHIP2_TIMERCR & 0x0000ffff;
+    *VMECHIP2_TIMERCR = temp |
+			TIMERCR_RSWE |
+			TIMERCR_WDDIS;
+
+    *VMECHIP2_TIMERCR &= ~(TIMERCR_TT2_EN | TIMERCR_TT1_EN);
+    *VMECHIP2_LBIER = 0x00;	/* make sure all interrupts are disabled */
+    *VMECHIP2_MISCCR = MISCCR_DISSRAM;	/* disable SRAM (MCChip does SRAM) */
+#endif	/* INCLUDE_VMECHIP2 */
+
+    *MCC_GCR = GCR_MIEN_ON;
+
+    /* now setup serial device descriptor */
+
+    tyCoDv [0].numChannels = NUM_TTY;
+
+    tyCoDv [0].created = FALSE;
+    tyCoDv [0].cr = (char *) SERIAL_SCC_1+5;
+    tyCoDv [0].dr = (char *) SERIAL_SCC_1+7;
+    tyCoDv [0].baudFreq = BAUD_CLK_FREQ;
+    tyCoDv [0].intType = SCC_WR9_VIS;
+    tyCoDv [0].intVec = INT_VEC_SCC_1;
+    tyCoDv [0].clockModeWR11 = SCC_WR11_RX_BR_GEN | SCC_WR11_TX_BR_GEN |
+			       SCC_WR11_OUT_BR_GEN;
+    tyCoDv [0].clockModeWR14 = SCC_WR14_BR_EN | SCC_WR14_BR_SRC |
+			       SCC_WR14_SRC_BR;
+
+    tyCoDv [1].created = FALSE;
+    tyCoDv [1].cr = (char *) SERIAL_SCC_1+1;
+    tyCoDv [1].dr = (char *) SERIAL_SCC_1+3;
+    tyCoDv [1].baudFreq = BAUD_CLK_FREQ;
+    tyCoDv [1].intType = SCC_WR9_VIS;
+    tyCoDv [1].intVec = INT_VEC_SCC_1;
+    tyCoDv [1].clockModeWR11 = SCC_WR11_RX_BR_GEN | SCC_WR11_TX_BR_GEN |
+			       SCC_WR11_OUT_BR_GEN;
+    tyCoDv [1].clockModeWR14 = SCC_WR14_BR_EN | SCC_WR14_BR_SRC |
+			       SCC_WR14_SRC_BR;
+
+#ifdef	MVME162LX
+    tyCoDv [2].created = FALSE;
+    tyCoDv [2].cr = (char *) SERIAL_SCC_2+5;
+    tyCoDv [2].dr = (char *) SERIAL_SCC_2+7;
+    tyCoDv [2].baudFreq = BAUD_CLK_FREQ;
+    tyCoDv [2].intType = SCC_WR9_VIS;
+    tyCoDv [2].intVec = INT_VEC_SCC_2;
+    tyCoDv [2].clockModeWR11 = SCC_WR11_RX_BR_GEN | SCC_WR11_TX_BR_GEN |
+			       SCC_WR11_OUT_BR_GEN;
+    tyCoDv [2].clockModeWR14 = SCC_WR14_BR_EN | SCC_WR14_BR_SRC |
+			       SCC_WR14_SRC_BR;
+
+    tyCoDv [3].created = FALSE;
+    tyCoDv [3].cr = (char *) SERIAL_SCC_2+1;
+    tyCoDv [3].dr = (char *) SERIAL_SCC_2+3;
+    tyCoDv [3].baudFreq = BAUD_CLK_FREQ;
+    tyCoDv [3].intType = SCC_WR9_VIS;
+    tyCoDv [3].intVec = INT_VEC_SCC_2;
+    tyCoDv [3].clockModeWR11 = SCC_WR11_RX_BR_GEN | SCC_WR11_TX_BR_GEN |
+			       SCC_WR11_OUT_BR_GEN;
+    tyCoDv [3].clockModeWR14 = SCC_WR14_BR_EN | SCC_WR14_BR_SRC |
+			       SCC_WR14_SRC_BR;
+#endif	/* MVME162LX */
+
+    /* Extract the ethernet address out of non-volatile RAM.
+     * Motorola has the ethernet address in BBRAM.  If the address
+     * is not in BBRAM you must reset it to the address located
+     * on a label on the P2 connector.
+     */
+
+    eiEnetAddr [0] = (UCHAR)BB_ENET [0];
+    eiEnetAddr [1] = (UCHAR)BB_ENET [1];
+    eiEnetAddr [2] = (UCHAR)BB_ENET [2];
+    eiEnetAddr [3] = (UCHAR)BB_ENET [3];
+    eiEnetAddr [4] = (UCHAR)BB_ENET [4];
+    eiEnetAddr [5] = (UCHAR)BB_ENET [5];
+
+    /* now let's turn off the FAIL LED */
+    *MCC_RESET_CR &= ~(RESET_CR_BDFLO);
+    }
+
+/*******************************************************************************
+*
+* sysAbortInt - handle ABORT interrupt
+*
+* This routine handles the ABORT switch interrupt
+*
+* RETURNS: N/A
+*/
+
+LOCAL void sysAbortInt (void)
+    {
+    *MCC_RESET_CR |= RESET_CR_BDFLO;    /* turn on LED */
+    *MCC_ABORT_ICR |= ABORT_ICR_ICLR;   /* clear interrupt */
+
+    sysToMonitor (BOOT_NO_AUTOBOOT);
+    }
+
+/*******************************************************************************
+*
+* sysHwInit2 - connect hardware interrupts
+*
+* This routine connects additional hardware interrupts.
+*
+* RETURNS: N/A
+*
+* NOMANUAL
+*/
+
+void sysHwInit2 (void)
+    {
+    static BOOL configured = FALSE;
+
+    if (!configured)
+        {
+        /* connect system clock interrupt */
+        (void) intConnect (INUM_TO_IVEC (INT_VEC_CLOCK), sysClkInt, NULL);
+
+        /* connect and enable abort switch interrupt */
+        (void) intConnect (INUM_TO_IVEC (INT_VEC_ABORT), sysAbortInt, NULL);
+
+        *MCC_ABORT_ICR |= ABORT_ICR_IEN; /* enable the abort button interrupt */
+        *MCC_ABORT_ICR |= ABORT_IRQ_LEVEL;
+
+        /* connect auxiliary clock interrupt */
+        (void) intConnect (INUM_TO_IVEC(INT_VEC_AUX_CLOCK), sysAuxClkInt, NULL);
+
+        /* connect serial interrupts
+         * the MVME162 & MVME162LX boards uses four interrupts for each channel:
+         *    xxxx xx00 - Receive Exception Interrupt
+         *    xxxx xx01 - Modem Signal Change Interrupt (not used)
+         *    xxxx xx10 - Transmit Data Interrupt
+         *    xxxx xx11 - Receive Data Interrupt
+         */
+
+        (void) intConnect (INUM_TO_IVEC (INT_VEC_SCC_A_WR(INT_VEC_SCC_1)),
+		           tyCoIntWr, 0);
+        (void) intConnect (INUM_TO_IVEC (INT_VEC_SCC_A_EX(INT_VEC_SCC_1)),
+		           tyCoIntEx, 0);
+        (void) intConnect (INUM_TO_IVEC (INT_VEC_SCC_A_RD(INT_VEC_SCC_1)),
+		           tyCoIntRd, 0);
+        (void) intConnect (INUM_TO_IVEC (INT_VEC_SCC_A_SP(INT_VEC_SCC_1)),
+		           tyCoIntEx, 0);
+
+        (void) intConnect (INUM_TO_IVEC (INT_VEC_SCC_B_WR(INT_VEC_SCC_1)),
+		           tyCoIntWr, 1);
+        (void) intConnect (INUM_TO_IVEC (INT_VEC_SCC_B_EX(INT_VEC_SCC_1)),
+		           tyCoIntEx, 1);
+        (void) intConnect (INUM_TO_IVEC (INT_VEC_SCC_B_RD(INT_VEC_SCC_1)),
+		           tyCoIntRd, 1);
+        (void) intConnect (INUM_TO_IVEC (INT_VEC_SCC_B_SP(INT_VEC_SCC_1)),
+		           tyCoIntEx, 1);
+
+#ifdef	MVME162LX
+        (void) intConnect (INUM_TO_IVEC (INT_VEC_SCC_A_WR(INT_VEC_SCC_2)),
+		           tyCoIntWr, 2);
+        (void) intConnect (INUM_TO_IVEC (INT_VEC_SCC_A_EX(INT_VEC_SCC_2)),
+		           tyCoIntEx, 2);
+        (void) intConnect (INUM_TO_IVEC (INT_VEC_SCC_A_RD(INT_VEC_SCC_2)),
+		           tyCoIntRd, 2);
+        (void) intConnect (INUM_TO_IVEC (INT_VEC_SCC_A_SP(INT_VEC_SCC_2)),
+		           tyCoIntEx, 2);
+
+        (void) intConnect (INUM_TO_IVEC (INT_VEC_SCC_B_WR(INT_VEC_SCC_2)),
+		           tyCoIntWr, 3);
+        (void) intConnect (INUM_TO_IVEC (INT_VEC_SCC_B_EX(INT_VEC_SCC_2)),
+		           tyCoIntEx, 3);
+        (void) intConnect (INUM_TO_IVEC (INT_VEC_SCC_B_RD(INT_VEC_SCC_2)),
+		           tyCoIntRd, 3);
+        (void) intConnect (INUM_TO_IVEC (INT_VEC_SCC_B_SP(INT_VEC_SCC_2)),
+		           tyCoIntEx, 3);
+#endif	/* MVME162LX */
+
+        /* now enable serial interrupts */
+        *MCC_SCC_ICR = SCC_ICR_IEN | SCC_IRQ_LEVEL;
+
+    /* configure the shared memory area as non-cacheable */
+
+#ifdef INCLUDE_SM_NET		/* only if shared memory included */
+#if !SM_OFF_BOARD		/* if shared memory is onboard */
+#ifdef INCLUDE_MMU_BASIC	/* if basic mmu support */
+    (void) vmBaseStateSet (NULL, (void *)SM_MEM_ADRS,
+                           SM_MEM_SIZE + SM_OBJ_MEM_SIZE,
+                           VM_STATE_MASK_CACHEABLE,
+                           VM_STATE_CACHEABLE_NOT);
+#endif /* INCLUDE_MMU_BASIC */
+
+#ifdef INCLUDE_MMU_FULL                 /* unbundled mmu product */
+    (void) vmStateSet (NULL, (void *)SM_MEM_ADRS,
+                       SM_MEM_SIZE + SM_OBJ_MEM_SIZE,
+                       VM_STATE_MASK_CACHEABLE,
+                       VM_STATE_CACHEABLE_NOT);
+#endif /* INCLUDE_MMU_FULL */
+#endif /* SM_OFF_BOARD */
+#endif /* INCLUDE_SM_NET */
+
+        configured = TRUE;
+	}
+    }
+
+/*******************************************************************************
+*
+* sysMemTop - get the address of the top of memory
+*
+* RETURNS: The address of the top of memory.
+*/
+
+char *sysMemTop (void)
+    {
+    static char *memTop = 0;
+
+    if (memTop == 0)
+	memTop = (char *)(LOCAL_MEM_LOCAL_ADRS + LOCAL_MEM_SIZE);
+
+    return (memTop);
+    }
+
+/*******************************************************************************
+*
+* sysToMonitor - transfer control to the ROM monitor
+*
+* This routine transfers control to the ROM monitor.  Normally, it is called
+* only by reboot()--which services ^X--and bus errors at
+* interrupt level.  However, in some circumstances, the user may wish
+* to introduce a <startType> to enable special boot ROM facilities.
+*
+* RETURNS: OK, if there is a return from the ROM monitor.
+*/
+
+STATUS sysToMonitor
+    (
+    int startType     /* parameter passed to ROM to tell it how to boot */
+    )
+    {
+    /* this is an offset from romInit to the entry for a warm
+     * start.  If romInit is changed this may need to be modified
+     */
+
+    FUNCPTR pRom = (FUNCPTR) (ROM_TEXT_ADRS + 8);
+
+    /* disable the mmu */
+
+    VM_ENABLE(FALSE);
+
+    (*pRom) (startType);
+
+    return (OK);	/* in case we ever continue from ROM monitor */
+    }
+
+/******************************************************************************
+*
+* sysProcNumGet - get the processor number
+*
+* This routine returns the processor number for the CPU board, which is set
+* with sysProcNumSet().
+*
+* RETURNS: The processor number for the CPU board.
+*
+* SEE ALSO: sysProcNumSet()
+*/
+
+int sysProcNumGet (void)
+    {
+    return (sysProcNum);
+    }
+
+/******************************************************************************
+*
+* sysProcNumSet - set the processor number
+*
+* This routine sets the processor number for the CPU board.  Processor numbers
+* should be unique on a single backplane.
+*
+* NOTE
+* This routine enables access from the VMEbus to the MVME162's local
+* memory only for processor 0.  (VxWorks only requires mapping for
+* processor 0, and then only for backplane networks.)  If the processor
+* number is not 0, but the user wants to allow VMEbus access to local memory,
+* change the "if (procNum == 0)" condition below.
+*
+* This routine also sets the VMEchip GCSR address based on processor
+* number.  This address can be specified anywhere from 0x00 to 0xe0 in
+* increments of 0x10 in the short I/O space.  This can allow up to 15 CPUs
+* in the same cage to form a backplane network using signal interrupts to
+* coordinate their activities.
+*
+* RETURNS: N/A
+*
+* SEE ALSO: sysProcNumGet()
+*/
+
+void sysProcNumSet
+    (
+    int procNum		/* processor number */
+    )
+    {
+    int memsize;
+    int temp;
+
+    sysProcNum = procNum;
+
+    /* Set memory base address, as seen from VME bus */
+
+#ifdef	INCLUDE_VMECHIP2
+    if (procNum == 0)
+	{
+	memsize = (LOCAL_MEM_SIZE);
+	if (memsize == 0x00400000)
+	    {
+	    *VMECHIP2_VSAR2   = 0x003f0000	  |
+				LOCAL_MEM_BUS_A24 |
+				(LOCAL_MEM_BUS_A24 >> 16); /* map 4Mb of DRAM */
+
+	    *VMECHIP2_VSATR2  = 0x0000ffc0;     /* to 0x00800000..0x00bfffff */
+
+	    temp = (*VMECHIP2_VSAMSR & 0x0000ffff);
+	    *VMECHIP2_VSAMSR = (temp			|
+                                VSAMSR2_SNP_INHIBIT 	|
+				VSAMSR2_WP		|
+				VSAMSR2_SUP		|
+				VSAMSR2_USR		|
+				VSAMSR2_A24		|
+				VSAMSR2_D64		|
+				VSAMSR2_BLK		|
+				VSAMSR2_PGM		|
+				VSAMSR2_DAT);	/* all but A32 */
+	    }
+	else
+	    {
+	    *VMECHIP2_VSAMSR &= 0x0000ffff;	/* clear enable bits */
+	    }
+
+	*VMECHIP2_VSAR1   = ((memsize - 1) & 0xffff0000)|
+			     (LOCAL_MEM_BUS_A32)	|
+			     (LOCAL_MEM_BUS_A32 >> 16);
+			     /* map all DRAM to VMEbus access */
+
+	*VMECHIP2_VSATR1  = (((~(memsize - 1)) >> 16) & 0x0000ffff);
+
+	*VMECHIP2_VSAMSR |= (VSAMSR1_SNP_INHIBIT	|
+			     VSAMSR1_WP			|
+			     VSAMSR1_SUP		|
+			     VSAMSR1_USR		|
+			     VSAMSR1_A32		|
+			     VSAMSR1_D64		|
+			     VSAMSR1_BLK		|
+			     VSAMSR1_PGM		|
+			     VSAMSR1_DAT);	/* all but A24 */
+	}
+    else
+	*VMECHIP2_VSAMSR = 0x00;	/* turn off all bits */
+
+    /* set global control register VME address, based on processor number */
+
+    if (sysProcNum < 15)
+	{
+	/* VME address of GCSR is function of processor number */
+	temp = *VMECHIP2_LBTVCR;
+	temp &= ~(0xfff00000);	/* clear bits */
+        *VMECHIP2_LBTVCR = (temp | (sysProcNum << 20) |
+			    (GCSR_GROUP_ADDR << 24));
+	}
+#endif	/* INCLUDE_VMECHIP2 */
+    }
+
+#ifdef	INCLUDE_VMECHIP2
+/******************************************************************************
+*
+* sysBusTas - test and set a location across the bus
+*
+* This routine performs a 680x0 test-and-set instruction across the backplane.
+*
+* NOTE:  If a problem with TAS instruction occurs, check with Motorola, as
+* some older-version boards have problems with the RMW cycle.  There is
+* a PAL change to take care of this problem.
+*
+* This routine is equivalent to vxTas().
+*
+* RETURNS: TRUE if the value had not been set but is now, or FALSE if the
+* value was set already.
+*
+* SEE ALSO: vxTas()
+*/
+
+BOOL sysBusTas
+    (
+    char *adrs		/* address to be tested and set */
+    )
+    {
+    return (vxTas (adrs));
+    }
+#endif	/* INCLUDE_VMECHIP2 */
+
+/* miscellaneous support routines */
+
+#ifdef	INCLUDE_EI
+/* 82596 Ethernet chip support rotuines */
+/*******************************************************************************
+*
+* sys596Init - performs any additional target specific initialization
+*
+* NOMANUAL
+*/
+
+void sys596Init
+    (
+    int unit		/* ignored on MVME162 and MVME162LX */
+    )
+    {
+    /* None required */
+    }
+
+/*******************************************************************************
+*
+* sys596IntDisable - performs any additional target specific interrupt disabling
+*
+* NOMANUAL
+*/
+
+void sys596IntDisable
+    (
+    int unit		/* ignored on MVME162 and MVME162LX */
+    )
+    {
+    int level;
+
+    /* The CPU interrupt level is raised prior to modifying the bit in the
+     * MCC device.  This is done to avoid a known hardware problem in the
+     * MCC device that can cause spurious interrupts.
+     */
+
+    level = intLock ();
+    *MCC_LANC_IRQ_CR &= ~LANC_IRQ_CR_IEN;     /* Clear the enable bit only */
+    intUnlock (level);
+    }
+
+/*******************************************************************************
+*
+* sys596IntEnable - performs any additional target specific interrupt enabling
+*
+* This routine enables interrupts for the on-board LAN chip.  LANC interrupts
+* are controlled by the MCC chip.
+*
+* NOMANUAL
+*/
+
+void sys596IntEnable
+    (
+    int unit		/* ignored on MVME162 and MVME162LX */
+    )
+    {
+    *MCC_LANC_IRQ_CR =
+                        (
+                        LANC_IRQ_CR_IEN      |    /* set enable bit */
+                        LANC_IRQ_CR_EDGE     |    /* must be edge trigger */
+                        LANC_IRQ_CR_LOW_HIGH |    /* high-->low edge */
+                        LANC_IRQ_LEVEL            /* priority level */
+                        );
+    }
+
+/*******************************************************************************
+*
+* sys596IntAck - performs any additional target specific interrupt acknowledge
+*
+* NOMANUAL
+*/
+
+void sys596IntAck
+    (
+    int unit		/* ignored on MVME162 and MVME162LX */
+    )
+    {
+    *MCC_LANC_IRQ_CR |= LANC_IRQ_CR_ICLR;
+    }
+
+/*******************************************************************************
+*
+* sys596Port - writes a command to the 82596 device PORT location
+*
+* There are 4 commands the device handles.
+*
+* NOMANUAL
+*/
+
+void sys596Port
+    (
+    int unit,		/* ignored on MVME162 and MVME162LX      */
+    int cmd,		/* the command to write                  */
+    UINT32 addr		/* address or NULL if PORT_RESET command */
+    )
+    {
+    FAST UINT v1;
+    FAST UINT value = (cmd & 0x3) | addr;
+
+    v1 = ((value << 16) & 0xffff0000) | (value & 0x0000ffff);
+
+    *I82596_PORT = v1;
+
+    v1 = ((value >> 16) & 0x0000ffff) | (value & 0xffff0000);
+
+    *I82596_PORT = v1;
+    }
+
+/*******************************************************************************
+*
+* sys596ChanAtn - assert the Channel Attention signal to the 82596 device
+*
+* NOMANUAL
+*/
+
+void sys596ChanAtn
+    (
+    int unit		/* ignored on MVME162 and MVME162LX */
+    )
+    {
+    *I82596_CONTROL = 1;		/* write to the addr; data is ignored */
+    }
+
+/*******************************************************************************
+*
+* sysEnetAddrGet - get the ethernet address
+*
+* RETURNS: OK, always.
+*
+* NOMANUAL
+*/
+
+STATUS sysEnetAddrGet
+    (
+    int unit,		/* ignored on MVME162 and MVME162LX */
+    UINT8 *addr
+    )
+    {
+    bcopy ((char *)eiEnetAddr, (char *)addr, sizeof (eiEnetAddr));
+
+    return (OK);
+    }
+#endif	/* INCLUDE_EI */
+
+#ifdef	INCLUDE_SCSI
+/*******************************************************************************
+*
+* sysScsiInit - initialize NCR 710 SCSI chip
+*
+* This routine creates and initializes an SIOP structure, enabling use of the
+* on-board SCSI port.  It also connects the proper interrupt service routine
+* to the desired vector, and enables the interrupt at the desired level.
+*
+* RETURNS: OK, or ERROR if the control structure is not created or the
+* interrupt service routine cannot be connected to the interrupt.
+*/
+ 
+STATUS sysScsiInit ()
+ 
+    {
+    /* Local structure with a prefill for ncr710SetHwRegister */
+    static NCR710_HW_REGS hwRegs = MV162_SIOP_HW_REGS;
+ 
+    if ((pSysScsiCtrl = (SCSI_CTRL *)ncr710CtrlCreate (MV162_SIOP_BASE_ADRS,
+                                                       MV162_SIOP_FREQ
+                                                       )) == NULL)
+        {
+        return (ERROR);
+        }
+ 
+    /* connect the SCSI controller's interrupt service routine */
+ 
+    if (intConnect (INUM_TO_IVEC (INT_VEC_SCSI),
+                    ncr710Intr, (int) pSysScsiCtrl) == ERROR)
+        {
+        return (ERROR);
+        }
+ 
+    /*
+     * Set the good value in the registers of the SIOP coupled
+     * with the hardware implementation
+     * NO MUX HOST BUS/NO BURST ACCES/SNOOP :DEFAULT/ENABLE SYNC HOST BUS/
+     * BURST SIZE DEFAULT/OTHER :DEFAULT CONFIGURATION
+     */
+ 
+    if (ncr710SetHwRegister ((NCR_710_SCSI_CTRL *)pSysScsiCtrl, &hwRegs) 
+	== ERROR)
+        return(ERROR);
+ 
+    /* initialize SCSI controller with default parameters (user tuneable) */
+ 
+    if (ncr710CtrlInit ((NCR_710_SCSI_CTRL *)pSysScsiCtrl, 
+			SCSI_DEF_CTRL_BUS_ID, NONE) == ERROR)
+        return (ERROR);
+ 
+    /*
+     * clear status enable the SIOP interrupt
+     * don't enable MCchip scsi interrupt before ncr710CtrlInit
+     */
+ 
+   *MCC_SCSI_ERR_SR = SCSI_ERR_SR_SCLR;
+   *MCC_SCSI_IRQ_CR = (SCSI_IRQ_CR_IEN |
+                       SCSI_IRQ_LEVEL);
+ 
+    return (OK);
+    }
+#endif /* INCLUDE_SCSI */
+
+#ifdef	INCLUDE_VMECHIP2
+/*******************************************************************************
+*
+* sysLocalToBusAdrs - convert a local address to a bus address
+*
+* This routine gets the VMEbus address that accesses a specified local
+* memory address.
+*
+* RETURNS: OK, or ERROR if the address space is unknown or the mapping is not
+* possible.
+*
+* SEE ALSO: sysBusToLocalAdrs()
+*/
+ 
+STATUS sysLocalToBusAdrs
+    (
+    int adrsSpace,      /* bus address space in which busAdrs resides */
+    char *localAdrs,    /* local address to convert                   */ 
+    char **pBusAdrs     /* where to return bus address                */ 
+    )
+    {
+    if ((int)localAdrs < LOCAL_MEM_LOCAL_ADRS || localAdrs >= sysMemTop ())
+        {
+        /* this is off-board memory - just return local address */
+
+        *pBusAdrs = localAdrs;
+        return (OK);
+        }
+
+    /* this is on-board memory - map to bus address space;
+     *   the following memory mapping is established in sysProcNumSet():
+     *   - only processor 0 has memory on bus,
+     *   - the memory is placed in STD space at
+     *      address LOCAL_MEM_BUS_A24 if < 8 Meg of local memory
+     *      and at address LOCAL_MEM_BUS_A32 for EXT space.
+     *   - short I/O is not mapped locally.
+     */
+ 
+    switch (adrsSpace)
+        {
+        case VME_AM_SUP_SHORT_IO:
+        case VME_AM_USR_SHORT_IO: /* no local map */
+            return (ERROR);
+ 
+        case VME_AM_STD_SUP_PGM:
+        case VME_AM_STD_SUP_DATA:
+        case VME_AM_STD_USR_PGM:
+        case VME_AM_STD_USR_DATA:
+            if (LOCAL_MEM_SIZE == 0x00400000)
+                {
+                *pBusAdrs = localAdrs +
+                            LOCAL_MEM_BUS_A24 - LOCAL_MEM_LOCAL_ADRS;
+                return (OK);
+                }
+            else
+                return (ERROR);
+ 
+        case VME_AM_EXT_SUP_PGM:
+        case VME_AM_EXT_SUP_DATA:
+        case VME_AM_EXT_USR_PGM:
+        case VME_AM_EXT_USR_DATA:
+            *pBusAdrs = localAdrs +
+                        LOCAL_MEM_BUS_A32;
+            return (OK);
+ 
+        default:
+            return (ERROR);
+        }
+    }
+
+/*******************************************************************************
+*
+* sysBusToLocalAdrs - convert a bus address to a local address
+*
+* This routine gets the local address that accesses a specified VMEbus
+* memory address.
+*
+* RETURNS: OK, or ERROR if the address space is unknown or the mapping is not
+* possible.
+*
+* SEE ALSO: sysLocalToBusAdrs()
+*/
+
+STATUS sysBusToLocalAdrs
+    (
+    int adrsSpace,      /* bus address space in which busAdrs resides */
+    char *busAdrs,      /* bus address to convert                     */
+    char **pLocalAdrs   /* where to return local address              */
+    )
+    {
+    switch (adrsSpace)
+        {
+        case VME_AM_SUP_SHORT_IO:
+        case VME_AM_USR_SHORT_IO:
+            if (busAdrs > (char *)0x0000ffff)
+                return (ERROR);
+
+            *pLocalAdrs = (char *) (0xffff0000 | (int)busAdrs);
+            return (OK);
+
+        case VME_AM_STD_SUP_PGM:
+        case VME_AM_STD_SUP_DATA:
+        case VME_AM_STD_USR_PGM:
+        case VME_AM_STD_USR_DATA:
+            if (busAdrs > (char *)0x00ffffff)
+                return (ERROR);
+
+            *pLocalAdrs = (char *)(busAdrs + 0xf0000000);
+            return (OK);
+
+        case VME_AM_EXT_SUP_PGM:
+        case VME_AM_EXT_SUP_DATA:
+        case VME_AM_EXT_USR_PGM:
+        case VME_AM_EXT_USR_DATA:
+            if (busAdrs < sysMemTop () || busAdrs > (char *)0xe0000000)
+                return (ERROR);
+
+            *pLocalAdrs = (char *) busAdrs;
+            return (OK);
+
+        default:
+            return (ERROR);
+        }
+    }
+#endif	/* INCLUDE_VMECHIP2 */

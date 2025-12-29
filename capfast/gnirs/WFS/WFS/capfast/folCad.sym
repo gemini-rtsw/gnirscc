@@ -1,0 +1,40 @@
+[symbol2]
+bbox -448 128 320 320
+port 288 160 100 1024 CFLNK symbol 2 320 160 0
+port -432 144 100 768 MESS symbol 3 -448 160 0
+port -432 176 100 768 VAL symbol 3 -448 192 0
+port -432 208 100 768 CLID symbol 3 -448 224 0
+port -432 240 100 768 DIR symbol 3 -448 256 0
+port 288 192 100 1024 CVAL symbol 3 320 192 0
+uniq 9
+[tools]
+[attributes]
+p -368 256 100 768 1 set0:mech $(mech)
+p -368 224 100 768 1 set1:mech12 $(mech12)
+p -368 192 100 768 1 set2:mech1 $(mech1)
+p -368 160 100 768 1 set3:mech2 $(mech2)
+p -368 128 100 768 1 set4:mech3 $(mech3)
+p -96 256 100 768 1 set5:desc $(desc)
+p -96 224 100 768 1 set6:desc12 $(desc12)
+p -96 192 100 768 1 set7:desc1 $(desc1)
+p -96 160 100 768 1 set8:desc2 $(desc2)
+p -96 128 100 768 1 set9:desc3 $(desc3)
+[layers]
+<symbol>
+l 75 5 0 208 288 The Dynamic Mechanisms
+l 100 3 0 -240 288 folCad
+v 1 -256 288
+-256 320
+224 320
+_
+v 0 -352 288
+-352 320
+-448 320
+-448 128
+320 128
+320 320
+224 320
+224 288
+-352 288
+_
+[comments]

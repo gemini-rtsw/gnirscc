@@ -1,0 +1,26 @@
+
+# This file is created and edited by the applSetup command. The variables
+# it creates are documented in the .applTop/config/CONFIG file.  It can
+# also be edited by hand to change some of the defaults used in the make
+# process.  However, do it with due care and attention, knowing it will
+# be overwritten by the next applSetup invocation.
+# 
+# If you want do override any of these variables on a permanent basis (for
+# example, this may be appropriate for APPLIC_DEPENDS) it be done in the
+# .applTop/config/CONFIG file.
+
+APPLIC_INSTALL     =/home/gemvx/gnirs/CC
+APPLIC_VERSION     =.
+APPLIC_SUBDIR_FILE =Makefile.subdirs
+APPLIC_PWD_CMD     =pwd
+APPLIC_TARGETS     =mv167
+APPLIC_DEPENDS     =/home/gemvx/gnirs/CC /gemini/astlib /gemini/timelib
+APPLIC_TEMPLATES   =/export/software/dev/packages/epics/epics3.12.2GEM5/extensions/src/uae/templates
+APPLIC_CONFIG      =/export/software/dev/packages/epics/epics3.12.2GEM5/config
+APPLIC_CAPDEF      =Capfast 3.02.xx
+APPLIC_IOCPATH     =pisces:/gemini/GEM5/gnirs/CC/V1-21
+APPLIC_SITE        =
+APPLIC_BASE        =/export/software/dev/packages/epics/epics3.12.2GEM5/base
+APPLIC_EXTENSIONS  =/export/software/dev/packages/epics/epics3.12.2GEM5/extensions
+APPLIC_EPICS       =epics
+APPLIC_DCTSDR      =default

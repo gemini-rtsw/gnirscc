@@ -1,0 +1,17 @@
+This release differs from v2.1 in:
+
+1. Removed all the writer count and associated semaphore locking which
+   occurred when messages were queued for output. This was all superfluous!
+
+2. Modified purge() which had a bug relevant to the removed writer count
+   code (an a failed status could have been returned when everything was ok)
+
+3. Modified processOutputResponse() so it was backwards compatible with
+   the pre release 2.0 mods (I had broken it).
+
+4. Repaired processStringResponse() so it was backwards compatible with
+   the pre release 2.0 mods (it too was broken).
+
+Thanks to the people who fedback the problems.
+
+AH

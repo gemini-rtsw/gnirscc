@@ -1,0 +1,38 @@
+status dhshdr::niri
+{
+   ARRAYID        niri:dc:detID              0 niri keyword
+   ARRAYTYP       niri:dc:detType            0 niri keyword
+   CAMERA         niri:cc:sterName           0 niri keyword
+   COADDS         niri:dc:obsSetup.VALE      0 niri keyword
+   FILTER1        niri:cc:filt1Name          0 niri keyword
+   FILTER2        niri:cc:filt2Name          0 niri keyword
+   FILTER3        niri:cc:filt3Name          0 niri keyword
+   FOCUSNAM       niri:cc:focName            0 niri keyword
+   FOCUSPOS       niri:cc:focPos             0 niri keyword
+   FPMASK         niri:cc:foplName           0 niri keyword
+   FRMSPCYCL      niri:dc:ucFrmsPCycle       0 niri keyword
+   INPORT         ag:port:niri               0 Number of ISS port where NIRI was located    
+   LNRS           niri:dc:obsSetup.VALD      0 niri keyword
+   NDAVGS         niri:dc:obsSetup.VALC      0 niri keyword
+   PVIEW          niri:cc:puvwName           0 niri keyword
+   TDETABS        niri:dc:footLGain          0 niri keyword
+   TMOUNT         niri:dc:mntLGain           0 niri keyword
+   UCODENAM       niri:dc:arSetup.VALB       0 niri keyword
+   BEAMSPLT       niri:cc:spltName.VAL       0 niri keyword
+   WINDCOVR       niri:cc:covName.VAL        0 niri keyword
+   VDDCL1         niri:dc:c48_63:a13         0 niri keyword
+   VDDCL2         niri:dc:c64_79:a14         0 niri keyword
+   VDDUC          niri:dc:c80_95:a10         0 niri keyword
+   VDET           niri:dc:c80_95:a1          0 niri keyword
+   VGGCL1         niri:dc:c64_79:a0          0 niri keyword
+   VGGCL2         niri:dc:c64_79:a11         0 niri keyword
+   VSET           niri:dc:c64_79:a12         0 niri keyword
+   inttime        niri:dc:obsSetup.VALG      0 niri keyword
+   mintime        niri:dc:minInt             0 niri keyword
+   hdrtiming      niri:dc:obsSetup.VALN      0 niri keyword
+   MODE           niri:dc:obsSetup.VALM      0 niri keyword
+   UCODETYP       niri:dc:uCodeType          0 niri keyword
+   ut             tcs:UTC                    0 ut
+   DATE-OBS       tcs:sad:date               0 niri keyword
+   OBSEPOCH       niri:dc:sad:obsepoch       0 niri keyword
+}

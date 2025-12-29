@@ -1,0 +1,17 @@
+# local device support
+device(ai,	INST_IO, devAiAscii,   "Ascii SIO")
+device(ao,	INST_IO, devAoAscii,   "Ascii SIO")
+device(bi,	INST_IO, devBiAscii,   "Ascii SIO")
+device(bo,	INST_IO, devBoAscii,   "Ascii SIO")
+device(longin,	INST_IO, devLiAscii,   "Ascii SIO")
+device(longout,	INST_IO, devLoAscii,   "Ascii SIO")
+device(mbbi,	INST_IO, devMbbiAscii, "Ascii SIO")
+device(mbbo,	INST_IO, devMbboAscii, "Ascii SIO")
+device(mbbiDirect, INST_IO, devMbbiDirectAscii, "Ascii SIO")
+device(mbboDirect, INST_IO, devMbboDirectAscii, "Ascii SIO")
+device(stringin,   INST_IO, devSiAscii, "Ascii SIO")
+device(stringout,  INST_IO, devSoAscii, "Ascii SIO")
+device(waveform,   INST_IO, devWfAscii, "Ascii SIO")
+
+#local driver support
+driver(drvAsciiSio)

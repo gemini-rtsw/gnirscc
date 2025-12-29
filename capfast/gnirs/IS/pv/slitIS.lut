@@ -1,0 +1,12 @@
+#
+# File: slitIS.lut
+#
+# Database of available slits.
+#
+#
+#
+
+# name         code
+60u_slit		1		0	0
+Low_res_IFU		2		0	0
+Pupil_Viewer	3		0	0

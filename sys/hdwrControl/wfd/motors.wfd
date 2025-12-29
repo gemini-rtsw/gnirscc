@@ -1,0 +1,1509 @@
+/*
+ *+
+ * FUNCTION NAME:
+ * mErrMsg
+ *
+ * INVOCATION:
+ * mErrMsg(m, fmt, ...)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) m (motorVars *)          Motor structure pointer
+ * (>) fmt (const char *)       Format for message
+ * (>) ... ()                   Additional arguments
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Record error message
+ *
+ * DESCRIPTION:
+ * Records an error message relating to motor motion for use by
+ * the upper level EPICS code, and logs it via the EPICS/VxWorks
+ * LogMessage system.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * sendToMotorDriver
+ *
+ * INVOCATION:
+ * sendToMotorDriver(controller, string, response)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) controller (int)     Which controller
+ * (>) string (char *)      The motor commands to send
+ * (>) response (char *)    Response pointer
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Send command to motor controller
+ *
+ * DESCRIPTION:
+ * This is the main interface above the interrupt level to the
+ * motor controller hardware.  The specified string is sent to the
+ * specified motor controller.  
+ *
+ * If the response string pointer is null, don't wait for
+ * the response.  Otherwise, wait for the response which will be written
+ * to the area pointed to by "response".  For commands which don't
+ * require a response, use 'noWait' instead of 'waitFor'.
+ *
+ * Since the motor controller requires that commands be separated by
+ * spaces, for safety's sake, all commands should end in a space.
+ * Since the commands for one motor cannot be interspersed with
+ * anothers, access to the core of this routine is controlled by
+ * a semaphore (semOut).
+ * 
+ * Messages are stored in the outRing ring buffer, and then transmit
+ * buffer interrupts are enabled.  This enabling will cause an
+ * interrupt (assuming the hardware buffer is empty) and the first character
+ * in the ring buffer will be sent.
+ *
+ * If a response is expected, the code waits on semResponse for a short
+ * time (response commands are actived upon by the controller quickly).
+ *
+ * Finally, once the message is sent (and the response, if any, obtained),
+ * the code gives semOut, allowing the next task waiting for this routine
+ * to proceed.
+ *
+ * EXTERNAL VARIABLES:
+ * sendToMotorDebug
+ *      0       Print no debugging information
+ *      1       Print commands sent to motor
+ *      2       Print commands and timeout lengths
+ *      3       Print commands, timeouts, and responses.
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * getMdStatus
+ *
+ * INVOCATION:
+ * getMdStatus(motor)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor of interest
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Determine motor status
+ *
+ * DESCRIPTION:
+ * Query the motor controller for status for this motor, and record that
+ * in the status word in the motor structure.  Also note if overtravel
+ * has occured (motor is on but isEnabled bit is low) and if the
+ * controller fault line is asserted (low).
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * motorTimeout
+ *
+ * INVOCATION:
+ * motorTimeout(dist, ms)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) dist (int)           Distance to go
+ * (>) ms (motion *)        Pointer to motion parameters
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Calculate minimum timeout
+ *
+ * DESCRIPTION:
+ * From the acceleration, velocity, and distance, calculate the length
+ * of time the motion will take.  Return that, in clock ticks, or, if
+ * less than a minimum, return the minimum.  Given these parameters,
+ * the controller has no ability to vary the length of time it takes to
+ * make the motion.  
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * setupMotor
+ *
+ * INVOCATION:
+ * setupMotor(motor)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor to configure
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Configure a motor with default values.
+ *
+ * DESCRIPTION:
+ * Fill in the motor structure with default values.  This routine is
+ * called by the configuration process to set the defaults prior to
+ * reading the parameters set in the configuration file.  Given a
+ * properly complete configuration file, much of this routine is
+ * not required.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * finishMotorConfig
+ *
+ * INVOCATION:
+ * finishMotorConfig(motor)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor of interest
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Finish motor configuration
+ *
+ * DESCRIPTION:
+ * Some parameters depend on others.  Since there's no control in
+ * the configuration file on the order of parameters, this function is
+ * used, after the configuration information for a given motor is read,
+ * to finish by setting the dependent parameters.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * initMotors
+ *
+ * INVOCATION:
+ * initMotors()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Initialize motor software and hardware
+ *
+ * DESCRIPTION:
+ * Sets up the semaphore and task used by the VxWorks command line
+ * control (doAll) to move motors.  Then resets the Phytron motor
+ * driver, and sends an initialization string for this motor to the
+ * motor controller.  If this succeeds, reads current position and
+ * and current velocity.
+ * 
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * motorTask
+ *
+ * INVOCATION:
+ * motorTask(motor, a1, a2, a3, a4, a5, a6, a7, a8, a9)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor this task controls
+ * (>) a1 (int)             Dummy arguments
+ * (>) a2 (int)
+ * (>) a3 (int)
+ * (>) a4 (int)
+ * (>) a5 (int)
+ * (>) a6 (int)
+ * (>) a7 (int)
+ * (>) a8 (int)
+ * (>) a9 (int)
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Task to move a motor.
+ *
+ * DESCRIPTION:
+ * A VxWorks task whose job is to move a particular motor.  This routine
+ * is used by the command line diagnosics, and not by the EPICS
+ * interface.  The routine it calls, moveOneMotor, is common to both
+ * command line and EPICS.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * moveOneMotor
+ *
+ * INVOCATION:
+ * moveOneMotor(motor)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor to move
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Dispatch a motor command
+ *
+ * DESCRIPTION:
+ * Used by both command line and by EPICS, this is where the two calling
+ * sequences converge.  First off, the position to which the FOCUS motor
+ * should be moved may(?) be a function of the positions of all the
+ * other mechanisms.  So if a motion command for this mechanism hasn't
+ * been commanded, the position for FOCUS is computed.
+ *
+ * If a motion has been requested, the routine sets EPICS status
+ * markers, calls the appropriate routine, and after the routine
+ * returns, sets various EPICS status data: is it datumed?  is it parked?
+ * health, state, current position.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * noWait
+ *
+ * INVOCATION:
+ * noWait(motor, command)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor of interest
+ * (>) command (char *)     Command to issue
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Send motor command and return immediately
+ *
+ * DESCRIPTION:
+ * Sends a command to the motor (see waitFor) and does not wait for
+ * a response or timeout.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * waitFor
+ *
+ * INVOCATION:
+ * waitFor(motor, cmdString, wait)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor of interest
+ * (>) cmdString (char *)   Command to issue
+ * (>) wait (int)           Wait time
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Issue motor command
+ *
+ * DESCRIPTION:
+ * Send a command string to the motor.  Wait the given number of
+ * clock ticks for interrupt (caused by the 'ID' command).  Then fetch
+ * status before returning.
+ *
+ * An 'ID' is appended to the cmdString and this is passed to the
+ * motor controller. If in simulation mode, delay the return if the
+ * simulation mode requires an approximation to realistic timing.
+ *
+ * The main complexity in this routine is handling a timeout error,
+ * but overall, it's issue the command, wait on a semaphore longer
+ * than we should have to and if the semaphore wait times out, set
+ * an error flag.  In any event, set the motor status flags before
+ * returning.
+ *
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * tellPV
+ *
+ * INVOCATION:
+ * tellPV(motor)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor of interest
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Determine position and velocity
+ *
+ * DESCRIPTION:
+ * Determines the current position and current velocity of the
+ * specified motor.  The velocity is likely to be zero as this routine
+ * is most often called after motion has completed.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * motorPos
+ *
+ * INVOCATION:
+ * motorPos(motor, where, timeout)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor to move
+ * (>) where (int)          Where to move to
+ * (>) timeout (int)        How long to allow (in ticks)
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Move directly to a given motor position
+ *
+ * DESCRIPTION:
+ * The lowest level of motor command above 'waitFor'.  Moves the
+ * motor to the given position.  This is an absolute move if the
+ * motor has been datumed, a relative move otherwise.
+ *
+ * Rotary mechanisms have unbounded motions, which means that the
+ * motor controller internal position counter is essentially
+ * unbounded while the positions in the configuration file are
+ * both bounded and, relatively speaking, small.  This routine
+ * has as its primary function the transformation of the unbounded
+ * rotary encoder to a bounded "linear" one.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * position
+ *
+ * INVOCATION:
+ * position(motor, where)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor to move
+ * (>) where (int)          Where to move
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Move motor to a given position
+ *
+ * DESCRIPTION:
+ * This is the top level "move" routine.  It does some limit
+ * checking and also picks the shortest distance to move for
+ * rotary mechanisms. (Note, due to backlash compensation, lower
+ * level routines have to worry about this too.)
+ *
+ * Turns on motor, calls goToPos to do the work, turns off the
+ * motor power, and sets status variables.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * goToPos
+ *
+ * INVOCATION:
+ * goToPos(motor, where, removeBL)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor to move
+ * (>) where (int)          Where to move
+ * (>) removeBL (int)       Remove backlash if true
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Move to position, remove backlash 
+ *
+ * DESCRIPTION:
+ * This is the workhorse of the upper level positioning routines.
+ * The call sequence is
+ *    position - goToPos - motorPos - waitFor - sendToMotorDriver
+ *
+ * Motions in the positive direction are at seek speed until close,
+ * then at probe speed until the position is attained.  Motions in
+ * the negative direction require backlash removal; they are made
+ * at seek speed past the desired position, and then at probe
+ * speed until the position is reached.
+ *
+ * If removeBL is FALSE, act as if there is no backlash to remove.
+ *
+ * Reaching a limit switch is an error.  Mechanisms which should reach
+ * a limit are controlled via findLimit, not position
+ *
+ * Not useful if motor is not datumed.
+ * 
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * checkLimit
+ *
+ * INVOCATION:
+ * checkLimit(motor)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor of interest
+ * (>) flag (int)           What to check for
+ *
+ * FUNCTION VALUE:
+ * (int) Returns 0, -1, or 1
+ *
+ * PURPOSE:
+ * Check for limit switch
+ *
+ * DESCRIPTION:
+ * The controller does not report being at a limit if the most
+ * recent motion command is in the opposite direction, even if no
+ * motion has taken place in that direction.  If flag is POSITIVE or NEGATIVE,
+ * set the appropriate motion direction and then check, returning
+ * 0 if not at that limit, non-zero otherwise.  If flag
+ * is EITHER, don't assert any motion direction, just check the
+ * status, returning 1 if at positive limit, -1 if at negative
+ * and zero otherwise.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * motorOn
+ *
+ * INVOCATION:
+ * motorOn(motor)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor to activate
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Turns on motor
+ *
+ * DESCRIPTION:
+ * See MotorOnOff
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * motorOff
+ *
+ * INVOCATION:
+ * motorOff(motor)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor to turn off
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Turns motor off
+ *
+ * DESCRIPTION:
+ * See MotorOnOff
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * motorOnOff
+ *
+ * INVOCATION:
+ * motorOnOff(motor, on)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor to switch
+ * (>) on (BOOL)            Turn on if TRUE, off otherwise
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Turn motor on or off
+ *
+ * DESCRIPTION:
+ * Turns motor on or off.  Does status checking of cabling and controller
+ * faults before powering the motor on.  The low level BUSY flag is
+ * set and cleared in this routine.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * motorCreep
+ *
+ * INVOCATION:
+ * motorCreep(motor, distance, test)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor to move
+ * (>) distance (int)       Distance to go
+ * (>) test (int)           Switch to test
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Creep to a switch position
+ *
+ * DESCRIPTION:
+ * Move slowly to a switch position, the point being to measure
+ * where the switch activates.  This makes the most sense if distance
+ * is positive; assuming the backlash has been removed, the result
+ * should be consistent test to test.  If distance is negative,
+ * the backlash will interfere!
+ *
+ * Test is either MH_HOME or MH_LIMIT.  The motion is made one
+ * step at a time with the switch status tested each time.
+ *
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * motorSteps
+ *
+ * INVOCATION:
+ * motorSteps(motor, steps, flag)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor to move
+ * (>) steps (int)          Steps to move
+ * (>) flag (int)           Speed to move at
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Move motor with relative motion
+ *
+ * DESCRIPTION:
+ * Move a specified number of steps.  This is for engineering use.
+ * The flag sets the speeds, 0, 1, 2 translating into probe, backOff,
+ * and seek rates.
+ *
+ * There is no backlash compensation; engineers are supposed to know
+ * what they are doing.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * probeLimSwitch
+ *
+ * INVOCATION:
+ * probeLimSwitch(motor, condition)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor to move
+ * (>) condition (int)      Condition to test for
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Move slowly into a limit.
+ *
+ * DESCRIPTION:
+ * Move toward a limit , and return when at that position.
+ * When routine is called, motor should be within a backlash
+ * distance, or so, from the desired (real) limit.
+ *
+ * When probing for a hard limit, the soft limit is checked for first.
+ * So if the routine returns successfully, both soft and hard limits
+ * in that direction are working properly.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * findTheLimit
+ *
+ * INVOCATION:
+ * findTheLimit(motor, which)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor to move
+ * (>) which (int)          Limit to check
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Find a limit
+ *
+ * DESCRIPTION:
+ * Find a particular switch.
+ * Move to a position just shy of switch, then use probe speed
+ * to move slowly into switch -- probeLimSwitch().
+ *
+ * This routine can be called even if the system is not datumed, in which
+ * case the limit is approached at high speed and it is likely the
+ * hard limit will be triggered (see chargeLimit).
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * chargeLimit
+ *
+ * INVOCATION:
+ * chargeLimit(motor, s)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor to move
+ * (>) s (switchType *)     Pointer to switch descriptor
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Move quickly to a switch
+ *
+ * DESCRIPTION:
+ * Go rushing into the soft positive or negative limit,
+ * then backoff a bit.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * gotoLimit
+ *
+ * INVOCATION:
+ * gotoLimit(motor, type)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor to move
+ * (>) limit (int)          Limit to go to
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Move to a limit (BINARY only)
+ *
+ * DESCRIPTION:
+ * Request motion to a limit; intended for BINARY motors only.  Called
+ * only by the valid/moveOneMotor sequence.  This routine allows one
+ * to call for positioning to the limit one is already at, and no
+ * motion will occur.  Calling findLimit directly will cause the
+ * mechanism to back off first, then find the limit.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * findLimit
+ *
+ * INVOCATION:
+ * findLimit(motor, type)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor to move
+ * (>) type (int)           Limit to find
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Find a limit (top level call)
+ *
+ * DESCRIPTION:
+ * Finds a limit.  Calls findTheLimit to do the real work.  The
+ * separation is needed for the datum routine.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * setHome
+ *
+ * INVOCATION:
+ * setHome(motor)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor to move
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Locate home switch
+ *
+ * DESCRIPTION:
+ * This routine finds the home position.  It is not to be called if the home
+ * position is at a limit.  Use 'MA', or the 'KR' or 'KM', commands to get
+ * close without changing the position counter.  Then backoff, and
+ * approach slowly.  This routine is meant to be called only when the
+ * motor has not been datumed, since it will reset the home position.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * datum
+ *
+ * INVOCATION:
+ * datum(motor)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor to datum
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Datum the motor
+ *
+ * DESCRIPTION:
+ * Find the home position and set the internal counter to the
+ * correct value such that the switch position is at zero.  For
+ * home switches, this is done automatically, but we have to fake it
+ * for limit switches used as home positions.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * abortMotor
+ *
+ * INVOCATION:
+ * abortMotor(motor)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor to stop
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Abort motor motion
+ *
+ * DESCRIPTION:
+ * Aborts any motion in progress for the specified motor.  Avoiding
+ * a race condition is the only real concern here.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * testOMSCards
+ *
+ * INVOCATION:
+ * testOMSCards()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Test the OMS cards
+ *
+ * DESCRIPTION:
+ * Test to see if OMS VME cards are alive.  This is done by sending
+ * a "who are you" ("WHY") message and comparing the response with
+ * an expected string.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * motorHealthTree
+ *
+ * INVOCATION:
+ * motorHealthTree()
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * None
+ *
+ * FUNCTION VALUE:
+ * (int) Returns (encoded) health
+ *
+ * PURPOSE:
+ * Calculates system health
+ *
+ * DESCRIPTION:
+ * Composites the health of the motors into one health for the 
+ * mechanism.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * isBusy
+ *
+ * INVOCATION:
+ * isBusy(motor)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor in question
+ *
+ * FUNCTION VALUE:
+ * (BOOL) Returns the motor's BUSY status.
+ *
+ * PURPOSE:
+ * 
+ *
+ * DESCRIPTION:
+ * Determine if motor is BUSY or not.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * isInError
+ *
+ * INVOCATION:
+ * isInError(motor)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor in question
+ *
+ * FUNCTION VALUE:
+ * (BOOL) Returns the motor's status inforation
+ *
+ * PURPOSE:
+ * Returns the motor's ERROR condition.
+ *
+ * DESCRIPTION:
+ * Returns true if the ERROR flag is set.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * isParked
+ *
+ * INVOCATION:
+ * isParked(motor)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor in question
+ *
+ * FUNCTION VALU:
+ * (BOOL) Returns the status information structure
+ *
+ * PURPOSE:
+ * Checks to see if motor is parked.
+ *
+ * DESCRIPTION:
+ * Compares parked position against current one, adn returns TRUE
+ * if they are the same.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * checkParked
+ *
+ * INVOCATION:
+ * checkParked(motor)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor in question
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Check to see if parked
+ *
+ * DESCRIPTION:
+ * Compares current position with the park position (specified in the
+ * configuration file).  This doesn't work when in simulation mode.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * park
+ *
+ * INVOCATION:
+ * park(motor)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor to park
+ *
+ * FUNCTION VALUE:
+ * (int) Returns VME_OK (0) or VME_ERROR (1) as status
+ *
+ * PURPOSE:
+ * Park a motor
+ *
+ * DESCRIPTION:
+ * Move a motor to the park position.  For BINARY motors, this is
+ * presumed to be one of the limit switches; for all others, it is
+ * the place specified in the configuration file.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ *+
+ * FUNCTION NAME:
+ * resetFault
+ *
+ * INVOCATION:
+ * resetFault(motor)
+ *
+ * PARAMETERS: (">" input, "!" modified, "<" output)
+ * (>) motor (int)          Motor in question
+ *
+ * FUNCTION VALUE:
+ * (void) Returns 'void' and hence has no STATUS value
+ *
+ * PURPOSE:
+ * Reset the motor's fault line
+ *
+ * DESCRIPTION:
+ * Toggle, and hence reset, the reset line for the motor specified.
+ *
+ * EXTERNAL VARIABLES:
+ *
+ *
+ * PRIOR REQUIREMENTS:
+ *
+ *
+ * DEFICIENCIES:
+ *
+ *
+ * HISTORY:
+ * Jul 1, 2001      Initial Version                 (rwolff@noao.edu)
+ *
+ *-
+ */
+/*
+ * Copyright 2001 Association of Universities for Research in Astronomy, Inc.
+ * See the file COPYRIGHT for more details.
+ *
+ * FILENAME:
+ * motors.c
+ *
+ * FUNCTION NAME(S):
+ *  abortMotor   -   Abort motor motion 
+ *  chargeLimit   -   Move quickly to a switch 
+ *  checkLimit   -   Check for limit switch 
+ *  checkParked   -   Check to see if parked 
+ *  datum   -   Datum the motor 
+ *  findLimit   -   Find a limit (top level call) 
+ *  findTheLimit   -   Find a limit 
+ *  finishMotorConfig   -   Finish motor configuration 
+ *  getMdStatus   -   Determine motor status 
+ *  goToPos   -   Move to position, remove backlash  
+ *  gotoLimit   -   Move to a limit (BINARY only) 
+ *  initMotors   -   Initialize motor software and hardware 
+ *  isBusy   -    
+ *  isInError   -   Returns the motor's ERROR condition. 
+ *  isParked   -   Checks to see if motor is parked. 
+ *  mErrMsg   -   Record error message 
+ *  motorCreep   -   Creep to a switch position 
+ *  motorHealthTree   -   Calculates system health 
+ *  motorOff   -   Turns motor off 
+ *  motorOn   -   Turns on motor 
+ *  motorOnOff   -   Turn motor on or off 
+ *  motorPos   -   Move directly to a given motor position 
+ *  motorSteps   -   Move motor with relative motion 
+ *  motorTask   -   Task to move a motor. 
+ *  motorTimeout   -   Calculate minimum timeout 
+ *  moveOneMotor   -   Dispatch a motor command 
+ *  noWait   -   Send motor command and return immediately 
+ *  park   -   Park a motor 
+ *  position   -   Move motor to a given position 
+ *  probeLimSwitch   -   Move slowly into a limit. 
+ *  resetFault   -   Reset the motor's fault line 
+ *  sendToMotorDriver   -   Send command to motor controller 
+ *  setHome   -   Locate home switch 
+ *  setupMotor   -   Configure a motor with default values. 
+ *  tellPV   -   Determine position and velocity 
+ *  testOMSCards   -   Test the OMS cards 
+ *  waitFor   -   Issue motor command 
+ *
+ *INDENT-OFF*
+ * $Log: motors.wfd,v $
+ * Revision 1.2  2009/05/27 19:32:11  fkraemer
+ * fkraemer - copied my complete working dir over trunk
+ *
+ *INDENT-ON*
+ *-
+ */

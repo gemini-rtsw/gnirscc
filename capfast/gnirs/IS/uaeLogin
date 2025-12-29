@@ -1,0 +1,34 @@
+#!/bin/csh -f
+#
+# Defines environment variables.
+#
+# Invocation:
+#   source uaeLogin
+#
+# Original Author: Steven M Beard
+#
+# $Id: uaeLogin,v 1.2 2009/05/27 19:33:39 fkraemer Exp $
+#
+
+# Check the EPICS startup script has been executed.
+
+if ( ${?EPICS} == 0 ) then
+
+   echo "EPICS environment variables have not been defined. Please execute" 
+   echo "your local EPICS setup script."
+   exit
+endif
+
+# Set up the environment variables
+
+setenv APPLIC_INSTALL `pwd`
+setenv APPLIC_REL     `pwd`/../rel
+
+if ( ${?EPICS_DISPLAY_PATH} == 0 ) then
+   setenv EPICS_DISPLAY_PATH .:${APPLIC_INSTALL}/data:${APPLIC_REL}/data
+else
+   setenv EPICS_DISPLAY_PATH ${APPLIC_INSTALL}/data:${APPLIC_REL}/data:${EPICS_DISPLAY_PATH}
+endif
+
+setenv PATH ${PATH}:${APPLIC_INSTALL}/bin/solaris:${APPLIC_REL}/bin/solaris
+echo "done"

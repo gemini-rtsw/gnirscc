@@ -1,0 +1,29 @@
+[symbol2]
+bbox -608 -128 -416 352
+port -432 0 100 2048 FLF1 symbol 2 -416 0 0
+port -432 -32 100 2048 FLF2 symbol 2 -416 -32 0
+port -432 32 100 2048 FLE2 symbol 2 -416 32 0
+port -432 64 100 2048 FLE1 symbol 2 -416 64 0
+port -432 128 100 2048 FLD1 symbol 2 -416 128 0
+port -432 96 100 2048 FLD2 symbol 2 -416 96 0
+port -432 160 100 2048 FLC2 symbol 2 -416 160 0
+port -432 192 100 2048 FLC1 symbol 2 -416 192 0
+port -432 256 100 2048 FLB1 symbol 2 -416 256 0
+port -432 224 100 2048 FLB2 symbol 2 -416 224 0
+port -592 128 100 1536 SLD symbol 1 -608 128 0
+port -592 192 100 1536 SLC symbol 1 -608 192 0
+port -592 64 100 1536 SLE symbol 1 -608 64 0
+port -592 0 100 1536 SLF symbol 1 -608 0 0
+port -432 320 100 2048 FLA1 symbol 2 -416 320 0
+port -432 288 100 2048 FLA2 symbol 2 -416 288 0
+port -592 256 100 1536 SLB symbol 1 -608 256 0
+port -592 320 100 1536 SLA symbol 1 -608 320 0
+uniq 27
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 0 0 -592 -112 mfanout
+l 75 0 0 -592 -80 (Multiple fanout)
+r 0 -608 -128 -416 352
+[comments]

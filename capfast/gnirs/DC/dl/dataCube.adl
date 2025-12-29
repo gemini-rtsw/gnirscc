@@ -1,0 +1,185 @@
+file {
+	name="dataCube.dl"
+}
+display {
+	magic="305419896"
+	majv="2"
+	mnrv="4"
+	ndyng="0"
+	npc="1"
+	nstr="41"
+	ndynamic="0"
+	nplot="0"
+	nrd="0"
+	nes="0"
+	nkd="1"
+	object {
+		x="0"
+		y="0"
+		width="753"
+		height="443"
+	}
+	clr="1"
+	bclr="13"
+	nwords_dspy="588"
+	nwords_sta="104"
+	nwords_cmap="0"
+	nwords_crules="0"
+	odyng="576"
+	osta="472"
+	odynamic="576"
+	oplot="576"
+	ord="576"
+	oes="576"
+	okd="576"
+	opc="58"
+	ostr="62"
+	ocmap="472"
+	ocrules="472"
+	style="solid"
+	fill="outline"
+	width="0"
+	clrmod="static"
+	vismod="static"
+	clrrule="alarm"
+	pv=""
+	cmap="gmColors.dl"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="165"
+		y="0"
+		width="411"
+		height="30"
+		groupid="0"
+	}
+	textix="GNAAC Engineering Display"
+	align="horiz. centered"
+	RISC_pad="0"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="10"
+	}
+}
+"text" {
+	object {
+		x="266"
+		y="27"
+		width="209"
+		height="23"
+		groupid="0"
+	}
+	textix="DataCube Control"
+	align="horiz. centered"
+	RISC_pad="0"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="2"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="5"
+		y="58"
+		width="144"
+		height="37"
+		groupid="0"
+	}
+	textix="DANGER:"
+	align="horiz. left"
+	RISC_pad="0"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="23"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="156"
+		y="56"
+		width="593"
+		height="15"
+		groupid="0"
+	}
+	textix="Changing the settings on this screen without knowing what you are "
+	align="horiz. left"
+	RISC_pad="0"
+}
+"text" {
+	object {
+		x="156"
+		y="71"
+		width="616"
+		height="15"
+		groupid="0"
+	}
+	textix="doing can render the controller incapable of taking science data."
+	align="horiz. left"
+	RISC_pad="0"
+}
+"text" {
+	object {
+		x="156"
+		y="86"
+		width="593"
+		height="15"
+		groupid="0"
+	}
+	textix="Recovery from this is an uncertain and time consuming process."
+	align="horiz. left"
+	RISC_pad="0"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="68"
+		y="139"
+		width="615"
+		height="26"
+		groupid="0"
+	}
+	textix="No User servicable parts in this section."
+	align="horiz. left"
+	RISC_pad="0"
+}
+"kill display" {
+	object {
+		x="7"
+		y="16"
+		width="65"
+		height="34"
+		groupid="0"
+	}
+	RISCpad="0"
+	label="EXIT"
+	clr="1"
+	bclr="23"
+	decorate="outward"
+}

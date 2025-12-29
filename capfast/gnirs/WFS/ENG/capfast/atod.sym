@@ -1,0 +1,11 @@
+[symbol2]
+bbox 256 160 384 224
+uniq 22
+[tools]
+[attributes]
+p 256 128 100 768 1 set1:top $(top)eng:atod:
+[layers]
+<symbol>
+l 100 7 0 320 192 atod
+r 0 256 160 384 224
+[comments]

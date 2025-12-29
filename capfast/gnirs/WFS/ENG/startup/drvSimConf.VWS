@@ -1,0 +1,8 @@
+# $Id: drvSimConf.VWS,v 1.2 2009/05/27 19:34:48 fkraemer Exp $
+
+#
+# Enable simulation-update task.
+#
+
+shsEnable = 1
+tsimEnable = 1

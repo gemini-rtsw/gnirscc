@@ -1,0 +1,491 @@
+#+
+# HdrMichelle
+#
+# A HdrMichelle object manages the sending of michelle specifics DHS header info
+# to the DHS before and after an observation.
+#
+# M Bec  31 July 2000
+#
+#+
+
+itcl::class dhshdr::HdrMichelle {
+
+   inherit dhshdr::HdrInfo
+
+   public {
+      variable useNS 0
+      variable nsPix   ""
+      variable nsMode  ""
+      variable nsCount ""
+      variable nsXoff  ""
+      variable nsYoff  ""
+      }
+
+   constructor {instrument contribs} {
+      HdrInfo::constructor $instrument $contribs 
+      } {
+      
+      hsender headmichellebefore -command ${this}::michellebefore
+      ${this}::michellebefore init
+      ${this}::michellebefore add destName -value $dhshdr::destination
+      ${this}::michellebefore add instrument
+      ${this}::michellebefore set instrument $instrument
+      
+      hsender headmichelleafter -command ${this}::michelleafter
+      ${this}::michelleafter init
+      ${this}::michelleafter add destName -value $dhshdr::destination
+      ${this}::michelleafter add instrument
+      ${this}::michelleafter set instrument $instrument
+            
+      ${this}::michellebefore add INPORT
+
+      ${this}::michelleafter add EXTEND     
+      ${this}::michelleafter add ORIGIN     
+      ${this}::michelleafter add BSCALE     
+      # ${this}::michelleafter add BZERO      
+      ${this}::michelleafter add HDUCLAS1   
+      ${this}::michelleafter add HDUCLAS2   
+      ${this}::michelleafter add DHSVER     
+      ${this}::michelleafter add OBSREF     
+      ${this}::michelleafter add USERID     
+      ${this}::michelleafter add RECIPE     
+      ${this}::michelleafter add OBSNUM     
+      ${this}::michelleafter add GRPNUM     
+      ${this}::michelleafter add GRPMEM     
+      ${this}::michelleafter add STANDARD   
+      ${this}::michelleafter add NOFFSETS   
+      ${this}::michelleafter add UTDATE     
+      ${this}::michelleafter add OBS        
+      ${this}::michelleafter add END        
+      ${this}::michelleafter add CTYPE1     
+      ${this}::michelleafter add CRPIX1     
+      ${this}::michelleafter add CRVAL1     
+      ${this}::michelleafter add CDELT1     
+      ${this}::michelleafter add CUNIT1     
+      ${this}::michelleafter add CTYPE2     
+      ${this}::michelleafter add CRPIX2     
+      ${this}::michelleafter add CRVAL2     
+      ${this}::michelleafter add CDELT2     
+      ${this}::michelleafter add CUNIT2     
+      ${this}::michelleafter add CROTA2     
+      ${this}::michelleafter add RABASE     
+      ${this}::michelleafter add DECBASE    
+      ${this}::michelleafter add TRAOFF     
+      ${this}::michelleafter add TDECOFF    
+      ${this}::michelleafter add PIXELSIZ   
+      ${this}::michelleafter add OBSTIME    
+      # ${this}::michelleafter add EXP_TIME   
+      # ${this}::michelleafter add NEXP       
+      # ${this}::michelleafter add NREADS     
+      # ${this}::michelleafter add DETMODE    
+      # ${this}::michelleafter add GAIN       
+      ${this}::michelleafter add SPD_GAIN   
+      # ${this}::michelleafter add READINT    
+      # ${this}::michelleafter add DETNRST    
+      # ${this}::michelleafter add DETRSTD    
+      # ${this}::michelleafter add CHPDWELL   
+      # ${this}::michelleafter add CHPDELAY   
+      ${this}::michelleafter add CHOPBEAM   
+      ${this}::michelleafter add DCOLUMNS   
+      ${this}::michelleafter add DROWS      
+      ${this}::michelleafter add RDOUT_X1   
+      ${this}::michelleafter add RDOUT_X2   
+      ${this}::michelleafter add RDOUT_Y1   
+      ${this}::michelleafter add RDOUT_Y2   
+      ${this}::michelleafter add CAMERA     
+      ${this}::michelleafter add GRATNAME   
+      ${this}::michelleafter add GRATPOS    
+      ${this}::michelleafter add GRATDISP   
+      ${this}::michelleafter add GRATORD    
+      ${this}::michelleafter add GRATANG    
+      ${this}::michelleafter add SLITNAME   
+      ${this}::michelleafter add SLITANG    
+      ${this}::michelleafter add FILTER     
+      ${this}::michelleafter add FILTERA    
+      ${this}::michelleafter add FILTERB    
+      ${this}::michelleafter add FOCNAME    
+      ${this}::michelleafter add FOCMM      
+      ${this}::michelleafter add IRDEG      
+      ${this}::michelleafter add GFLEXCOR   
+      ${this}::michelleafter add CALSELN    
+      ${this}::michelleafter add WPLANGLE   
+      ${this}::michelleafter add SAMPLING   
+      ${this}::michelleafter add DETINCR    
+      ${this}::michelleafter add DETNINCR   
+      ${this}::michelleafter add POLARISE   
+      ${this}::michelleafter add CHPANGLE   
+      ${this}::michelleafter add CHPTHROW   
+      ${this}::michelleafter add CHOPFREQ   
+      ${this}::michelleafter add NULL_CYC   
+      ${this}::michelleafter add NULL_EXP   
+      # ${this}::michelleafter add NULL_NDR   
+      ${this}::michelleafter add WAVEFORM   
+      ${this}::michelleafter add AIRTEMP    
+      ${this}::michelleafter add BARPRESS   
+      ${this}::michelleafter add DEWPOINT   
+      ${this}::michelleafter add DOMETEMP   
+      ${this}::michelleafter add HUMIDITY   
+      ${this}::michelleafter add MIRR_NE    
+      ${this}::michelleafter add MIRR_NW    
+      ${this}::michelleafter add MIRR_SE    
+      ${this}::michelleafter add MIRR_SW    
+      ${this}::michelleafter add MIRRBTNW   
+      ${this}::michelleafter add MIRRTPNW   
+      ${this}::michelleafter add SECONDAR   
+      ${this}::michelleafter add TOPAIRNW   
+      ${this}::michelleafter add TRUSSENE   
+      ${this}::michelleafter add TRUSSWSW   
+      ${this}::michelleafter add WIND_DIR   
+      ${this}::michelleafter add WIND_SPD   
+      ${this}::michelleafter add CSOTAU     
+      ${this}::michelleafter add TAUDATE    
+      ${this}::michelleafter add CNFINDEX   
+      ${this}::michelleafter add ARRAYTMP   
+      ${this}::michelleafter add ARRYTMP2   
+      ${this}::michelleafter add LN2TEMP    
+      ${this}::michelleafter add CCC1_TMP   
+      ${this}::michelleafter add GRS_TEMP   
+      ${this}::michelleafter add CCC2_TMP   
+      ${this}::michelleafter add FRS_TEMP   
+      ${this}::michelleafter add GRTDRTMP   
+      ${this}::michelleafter add SRM_TEMP   
+      ${this}::michelleafter add IMSTPTMP   
+      ${this}::michelleafter add JT1_TEMP   
+      ${this}::michelleafter add JT2_TEMP   
+      ${this}::michelleafter add JT4KTEMP   
+      ${this}::michelleafter add FILT_TMP   
+      ${this}::michelleafter add VRSTUC     
+      ${this}::michelleafter add VCASUC     
+      ${this}::michelleafter add VNEG       
+      ${this}::michelleafter add VDETGRD    
+      ${this}::michelleafter add VGG1       
+      ${this}::michelleafter add VGG4       
+      ${this}::michelleafter add VDETGRV    
+      ${this}::michelleafter add VGG2       
+      ${this}::michelleafter add VGG3       
+      ${this}::michelleafter add IMUX       
+      ${this}::michelleafter add VSHPCHG    
+      ${this}::michelleafter add VSH        
+      ${this}::michelleafter add VSSD       
+      ${this}::michelleafter add VSS        
+      ${this}::michelleafter add VPW        
+      ${this}::michelleafter add VCLOUT     
+      ${this}::michelleafter add VCLCOL     
+      ${this}::michelleafter add VCAP       
+      ${this}::michelleafter add VOFFSET    
+      ${this}::michelleafter add VGATELO    
+      ${this}::michelleafter add VGATEHI    
+      }
+   
+   public {
+      method sendbefore {} {
+         # parent's method need be called before: it generates the dhslabel
+         HdrInfo::sendbefore
+         
+         # whatever other keyword specific to the instrument now
+         hdrsetval ${this}::michellebefore INPORT   [sa dhshdr::michelle get inport   ]
+         
+         # Post the "michellebefore" headers.
+            if { $dhshdr::debug } {
+               foreach par [lindex [${this}::michellebefore info] 3] {
+                  puts [${this}::michellebefore info $par]
+               }
+               puts "${this}::michellebefore postWait -label $dhshdr::dhslabel"
+            }
+         ${this}::michellebefore postWait -label $dhshdr::dhslabel
+         }
+         
+      method sendafter {} {
+         
+         hdrsetval ${this}::michelleafter EXTEND       [sa dhshdr::michelle get extend             ]
+         hdrsetval ${this}::michelleafter ORIGIN       [sa dhshdr::michelle get origin             ]
+         hdrsetval ${this}::michelleafter BSCALE       [sa dhshdr::michelle get bscale             ]  
+         # hdrsetval ${this}::michelleafter BZERO
+         hdrsetval ${this}::michelleafter HDUCLAS1     [sa dhshdr::michelle get hduclas1           ]
+         hdrsetval ${this}::michelleafter HDUCLAS2     [sa dhshdr::michelle get hduclas2           ]
+         hdrsetval ${this}::michelleafter DHSVER       [sa dhshdr::michelle get dhsver             ]
+         hdrsetval ${this}::michelleafter OBSREF       [sa dhshdr::michelle get obsref             ]
+         hdrsetval ${this}::michelleafter USERID       [sa dhshdr::michelle get userid             ]
+         hdrsetval ${this}::michelleafter RECIPE       [sa dhshdr::michelle get recipe             ]
+         hdrsetval ${this}::michelleafter OBSNUM       [sa dhshdr::michelle get obsnum             ]
+         hdrsetval ${this}::michelleafter GRPNUM       [sa dhshdr::michelle get grpnum             ]
+         hdrsetval ${this}::michelleafter GRPMEM       [sa dhshdr::michelle get grpmem             ]
+         hdrsetval ${this}::michelleafter STANDARD     [sa dhshdr::michelle get standard           ]
+         hdrsetval ${this}::michelleafter NOFFSETS     [sa dhshdr::michelle get noffsets           ]
+         hdrsetval ${this}::michelleafter UTDATE       [sa dhshdr::michelle get utdate             ]
+         hdrsetval ${this}::michelleafter OBS          [sa dhshdr::michelle get obs                ]
+         hdrsetval ${this}::michelleafter END          [sa dhshdr::michelle get end                ]
+         hdrsetval ${this}::michelleafter CTYPE1       [sa dhshdr::michelle get ctype1             ]
+         hdrsetval ${this}::michelleafter CRPIX1       [sa dhshdr::michelle get crpix1             ]
+         hdrsetval ${this}::michelleafter CRVAL1       [sa dhshdr::michelle get crval1             ]
+         hdrsetval ${this}::michelleafter CDELT1       [sa dhshdr::michelle get cdelt1             ]
+         hdrsetval ${this}::michelleafter CUNIT1       [sa dhshdr::michelle get cunit1             ]
+         hdrsetval ${this}::michelleafter CTYPE2       [sa dhshdr::michelle get ctype2             ]
+         hdrsetval ${this}::michelleafter CRPIX2       [sa dhshdr::michelle get crpix2             ]
+         hdrsetval ${this}::michelleafter CRVAL2       [sa dhshdr::michelle get crval2             ]
+         hdrsetval ${this}::michelleafter CDELT2       [sa dhshdr::michelle get cdelt2             ]
+         hdrsetval ${this}::michelleafter CUNIT2       [sa dhshdr::michelle get cunit2             ]
+         hdrsetval ${this}::michelleafter CROTA2       [sa dhshdr::michelle get crota2             ]
+         hdrsetval ${this}::michelleafter RABASE       [sa dhshdr::michelle get rabase             ]
+         hdrsetval ${this}::michelleafter DECBASE      [sa dhshdr::michelle get decbase            ]
+         hdrsetval ${this}::michelleafter TRAOFF       [sa dhshdr::michelle get traoff             ]
+         hdrsetval ${this}::michelleafter TDECOFF      [sa dhshdr::michelle get tdecoff            ]
+         hdrsetval ${this}::michelleafter PIXELSIZ     [sa dhshdr::michelle get pixelsiz           ]
+         hdrsetval ${this}::michelleafter OBSTIME      [sa dhshdr::michelle get obstime            ]
+         # hdrsetval ${this}::michelleafter EXP_TIME
+         # hdrsetval ${this}::michelleafter NEXP    
+         # hdrsetval ${this}::michelleafter NREADS  
+         # hdrsetval ${this}::michelleafter DETMODE 
+         # hdrsetval ${this}::michelleafter GAIN    
+         hdrsetval ${this}::michelleafter SPD_GAIN     [sa dhshdr::michelle get spd_gain           ]
+         # hdrsetval ${this}::michelleafter READINT  
+         # hdrsetval ${this}::michelleafter DETNRST  
+         # hdrsetval ${this}::michelleafter DETRSTD  
+         # hdrsetval ${this}::michelleafter CHPDWELL 
+         # hdrsetval ${this}::michelleafter CHPDELAY 
+         hdrsetval ${this}::michelleafter CHOPBEAM     [sa dhshdr::michelle get chopbeam           ]
+         hdrsetval ${this}::michelleafter DCOLUMNS     [sa dhshdr::michelle get dcolumns           ]
+         hdrsetval ${this}::michelleafter DROWS        [sa dhshdr::michelle get drows              ]
+         hdrsetval ${this}::michelleafter RDOUT_X1     [sa dhshdr::michelle get rdout_x1           ]
+         hdrsetval ${this}::michelleafter RDOUT_X2     [sa dhshdr::michelle get rdout_x2           ]
+         hdrsetval ${this}::michelleafter RDOUT_Y1     [sa dhshdr::michelle get rdout_y1           ]
+         hdrsetval ${this}::michelleafter RDOUT_Y2     [sa dhshdr::michelle get rdout_y2           ]
+         hdrsetval ${this}::michelleafter CAMERA       [sa dhshdr::michelle get camera             ]
+         hdrsetval ${this}::michelleafter GRATNAME     [sa dhshdr::michelle get gratname           ]
+         hdrsetval ${this}::michelleafter GRATPOS      [sa dhshdr::michelle get gratpos            ]
+         hdrsetval ${this}::michelleafter GRATDISP     [sa dhshdr::michelle get gratdisp           ]
+         hdrsetval ${this}::michelleafter GRATORD      [sa dhshdr::michelle get gratord            ]
+         hdrsetval ${this}::michelleafter GRATANG      [sa dhshdr::michelle get gratang            ]
+         hdrsetval ${this}::michelleafter SLITNAME     [sa dhshdr::michelle get slitname           ]
+         hdrsetval ${this}::michelleafter SLITANG      [sa dhshdr::michelle get slitang            ]
+         hdrsetval ${this}::michelleafter FILTER       [sa dhshdr::michelle get filter             ]
+         hdrsetval ${this}::michelleafter FILTERA      [sa dhshdr::michelle get filtera            ]
+         hdrsetval ${this}::michelleafter FILTERB      [sa dhshdr::michelle get filterb            ]
+         hdrsetval ${this}::michelleafter FOCNAME      [sa dhshdr::michelle get focname            ]
+         hdrsetval ${this}::michelleafter FOCMM        [sa dhshdr::michelle get focmm              ]
+         hdrsetval ${this}::michelleafter IRDEG        [sa dhshdr::michelle get irdeg              ]
+         hdrsetval ${this}::michelleafter GFLEXCOR     [sa dhshdr::michelle get gflexcor           ]
+         hdrsetval ${this}::michelleafter CALSELN      [sa dhshdr::michelle get calseln            ]
+         hdrsetval ${this}::michelleafter WPLANGLE     [sa dhshdr::michelle get wplangle           ]
+         hdrsetval ${this}::michelleafter SAMPLING     [sa dhshdr::michelle get sampling           ]
+         hdrsetval ${this}::michelleafter DETINCR      [sa dhshdr::michelle get detincr            ]
+         hdrsetval ${this}::michelleafter DETNINCR     [sa dhshdr::michelle get detnincr           ]
+         hdrsetval ${this}::michelleafter POLARISE     [sa dhshdr::michelle get polarise           ]
+         hdrsetval ${this}::michelleafter CHPANGLE     [sa dhshdr::michelle get chpangle           ]
+         hdrsetval ${this}::michelleafter CHPTHROW     [sa dhshdr::michelle get chpthrow           ]
+         hdrsetval ${this}::michelleafter CHOPFREQ     [sa dhshdr::michelle get chopfreq           ]
+         hdrsetval ${this}::michelleafter NULL_CYC     [sa dhshdr::michelle get null_cyc           ]
+         hdrsetval ${this}::michelleafter NULL_EXP     [sa dhshdr::michelle get null_exp           ]
+         # hdrsetval ${this}::michelleafter NULL_NDR
+         hdrsetval ${this}::michelleafter WAVEFORM     [sa dhshdr::michelle get waveform           ]
+         hdrsetval ${this}::michelleafter AIRTEMP      [sa dhshdr::michelle get airtemp            ]
+         hdrsetval ${this}::michelleafter BARPRESS     [sa dhshdr::michelle get barpress           ]
+         hdrsetval ${this}::michelleafter DEWPOINT     [sa dhshdr::michelle get dewpoint           ]
+         hdrsetval ${this}::michelleafter DOMETEMP     [sa dhshdr::michelle get dometemp           ]
+         hdrsetval ${this}::michelleafter HUMIDITY     [sa dhshdr::michelle get humidity           ]
+         hdrsetval ${this}::michelleafter MIRR_NE      [sa dhshdr::michelle get mirr_ne            ]
+         hdrsetval ${this}::michelleafter MIRR_NW      [sa dhshdr::michelle get mirr_nw            ]
+         hdrsetval ${this}::michelleafter MIRR_SE      [sa dhshdr::michelle get mirr_se            ]
+         hdrsetval ${this}::michelleafter MIRR_SW      [sa dhshdr::michelle get mirr_sw            ]
+         hdrsetval ${this}::michelleafter MIRRBTNW     [sa dhshdr::michelle get mirrbtnw           ]
+         hdrsetval ${this}::michelleafter MIRRTPNW     [sa dhshdr::michelle get mirrtpnw           ]
+         hdrsetval ${this}::michelleafter SECONDAR     [sa dhshdr::michelle get secondar           ]
+         hdrsetval ${this}::michelleafter TOPAIRNW     [sa dhshdr::michelle get topairnw           ]
+         hdrsetval ${this}::michelleafter TRUSSENE     [sa dhshdr::michelle get trussene           ]
+         hdrsetval ${this}::michelleafter TRUSSWSW     [sa dhshdr::michelle get trusswsw           ]
+         hdrsetval ${this}::michelleafter WIND_DIR     [sa dhshdr::michelle get wind_dir           ]
+         hdrsetval ${this}::michelleafter WIND_SPD     [sa dhshdr::michelle get wind_spd           ]
+         hdrsetval ${this}::michelleafter CSOTAU       [sa dhshdr::michelle get csotau             ]
+         hdrsetval ${this}::michelleafter TAUDATE      [sa dhshdr::michelle get taudate            ]
+         hdrsetval ${this}::michelleafter CNFINDEX     [sa dhshdr::michelle get cnfindex           ]
+         hdrsetval ${this}::michelleafter ARRAYTMP     [sa dhshdr::michelle get arraytmp           ]
+         hdrsetval ${this}::michelleafter ARRYTMP2     [sa dhshdr::michelle get arrytmp2           ]
+         hdrsetval ${this}::michelleafter LN2TEMP      [sa dhshdr::michelle get ln2temp            ]
+         hdrsetval ${this}::michelleafter CCC1_TMP     [sa dhshdr::michelle get ccc1_tmp           ]
+         hdrsetval ${this}::michelleafter GRS_TEMP     [sa dhshdr::michelle get grs_temp           ]
+         hdrsetval ${this}::michelleafter CCC2_TMP     [sa dhshdr::michelle get ccc2_tmp           ]
+         hdrsetval ${this}::michelleafter FRS_TEMP     [sa dhshdr::michelle get frs_temp           ]
+         hdrsetval ${this}::michelleafter GRTDRTMP     [sa dhshdr::michelle get grtdrtmp           ]
+         hdrsetval ${this}::michelleafter SRM_TEMP     [sa dhshdr::michelle get srm_temp           ]
+         hdrsetval ${this}::michelleafter IMSTPTMP     [sa dhshdr::michelle get imstptmp           ]
+         hdrsetval ${this}::michelleafter JT1_TEMP     [sa dhshdr::michelle get jt1_temp           ]
+         hdrsetval ${this}::michelleafter JT2_TEMP     [sa dhshdr::michelle get jt2_temp           ]
+         hdrsetval ${this}::michelleafter JT4KTEMP     [sa dhshdr::michelle get jt4ktemp           ]
+         hdrsetval ${this}::michelleafter FILT_TMP     [sa dhshdr::michelle get filt_tmp           ]
+         hdrsetval ${this}::michelleafter VRSTUC       [sa dhshdr::michelle get vrstuc             ]
+         hdrsetval ${this}::michelleafter VCASUC       [sa dhshdr::michelle get vcasuc             ]
+         hdrsetval ${this}::michelleafter VNEG         [sa dhshdr::michelle get vneg               ]
+         hdrsetval ${this}::michelleafter VDETGRD      [sa dhshdr::michelle get vdetgrd            ]
+         hdrsetval ${this}::michelleafter VGG1         [sa dhshdr::michelle get vgg1               ]
+         hdrsetval ${this}::michelleafter VGG4         [sa dhshdr::michelle get vgg4               ]
+         hdrsetval ${this}::michelleafter VDETGRV      [sa dhshdr::michelle get vdetgrv            ]
+         hdrsetval ${this}::michelleafter VGG2         [sa dhshdr::michelle get vgg2               ]
+         hdrsetval ${this}::michelleafter VGG3         [sa dhshdr::michelle get vgg3               ]
+         hdrsetval ${this}::michelleafter IMUX         [sa dhshdr::michelle get imux               ]
+         hdrsetval ${this}::michelleafter VSHPCHG      [sa dhshdr::michelle get vshpchg            ]
+         hdrsetval ${this}::michelleafter VSH          [sa dhshdr::michelle get vsh                ]
+         hdrsetval ${this}::michelleafter VSSD         [sa dhshdr::michelle get vssd               ]
+         hdrsetval ${this}::michelleafter VSS          [sa dhshdr::michelle get vss                ]
+         hdrsetval ${this}::michelleafter VPW          [sa dhshdr::michelle get vpw                ]
+         hdrsetval ${this}::michelleafter VCLOUT       [sa dhshdr::michelle get vclout             ]
+         hdrsetval ${this}::michelleafter VCLCOL       [sa dhshdr::michelle get vclcol             ]
+         hdrsetval ${this}::michelleafter VCAP         [sa dhshdr::michelle get vcap               ]
+         hdrsetval ${this}::michelleafter VOFFSET      [sa dhshdr::michelle get voffset            ]
+         hdrsetval ${this}::michelleafter VGATELO      [sa dhshdr::michelle get vgatelo            ]
+         hdrsetval ${this}::michelleafter VGATEHI      [sa dhshdr::michelle get vgatehi            ]
+
+         # Post the "michelle" headers.
+            if { $dhshdr::debug } {
+               foreach par [lindex [${this}::michelleafter info] 3] {
+                  puts [${this}::michelleafter info $par]
+               }
+               puts "${this}::michelleafter postWait -label $dhshdr::dhslabel"
+            }
+         ${this}::michelleafter postWait -label $dhshdr::dhslabel
+            
+         # need be called last because it's final !!
+         HdrInfo::sendafter
+         }
+   }
+
+   proc dictload {} {
+      hsender -dict add instrument
+      hsender -dict add INPORT     -type INT
+      hsender -dict add EXTEND     -type BOOLEAN  ;# FITS dataset may contain extensions
+      hsender -dict add ORIGIN                    ;# Origin of this FITS file
+      hsender -dict add BSCALE     -type DOUBLE   ;# True_value = BSCALE * FITS_value + BZERO
+      # hsender -dict add BZERO      -type DOUBLE   ;# True_value = BSCALE * FITS_value + BZERO
+      hsender -dict add HDUCLAS1                  ;# Starlink NDF (hierarchical n-dim format)
+      hsender -dict add HDUCLAS2                  ;# Array component subclass
+      hsender -dict add DHSVER                    ;# Data handling version
+      hsender -dict add OBSREF                    ;# PATT (or equivalent) reference
+      hsender -dict add USERID                    ;# ORAC Userid
+      hsender -dict add RECIPE                    ;# Data reduction recipe to be used
+      hsender -dict add OBSNUM     -type INT      ;# Observation number
+      hsender -dict add GRPNUM     -type INT      ;# The number of the group applied to all
+      hsender -dict add GRPMEM     -type BOOLEAN  ;# Is the observation a group member?
+      hsender -dict add STANDARD   -type BOOLEAN  ;# Whether observation is a standard
+      hsender -dict add NOFFSETS   -type INT      ;# Number of offset positions
+      hsender -dict add UTDATE                    ;# UT date in yyyymmdd format
+      hsender -dict add OBS                       ;# Date and time (UTC) of start of observation
+      hsender -dict add END                       ;# Date and time (UTC) of end   of observation
+      hsender -dict add CTYPE1                    ;# Label for axis 1
+      hsender -dict add CRPIX1     -type DOUBLE   ;# Pixel of reference point axis 1
+      hsender -dict add CRVAL1     -type DOUBLE   ;# Co-ordinate value of axis 1
+      hsender -dict add CDELT1     -type DOUBLE   ;# Co-ordinate increment along axis 1
+      hsender -dict add CUNIT1                    ;# Units for axis 1
+      hsender -dict add CTYPE2                    ;# Label for axis 2
+      hsender -dict add CRPIX2     -type DOUBLE   ;# Pixel of reference point axis 2
+      hsender -dict add CRVAL2     -type DOUBLE   ;# Co-ordinate value of axis 1
+      hsender -dict add CDELT2     -type DOUBLE   ;# Co-ordinate increment along axis 2
+      hsender -dict add CUNIT2                    ;# Units for axis 2
+      hsender -dict add CROTA2     -type DOUBLE   ;# [deg] Angle DEC axis wrt axis 2 ccw
+      hsender -dict add RABASE     -type DOUBLE   ;# [h] RA of base position
+      hsender -dict add DECBASE    -type DOUBLE   ;# [deg] Declination of base position
+      hsender -dict add TRAOFF     -type DOUBLE   ;# [arcsec] Telescope offset in RA
+      hsender -dict add TDECOFF    -type DOUBLE   ;# [arcsec] Telescope offset in Dec
+      hsender -dict add PIXELSIZ   -type DOUBLE   ;# [arcsec] Pixel size
+      hsender -dict add OBSTIME                   ;# [s] Duration of observation
+      # hsender -dict add EXP_TIME   -type DOUBLE   ;# [s] Exposure time for each coadd
+      # hsender -dict add NEXP       -type INT      ;# Number of exposures in integration
+      # hsender -dict add NREADS     -type INT      ;# Number of reads per exposure
+      # hsender -dict add DETMODE                   ;# Observing mode
+      # hsender -dict add GAIN       -type DOUBLE   ;# [electrons/ADU] Gain
+      hsender -dict add SPD_GAIN                  ;# Readout speed
+      # hsender -dict add READINT    -type DOUBLE   ;# [s] Interval between reads
+      # hsender -dict add DETNRST    -type INT      ;# Number of detector resets before first exposure
+      # hsender -dict add DETRSTD    -type DOUBLE   ;# [s] Time twixt final reset & first read
+      # hsender -dict add CHPDWELL   -type DOUBLE   ;# [s] Chop dwell
+      # hsender -dict add CHPDELAY   -type DOUBLE   ;# [s] Chop delay
+      hsender -dict add CHOPBEAM                  ;# Chopping beam name (A|B|MIDDLE)
+      hsender -dict add DCOLUMNS   -type INT      ;# [pixel] Number of detector columns
+      hsender -dict add DROWS      -type INT      ;# [pixel] Number of detector rows
+      hsender -dict add RDOUT_X1   -type INT      ;# Start column of array readout
+      hsender -dict add RDOUT_X2   -type INT      ;# End   column of array readout
+      hsender -dict add RDOUT_Y1   -type INT      ;# Start row    of array readout
+      hsender -dict add RDOUT_Y2   -type INT      ;# End   row    of array readout
+      hsender -dict add CAMERA                    ;# Camera mode (imaging|spectroscopy)
+      hsender -dict add GRATNAME                  ;# Grating name
+      hsender -dict add GRATPOS    -type DOUBLE   ;# [um] Grating wavelength
+      hsender -dict add GRATDISP   -type DOUBLE   ;# [um/pixel] Grating dispersion
+      hsender -dict add GRATORD    -type INT      ;# Grating order
+      hsender -dict add GRATANG    -type DOUBLE   ;# Grating Angle
+      hsender -dict add SLITNAME                  ;# Slit name
+      hsender -dict add SLITANG    -type DOUBLE   ;# [deg] Slit angle
+      hsender -dict add FILTER                    ;# Combined filter name
+      hsender -dict add FILTERA                   ;# Filter A name
+      hsender -dict add FILTERB                   ;# Filter B name
+      hsender -dict add FOCNAME                   ;# Focus named position
+      hsender -dict add FOCMM      -type DOUBLE   ;# [mm] Focus position
+      hsender -dict add IRDEG      -type DOUBLE   ;# [deg] Image rotator angle
+      hsender -dict add GFLEXCOR                  ;# Whether grating flexure correction enabled
+      hsender -dict add CALSELN                   ;# Calibration selection
+      hsender -dict add WPLANGLE   -type DOUBLE   ;# [deg] IRPOL waveplate angle
+      hsender -dict add SAMPLING                  ;# Oversampling type used
+      hsender -dict add DETINCR    -type DOUBLE   ;# [pixel] Increment between scan positions
+      hsender -dict add DETNINCR   -type INT      ;# Number of scan positions in scan
+      hsender -dict add POLARISE   -type BOOLEAN  ;# Whether or not using polariser
+      hsender -dict add CHPANGLE   -type DOUBLE   ;# [deg] Position angle of the chop
+      hsender -dict add CHPTHROW   -type DOUBLE   ;# [arcsec] Throw of the chop wrt middle position
+      hsender -dict add CHOPFREQ   -type DOUBLE   ;# [Hz] Chop frequency
+      hsender -dict add NULL_CYC   -type INT      ;# Cycles prior to data taking
+      hsender -dict add NULL_EXP   -type INT      ;# Exposures prior to data taking
+      # hsender -dict add NULL_NDR   -type INT      ;# ND reads prior to data taking
+      hsender -dict add WAVEFORM                  ;# Waveform set name
+      hsender -dict add AIRTEMP    -type DOUBLE   ;# [degC] Air temperature
+      hsender -dict add BARPRESS   -type DOUBLE   ;# Ambient pressure
+      hsender -dict add DEWPOINT   -type DOUBLE   ;# [degC] Dewpoint
+      hsender -dict add DOMETEMP   -type DOUBLE   ;# [degC] Dome temperature
+      hsender -dict add HUMIDITY   -type DOUBLE   ;# Relative Humidity
+      hsender -dict add MIRR_NE    -type DOUBLE   ;# [degC] Mirror temperature NE
+      hsender -dict add MIRR_NW    -type DOUBLE   ;# [degC] Mirror temperature NW
+      hsender -dict add MIRR_SE    -type DOUBLE   ;# [degC] Mirror temperature SE
+      hsender -dict add MIRR_SW    -type DOUBLE   ;# [degC] Mirror temperature SW
+      hsender -dict add MIRRBTNW   -type DOUBLE   ;# [degC] Mirror bottom temp. SW
+      hsender -dict add MIRRTPNW   -type DOUBLE   ;# [degC] Mirror top temp. SW
+      hsender -dict add SECONDAR   -type DOUBLE   ;# [degC] Temperature of secondary
+      hsender -dict add TOPAIRNW   -type DOUBLE   ;# [degC] Top air NW
+      hsender -dict add TRUSSENE   -type DOUBLE   ;# [degC] Truss leg ENE
+      hsender -dict add TRUSSWSW   -type DOUBLE   ;# [degC] Truss leg WSW
+      hsender -dict add WIND_DIR   -type DOUBLE   ;# [deg] Wind direction, azimuth
+      hsender -dict add WIND_SPD   -type DOUBLE   ;# [km/s] Wind speed
+      hsender -dict add CSOTAU     -type DOUBLE   ;# Tau at 225 GHz from CSO
+      hsender -dict add TAUDATE                   ;# Time and date of Tau reading
+      hsender -dict add CNFINDEX   -type INT      ;# Configuration index
+      hsender -dict add ARRAYTMP   -type DOUBLE   ;# [K] Array temperature
+      hsender -dict add ARRYTMP2   -type DOUBLE   ;# [K] Array temperature ch.2
+      hsender -dict add LN2TEMP    -type DOUBLE   ;# [K] Temperature of LN2 can
+      hsender -dict add CCC1_TMP   -type DOUBLE   ;# [K] CCC 1st stage temp.
+      hsender -dict add GRS_TEMP   -type DOUBLE   ;# [K] Grad. rad. shield temp.
+      hsender -dict add CCC2_TMP   -type DOUBLE   ;# [K] CCC 2nd stage temp.
+      hsender -dict add FRS_TEMP   -type DOUBLE   ;# [K] Front rad. shield temp.
+      hsender -dict add GRTDRTMP   -type DOUBLE   ;# [K] Grating drum temperature
+      hsender -dict add SRM_TEMP   -type DOUBLE   ;# [K] SRM temperature
+      hsender -dict add IMSTPTMP   -type DOUBLE   ;# [K] Imiger stop temperature
+      hsender -dict add JT1_TEMP   -type DOUBLE   ;# [K] JT 1st stage temperature
+      hsender -dict add JT2_TEMP   -type DOUBLE   ;# [K] JT 2nd stage temperature
+      hsender -dict add JT4KTEMP   -type DOUBLE   ;# [K] JT 4K stage temperature
+      hsender -dict add FILT_TMP   -type DOUBLE   ;# [K] Filter motor temperature
+      hsender -dict add VRSTUC     -type DOUBLE   ;# [V] Bias voltage: vrstuc
+      hsender -dict add VCASUC     -type DOUBLE   ;# [V] Bias voltage: vcasuc
+      hsender -dict add VNEG       -type DOUBLE   ;# [V] Bias voltage: vneg
+      hsender -dict add VDETGRD    -type DOUBLE   ;# [V] Bias voltage: vdetgrd
+      hsender -dict add VGG1       -type DOUBLE   ;# [V] Bias voltage: vgg1
+      hsender -dict add VGG4       -type DOUBLE   ;# [V] Bias voltage: vgg4
+      hsender -dict add VDETGRV    -type DOUBLE   ;# [V] Bias voltage: vdetgrv
+      hsender -dict add VGG2       -type DOUBLE   ;# [V] Bias voltage: vgg2
+      hsender -dict add VGG3       -type DOUBLE   ;# [V] Bias voltage: vgg3
+      hsender -dict add IMUX       -type DOUBLE   ;# [V] Bias voltage: imux
+      hsender -dict add VSHPCHG    -type DOUBLE   ;# [V] Bias voltage: vshpchg
+      hsender -dict add VSH        -type DOUBLE   ;# [V] Bias voltage: vsh
+      hsender -dict add VSSD       -type DOUBLE   ;# [V] Bias voltage: vssd
+      hsender -dict add VSS        -type DOUBLE   ;# [V] Bias voltage: vss
+      hsender -dict add VPW        -type DOUBLE   ;# [V] Bias voltage: vpw
+      hsender -dict add VCLOUT     -type DOUBLE   ;# [V] Bias voltage: vclout
+      hsender -dict add VCLCOL     -type DOUBLE   ;# [V] Bias voltage: vclcol
+      hsender -dict add VCAP       -type DOUBLE   ;# [V] Bias voltage: vcap
+      hsender -dict add VOFFSET    -type DOUBLE   ;# [V] Bias voltage: voffset
+      hsender -dict add VGATELO    -type DOUBLE   ;# [V] Clock voltage: vgatelow
+      hsender -dict add VGATEHI    -type DOUBLE   ;# [V] Clock voltage: vgatehigh
+      }
+   }

@@ -1,0 +1,11 @@
+[symbol2]
+bbox -416 160 -256 320
+port -400 280 100 0 CLID symbol 1 -412 288 0
+uniq 0
+[tools]
+[attributes]
+[layers]
+<symbol>
+l 100 7 0 -352 176 sysCar
+r 0 -416 160 -256 320
+[comments]

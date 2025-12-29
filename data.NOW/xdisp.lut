@@ -1,0 +1,16 @@
+# $Id: xdisp.lut,v 1.1 2008/04/24 16:16:52 gemvx Exp $
+
+#
+# Filters loaded on NIRI filter wheel 1.
+#
+# List the most common name for a position first, followed by alternate
+#Filter Wheel 1
+
+#number name		pos		lowtol	hightol
+1		aa			a1		0		0
+
+2	ba				b1		0	0
+3	ca				c1		0	0
+4	da				d1		0	0
+5	ea				e1		0	0
+6	fa				f1		0	0

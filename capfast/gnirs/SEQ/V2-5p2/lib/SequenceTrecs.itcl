@@ -1,0 +1,221 @@
+#+
+#  SequenceTrecs.itcl
+#
+#  A sequenceNSloop is a nod and shuffle sequence, that loops over a  
+#  limited number of Step
+#
+#  Matthieu Bec 31 October 2002
+#
+#+
+
+itcl::class SequenceTrecs {
+   inherit Sequence
+   public {
+      method description {idx}
+      method shortdescription {idx}
+      method moveindex {ind {system "all"}}
+      method obsindex {ind}
+   }
+   protected {
+      method postparse {}
+   }
+   
+   private {
+      common nodSequence { B A A B }
+      method stepconfig { index }
+      variable nodCount
+      variable NODA_p             
+      variable NODA_q             
+      variable NODB_p             
+      variable NODB_q             
+      }
+
+}
+
+
+#------------------------------------------------------------------------------
+# description
+#------------------------------------------------------------------------------
+itcl::body SequenceTrecs::description {idx} {
+
+# Returns the short description of the specified step (for display by the user
+# interface).
+
+set step ::Sequence::StepNames::[lindex $steplist $idx]
+set tcsobj [$step cget -tcsobj]
+set p [$tcsobj cget -p]
+set q [$tcsobj cget -q]
+set obstype [$tcsobj cget -observeType]
+
+return [format "%-8s\t\t%s %s %s %s" \
+                 "Step $idx"  $p $q $obstype [[$step cget -instobj] description]]
+}
+
+#------------------------------------------------------------------------------
+# shortdescription
+#------------------------------------------------------------------------------
+itcl::body SequenceTrecs::shortdescription {idx} {
+return "Step $idx"
+}
+
+#------------------------------------------------------------------------------
+# postparse
+#------------------------------------------------------------------------------
+itcl::body SequenceTrecs::postparse {} {
+
+   set nsIter               0
+
+# the defaults
+   set NODA_p               0.0
+   set NODA_q               0.0
+   set NODB_p               ""
+   set NODB_q               ""
+
+# basic integrity check
+   if { [llength $steplist] != 2 } {
+      # clean up is done at a higher level
+      set errormsg "Doesn't appear to be a nod/sequence (doesn't define 2 steps)"
+      # Clean up.
+         if { ![string is space $seqobj] } {
+            #puts "SequenceTrecs cleanup $seqobj"
+            itcl::delete object $seqobj
+            set seqobj ""
+            }
+      return
+      }
+
+# read the sequence object for nod/shuffle parameters
+# note: this use the usual regression trick
+   foreach nod { A B } stepobj [$seqobj cget -subellist] {
+      
+# Append the step object to the list of step objects.
+      lappend objlist $stepobj
+
+# get the NODs parameters
+      foreach {param system} {
+         p telescope \
+         q telescope \
+      } {
+
+# Search the list of steps starting with the last.
+         set value ""
+         for {set i 0} {$i < [llength $objlist] && $value == ""} {incr i} {
+            set value [seqparse::sequence::findpar [lindex $objlist end-$i] $system $param]
+         }
+         if { $value != "" } {
+            set NOD$nod\_$param $value
+         }
+      }
+   
+   }
+
+# get the shuffle and iteration parameters
+      foreach {param system} {
+         nsIter dummy\
+      } {
+
+# Search the list of steps starting with the last.
+         set value ""
+         for {set i 0} {$i < [llength $objlist] && $value == ""} {incr i} {
+            set value [seqparse::sequence::findpar [lindex $objlist end-$i] $system $param]
+         }
+         if { $value != "" } {
+             set $param $value
+         }
+      }      
+
+set stepA [lindex $steplist 0]
+set stepB [lindex $steplist 1]
+
+
+# expand the sequence
+   for { set i 0 } { $i < [expr { $nsIter * [llength $nodSequence] } ] } { incr i } {
+      set index [expr $i % [llength $nodSequence]]
+      lappend steplist2 [set step[lindex $nodSequence $index]]
+      }
+
+set stepobjlist $steplist
+set steplist $steplist2
+
+# Clean up.
+   if { ![string is space $seqobj] } {
+      #puts "SequenceTrecs cleanup $seqobj"
+      itcl::delete object $seqobj
+      set seqobj ""
+      }
+}
+
+#------------------------------------------------------------------------------
+# stepconfig
+#------------------------------------------------------------------------------
+itcl::body SequenceTrecs::stepconfig {i} {
+
+# Get the name of the specified step.
+   set step [lindex $steplist $i]
+# If it exists, re-configure the step for the current index
+   if { $step != "" } {
+# Configure the step for the current index
+   } else {
+      error "No step $i in sequence"
+   }
+   
+   set thisnod [lindex $nodSequence [expr {$i % [llength $nodSequence]}]]
+   set step    ::Sequence::StepNames::$step
+   set iinstobj [$step cget -instobj]
+   set instobj [[$step cget -instobj] cget -instobj]
+   set dhsobj  [$step cget -dhsobj ]
+   set gcalobj [$step cget -gcalobj]
+   set gpolobj [$step cget -gpolobj]
+   set tcsobj  [$step cget -tcsobj ]
+
+   $tcsobj  configure -p               [set NOD$thisnod\_p]
+   $tcsobj  configure -q               [set NOD$thisnod\_q]
+
+   if { $i == 0 } {
+      $iinstobj configure -nodflag     first
+      $step configure -headersbefore   1
+      $step configure -headersafter    0
+      $step configure -observeTcs      1
+      $step configure -endObserveTcs   0
+      $step configure -observeInst     1
+      $step configure -endObserveInst  0
+      $step configure -incDatalabel    0
+      }\
+   elseif { $i == [expr [llength $steplist] - 1] } {
+      $iinstobj configure -nodflag     last
+      $step configure -headersbefore   0
+      $step configure -headersafter    1
+      $step configure -observeTcs      0
+      $step configure -endObserveTcs   1
+      $step configure -observeInst     1
+      $step configure -endObserveInst  1
+      $step configure -incDatalabel    1
+      }\
+   else {
+      $iinstobj configure -nodflag     middle
+      $step configure -headersbefore   0
+      $step configure -headersafter    0
+      $step configure -observeTcs      0
+      $step configure -endObserveTcs   0
+      $step configure -observeInst     1
+      $step configure -endObserveInst  0
+      $step configure -incDatalabel    0
+     }
+   }
+
+#------------------------------------------------------------------------------
+# moveindex (override)
+#------------------------------------------------------------------------------
+itcl::body SequenceTrecs::moveindex {ind {system "all"}} {
+   stepconfig $ind
+   Sequence::moveindex $ind $system
+}
+
+#------------------------------------------------------------------------------
+# obsindex (override)
+#------------------------------------------------------------------------------
+itcl::body SequenceTrecs::obsindex {ind} {
+   stepconfig $ind
+   Sequence::obsindex $ind
+}
+

@@ -1,0 +1,79 @@
+! $Id: tconRecord.ascii,v 1.2 2009/05/27 19:32:33 fkraemer Exp $
+!
+!       Author:  Hubert Yamada
+!
+! This record is based on the longin record:
+!
+!       Author:          Janet Anderson
+!       Date:            9-24-90
+!
+!       Experimental Physics and Industrial Control System (EPICS)
+!
+!       Copyright 1991, the Regents of the University of California,
+!       and the University of Chicago Board of Governors.
+!
+!       This software was produced under  U.S. Government contracts:
+!       (W-7405-ENG-36) at the Los Alamos National Laboratory,
+!       and (W-31-109-ENG-38) at Argonne National Laboratory.
+!
+!       Initial development by:
+!               The Controls and Automation Group (AT-8)
+!               Ground Test Accelerator
+!               Accelerator Technology Division
+!               Los Alamos National Laboratory
+!
+!       Co-developed with
+!               The Controls and Computing Group
+!               Accelerator Systems Division
+!               Advanced Photon Source
+!               Argonne National Laboratory
+#include <dbDefs.h>
+#include <choiceGbl.h>
+#include <dbFldTypes.h>
+#define INCdbRecDesh
+#include <dbRecDes.h>
+#include<guigroup.h>
+#include <choiceTcon.h>
+RECTYP	"tcon"
+!
+! Prompt               fld  special    field            pp interest  init pmt       range1      range2 conversion
+!                      name            type                         size  choice_set 
+!
+"Current value"        VAL  0          ASL0 DBF_LONG        YES   0      0   0
+"Output Specification" OUT  SPC_NOMOD  ASL1 DBF_OUTLINK     NO    1          GUI_OUTPUT
+"Units name"           EGU  0          ASL1 DBF_RECCHOICE   YES   2      0   REC_TCON_UNITS CON 0 CON 2
+"High Operating Range" HOPR 0          ASL1 DBF_LONG        NO    1      0   GUI_DISPLAY VAR LOPR        CON 2147483647  CT_DECIMAL
+"Low Operating Range"  LOPR 0          ASL1 DBF_LONG        NO    1      0   GUI_DISPLAY CON -2147483648 VAR HOPR        CT_DECIMAL
+"Hihi Alarm Limit"     HIHI 0          ASL1 DBF_LONG        YES   1      0   GUI_ALARMS VAR HIGH        CON 2147483647  CT_DECIMAL
+"Lolo Alarm Limit"     LOLO 0          ASL1 DBF_LONG        YES   1      0   GUI_ALARMS CON -2147483648 VAR LOW         CT_DECIMAL
+"High Alarm Limit"     HIGH 0          ASL1 DBF_LONG        YES   1      0   GUI_ALARMS VAR LOW         VAR HIHI        CT_DECIMAL
+"Low Alarm Limit"      LOW  0          ASL1 DBF_LONG        YES   1      0   GUI_ALARMS VAR LOLO        VAR HIGH        CT_DECIMAL
+"Hihi Severity"        HHSV 0          ASL1 DBF_GBLCHOICE   YES   1      0  GBL_ALARM_SEV  GUI_ALARMS VAR HSV         CON 4
+"Lolo Severity"        LLSV 0          ASL1 DBF_GBLCHOICE   YES   1      0  GBL_ALARM_SEV GUI_ALARMS VAR LSV         CON 4
+"High Severity"        HSV  0          ASL1 DBF_GBLCHOICE   YES   1      0  GBL_ALARM_SEV GUI_ALARMS CON 0           VAR HHSV
+"Low Severity"         LSV  0          ASL1 DBF_GBLCHOICE   YES   1      0  GBL_ALARM_SEV GUI_ALARMS CON 0           VAR LLSV
+"Alarm Deadband"       HYST 0          ASL1 DBF_LONG        NO    1      0  GUI_ALARMS CON -2147483648 CON 2147483647  CT_DECIMAL
+"Archive Deadband"     ADEL 0          ASL1 DBF_LONG        NO    1      0  GUI_DISPLAY CON -2147483648 CON 2147483647  CT_DECIMAL
+"Monitor Deadband"     MDEL 0          ASL1 DBF_LONG        NO    1      0  GUI_DISPLAY CON -2147483648 CON 2147483647  CT_DECIMAL
+"Last Value Alarmed"   LALM SPC_NOMOD  ASL1 DBF_LONG        NO    3      0   0
+"Last Value Archived"  ALST SPC_NOMOD  ASL1 DBF_LONG        NO    3      0   0
+"Last Val Monitored"   MLST SPC_NOMOD  ASL1 DBF_LONG        NO    3      0   0
+"Sim Input Specifctn"  SIOL SPC_NOMOD  ASL1 DBF_INLINK      NO    1                        GUI_INPUTS
+"Simulation Value"     SVAL 0          ASL1 DBF_LONG        NO    0      0                 0
+"Sim Mode Location"    SIML SPC_NOMOD  ASL1 DBF_INLINK      NO    1                        GUI_INPUTS
+"Simulation Mode"      SIMM 0          ASL1 DBF_GBLCHOICE   NO    1      0   GBL_YES_NO     0
+"Sim mode Alarm Svrty" SIMS 0          ASL1 DBF_GBLCHOICE   NO    2      0   GBL_ALARM_SEV GUI_INPUTS
+"Display Precision"    PREC 0          ASL1 DBF_LONG       NO    1      0                 0
+"Post monitor"         MON  SPC_NOMOD  ASL1 DBF_LONG       NO    4      0                 0
+"Set Point"            SETP 0          ASL0 DBF_DOUBLE     YES   1      0.0               0
+"Old Set Point"        LSTP SPC_NOMOD  ASL1 DBF_DOUBLE     NO    4      0.0               0
+"Gain"                 GAIN 0          ASL0 DBF_DOUBLE     YES   1      0.0               0
+"Old Gain"             LGAN SPC_NOMOD  ASL1 DBF_DOUBLE     NO    4      0.0               0
+"Rate"                 RATE 0          ASL0 DBF_DOUBLE     YES   1      0.0               0
+"Old Rate"             LRTE 0          ASL1 DBF_DOUBLE     NO    4      0.0               0
+"Reset"                RST  0          ASL0 DBF_DOUBLE     YES   1      0.0               0
+"Old Reset"            LRST SPC_NOMOD  ASL1 DBF_DOUBLE     NO    4      0.0               0
+"Heater range"         RANG 0          ASL0 DBF_RECCHOICE  YES   1      0                 REC_TCON_RANG CON 0 CON 3
+"Old Heater range"     LRNG SPC_NOMOD  ASL1 DBF_RECCHOICE  NO    4      0                 REC_TCON_RANG CON 0 CON 3
+"Autotuning"           TUNE 0          ASL0 DBF_RECCHOICE  YES   1      0                 REC_TCON_TUNE CON 0 CON 4
+"Old Autotuning"       LTUN SPC_NOMOD  ASL1 DBF_RECCHOICE  NO    4      0                 REC_TCON_TUNE CON 0 CON 4

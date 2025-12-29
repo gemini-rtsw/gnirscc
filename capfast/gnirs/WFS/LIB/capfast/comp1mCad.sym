@@ -1,0 +1,36 @@
+[symbol2]
+bbox -416 160 352 352
+port 336 256 100 2048 OFLNK symbol 2 352 256 0
+port 336 224 100 2048 CVAL symbol 3 352 224 0
+port 336 192 100 2048 CFLNK symbol 2 352 192 0
+port -400 288 100 1536 DIR symbol 3 -416 288 0
+port -400 256 100 1536 CLID symbol 3 -416 256 0
+port -400 224 100 1536 VAL symbol 3 -416 224 0
+port -400 192 100 1536 MESS symbol 3 -416 192 0
+uniq 5
+[tools]
+[attributes]
+p -336 288 100 768 1 set0:mech $(mech)
+p -336 256 100 768 1 set1:desc $(desc)
+[layers]
+<symbol>
+l 75 5 0 240 320 1-Axis CAD Records
+l 100 3 0 -208 320 comp1mCad
+v 0 -320 320
+-320 352
+-416 352
+-416 160
+352 160
+352 352
+256 352
+256 320
+-320 320
+_
+v 0 -256 320
+160 320
+_
+v 1 -224 320
+-224 352
+256 352
+_
+[comments]

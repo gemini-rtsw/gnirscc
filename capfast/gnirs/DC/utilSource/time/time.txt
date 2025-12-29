@@ -1,0 +1,15 @@
+2.2.5
+
+The bc350time.o file contains routines to access the  bc635VME card.  It includes
+functions to set, read and print the time.  The current time for setting the
+bc635VME card is read from port 37 on the inet address specified by the 
+environment variable SERVER specified in the startup file for the 68040 that
+is on the same vme bus as the timeCard.  The universal time  or the local time
+can be loaded on to the card.  This is specified on the command line of the 
+'initTime' command in the same startup file mentioned above.  A one is for 
+universal time and a 0 is for local time.  If local time is chosen, the other
+two environment variables are also important.  DAYLIGHT specifies if the area
+is under daylight savings time, and TIMEZONE specifies the hour difference from
+universal time.  The current time on the card can be retrieved with 'getTime'.  
+If the local time is loaded on the card, the universal time can be accessed with
+'getUTime'. 

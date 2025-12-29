@@ -1,0 +1,475 @@
+file {
+	name="tempHealth.dl"
+}
+display {
+	magic="305419896"
+	majv="2"
+	mnrv="4"
+	ndyng="0"
+	npc="18"
+	nstr="100"
+	ndynamic="4"
+	nplot="0"
+	nrd="0"
+	nes="0"
+	nkd="1"
+	npd="0"
+	npo="0"
+	object {
+		x="0"
+		y="0"
+		width="598"
+		height="364"
+	}
+	clr="1"
+	bclr="13"
+	nwords_dspy="1696"
+	nwords_sta="196"
+	nwords_cmap="0"
+	nwords_crules="0"
+	odyng="1420"
+	osta="1224"
+	odynamic="1420"
+	oplot="1684"
+	ord="1684"
+	oes="1684"
+	okd="1684"
+	opd="1696"
+	opo="1696"
+	opc="68"
+	ostr="268"
+	ocmap="1224"
+	ocrules="1224"
+	style="solid"
+	fill="outline"
+	width="0"
+	clrmod="static"
+	vismod="static"
+	precision="-1"
+	clrrule="alarm"
+	pv=""
+	cmap="gmColors.dl"
+	pixwid="1152"
+	pixht="900"
+	mmwid="325"
+	mmht="254"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="12"
+		style="solid"
+		fill="solid"
+		width="3"
+	}
+}
+"rectangle" {
+	object {
+		x="10"
+		y="54"
+		width="570"
+		height="47"
+		groupid="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="-1"
+		y="-1"
+		width="413"
+		height="20"
+		groupid="0"
+	}
+	textix="GNAAC Engineering Display"
+	align="horiz. centered"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="10"
+	}
+}
+"text" {
+	object {
+		x="64"
+		y="32"
+		width="283"
+		height="20"
+		groupid="0"
+	}
+	textix="Temperature Health"
+	align="horiz. centered"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="138"
+		y="261"
+		width="171"
+		height="14"
+		groupid="0"
+	}
+	textix="Desired Temp (K):"
+	align="horiz. right"
+}
+"text" {
+	object {
+		x="56"
+		y="281"
+		width="253"
+		height="14"
+		groupid="0"
+	}
+	textix="Actual Temperature (K):"
+	align="horiz. right"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="15"
+		style="solid"
+		fill="solid"
+		width="0"
+	}
+}
+"rectangle" {
+	object {
+		x="316"
+		y="223"
+		width="131"
+		height="131"
+		groupid="0"
+	}
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="338"
+		y="226"
+		width="91"
+		height="18"
+		groupid="0"
+	}
+	textix="Foot"
+	align="horiz. centered"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="23"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="8"
+		y="106"
+		width="589"
+		height="12"
+		groupid="0"
+	}
+	textix="NOTE: A warning flag indicates the array is not at its set point."
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="8"
+		y="125"
+		width="589"
+		height="12"
+		groupid="0"
+	}
+	textix="This can result in large variations in array performance. It in-"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="8"
+		y="145"
+		width="588"
+		height="12"
+		groupid="0"
+	}
+	textix="dicates a problem with the temperature servo which may affect the"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="8"
+		y="165"
+		width="588"
+		height="12"
+		groupid="0"
+	}
+	textix="data taken. If the temperature is stable you may be able to ob-"
+	align="horiz. left"
+}
+"text" {
+	object {
+		x="8"
+		y="185"
+		width="588"
+		height="12"
+		groupid="0"
+	}
+	textix="serve in spite of the warning."
+	align="horiz. left"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="0"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="15"
+		y="64"
+		width="274"
+		height="18"
+		groupid="0"
+	}
+	textix="Temperature Health"
+	align="horiz. centered"
+}
+"<<basic attribute>>" {
+	attr {
+		clr="1"
+		style="solid"
+		fill="outline"
+		width="0"
+	}
+}
+"text" {
+	object {
+		x="33"
+		y="320"
+		width="275"
+		height="14"
+		groupid="0"
+	}
+	textix="Heater Power Readback (mW):"
+	align="horiz. right"
+}
+"text update" {
+	object {
+		x="326"
+		y="260"
+		width="112"
+		height="18"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)$(M)C1.SETP"
+		clr="0"
+		bclr="12"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="0"
+		rulecolorfg="0"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits="Deg K"
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. left"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="302"
+		y="62"
+		width="269"
+		height="18"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)tempHlth"
+		clr="0"
+		bclr="12"
+		label="none"
+		clrmod="rule"
+		rulechan[0] = "$(T)tempHlth.VAL"
+		rulechan[1] = "$(T)tempHlth.VAL"
+		rulechan[2] = "$(T)tempHlth.VAL"
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="health"
+		clrargs="C=$(T)tempHlth"
+		rulecolorbg="1"
+		rulecolorfg="1"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits=""
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. centered"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="326"
+		y="280"
+		width="112"
+		height="18"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)$(M)C1Tmp"
+		clr="0"
+		bclr="12"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs=""
+		rulecolorbg="0"
+		rulecolorfg="0"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits="Deg K"
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. left"
+	format="decimal"
+}
+"text update" {
+	object {
+		x="325"
+		y="319"
+		width="113"
+		height="18"
+		groupid="0"
+	}
+	monitor {
+		chan="$(T)$(M)C1Heat"
+		clr="0"
+		bclr="12"
+		label="none"
+		clrmod="static"
+		rulechan[0] = ""
+		rulechan[1] = ""
+		rulechan[2] = ""
+		rulechan[3] = ""
+		rulechan[4] = ""
+		rulechan[5] = ""
+		rulechan[6] = ""
+		rulechan[7] = ""
+		rulechan[8] = ""
+		rulechan[9] = ""
+		rulechan[10] = ""
+		rulechan[11] = ""
+		rulechan[12] = ""
+		rulechan[13] = ""
+		rulechan[14] = ""
+		rulechan[15] = ""
+		clrrule="alarm"
+		clrargs="C=$(T)footHtrFB"
+		rulecolorbg="0"
+		rulecolorfg="0"
+		hdl="0"
+		ldl="0"
+		prec="-1"
+		newunits="mW"
+		units="none"
+		decorate="none"
+		convertFunc=""
+		convertParams=""
+	}
+	align="horiz. left"
+	format="decimal"
+}
+"kill display" {
+	object {
+		x="512"
+		y="5"
+		width="65"
+		height="34"
+		groupid="0"
+	}
+	label="EXIT"
+	clr="1"
+	bclr="23"
+	decorate="outward"
+}

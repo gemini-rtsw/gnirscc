@@ -1,0 +1,6 @@
+DIRS += global
+DIRS += drvAscii
+DIRS += drvSerial
+DIRS += tnetDev
+DIRS += hdwrControl
+DIRS += epicsControl

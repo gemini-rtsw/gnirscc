@@ -1,0 +1,7 @@
+The majority of the files in this directory are named '*.VWS'.  These
+are not the normal .vws files that the standard Gemini distribution
+processes to produce startup scripts.  These are pre-processed by the
+script 'subst', to replace, to produce a .vws file, which is processed
+to produce a startup script.
+
+See 'subst' for a list of variables.
