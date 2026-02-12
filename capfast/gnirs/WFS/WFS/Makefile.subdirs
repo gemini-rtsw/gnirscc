@@ -1,5 +1,0 @@
-DIRS += capfast
-DIRS += dl
-DIRS += src
-DIRS += startup
-DIRS += pv

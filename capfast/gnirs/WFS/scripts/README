@@ -1,5 +1,0 @@
-$Id: README,v 1.2 2009/05/27 19:35:06 fkraemer Exp $
-
-This is a collection of scripts which are intended to make it easy to
-write test scripts.  They are not considered a deliverable item,
-but are just intended as a convenience for testing.

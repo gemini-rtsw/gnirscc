@@ -1,5 +1,0 @@
-#
-string nirs:focus:loadFocusConf.A = "ALL-spatial";
-string nirs:focus:loadFocusConf.DIR = "START";
-
-

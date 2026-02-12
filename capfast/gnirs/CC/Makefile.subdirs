@@ -1,6 +1,0 @@
-DIRS += startup
-DIRS += capfast
-DIRS += pv
-DIRS += ascii
-DIRS += src
-DIRS += sys

@@ -1,8 +1,0 @@
-# $Id: engSimParm.VWS,v 1.2 2009/05/27 19:34:49 fkraemer Exp $
-
-pvload "$(version)/ENG/data/lock.pv","top=@(prefix)"
-pvload "$(version)/ENG/data/sim.pv","top=@(prefix)"
-
-stateMap "warm","sim"
-stateMap "cold","sim"
-stateMap "changing","sim"

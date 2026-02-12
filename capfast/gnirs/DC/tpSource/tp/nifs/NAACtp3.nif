@@ -1,5 +1,0 @@
-decode_timeout  20000;
-level_timeout 1000;
-2, /repos2/NAACsrc/tp/tp3/tld/NAAC/icon.tld, R0,     0, 10[0],     ,     ;
-10, /repos2/NAACsrc/tld/NAAC/seq.tld, R2,  2[1],      ,     ,     ;
-

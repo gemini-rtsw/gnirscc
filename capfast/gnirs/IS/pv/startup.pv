@@ -1,5 +1,0 @@
-#
-string $(top)apply.DIR = "PRESET";
-#string $(top)init.DIR = "START";
-
-#string $(top)sad:name.VAL = "GNIRS";

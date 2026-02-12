@@ -1,6 +1,0 @@
-4.4.9.?
-
-The hk.c file contains the functions that check the current voltages against the allowable
-values.  The allowable values are stored in an array named hkChanDesc which is 
-initialized at startup time to the values in hkChanInfo.par.  This initialization is done
-in hkutil.c.  

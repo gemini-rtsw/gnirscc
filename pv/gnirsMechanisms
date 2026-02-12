@@ -45,37 +45,41 @@ motor = 2
 [mechanism slit]
 name = "Slit"
 motor = 3
-position = "0.10arcsec_G5530"    		240680        	10
-position = "0.15arcsec_G5530"			340700          0
-position = "0.20arcsec_G5530"    		290450        	10
-position = "0.30arcsec_G5530"			115600        	10
-position = "0.45arcsec_G5530"			90650        	10
-position = "0.68arcsec_G5530"    		65850        	10
-position = "1.00arcsec_G5530"	    		315600        	10
-position = "Acq_G5530"			        165500        	10
-position = "PV_G5530"				-15500      	2
-position = "SmPinholes_G5530"    		265500        	10
-position = "LgPinholes_G5530"    		365800        	10
-position = "LR-IFU_G5530"			839700 		0
-position = "HR-IFU_G5530"			-533900		0
 
+position = "0.10arcsec_G5530"                   240680          10
+position = "0.15arcsec_G5530"                   340700           0
+position = "0.20arcsec_G5530"                   290450          10
+position = "0.30arcsec_G5530"                   115600          10
+position = "0.45arcsec_G5530"                    90650          10
+position = "0.68arcsec_G5530"                    65850          10
+position = "1.00arcsec_G5530"                   315600          10
+position = "Acq_G5530"                          165500          10
+position = "PV_G5530"                           -15500           2
+position = "SmPinholes_G5530"                   265500          10
+position = "LgPinholes_G5530"                   365800          10
+position = "LR-IFU_G5530"                       839700           0
+position = "HR-IFU_G5530"                      -533900           0
 
 ####
 [mechanism decker]
 motor = 4
 name = "Decker"
 
-position = "IFU1_G5531"           	73670         0
-position = "LCXD_G5531"            	63020         0
-position = "SCXD_G5531"            	52400         0
-position = "Woll_G5531"         	42100         0
-position = "LCLong_G5531"            	31250         0
-position = "SCLong_G5531"            	20640         0
-position = "Acq_G5531"        	        5300          0
-position = "IFU2_G5531"            	-5200         0
-position = "PV_G5531"			-16000        0
-position = "LR-IFU_G5531"            	49200         0
-position = "HR-IFU_G5531"            	64030         0
+# reached the maximum value for IFU1. 
+# IFU1 should be at 74370 whem LCXD is at 63720
+# Setting dummy value
+
+position = "IFU1_G5531"                 68040         0
+position = "LCXD_G5531"                 63040         0
+position = "SCXD_G5531"                 52420         0
+position = "Woll_G5531"                 42120         0
+position = "LCLong_G5531"               31270         0
+position = "SCLong_G5531"               20660         0
+position = "Acq_G5531"                   5320         0
+position = "IFU2_G5531"                 -5080         0
+position = "PV_G5531"                  -15980         0
+position = "LR-IFU_G5531"               49220         0
+position = "HR-IFU_G5531"               64050         0
 
 ####
 [mechanism acquisition] 
@@ -93,36 +97,39 @@ motor = 6
 # DO NOT USE "_" in the position names before the Gemini part number 
 # (e.g., use +10_G5537 instead of _10_G5537)
 
-position = "LB+SXD_G5536"		103747		10
-position = "SB+SXD_G5536"		103524		10
-position = "LR+SXD_G5536"		103492		10
-position = "SR+SXD_G5536"		103492		10
-position = "LB+LXD_G5535"	       -166153		30
-position = "SB+LXD_G5535"		373627		30
-position = "LR+LXD_G5535"		373627		30
-position = "SR+LXD_G5535"		373627		30
-position = "MIR_G5537"			246436		20
-position = "WOLL_G5509"			508567		40
-position = "LB+MIR32_G5537"            246350          20
-position = "LR+MIR32_G5537"            246441          20
-position = "SB+MIR32_G5537"            246406          20
-position = "SR+MIR32_G5537"            246406          20
-position = "LB+MIR10_G5537"            246331          20
-position = "LR+MIR10_G5537"            246418          20
-position = "SB+MIR10_G5537"            246406          20
-position = "SR+MIR10_G5537"            246406          20
-position = "LB+MIR111_G5537"           246381          20
-position = "LR+MIR111_G5537"           246474          20
-position = "SB+MIR111_G5537"           246406          20
-position = "SR+MIR111_G5537"           246406          20
+position = "LB+SXD_G5536"               103823          10
+position = "SB+SXD_G5536"               103600          10
+position = "LR+SXD_G5536"               103568          10
+position = "SR+SXD_G5536"               103568          10
+position = "LB+LXD_G5535"              -166077          30
+position = "SB+LXD_G5535"               373703          30
+position = "LR+LXD_G5535"               373703          30
+position = "SR+LXD_G5535"               373703          30
+position = "MIR_G5537"                  246512          20
+position = "WOLL_G5509"                 508643          40
+position = "LB32+MIR_G5537"            246427          20
+position = "LR32+MIR_G5537"            246517          20
+position = "SB32+MIR_G5537"            246482          20
+position = "SR32+MIR_G5537"            246482          20
+position = "LB10+MIR_G5537"            246422          20
+position = "LR10+MIR_G5537"            246494          20
+position = "SB10+MIR_G5537"            246482          20
+position = "SR10+MIR_G5537"            246482          20
+position = "LB111+MIR_G5537"           246457          20
+position = "LR111+MIR_G5537"           246550          20
+position = "SB111+MIR_G5537"           246482          20
+position = "SR111+MIR_G5537"           246482          20
+
 
 ####
 [mechanism grating]
 name = "Grating Turret"
 motor = 7
 # There are 4 main, never to be changed positions, which correspond to
-# the gratings themselves.  Tilts of a particular grating to center a
-# wavelength are specified by the wavelength and not by a name.
+# the gratings themselves. These are not changed because the software
+# does not read the grating engineering positions here, but, rather, 
+# uses the  the gnirsConfig file. Tilts of a particular grating to 
+# center a wavelength are specified by the wavelength and not by a name.
 
 position = "111/mmSB_G5534"       	0 	270800
 position = "111/mmSR_G5534"       	1 	270800
@@ -148,11 +155,11 @@ position = "32/mmLRHR_G5533"            18      81500
 [mechanism camera]
 name = "Camera Turret"
 motor = 8
-#position = "ShortRed_G5541"     	-90280		0
-#position = "LongRed_G5543"		5600		222	
-position = "ShortBlue_G5540"   		101700		333	
-#position = "LongBlue_G5542"     	-186755         444	
-#position = "Open"   			341000       	444	
+position = "ShortRed_G5545"     	-90410		  0
+position = "LongRed_G5543"		  5500		222	
+position = "ShortBlue_G5540"   		101370		333	
+position = "LongBlue_G5542"            -186835          444	
+position = "Open"   			340870       	444	
 
 [mechanism focus]
 name = "Detector Focus Control"

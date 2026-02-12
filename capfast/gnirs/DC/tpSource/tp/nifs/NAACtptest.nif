@@ -1,5 +1,0 @@
-decode_timeout  20000;
-level_timeout 1000;
-2, ../tld/icon.tld, R0,     0, 10[0],     ,     ;
-10, ../tld/seq.tld, R2,  2[1],      ,     ,     ;
-

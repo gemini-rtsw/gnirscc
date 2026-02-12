@@ -1,4 +1,0 @@
-# $Id: wfsSimParm.VWS,v 1.2 2009/05/27 19:34:51 fkraemer Exp $
-
-pvload "$(version)/ENG/data/wfs.pv","top=@(prefix)"
-pvload "$(version)/ENG/data/wfsSim.pv","top=@(prefix)"

@@ -1,4 +1,0 @@
-applSetup -T svgm5 -site CP -X alh -X ar -X ascii -X capfast -X db -X dl -X data -X src -X sys -s Makefile.subdirs\
-  -depends /home/gemini/dhs/ppc/dhs-0.19/external
-
-#-depends /gemini/slalib -depends /gemini/timelib

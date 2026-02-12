@@ -1,9 +1,0 @@
-# $Id: engSeq.VWS,v 1.2 2009/05/27 19:34:49 fkraemer Exp $
-
-#
-# Spawn a process to monitor changes in temperature state.  This isn't
-# a sequencer function, but is included here because it is similar to
-# a sequencer function.
-#
-
-sp stateCheck

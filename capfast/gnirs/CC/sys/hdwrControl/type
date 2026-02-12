@@ -1,6 +1,0 @@
-util.c:                    i = sscanf(rhs, "%d %d %d %d %d %d", &(pSw->position),
-util.c:                            &(pSw->offset), &port, &bit,
-util.c:                            &(pSw->useAlt), &(pSw->type));
-util.c:                        pSw->control.port= port & 0xFF;
-util.c:                        pSw->control.bit = bit & 0xFF;
-util.c:							if (pSw->useAlt)

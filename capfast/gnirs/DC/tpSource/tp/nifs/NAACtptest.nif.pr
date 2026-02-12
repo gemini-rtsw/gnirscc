@@ -1,5 +1,0 @@
-decode_timeout  20000;
-level_timeout 1000;
-2, /dlirim1/gnaacSrc.3/bin/tp/tld/icon.tld, R0,     0, 10[0],     ,     ;
-10, /dlirim1/gnaacSrc.3/bin/tp/tld/seq.tld, R2,  2[1],      ,     ,     ;
-

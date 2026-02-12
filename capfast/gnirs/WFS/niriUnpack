@@ -1,7 +1,0 @@
-#!/bin/csh
-#
-# Unpacks the tar archive created by "gmake release".
-#
-/usr/local/bin/gunzip ${1}.tar.gz
-/usr/bin/tar -xvf     ${1}.tar
-/usr/bin/rm -i        ${1}.tar

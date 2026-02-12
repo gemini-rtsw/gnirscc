@@ -1,7 +1,0 @@
-4.4.5
-The rpc client and server code is in this directory.  epdq_svc.c and 
-gnRpcServer.c contain the server routines, and epdq_clnt.c and gnRpcClient.c
-contain the client routines.  The epdq files contain the low level rpc code
-that does the communication between the machines.  The gnRpcClient.c contains
-an interface to this low level code, and the gnRpcServer.c is the actual code
-that does the task needed on the server side.  

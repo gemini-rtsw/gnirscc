@@ -1,3 +1,0 @@
-# $Id: lockWfs.VWS,v 1.2 2009/05/27 19:34:49 fkraemer Exp $
-
-stateConfig "$(version)/ENG/data/wfs.ste", "$(version)/ENG/data", "top=@(prefix)"

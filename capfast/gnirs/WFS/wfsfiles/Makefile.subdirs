@@ -1,7 +1,0 @@
-DIRS += capfast
-DIRS += ENG
-DIRS += dl
-DIRS += LIB
-DIRS += pv
-DIRS += src
-DIRS += startup

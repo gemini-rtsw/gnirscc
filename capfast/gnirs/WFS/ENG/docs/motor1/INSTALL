@@ -1,9 +1,0 @@
-#!/bin/sh
-
-if [ ! -d rel ]
-then
-  mkdir rel
-fi
-
-applSetup -s Makefile.subdirs -I ascii -I capfast -I dl -I src -I startup \
-	-i ./rel

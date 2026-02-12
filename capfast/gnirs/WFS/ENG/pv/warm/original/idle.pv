@@ -1,3 +1,0 @@
-group {
-	int $(top)eng:lockTmpBusy = 0;
-};

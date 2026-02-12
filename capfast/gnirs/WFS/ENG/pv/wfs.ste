@@ -1,6 +1,0 @@
-pvload wfs.pv
-
-pvload wfsFilt.pv
-pvload wfsFoc.pv
-pvload wfsPrbx.pv
-pvload wfsPrby.pv

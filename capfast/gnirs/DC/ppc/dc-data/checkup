@@ -1,7 +1,0 @@
-#/bin/tcsh -f
-foreach f (`find . -name "*.h"`)
-diff $f /home/gemvx/mbec/niri/gn-4/gnaacSrc-ppc-gem6t/$f >& /dev/null
-if ( $status) then
-tkdiff $f /home/gemvx/mbec/niri/gn-4/gnaacSrc-ppc-gem6t/$f
-endif
-end

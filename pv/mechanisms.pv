@@ -98,29 +98,28 @@ group
 group
 {
 	# xdisp names
-	string $(top)xdispSelectA.ZRST = "LB+SXD";
-	string $(top)xdispSelectA.ONST = "SB+SXD";
-	string $(top)xdispSelectA.TWST = "LR+SXD";
-	string $(top)xdispSelectA.THST = "SR+SXD";
-	string $(top)xdispSelectA.FRST = "LB+LXD";
-	string $(top)xdispSelectA.FVST = "SB+LXD";
-	string $(top)xdispSelectA.SXST = "LR+LXD";
-	string $(top)xdispSelectA.SVST = "SR+LXD";
-	string $(top)xdispSelectA.EIST = "MIR";
-	string $(top)xdispSelectA.NIST = "WOLL";
-	string $(top)xdispSelectB.ZRST = "LB+MIR32";
-	string $(top)xdispSelectB.ONST = "LR+MIR32";
-	string $(top)xdispSelectB.TWST = "SB+MIR32";
-	string $(top)xdispSelectB.THST = "SR+MIR32";
-	string $(top)xdispSelectB.FRST = "LB+MIR10";
-	string $(top)xdispSelectB.FVST = "LR+MIR10";
-	string $(top)xdispSelectB.SXST = "SB+MIR10";
-	string $(top)xdispSelectB.SVST = "SR+MIR10";
-	string $(top)xdispSelectB.EIST = "LB+MIR111";
-	string $(top)xdispSelectB.NIST = "LR+MIR111";
-	string $(top)xdispSelectB.TEST = "SB+MIR111";
-	string $(top)xdispSelectB.ELST = "SR+MIR111";
-        
+        string $(top)xdispSelectA.ZRST = "LB+SXD";
+        string $(top)xdispSelectA.ONST = "SB+SXD";
+        string $(top)xdispSelectA.TWST = "LR+SXD";
+        string $(top)xdispSelectA.THST = "SR+SXD";
+        string $(top)xdispSelectA.FRST = "LB+LXD";
+        string $(top)xdispSelectA.FVST = "SB+LXD";
+        string $(top)xdispSelectA.SXST = "LR+LXD";
+        string $(top)xdispSelectA.SVST = "SR+LXD";
+        string $(top)xdispSelectA.EIST = "MIR";
+        string $(top)xdispSelectA.NIST = "WOLL";
+        string $(top)xdispSelectB.ZRST = "LB32+MIR";
+        string $(top)xdispSelectB.ONST = "LR32+MIR";
+        string $(top)xdispSelectB.TWST = "SB32+MIR";
+        string $(top)xdispSelectB.THST = "SR32+MIR";
+        string $(top)xdispSelectB.FRST = "LB10+MIR";
+        string $(top)xdispSelectB.FVST = "LR10+MIR";
+        string $(top)xdispSelectB.SXST = "SB10+MIR";
+        string $(top)xdispSelectB.SVST = "SR10+MIR";
+        string $(top)xdispSelectB.EIST = "LB111+MIR";
+        string $(top)xdispSelectB.NIST = "LR111+MIR";
+        string $(top)xdispSelectB.TEST = "SB111+MIR";
+        string $(top)xdispSelectB.ELST = "SR111+MIR"; 
 
 }
 

@@ -1,9 +1,0 @@
-# $Id: fol.pv,v 1.2 2009/05/27 19:35:00 fkraemer Exp $
-
-group {
-	#
-	# Rotation angle of WFS (radians)
-	#
-
-	double $(top)folAgOut.F = 1.57;
-}

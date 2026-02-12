@@ -1,9 +1,0 @@
-#/bin/csh
-xterm -sb -sl 500 -title "epics telnet" -n "epics" -e telnet $1 5005 &
-xterm -sb -sl 500 -title "Coadder telnet" -n "Coadder" -e telnet $1 5006 &
-#cd /home/pruckle/projects/gnaac/data
-setenv niriDIR /home/gemini/gnirs/niri
-setenv nirsDIR /home/gemini/gnirs/control
-setenv EPICS_DISPLAY_PATH ${nirsDIR}DC/data:${nirsDIR}/data:${nirsDIR}/DC/data:${niriDIR}/ENG/data:${niriDIR}/WFS/data:${niriDIR}/LIB/data
-dm gnaacEngDisp.dl T=$2\:dc\:,S=$2\:sad\:dc\:
-

@@ -1,9 +1,0 @@
-# Type "source prSccdSad" to execute
-# alias sch2lp   "schplot -t  \!* | schps -d -wi 10.5 | lpr -Plw10"
-
-sch2lp sccdSadTop.sch
-sch2lp sccdSad.sch
-sch2lp dataSad.sch
-sch2lp roiSad.sch
-sch2lp hdwrSad.sch
-sch2lp sysSad.sch

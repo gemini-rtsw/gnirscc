@@ -1,9 +1,0 @@
-
-include Target.include
-include .applTop/config/CONFIG
-
-# The resource.def will be placed in the data data directory
-SCRIPTS	= cycle.tcl tmp.tcl scan.tcl \
-	features.tcl init.tcl util.tcl ca.tcl help.tcl pos.tcl tclIndex
-
-include .applTop/config/RULES.Build
