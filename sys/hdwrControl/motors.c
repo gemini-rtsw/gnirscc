@@ -1165,9 +1165,20 @@ int goToPos(int motor, int where, int removeBL) {
             return rc;
         }
     }
-    timeout = motorTimeout(backlash, &m->probe);
-    printf("goToPos: final slow approach to %d (backlash=%d timeout=%d)\n",
-           where, backlash, timeout);
+    /* GNFR-75080: timeout was computed from backlash, not actual remaining
+     * distance. When fast phase is skipped (small move), the motor has not
+     * moved yet so the remaining distance is where - currPos, not backlash.
+     */
+    if (m->datumed) {
+        int slowDist = where - m->currPos;
+        timeout = motorTimeout(slowDist, &m->probe);
+        printf("goToPos: GNFR-75080 slow timeout from actual dist=%d (backlash=%d currPos=%d where=%d timeout=%d)\n",
+               slowDist, backlash, m->currPos, where, timeout);
+    } else {
+        timeout = motorTimeout(backlash, &m->probe);
+        printf("goToPos: slow timeout from backlash=%d (not datumed, timeout=%d)\n",
+               backlash, timeout);
+    }
     if (m->datumed)
         rc = motorPos(motor, where, timeout);
     else
