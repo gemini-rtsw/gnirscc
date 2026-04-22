@@ -292,13 +292,9 @@ int motorTimeout(int dist, motion *ms) {
         time = 2. * sqrt(D/acc) + 0.5;
 
     time *= gnirsG.clockRate;
-    /* Add 20% safety margin to account for mechanical overhead
-     * (direction changes, settling, communication latency).
-     */
-    time += time / 5;
     if (!gnirsG.simulation && (time < TIMEOUT_MIN))
         time = TIMEOUT_MIN;
-    if (sendToMotorDebug > 1)
+        if (sendToMotorDebug > 1)
 	    printf("timeout is %d for %d %d %d\n", time, dist,
             ms->velocity, ms->acceleration);
     return time;
@@ -1049,11 +1045,8 @@ int goToPos(int motor, int where, int removeBL) {
     int lim, backlash;
     char cmd[MOTOR_CMD_LEN];
     int dist;
-    int slowBacklash = FALSE;
 
     m = motors[motor];
-    printf("goToPos: motor=%d where=%d removeBL=%d currPos=%d datumed=%d\n",
-           motor, where, removeBL, m->currPos, m->datumed);
     if (!m->datumed)
         gnirsLogMessage(CICS_DB_MIN, "Call goToPos() when not datumed");
 
@@ -1064,63 +1057,54 @@ int goToPos(int motor, int where, int removeBL) {
      * Calling this routine when the mechanism has not been datumed is
      * probably an error since it assumes absolute moves and motorPos,
      * which moves the motor, will use relative moves.
-     *
-     * Backlash compensation is ALWAYS applied regardless of removeBL.
-     * removeBL is retained for API compatibility but ignored.
      */
 
-    if (m->currPos == where) {
-        printf("goToPos: already at position, no move needed\n");
+    if (m->currPos == where)
         return VME_OK;
-    }
-
-    backlash = m->backlash;
-    if (removeBL == FALSE)
-        printf("goToPos: removeBL=FALSE but forcing backlash compensation anyway (backlash=%d)\n", backlash);
+    
+    if (removeBL)
+        backlash = m->backlash;
     else
-        printf("goToPos: backlash=%d\n", backlash);
-
+        backlash = 0;
     sprintf(cmd, "A%c AC%d VL%d", m->charAxis,
             m->seek.acceleration, m->seek.velocity);
-    printf("goToPos: set seek accel/vel cmd=\"%s\"\n", cmd);
     rc = noWait(motor, cmd);
     if (rc != VME_OK) {
-        mErrMsg(m, "Cannot set seek accel/vel");
+        mErrMsg(m, "Cannot set seek accel/vel"); 
         return rc;
     }
     /* If distance to go is in positive direction and is less than
-     * the backlash, skip fast motion and just do slow approach.
-     * For small negative moves, skip fast but still take up backlash
-     * at slow speed so the final approach is positive.
+     * the backlash (which for positive motion isn't really a factor,
+     * but gives us the distance along which we'll move slowly), then
+     * don't bother with the fast motion.
      */
     if (m->datumed) {
         dist = where - m->currPos;
-        if ((dist > 0) && (backlash > 0) && (dist <= backlash))
+        if ((dist > 0) && (backlash >0) && (dist <= backlash) && removeBL)
 		{
-			printf("goToPos: dist=%d <= backlash=%d -> skip fast motion (small positive)\n",
-                    dist, backlash);
-			dist = 0;   /* Skip fast motion */
+			printf ("dist < backlash\n");
+            dist = 0;   /* Skip fast motion */
 		}
-		else if ((dist < 0) && (backlash > 0) && (abs(dist) <= backlash))
+		/* GNFR-75080: backlash is always positive, so the original test
+		 * (backlash < 0) could never be true and small negative moves
+		 * fell through to fast positioning, causing timeouts. Compare
+		 * |dist| against the positive backlash instead.
+		 */
+		else if ((dist < 0) && (backlash > 0) && (abs(dist) <= backlash) && removeBL)
 		{
-			printf("goToPos: dist=%d, |dist|=%d <= backlash=%d -> skip fast, slowBacklash (small negative)\n",
-                    dist, abs(dist), backlash);
-            slowBacklash = TRUE;
-			dist = 0;  /* Skip fast motion */
+/* 			printf ("dist = %d, backlash = %d\n",dist,backlash); */
+			dist = 0;
 		}
-        else {
+        else
             dist -= backlash;
-            printf("goToPos: large move, dist after backlash adjust=%d (raw dist=%d)\n",
-                   dist, where - m->currPos);
-        }
+/* 		printf(" gotopos dist = %d\n",dist); */
     } else
         dist = m->fullTravel;
     if (dist) {
         timeout = motorTimeout(dist, &m->seek);
-        printf("goToPos: fast move to %d (timeout=%d dist=%d)\n",
-               where - backlash, timeout, dist);
+/* 		printf("fast positioning %d\n",where-backlash); */
         rc = motorPos(motor, where - backlash, timeout);
-        printf("goToPos: fast move rc=%d\n", rc);
+/* 		printf("returned from fast pos\n"); */
         /* Check for limit switch overtravel first */
         if (lim = checkLimit(motor, EITHER)) {
             mErrMsg(m, "\"%s\" %s limit hit (seek)",
@@ -1132,47 +1116,24 @@ int goToPos(int motor, int where, int removeBL) {
                 mErrMsg(m, "Failed on fast positioning");
             return rc;
         }
-    } else {
-        printf("goToPos: fast move skipped (dist=0)\n");
     }
+    if (!removeBL)
+        return VME_OK;
 
-    /* Slow backlash compensation phase - always executed */
-    printf("goToPos: entering backlash compensation phase\n");
-
+  /*   sprintf(cmd, "A%c AC%d VL%d", m->charAxis, */
+/*             m->probe.acceleration, m->probe.velocity); */
     sprintf(cmd, "A%c AC%d VL%d", m->charAxis,
             m->backOff.acceleration, m->backOff.velocity);
-    printf("goToPos: set slow accel/vel cmd=\"%s\"\n", cmd);
     rc = noWait(motor, cmd);
     if (rc != VME_OK) {
         mErrMsg(m, "Cannot set probe accel/vel");
         return rc;
     }
-    if (slowBacklash) {
-        int preTarget = where - backlash;
-        int preTimeout = motorTimeout(preTarget - m->currPos, &m->probe);
-        printf("goToPos: slowBacklash pre-move to %d from %d (timeout=%d)\n",
-               preTarget, m->currPos, preTimeout);
-        rc = motorPos(motor, preTarget, preTimeout);
-        printf("goToPos: slow pre-move rc=%d\n", rc);
-        if (lim = checkLimit(motor, EITHER)) {
-            mErrMsg(m, "\"%s\" %s limit hit (slow pre)", m->name,
-                    (lim > 0) ? "positive" : "negative");
-            return VME_ERROR;
-        }
-        if (rc != VME_OK) {
-            if (! m->aborted)
-                mErrMsg(m, "Failed on slow pre positioning");
-            return rc;
-        }
-    }
     timeout = motorTimeout(backlash, &m->probe);
-    printf("goToPos: final slow approach to %d (backlash=%d timeout=%d)\n",
-           where, backlash, timeout);
     if (m->datumed)
         rc = motorPos(motor, where, timeout);
     else
         rc = motorPos(motor, backlash, timeout); /* a relative move (MR) */
-    printf("goToPos: slow move rc=%d\n", rc);
     if (lim = checkLimit(motor, EITHER)) {
         mErrMsg(m, "\"%s\" %s limit hit (slow)", m->name,
                 (lim > 0) ? "positive" : "negative");
@@ -2054,41 +2015,10 @@ int datum(int motor) {
         } else if (rc != VME_ABORTED)
             m->health = BAD;
     } else {
-        /* motor is now datumed!  checkParked() was called by
+        /* motor is now datumed!  checkParked() was called by 
          * either setHome or position.
          */
         m->datumed = TRUE;
-
-        /* GNFR-75080: Pre-load backlash after datum to ensure consistent
-         * positioning on the first move. Move negative by the backlash
-         * amount and then back to home so the mechanics are engaged
-         * in the positive direction, matching what goToPos() expects.
-         */
-        if (m->backlash != 0) {
-            int homePos = m->currPos;
-            int blPos = homePos - abs(m->backlash);
-            int blTimeout;
-
-            sprintf(cmd, "A%c AC%d VL%d MA%d GO", m->charAxis,
-                    m->backOff.acceleration, m->backOff.velocity, blPos);
-            blTimeout = motorTimeout(abs(m->backlash), &m->backOff);
-            rc = waitFor(motor, cmd, blTimeout);
-            if (rc == VME_OK) {
-                /* Use backOff speed for the return leg. Probe speed is
-                 * unnecessarily slow here since we are just pre-loading
-                 * the backlash, not positioning to a science target.
-                 */
-                sprintf(cmd, "A%c AC%d VL%d MA%d GO", m->charAxis,
-                        m->backOff.acceleration, m->backOff.velocity, homePos);
-                blTimeout = motorTimeout(abs(m->backlash), &m->backOff);
-                rc = waitFor(motor, cmd, blTimeout);
-            }
-            if (rc != VME_OK && rc != VME_ABORTED) {
-                mErrMsg(m, "Failed backlash pre-load after datum");
-                m->health = WARNING;
-            }
-            (void) tellPV(motor);
-        }
     }
     rc2 = motorOff(motor);
     if (rc2 != VME_OK) {
@@ -2300,3 +2230,5 @@ void resetFault() {
         }
     }
 }
+
+
