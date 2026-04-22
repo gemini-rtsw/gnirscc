@@ -1,0 +1,16 @@
+# Generated symlinks (created by applSetup)
+.applTop
+.epics
+.version
+
+# Generated config (rebuilt from nirs.env on each applSetup run)
+config.par
+config/CONFIG.Defs
+
+# Editor / OS scratch
+*%
+.DS_Store
+*.swp
+*.swo
+*.orig
+*.orig-*

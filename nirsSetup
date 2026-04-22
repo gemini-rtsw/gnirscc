@@ -134,23 +134,12 @@ echo "---------------------------------------------------------------------"
 echo "* Setting up  NIRS CC directory."
 
 #
-# If these files exist, they won't be overwritten.  Remove them to
-# be safe.
+# applSetup preserves existing files, so leaving them in place lets
+# startup/local.vws keep its site customizations across builds. The
+# *.vws file is treated as source (tracked in git); config/CONFIG.Defs
+# and startup/resource.def are regenerated only when absent, driven by
+# NIRS_CCINSTPATH from nirs.env.
 #
-if [ -f config/CONFIG.Defs ]; then
-	echo "* Removing old CONFIG.Defs."
-	rm config/CONFIG.Defs
-fi
-
-if [ -f startup/local.vws ]; then
-	echo "* Removing old startup/local.vws."
-	rm startup/local.vws
-fi
-
-if [ -f startup/resource.def ]; then
-	echo "* Removing old startup/resource.def."
-	rm startup/resource.def
-fi
 
 #
 # Now set up the epics directory
