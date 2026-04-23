@@ -194,30 +194,6 @@ addsubdir () {
 #addsubdir ENG 
 
 ###########################################################################
-# The configuration procedure overwrites my .cvsignore files.  Fix them.
-###########################################################################
-
-#
-# Define a function to add a pattern to a cvs file.
-#
-# Syntax: addcvs CVSIGNOREFILE PATTERN
-#
-
-addcvs () {
-	cvsignore=$1
-	pattern=$2
-
-	if [ "`grep -c $pattern $cvsignore`" -eq 0 ]; then
-		echo "* Adding \"$pattern\" to $cvsignore".
-		echo "$pattern" >> $cvsignore
-	fi
-}
-
-addcvs startup/.cvsignore resource.def
-addcvs startup/.cvsignore UAE.dist
-addcvs .cvsignore config.par
-
-###########################################################################
 # Generate configuration files.
 ###########################################################################
 
