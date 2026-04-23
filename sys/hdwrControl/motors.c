@@ -1092,7 +1092,7 @@ int goToPos(int motor, int where, int removeBL) {
 		 */
 		else if ((dist < 0) && (backlash > 0) && (abs(dist) <= backlash) && removeBL)
 		{
-/* 			printf ("dist = %d, backlash = %d\n",dist,backlash); */
+			printf("GNFR-75080: skip fast-move, dist=%d backlash=%d\n", dist, backlash);
 			dist = 0;
 		}
         else
