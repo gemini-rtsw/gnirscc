@@ -134,12 +134,16 @@ echo "---------------------------------------------------------------------"
 echo "* Setting up  NIRS CC directory."
 
 #
-# applSetup preserves existing files, so leaving them in place lets
-# startup/local.vws keep its site customizations across builds. The
-# *.vws file is treated as source (tracked in git); config/CONFIG.Defs
-# and startup/resource.def are regenerated only when absent, driven by
-# NIRS_CCINSTPATH from nirs.env.
+# applSetup overwrites startup/local.vws with the UAE stock template,
+# stripping our site customizations (mk-gnirs-perle hostAdd, the /..
+# after iocpath). Stash the file before applSetup runs and restore it
+# after. config/CONFIG.Defs and startup/resource.def are regenerated
+# from NIRS_CCINSTPATH which is fine.
 #
+
+if [ -f startup/local.vws ]; then
+	cp startup/local.vws startup/local.vws.preserve
+fi
 
 #
 # Now set up the epics directory
@@ -148,6 +152,10 @@ echo "* Setting up  NIRS CC directory."
 applSetup -install ${NIRS_CCDIR} -depends ${NIRS_CCDIR} -depends ${NIRS_ASTLIBDIR} \
 	  -targets ${NIRS_TARGETS} -depends ${NIRS_TIMELIBDIR} -P ${NIRS_CCINSTPATH} \
 	-I startup -I ascii -I src -I sys -I capfast -I pv -s Makefile.subdirs
+
+if [ -f startup/local.vws.preserve ]; then
+	mv startup/local.vws.preserve startup/local.vws
+fi
 
 #edit startup/UAE.dist
 ed startup/UAE.dist << eof >/dev/null
