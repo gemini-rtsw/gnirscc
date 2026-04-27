@@ -42,6 +42,7 @@ echo ""
 
 if [ -d "$DST" ]; then
     FILE_COUNT=`find "$DST" -type f 2>/dev/null | wc -l | tr -d ' '`
+    EXPECTED=`basename "$DST"`
     echo "============================================================"
     echo "   WARNING: DESTINATION ALREADY EXISTS"
     echo "============================================================"
@@ -54,16 +55,16 @@ if [ -d "$DST" ]; then
     echo "   source tree. Dated backups, hand-edits, and any other"
     echo "   unversioned content under this path will be lost."
     echo ""
-    echo "   If you are not absolutely certain you want to replace"
-    echo "   the current contents of this directory, answer no."
+    echo "   To proceed, type the version name '$EXPECTED' exactly."
+    echo "   Anything else (including 'yes' or 'y') will abort."
     echo ""
     echo "============================================================"
     echo ""
-    printf "Type the version name exactly to confirm replacement: "
+    printf "Confirm by typing '%s': " "$EXPECTED"
     read CONFIRM
-    EXPECTED=`basename "$DST"`
     if [ "$CONFIRM" != "$EXPECTED" ]; then
-        echo "Confirmation did not match '$EXPECTED'. Aborting." >&2
+        echo "" >&2
+        echo "Got '$CONFIRM', expected '$EXPECTED'. Aborting." >&2
         exit 1
     fi
 else
@@ -75,6 +76,22 @@ else
         echo "Aborted." >&2
         exit 1
     fi
+fi
+
+# rdist's protocol mismatches between Solaris (polaris) and Linux (pisces)
+# break deploys when run from polaris. Detect that case up front and tell
+# the operator to run from pisces instead.
+HOST=`hostname 2>/dev/null | sed 's|\..*||'`
+if [ "$HOST" = "polaris" ]; then
+    echo ""
+    echo "============================================================"
+    echo "   ERROR: deploy.sh must be run from pisces, not polaris."
+    echo ""
+    echo "   rdist on polaris (Solaris) cannot talk to pisces (Linux)"
+    echo "   due to a protocol version mismatch. Run this script on"
+    echo "   pisces instead -- /home/gemvx is NFS-mounted there."
+    echo "============================================================"
+    exit 1
 fi
 
 echo ""
