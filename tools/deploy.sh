@@ -24,8 +24,8 @@ fi
 # Pull the first source and destination out of the Distfile. rdist supports
 # many src/dst pairs; we only report the first as a sanity check for the
 # operator -- they're all under the same version dir in our builds.
-SRC=`grep -m1 '^FILES1' "$DISTFILE" | sed 's|.*= *( *||; s| *).*||'`
-DST=`grep -m1 'install -R' "$DISTFILE" | sed 's|.*install -R *||; s|/bin/mv167;.*||; s|/bin/mv167.*||'`
+SRC=`sed -n '/^FILES1/{s|.*= *( *||;s| *).*||;p;q;}' "$DISTFILE"`
+DST=`sed -n '/install -R/{s|.*install -R *||;s|/bin/mv167;.*||;s|/bin/mv167.*||;p;q;}' "$DISTFILE"`
 
 if [ -z "$SRC" ] || [ -z "$DST" ]; then
     echo "ERROR: could not parse Distfile (SRC='$SRC' DST='$DST')." >&2
