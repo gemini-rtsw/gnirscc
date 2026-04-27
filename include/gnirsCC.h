@@ -387,7 +387,7 @@ typedef struct filterItem {
 /*********************
  * Gratings
  *********************/
-#define NUM_GRATINGS    19
+#define NUM_GRATINGS    20
 /* If you change NUM_GRAT_BOUNDS, change util.c */
 #define NUM_GRAT_BOUNDS 9
 typedef struct {
