@@ -73,6 +73,7 @@ group
         string $(top)gratingSelectB.THST = "10/mmLRHR";
         string $(top)gratingSelectB.FRST = "32/mmLBHR";
         string $(top)gratingSelectB.FVST = "32/mmLRHR";
+        string $(top)gratingSelectB.SXST = "111/mmLBLX";
 }
 
 group
