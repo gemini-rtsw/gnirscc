@@ -134,22 +134,15 @@ echo "---------------------------------------------------------------------"
 echo "* Setting up  NIRS CC directory."
 
 #
-# If these files exist, they won't be overwritten.  Remove them to
-# be safe.
+# applSetup overwrites startup/local.vws with the UAE stock template,
+# stripping our site customizations (mk-gnirs-perle hostAdd, the /..
+# after iocpath). Stash the file before applSetup runs and restore it
+# after. config/CONFIG.Defs and startup/resource.def are regenerated
+# from NIRS_CCINSTPATH which is fine.
 #
-if [ -f config/CONFIG.Defs ]; then
-	echo "* Removing old CONFIG.Defs."
-	rm config/CONFIG.Defs
-fi
 
 if [ -f startup/local.vws ]; then
-	echo "* Removing old startup/local.vws."
-	rm startup/local.vws
-fi
-
-if [ -f startup/resource.def ]; then
-	echo "* Removing old startup/resource.def."
-	rm startup/resource.def
+	cp startup/local.vws startup/local.vws.preserve
 fi
 
 #
@@ -159,6 +152,10 @@ fi
 applSetup -install ${NIRS_CCDIR} -depends ${NIRS_CCDIR} -depends ${NIRS_ASTLIBDIR} \
 	  -targets ${NIRS_TARGETS} -depends ${NIRS_TIMELIBDIR} -P ${NIRS_CCINSTPATH} \
 	-I startup -I ascii -I src -I sys -I capfast -I pv -s Makefile.subdirs
+
+if [ -f startup/local.vws.preserve ]; then
+	mv startup/local.vws.preserve startup/local.vws
+fi
 
 #edit startup/UAE.dist
 ed startup/UAE.dist << eof >/dev/null
@@ -203,30 +200,6 @@ addsubdir () {
 #addsubdir WCS 
 #addsubdir LIB 
 #addsubdir ENG 
-
-###########################################################################
-# The configuration procedure overwrites my .cvsignore files.  Fix them.
-###########################################################################
-
-#
-# Define a function to add a pattern to a cvs file.
-#
-# Syntax: addcvs CVSIGNOREFILE PATTERN
-#
-
-addcvs () {
-	cvsignore=$1
-	pattern=$2
-
-	if [ "`grep -c $pattern $cvsignore`" -eq 0 ]; then
-		echo "* Adding \"$pattern\" to $cvsignore".
-		echo "$pattern" >> $cvsignore
-	fi
-}
-
-addcvs startup/.cvsignore resource.def
-addcvs startup/.cvsignore UAE.dist
-addcvs .cvsignore config.par
 
 ###########################################################################
 # Generate configuration files.
