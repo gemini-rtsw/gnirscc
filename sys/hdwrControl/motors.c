@@ -1045,6 +1045,7 @@ int goToPos(int motor, int where, int removeBL) {
     int lim, backlash;
     char cmd[MOTOR_CMD_LEN];
     int dist;
+    int slowBacklash = FALSE;
 
     m = motors[motor];
     if (!m->datumed)
@@ -1085,14 +1086,15 @@ int goToPos(int motor, int where, int removeBL) {
 			printf ("dist < backlash\n");
             dist = 0;   /* Skip fast motion */
 		}
-		/* GNFR-75080: backlash is always positive, so the original test
-		 * (backlash < 0) could never be true and small negative moves
-		 * fell through to fast positioning, causing timeouts. Compare
-		 * |dist| against the positive backlash instead.
+		/* GNFR-75372: small negative moves skip the fast phase (it would
+		 * time out on the short distance) but the slow phase alone would
+		 * approach the target negatively, leaving backlash on the wrong
+		 * side. Do two slow legs instead: overshoot to where-backlash,
+		 * then come back up to where so the final approach is positive.
 		 */
 		else if ((dist < 0) && (backlash > 0) && (abs(dist) <= backlash) && removeBL)
 		{
-			printf("GNFR-75080: skip fast-move, dist=%d backlash=%d\n", dist, backlash);
+			slowBacklash = TRUE;
 			dist = 0;
 		}
         else
@@ -1128,6 +1130,21 @@ int goToPos(int motor, int where, int removeBL) {
     if (rc != VME_OK) {
         mErrMsg(m, "Cannot set probe accel/vel");
         return rc;
+    }
+    if (slowBacklash) {
+        int overshoot = where - backlash;
+        timeout = motorTimeout(overshoot - m->currPos, &m->probe);
+        rc = motorPos(motor, overshoot, timeout);
+        if (lim = checkLimit(motor, EITHER)) {
+            mErrMsg(m, "\"%s\" %s limit hit (slow overshoot)", m->name,
+                    (lim > 0) ? "positive" : "negative");
+            return VME_ERROR;
+        }
+        if (rc != VME_OK) {
+            if (! m->aborted)
+                mErrMsg(m, "Failed on slow overshoot");
+            return rc;
+        }
     }
     timeout = motorTimeout(backlash, &m->probe);
     if (m->datumed)
