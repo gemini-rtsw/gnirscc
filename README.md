@@ -21,12 +21,19 @@ from pisces.
 
 ## One-time setup
 
-Pick a release name (e.g. `V1-27`) and check the tree out under your
-home directory:
+Clone the repo locally:
+
+```sh
+git clone git@gitlab.com:nsf-noirlab/gemini/rtsw/iocs/gnirscc.git
+```
+
+Pick a release name (e.g. `V1-27`) and push the tree out to polaris.
+The destination directory name is arbitrary — `gnirscc-git-V1-27`
+below is just an example:
 
 ```sh
 # on your workstation
-rsync -avz gnirscc polaris-tunnel:/home/gemvx/<user>/gnirscc-git-V1-27
+rsync -avz gnirscc polaris:/home/gemvx/<user>/gnirscc-git-V1-27
 ```
 
 If you're cutting a new release, bump `NIRSCC_CVSRELEASE` at the top of
@@ -34,13 +41,15 @@ If you're cutting a new release, bump `NIRSCC_CVSRELEASE` at the top of
 
 ## Build
 
-On polaris, from the tree root:
+On polaris, from the tree root (substitute your own directory name for
+`~/gnirscc-git-V1-27`):
 
 ```sh
 cd ~/gnirscc-git-V1-27
-. ./nirs.env        # sources env, then runs `sh -x ./nirsSetup CC`
-make                # full build (mv167 target)
-make Distfile       # generate the rdist Distfile
+GEM5                 # sets up the GEM5 build environment (must come first)
+. ./nirs.env         # sources env, then runs `sh -x ./nirsSetup CC`
+make                 # full build (mv167 target)
+make Distfile        # generate the rdist Distfile
 ```
 
 `nirs.env` auto-detects `NIRS_CCDIR` from its own location, so the tree
@@ -48,7 +57,7 @@ can live anywhere under your home directory.
 
 ## Deploy
 
-On pisces, from the same tree:
+On pisces, from the same tree (same example path, substitute your own):
 
 ```sh
 cd ~/gnirscc-git-V1-27
