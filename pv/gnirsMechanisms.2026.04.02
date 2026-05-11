@@ -101,7 +101,7 @@ position = "LB+SXD_G5536"               103789          10
 position = "SB+SXD_G5536"               103566          10
 position = "LR+SXD_G5536"               103534          10
 position = "SR+SXD_G5536"               103534          10
-position = "LB+LXD_G5535"              -166040          30
+position = "LB+LXD_G5535"              -166111          30
 position = "SB+LXD_G5535"               373669          30
 position = "LR+LXD_G5535"               373669          30
 position = "SR+LXD_G5535"               373669          30
@@ -150,7 +150,6 @@ position = "10/mmLBHR_G5532" 	        15      -96546
 position = "10/mmLRHR_G5532"            16      -96546
 position = "32/mmLBHR_G5533"            17      81500
 position = "32/mmLRHR_G5533"            18      81500
-position = "111/mmLBLX_G5534"           19      270800
 
 ####
 [mechanism camera]

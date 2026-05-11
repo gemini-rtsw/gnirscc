@@ -97,28 +97,28 @@ motor = 6
 # DO NOT USE "_" in the position names before the Gemini part number 
 # (e.g., use +10_G5537 instead of _10_G5537)
 
-position = "LB+SXD_G5536"               103789          10
-position = "SB+SXD_G5536"               103566          10
-position = "LR+SXD_G5536"               103534          10
-position = "SR+SXD_G5536"               103534          10
-position = "LB+LXD_G5535"              -166040          30
-position = "SB+LXD_G5535"               373669          30
-position = "LR+LXD_G5535"               373669          30
-position = "SR+LXD_G5535"               373669          30
-position = "MIR_G5537"                  246478          20
-position = "WOLL_G5509"                 508609          40
-position = "LB32+MIR_G5537"            246393          20
-position = "LR32+MIR_G5537"            246483          20
-position = "SB32+MIR_G5537"            246448          20
-position = "SR32+MIR_G5537"            246448          20
-position = "LB10+MIR_G5537"            246388          20
-position = "LR10+MIR_G5537"            246460          20
-position = "SB10+MIR_G5537"            246448          20
-position = "SR10+MIR_G5537"            246448          20
-position = "LB111+MIR_G5537"           246423          20
-position = "LR111+MIR_G5537"           246516          20
-position = "SB111+MIR_G5537"           246448          20
-position = "SR111+MIR_G5537"           246448          20
+position = "LB+SXD_G5536"               103743          10
+position = "SB+SXD_G5536"               103520          10
+position = "LR+SXD_G5536"               103488          10
+position = "SR+SXD_G5536"               103488          10
+position = "LB+LXD_G5535"              -166157          30
+position = "SB+LXD_G5535"               373623          30
+position = "LR+LXD_G5535"               373623          30
+position = "SR+LXD_G5535"               373623          30
+position = "MIR_G5537"                  246432          20
+position = "WOLL_G5509"                 508563          40
+position = "LB32+MIR_G5537"            246347          20
+position = "LR32+MIR_G5537"            246437          20
+position = "SB32+MIR_G5537"            246402          20
+position = "SR32+MIR_G5537"            246402          20
+position = "LB10+MIR_G5537"            246342          20
+position = "LR10+MIR_G5537"            246414          20
+position = "SB10+MIR_G5537"            246402          20
+position = "SR10+MIR_G5537"            246402          20
+position = "LB111+MIR_G5537"           246377          20
+position = "LR111+MIR_G5537"           246470          20
+position = "SB111+MIR_G5537"           246402          20
+position = "SR111+MIR_G5537"           246402          20
 
 
 ####
@@ -150,17 +150,16 @@ position = "10/mmLBHR_G5532" 	        15      -96546
 position = "10/mmLRHR_G5532"            16      -96546
 position = "32/mmLBHR_G5533"            17      81500
 position = "32/mmLRHR_G5533"            18      81500
-position = "111/mmLBLX_G5534"           19      270800
 
 ####
 [mechanism camera]
 name = "Camera Turret"
 motor = 8
-position = "ShortRed_G5545"     	-90390		  0
-position = "LongRed_G5543"		  5520		222	
-position = "ShortBlue_G5540"   		101390		333	
-position = "LongBlue_G5542"            -186815          444	
-position = "Open"   			340890       	444	
+position = "ShortRed_G5545"     	-90410		  0
+position = "LongRed_G5543"		  5500		222	
+position = "ShortBlue_G5540"   		101370		333	
+position = "LongBlue_G5542"            -186835          444	
+position = "Open"   			340870       	444	
 
 [mechanism focus]
 name = "Detector Focus Control"

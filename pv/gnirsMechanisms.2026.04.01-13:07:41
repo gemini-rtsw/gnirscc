@@ -150,7 +150,6 @@ position = "10/mmLBHR_G5532" 	        15      -96546
 position = "10/mmLRHR_G5532"            16      -96546
 position = "32/mmLBHR_G5533"            17      81500
 position = "32/mmLRHR_G5533"            18      81500
-position = "111/mmLBLX_G5534"           19      270800
 
 ####
 [mechanism camera]
