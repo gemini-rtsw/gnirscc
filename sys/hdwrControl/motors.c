@@ -1094,6 +1094,9 @@ int goToPos(int motor, int where, int removeBL) {
 		 */
 		else if ((dist < 0) && (backlash > 0) && (abs(dist) <= backlash) && removeBL)
 		{
+			printf("GNFR-75372 slowBacklash branch: motor=%d currPos=%d where=%d "
+			       "dist=%d backlash=%d\n",
+			       motor, m->currPos, where, dist, backlash);
 			slowBacklash = TRUE;
 			dist = 0;
 		}
@@ -1133,24 +1136,39 @@ int goToPos(int motor, int where, int removeBL) {
     }
     if (slowBacklash) {
         int overshoot = where - backlash;
-        timeout = motorTimeout(overshoot - m->currPos, &m->probe);
-        rc = motorPos(motor, overshoot, timeout);
+        char ocmd[MOTOR_CMD_LEN];
+        int odist = abs(overshoot - m->currPos);
+        sprintf(ocmd, "A%c MA%d GO", m->charAxis, overshoot);
+        timeout = motorTimeout(odist, &m->backOff);
+        printf("GNFR-75372 overshoot: motor=%d currPos=%d where=%d backlash=%d "
+               "overshoot=%d odist=%d timeout=%d cmd=\"%s\"\n",
+               motor, m->currPos, where, backlash, overshoot, odist, timeout, ocmd);
+        rc = waitFor(motor, ocmd, timeout);
+        printf("GNFR-75372 overshoot: rc=%d aborted=%d\n", rc, m->aborted);
+        if (rc != VME_OK && !m->aborted) {
+            mErrMsg(m, "Failed on slow overshoot");
+            return rc;
+        }
+        (void) tellPV(motor);
+        printf("GNFR-75372 overshoot: after tellPV currPos=%d (target was %d)\n",
+               m->currPos, overshoot);
         if (lim = checkLimit(motor, EITHER)) {
             mErrMsg(m, "\"%s\" %s limit hit (slow overshoot)", m->name,
                     (lim > 0) ? "positive" : "negative");
             return VME_ERROR;
         }
-        if (rc != VME_OK) {
-            if (! m->aborted)
-                mErrMsg(m, "Failed on slow overshoot");
-            return rc;
-        }
     }
     timeout = motorTimeout(backlash, &m->probe);
+    if (slowBacklash)
+        printf("GNFR-75372 final slow: motor=%d currPos=%d where=%d backlash=%d "
+               "timeout=%d\n",
+               motor, m->currPos, where, backlash, timeout);
     if (m->datumed)
         rc = motorPos(motor, where, timeout);
     else
         rc = motorPos(motor, backlash, timeout); /* a relative move (MR) */
+    if (slowBacklash)
+        printf("GNFR-75372 final slow: rc=%d currPos=%d\n", rc, m->currPos);
     if (lim = checkLimit(motor, EITHER)) {
         mErrMsg(m, "\"%s\" %s limit hit (slow)", m->name,
                 (lim > 0) ? "positive" : "negative");
