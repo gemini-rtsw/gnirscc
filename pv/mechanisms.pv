@@ -73,7 +73,6 @@ group
         string $(top)gratingSelectB.THST = "10/mmLRHR";
         string $(top)gratingSelectB.FRST = "32/mmLBHR";
         string $(top)gratingSelectB.FVST = "32/mmLRHR";
-        string $(top)gratingSelectB.SXST = "111/mmLBLX";
 }
 
 group
@@ -99,28 +98,29 @@ group
 group
 {
 	# xdisp names
-        string $(top)xdispSelectA.ZRST = "LB+SXD";
-        string $(top)xdispSelectA.ONST = "SB+SXD";
-        string $(top)xdispSelectA.TWST = "LR+SXD";
-        string $(top)xdispSelectA.THST = "SR+SXD";
-        string $(top)xdispSelectA.FRST = "LB+LXD";
-        string $(top)xdispSelectA.FVST = "SB+LXD";
-        string $(top)xdispSelectA.SXST = "LR+LXD";
-        string $(top)xdispSelectA.SVST = "SR+LXD";
-        string $(top)xdispSelectA.EIST = "MIR";
-        string $(top)xdispSelectA.NIST = "WOLL";
-        string $(top)xdispSelectB.ZRST = "LB32+MIR";
-        string $(top)xdispSelectB.ONST = "LR32+MIR";
-        string $(top)xdispSelectB.TWST = "SB32+MIR";
-        string $(top)xdispSelectB.THST = "SR32+MIR";
-        string $(top)xdispSelectB.FRST = "LB10+MIR";
-        string $(top)xdispSelectB.FVST = "LR10+MIR";
-        string $(top)xdispSelectB.SXST = "SB10+MIR";
-        string $(top)xdispSelectB.SVST = "SR10+MIR";
-        string $(top)xdispSelectB.EIST = "LB111+MIR";
-        string $(top)xdispSelectB.NIST = "LR111+MIR";
-        string $(top)xdispSelectB.TEST = "SB111+MIR";
-        string $(top)xdispSelectB.ELST = "SR111+MIR"; 
+	string $(top)xdispSelectA.ZRST = "LB+SXD";
+	string $(top)xdispSelectA.ONST = "SB+SXD";
+	string $(top)xdispSelectA.TWST = "LR+SXD";
+	string $(top)xdispSelectA.THST = "SR+SXD";
+	string $(top)xdispSelectA.FRST = "LB+LXD";
+	string $(top)xdispSelectA.FVST = "SB+LXD";
+	string $(top)xdispSelectA.SXST = "LR+LXD";
+	string $(top)xdispSelectA.SVST = "SR+LXD";
+	string $(top)xdispSelectA.EIST = "MIR";
+	string $(top)xdispSelectA.NIST = "WOLL";
+	string $(top)xdispSelectB.ZRST = "LB32+MIR";
+	string $(top)xdispSelectB.ONST = "LR32+MIR";
+	string $(top)xdispSelectB.TWST = "SB32+MIR";
+	string $(top)xdispSelectB.THST = "SR32+MIR";
+	string $(top)xdispSelectB.FRST = "LB10+MIR";
+	string $(top)xdispSelectB.FVST = "LR10+MIR";
+	string $(top)xdispSelectB.SXST = "SB10+MIR";
+	string $(top)xdispSelectB.SVST = "SR10+MIR";
+	string $(top)xdispSelectB.EIST = "LB111+MIR";
+	string $(top)xdispSelectB.NIST = "LR111+MIR";
+	string $(top)xdispSelectB.TEST = "SB111+MIR";
+	string $(top)xdispSelectB.ELST = "SR111+MIR";
+        
 
 }
 

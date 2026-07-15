@@ -302,7 +302,7 @@ initString = "SL"
 parkposition = 0
 
 # Next 4 items have two parameters: acceleration, then velocity
-seek = 1000, 2500
+seek = 2000, 5000
 backoff = 200 800
 probe = 40,80
 probeH = 1, 5			# careful probe of home switch position

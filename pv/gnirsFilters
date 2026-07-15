@@ -23,11 +23,6 @@
 #              test
 # 2022-Jul-01, ema farina, hyewon suh, brian lemaus, and andy
 #              updated the value of the PV of FW1 to avoid vignetting
-# 2025-Jul-29, ema farina, brian lemaus
-#              updated FW1 values post refurbishment
-# 2025-Sep-10, ema farina, brian lemax
-#              updated FW1 values post refurbishment again
-#
 # NOTE: DO NOT WRITE COMMENTS THAT ARE TOO LONG, FILE WILL
 #       NOT LOAD PROPERLY
 ##########################
@@ -47,14 +42,14 @@ position = "i1"   33195,      0		"LeftMask_G0530"
 position = "j1"   37355,      0		"Dark_G0511"
 
 [mechanism filter wheel 2]
-position = "a2"      -105,      -105	"Open"
-position = "b2"     4075,      0	"PAH_G0524"
-position = "c2"     8225,      0        "M_G0514"
-position = "d2"    12375,      0        "L_G0527"
-position = "e2"    16375,      0        "X_G0518"
-position = "f2"   -20925,      0        "J_G0517"
-position = "g2"   -16675,      0        "K_G0515"
-position = "h2"   -12575,      0        "H_G0516"
-position = "i2"    -8375,      0        "XD_G0526"          
-position = "j2"    -4275,      0        "H2_G0522"
+position = "a2"       20,      0	"Open"
+position = "b2"     4200,      0	"PAH_G0524"
+position = "c2"     8350,      0        "M_G0514"
+position = "d2"    12500,      0        "L_G0527"
+position = "e2"    16500,      0        "X_G0518"
+position = "f2"   -20800,      0        "J_G0517"
+position = "g2"   -16650,      0        "K_G0515"
+position = "h2"   -12450,      0        "H_G0516"
+position = "i2"    -8250,      0        "XD_G0526"          
+position = "j2"    -4150,      0        "H2_G0522"
 
