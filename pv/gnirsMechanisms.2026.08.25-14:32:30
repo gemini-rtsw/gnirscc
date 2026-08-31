@@ -97,28 +97,28 @@ motor = 6
 # DO NOT USE "_" in the position names before the Gemini part number 
 # (e.g., use +10_G5537 instead of _10_G5537)
 
-position = "LB+SXD_G5536"               103780          10
-position = "SB+SXD_G5536"               103557          10
-position = "LR+SXD_G5536"               103525          10
-position = "SR+SXD_G5536"               103525          10
-position = "LB+LXD_G5535"              -166049          30
-position = "SB+LXD_G5535"               373660          30
-position = "LR+LXD_G5535"               373660          30
-position = "SR+LXD_G5535"               373660          30
-position = "MIR_G5537"                  246469          20
-position = "WOLL_G5509"                 508600          40
-position = "LB32+MIR_G5537"            246384          20
-position = "LR32+MIR_G5537"            246474          20
-position = "SB32+MIR_G5537"            246439          20
-position = "SR32+MIR_G5537"            246439          20
-position = "LB10+MIR_G5537"            246379          20
-position = "LR10+MIR_G5537"            246451          20
-position = "SB10+MIR_G5537"            246439          20
-position = "SR10+MIR_G5537"            246439          20
-position = "LB111+MIR_G5537"           246554          20
-position = "LR111+MIR_G5537"           246507          20
-position = "SB111+MIR_G5537"           246439          20
-position = "SR111+MIR_G5537"           246439          20
+position = "LB+SXD_G5536"               103778          10
+position = "SB+SXD_G5536"               103555          10
+position = "LR+SXD_G5536"               103523          10
+position = "SR+SXD_G5536"               103523          10
+position = "LB+LXD_G5535"              -166051          30
+position = "SB+LXD_G5535"               373658          30
+position = "LR+LXD_G5535"               373658          30
+position = "SR+LXD_G5535"               373658          30
+position = "MIR_G5537"                  246467          20
+position = "WOLL_G5509"                 508598          40
+position = "LB32+MIR_G5537"            246382          20
+position = "LR32+MIR_G5537"            246472          20
+position = "SB32+MIR_G5537"            246437          20
+position = "SR32+MIR_G5537"            246437          20
+position = "LB10+MIR_G5537"            246377          20
+position = "LR10+MIR_G5537"            246449          20
+position = "SB10+MIR_G5537"            246437          20
+position = "SR10+MIR_G5537"            246437          20
+position = "LB111+MIR_G5537"           246412          20
+position = "LR111+MIR_G5537"           246505          20
+position = "SB111+MIR_G5537"           246437          20
+position = "SR111+MIR_G5537"           246437          20
 
 
 ####
