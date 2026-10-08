@@ -199,21 +199,31 @@ buildenv)
     ;;
 
 runtime)
+    # GEMINI_ROOT: where pisces:/export/gemini is visible on THIS host --
+    # /gemini on polaris, /net/pisces/export/gemini on a Linux workstation.
+    G=${GEMINI_ROOT:-/gemini}
+    [ -d $G/external/GEM5 ] || { echo "ERROR: $G/external/GEM5 not found -- set GEMINI_ROOT"; exit 1; }
     mkdir -p $OUT
-    echo "Staging the trees the crate ld's at boot into $OUT"
+    echo "Staging the trees the crate ld's at boot from $G into $OUT"
     set --
-    for p in /gemini/external/GEM5/base/bin/mv167 \
-             /gemini/external/GEM5/extensions/bin/mv167 \
-             /gemini/external/GEM5/base/include \
-             /gemini/astlib /gemini/slalib /gemini/timelib \
-             /gemini/external/vxWorks/vxUsers; do
-        if [ -f $p ] || [ -d $p ]; then
+    for p in $G/external/GEM5/base/bin/mv167 \
+             $G/external/GEM5/extensions/bin/mv167 \
+             $G/external/GEM5/base/include \
+             $G/astlib $G/slalib $G/timelib \
+             $G/external/vxWorks/vxUsers \
+             $G/external/vxWorks/tornado2.0/mv167 \
+             $G/external/vxWorks/tornado2.2/mv167; do
+        # -h too: an absolute link (e.g. -> /gemini/slalib-1.1) dangles off-server.
+        if [ -f $p ] || [ -d $p ] || [ -h $p ]; then
             t=`linkof $p`
             [ -n "$t" ] && echo "  $p -> $t   (symlink: staging its target too)"
             set -- "$@" $p
             # Follow version-selecting symlinks one level so the pinned
             # version is in the archive, not just a dangling link.
             case "$t" in
+                # An absolute target names the SERVER's path; map /gemini
+                # onto GEMINI_ROOT so it resolves on a workstation too.
+                /gemini/*) set -- "$@" $G/`echo $t | sed 's|^/gemini/||'` ;;
                 /*) set -- "$@" $t ;;
                 ?*) set -- "$@" `dirname $p`/$t ;;
             esac
@@ -231,9 +241,9 @@ runtime)
 deployed)
     D="${2:-}"
     if [ -z "$D" ]; then
-        echo "usage: $0 deployed /gemini/GEM5/gnirs/CC/<release>"
+        echo "usage: $0 deployed ${GEMINI_ROOT:-/gemini}/GEM5/gnirs/CC/<release>"
         echo; echo "Candidates:"
-        ls -la /gemini/GEM5/gnirs/CC 2>/dev/null
+        ls -la ${GEMINI_ROOT:-/gemini}/GEM5/gnirs/CC 2>/dev/null
         exit 1
     fi
     [ -d "$D" ] || { echo "ERROR: $D is not a directory"; exit 1; }
