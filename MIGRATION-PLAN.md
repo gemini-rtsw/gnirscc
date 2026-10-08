@@ -25,6 +25,54 @@ Nothing built for gmoscc or hrwfs is reusable except the procedure, the
 pipeline and the lessons. gnirsdc is also GEM5/mv167, so every GEM5 dependency
 RPM built here serves it too.
 
+## 0b. Inventory results (polaris, 2026-10-08)
+
+From `stage-buildenv.sh inventory`, run under `GEM5` (= `source ~/.gem5`).
+The run produced 892 lines; it is kept untracked at
+`tools/linux-build/gnirscc-inventory.txt`.
+
+**It is older than assumed: pre-Tornado vxWorks 5.2b and a 1993 compiler.**
+
+| | measured |
+|---|---|
+| host | SunOS 5.8, sun4u (Ultra-250) |
+| EPICS | `/usr/software/dev/packages/epics/epics3.12.2GEM5`, `epicsVersion.h` = **R3.12.2GEM5** (update level 5) |
+| vxWorks | **`VX_DIR=/usr/software/dev/packages/vxworks/v5.2b`**. No `WIND_BASE`, so there is **no Tornado at all** |
+| compiler | `cc68k` = **`gcc version cygnus-2.2.3.1`** (`.../v5.2b/gnu/solaris.68k`, a SPARC ELF binary) |
+| object format | **a.out**: `file` says `impure mc68020 executable`, not ELF. So the script's `strings \| grep GCC:` finds nothing, because a.out has no `.comment` section |
+| host arches in base/bin | `solaris`, `hkbaja47`, `mv147`, `mv167`. **No Linux** |
+| EPICS source | present: `base/src` 27 MB, `extensions/src` 89 MB, plus the original `R3.12.2GEM5{base,ext}.Tar.gz` (1999) |
+| applSetup | a **csh script** (`extensions/bin/solaris/applSetup`, v1.10 1995 + RGO edits). It should run on Linux under tcsh with no port |
+| support libs | `/gemini/astlib -> astlib-1.3`, `/gemini/slalib -> slalib-1.1`, `/gemini/timelib -> timelib-1.3`, with source in `extensions/src/gemini/*` |
+| GEM5 runtime | `/gemini/external/GEM5/base/bin/mv167/{iocCore,drvSup,recSup,devSup,seq,...}` plus `vxWorks` (Nov 1998). The build tree's copy differs: `recSup` is a different date and `vxWorks` is 2002 |
+| mv167 kernels | `tornado2.0/mv167/{BC,STND,NetBuf}vxWorks` (2001-04), `tornado2.2/mv167/vxWorks` (2004), plus the GEM5 one above. **Which one GNIRS boots is unknown** |
+| polaris `/` | 90% used, **217 MB free**, and `/var/tmp` is on `/`. The EPICS tree alone is 183 MB, so staging is tight |
+
+The existing V1-24..V1-27 builds in `/home/gemvx/hstecher` show the
+generated `CONFIG.Defs`: `APPLIC_IOCPATH = pisces:/gemini/GEM5/gnirs/CC/V1-27`,
+`APPLIC_DCTSDR = default`, `APPLIC_SITE` empty, and `APPLIC_DEPENDS` =
+astlib + timelib only. The built `bin/mv167` has **no `mytimeLib.o`**, which
+confirms that `startup.CC.epics.vws` is stale.
+
+### What this changes
+
+- **The compiler gap is far wider than hrwfs's.** It is cygnus gcc 2.2.3
+  against vxWorks 5.2b, with no Tornado. ANL's 68k gcc 2.96 targets Tornado
+  2.2 / vxWorks 5.5 headers, so we would be compiling against **5.2b**
+  headers with a compiler seven years newer, and the result would be loaded
+  by a 5.2b kernel (if that is what boots). Treat option B as an
+  experiment, not an assumption.
+- **The host-tool problem may be smaller than feared.** gnirscc has no `.st`
+  (so no `snc`), Capfast is dead (so no `e2sr`/`e2db`), `default.dctsdr`
+  is committed, and applSetup is csh. If the 3.12 config rules call no
+  compiled host tool for an mv167 build, then only `gmake` and `cc68k` matter.
+  **To verify:** `$EPICS/config/*` (see §5).
+- **New option E: run the original compiler unmodified.** `cc68k` is a SPARC
+  Solaris binary. A Solaris 8 guest under `qemu-system-sparc` would
+  reproduce production's compiler exactly, so the validation would be
+  byte-level. It is heavy and has licensing questions, but it is the only
+  route to exact output if no compiler source exists.
+
 ## 1. The two questions that size the project
 
 ### 1a. Can the EPICS 3.12.2 host tools build for Linux?
@@ -135,12 +183,21 @@ runs 5.3.x (likely for a 1999 tree) the gap is wider than hrwfs's 2.7.2 ->
 
 ## 5. Needed from polaris / production
 
-1. `sh stage-buildenv.sh inventory` output, run **after** `GEM5` in the same
-   csh session (save to a file and send it back).
-2. `alias GEM5`, and every file it sources (e.g. `~/.gem5`, `epics.csh`).
-3. The deployed tree: `ls -la /gemini/GEM5/gnirs/CC` (which release is live,
-   any selector symlink), then `stage-buildenv.sh deployed <that path>`.
-4. The CC crate's **boot parameters** (`p` at the vxWorks boot prompt, or
-   `bootParamsShow` from the shell) -- which kernel and which startup script.
-5. Then, once 1-4 are reviewed: `buildenv` and `runtime` tarballs (sizes are
-   in the inventory -- check `/var/tmp` space first).
+Done: `stage-buildenv.sh inventory` (§0b).
+
+Next, all read-only, csh on polaris after `GEM5`:
+
+1. `cat ~/.gem5`
+2. The vxWorks 5.2b tree: `ls -la $VX_DIR`, `du -sk $VX_DIR/*`,
+   `grep -i version $VX_DIR/h/version.h`, `ls $VX_DIR/gnu`,
+   `ls $VX_DIR/gnu/solaris.68k/lib/gcc-lib/m68k-wrs-vxworks/cygnus-2.2.3.1`
+   (is there any GNU **source** anywhere under `$VX_DIR`?)
+3. The config rules: `ls -la $EPICS/config`, then
+   `grep -n 'bld\|dct\|sdr\|snc\|e2sr\|e2db\|antelope\|e_flex\|BIN)' $EPICS/config/RULES* $EPICS/config/CONFIG*`
+   (which host binaries an mv167 build actually invokes)
+4. `file ~hstecher/gnirscc-git-V1-27/bin/mv167/*`
+5. `df -k` (find a filesystem with room for staging)
+6. The live deploy: `ls -la /gemini/GEM5/gnirs/CC` and `ls -la` of the release
+   in use
+7. The CC crate's **boot parameters** (`p` at the boot prompt, or
+   `bootParamsShow`): which kernel, which startup script
