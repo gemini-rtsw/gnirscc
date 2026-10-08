@@ -187,6 +187,65 @@ later as its own job. The CC's new-compiler objects will then run beside a
 cygnus-2.2.3 `gmSeqAppl`, which is the same mixed-compiler situation hrwfs
 analysed, and is covered by the same crate test.
 
+## 0c. RESULT: the toolchain experiment works (2026-10-08)
+
+**ANL's Linux 68k gcc 2.96 builds gnirscc against the vxWorks 5.2b headers,
+and the result loads.** Reproduce it with `tools/linux-build/compile-test.sh`
+followed by `tools/linux-build/check-objects.sh`.
+
+Toolchain: `https://epics.anl.gov/base/gnu-tools.tor2_2-m68k-rhel5.tgz`,
+sha256 `3ea24b7322d815ec1e8f438ee5faf3ce00cbd4219574ed23621858728376fc7e`.
+The GPL source is `cum.tor2_2-m68k.tgz`, sha256
+`1e0fa2c16cc61478dd32a3a2170bf4aeac8a445e4810a88ab27bb299d3a24a24`.
+Both are kept in `~/work/gnirscc-buildenv/toolchain`. They install as
+`$VX_DIR/gnu/Linux.68k`, which is the slot `CONFIG_COMMON`'s
+`VX_GNU_BIN = $(VX_GNU)/$(HOST_ARCH).$(ARCH_CLASS)/bin` already expects for
+`HOST_ARCH=Linux`.
+
+- **63 of 63 sources compile; all 5 products link.** There are no compiler
+  or header incompatibilities. The 254 warnings are 1990s-C cosmetics
+  (braces around scalar initializers, implicit int, parentheses).
+- **Same object format:** `a.out SunOS mc68020`, not stripped, the same as production.
+- **`.data` is identical in size for every product; `.bss` is too, except
+  drvAscii +8 and sioSup +4. `.text` is 0-3% larger.**
+
+  | product | production text/data/bss | built |
+  |---|---|---|
+  | ccGlobal.o | 680/376/0 | 680/376/0 |
+  | cicsLib.o | 1848/100/7680 | 1876/100/7680 |
+  | epicsCAInt.o | 2512/8/0 | 2520/8/0 |
+  | tnetDev | 2160/0/0 | 2220/0/0 |
+  | sioSup | 8848/32/532 | 9116/32/536 |
+  | drvAscii | 44668/508/24 | 45972/508/32 |
+  | hdwrControl.o | 60592/2420/48 | 62284/2420/48 |
+  | epicsControl.o | 134772/1040/20596 | 136864/1040/20596 |
+
+- **Exported symbols are identical for all 7 loaded products.**
+- **Every module loads.** Following startup.IS's `ld` order, each undefined
+  symbol resolves against the production vxWorks 5.2 `vxWorks.sym` (2787
+  symbols) plus the modules loaded before it. That gives 0 unresolved, the
+  same as the production objects. gcc 2.96 introduced **no new
+  compiler-support references**: the only `___` symbols are vxWorks libc's
+  (`___errno`, `___ctype`, `___srget`, ...), the same set as production. A
+  negative control (a module moved ahead of its dependencies) correctly
+  fails with 29 unresolved.
+- **Checked the two warnings that could change behaviour:**
+  - `motors.c:292` calls `sqrt` with no `<math.h>` (the motor-timeout
+    calculation for short moves). Both compilers take the result as a
+    `double` from `d0:d1`, and the instruction sequence around the call is
+    the same apart from register choice. **No behaviour change.**
+  - `ccGlobal.o` `.data` has the same size but different bytes. It is a table of 94
+    pointers to string literals, which gcc 2.96 lays out in reverse order.
+    Following each pointer gives the **identical string sequence**.
+- `tandp.c`'s implicit `fabs` produces no call and no `fabs` instruction in
+  either build, so it is handled identically.
+
+**What is proven:** the toolchain, the headers, the object format, and that
+the objects load. **Not yet proven:** the full UAE `gmake` build
+(applSetup under tcsh, HOST_ARCH=Linux), and runtime behaviour, which needs
+the crate test (Phase 4). As with hrwfs, our modules will run beside a
+cygnus-built kernel, EPICS runtime, support libs and IS.
+
 ## 1. The two questions that size the project
 
 ### 1a. Can the EPICS 3.12.2 host tools build for Linux?

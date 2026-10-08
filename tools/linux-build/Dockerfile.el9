@@ -1,0 +1,21 @@
+# Build environment for the gnirscc Linux rehost (REL-5050).
+#
+# GEM5 = EPICS 3.12.2 / vxWorks 5.2b / mv167 (MC68040). The cross-compiler is
+# ANL's Linux rebuild of the Wind River Tornado 2.2 68k GNU tools (gcc 2.96,
+# a.out output), which are 32-bit i386 binaries -- hence glibc.i686.
+#
+# The mv167 build calls only the 68k compiler/linker, sed and install (see
+# MIGRATION-PLAN.md section 0b), so no EPICS host tools are built here. tcsh is
+# for the 3.12 applSetup, which is a csh script.
+FROM rockylinux:9
+
+RUN dnf -y install --setopt=install_weak_deps=False \
+        make binutils gcc \
+        glibc.i686 \
+        tcsh perl \
+        findutils diffutils which sed gawk grep tar gzip file patch \
+    && dnf clean all \
+    && ln -sf /usr/bin/make /usr/local/bin/gmake
+
+# polaris's CONFIG.Defs name the automounter path /export/software.
+RUN mkdir -p /export && ln -sf /usr/software /export/software
