@@ -22,7 +22,9 @@
 # Written for Solaris /bin/sh: no $(...), no `tar z`, no readlink, and /tmp is
 # swap-backed -- hence /var/tmp and explicit gzip pipes.
 
-OUT=/var/tmp/gnirscc-stage
+# polaris's /var/tmp (on /) has ~200 MB free, too little for buildenv;
+# override with e.g. STAGE_OUT=/export/home/gemvx-stage.
+OUT=${STAGE_OUT:-/var/tmp/gnirscc-stage}
 
 # Symlink target without readlink (absent on older Solaris).
 linkof() { ls -ld "$1" 2>/dev/null | sed -n 's/.* -> //p'; }
@@ -142,35 +144,55 @@ inventory)
     ;;
 
 buildenv)
-    [ -n "${EPICS:-}" ]     || { echo "ERROR: \$EPICS unset -- run GEM5 first"; exit 1; }
-    [ -n "${WIND_BASE:-}" ] || { echo "ERROR: \$WIND_BASE unset -- run GEM5 first"; exit 1; }
-    mkdir -p $OUT
-    echo "Staging into $OUT"; df -k $OUT | tail -1
+    # GEM5 predates Tornado: the vxWorks tree is $VX_DIR (v5.2b), and
+    # WIND_BASE is unset.
+    [ -n "${EPICS:-}" ]  || { echo "ERROR: \$EPICS unset -- run GEM5 first"; exit 1; }
+    [ -n "${VX_DIR:-}" ] || { echo "ERROR: \$VX_DIR unset -- run GEM5 first"; exit 1; }
+
+    # What to take from $VX_DIR. Not bin/, host/ or man/ (SPARC host binaries
+    # and docs), and not the mips/sun4 toolchains. gnu/src is the GPL source
+    # of the cygnus 2.2.3 tools -- reference for the exact compiler config.
+    # gnu/solaris.68k carries its specs and include/, which record the flags
+    # and predefines a newer compiler has to reproduce.
+    VXPARTS=""
+    for p in README .bsp-product-names .bsp-unlocked BSP-100-1153-ZC-03 \
+             h config lib target gnu/src gnu/solaris.68k; do
+        [ -f $VX_DIR/$p ] || [ -d $VX_DIR/$p ] && VXPARTS="$VXPARTS $VX_DIR/$p"
+    done
+
+    # Refuse to start if the destination cannot hold the UNCOMPRESSED inputs
+    # (a conservative bound: the archives are gzipped). polaris's / and
+    # /var/tmp have ~200 MB free, which is not enough; see STAGE_OUT.
+    need=`du -sk $HOME/.gem5 $EPICS $VXPARTS 2>/dev/null | awk '{s+=$1} END {print s}'`
+    mkdir -p $OUT || exit 1
+    have=`df -k $OUT | tail -1 | awk '{print $4}'`
+    echo "Staging into $OUT: need <= ${need} KB, have ${have} KB"
+    if [ "$have" -lt "$need" ]; then
+        echo "ERROR: not enough space in $OUT. Re-run with STAGE_OUT=<dir on a"
+        echo "       filesystem with room>, e.g. under /export/home." >&2
+        rmdir $OUT 2>/dev/null
+        exit 1
+    fi
 
     stage() {
         name=$1; shift
-        echo "-> $name.tar.gz  ($*)"
-        # .part until complete: a full /var/tmp otherwise leaves a truncated
-        # archive behind an encouraging "->" line.
+        echo "-> $name.tar.gz"
+        # .part until complete and verified: a full disk otherwise leaves a
+        # truncated archive behind an encouraging "->" line.
         tar cf - "$@" 2>/dev/null | gzip -c > $OUT/$name.tar.gz.part
-        if [ $? -ne 0 ]; then
+        if [ $? -ne 0 ] || ! gzip -t $OUT/$name.tar.gz.part 2>/dev/null; then
             echo "  FAILED (disk full?) -- removed" >&2
             rm -f $OUT/$name.tar.gz.part; df -k $OUT | tail -1 >&2; return 1
         fi
         mv $OUT/$name.tar.gz.part $OUT/$name.tar.gz
     }
 
-    stage gem5-config  $HOME/.gem* $HOME/.epics* 2>/dev/null
-    # Whole EPICS tree, source included: 3.12 has no Linux host support that
-    # we know of, so the host tools may need porting and we need the source.
+    stage gem5-config  $HOME/.gem5
+    # Whole EPICS tree, source included (183 MB raw). 3.12.2 has Linux
+    # config files from 1997, but the host tools have never been built
+    # for Linux here, so the source is needed.
     stage epics        $EPICS
-    # Headers + BSP config only. The whole of $WIND_BASE/host is SPARC
-    # binaries we cannot run, but its version files are worth keeping.
-    stage wind-target  $WIND_BASE/target/h $WIND_BASE/target/config
-    # The SPARC cc68k itself: useless to run on Linux, but its specs file and
-    # lib/gcc-lib layout record the exact compiler configuration we must match.
-    [ -d $WIND_BASE/host ] && stage wind-host-gnu-meta \
-        `ls -d $WIND_BASE/host/*/lib/gcc-lib $WIND_BASE/.wind_version 2>/dev/null`
+    stage vxworks-5.2b $VXPARTS
 
     echo; ls -l $OUT
     echo "Keep these -- they are the only copies of some of this software."
