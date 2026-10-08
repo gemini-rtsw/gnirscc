@@ -34,3 +34,12 @@ CVS/
 *.old
 *.orig
 *.orig-*
+
+# build-dep-rpms.sh / test-rpm-build.sh / build_rpm.sh output
+tools/linux-build/rpm/out/
+tools/linux-build/rpm/test-out/
+rpms/
+
+# polaris inventories: host details, kept out of the repo
+tools/linux-build/gnirscc-inventory.txt
+tools/linux-build/gnirscc-inv2.txt

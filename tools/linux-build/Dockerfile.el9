@@ -16,6 +16,3 @@ RUN dnf -y install --setopt=install_weak_deps=False \
         findutils diffutils which sed gawk grep tar gzip file patch \
     && dnf clean all \
     && ln -sf /usr/bin/make /usr/local/bin/gmake
-
-# polaris's CONFIG.Defs name the automounter path /export/software.
-RUN mkdir -p /export && ln -sf /usr/software /export/software
