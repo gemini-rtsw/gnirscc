@@ -628,7 +628,7 @@ constant = 17.569
 #zero = 246291 # BCL 2024.02.29
 #zero = 246245 # Ema & Andy, 2024.07.09  (deltaY = -0.13)
 #zero = 246000 # Ema 2025.09.25 Post full refurbishment
-zero = 246055 # BCL 2025.10.04 Post full refurbishment
+#zero = 246055 # BCL 2025.10.04 Post full refurbishment
 zero = 246015 # EPF and BCL 20260831
 # For preferred order setting, the boundaries of each order in wavelength:
 # First entry is wavelength equal to which, or greater than, the wavelength
@@ -798,7 +798,8 @@ constant = 61.22
 #zero = 75036
 #zero = 74966 # Ema 2023.10.17
 #zero = 75034 # Ema 2023.11.15
-zero = 74800 # BCL 2025.09.19
+# zero = 74800 # BCL 2025.09.19
+zero = 74740 # BCL 2026sep24, to compromise with LB + 32 l/mm + LXD
 # For preferred order setting, the boundaries of each order in wavelength:
 # First entry is wavelength equal to which, or greater than, the wavelength
 # is rejected.  Last entry is wavelength less than which is rejected.

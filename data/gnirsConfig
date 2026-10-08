@@ -241,7 +241,7 @@ axis = 1
 type = Rotary
 homeLevel = "H"
 fullTravel = 540000		# full distance between switches
-backlash = 500
+backlash = 3000
 initString = "SL"
 parkposition = 246400
 
@@ -269,7 +269,7 @@ axis = 2
 type = Rotary
 homeLevel = "L"
 fullTravel = 540000		# full distance between switches
-backlash = 500
+backlash = 3000
 parkposition = 0
 initString = "SL"
 
@@ -302,7 +302,7 @@ initString = "SL"
 parkposition = 0
 
 # Next 4 items have two parameters: acceleration, then velocity
-seek = 2000, 5000
+seek = 1000, 2500
 backoff = 200 800
 probe = 40,80
 probeH = 1, 5			# careful probe of home switch position
@@ -538,7 +538,7 @@ offset = 0.
 name = "Ground (B), Diag Board"
 offset = 0.
 
-# Grating specifics for each of gratings 0 - 12
+# Grating specifics for each of gratings 0 - 19
 [grating 0]
 # Grating constant (d * cos(K) ), and zero point (steps from home )
 # Constant is zero for mirror.
@@ -553,7 +553,9 @@ constant = 17.569
 #zero = 245681
 #zero = 246431
 #zero = 246401
-zero=246449 # Ema 2023.11.15
+#zero = 246449 # Ema 2023.11.15
+#zero = 246359 # BCL 2024dec20
+zero = 246259 # BCL & EPF 2025sep13
 # For preferred order setting, the boundaries of each order in wavelength:
 # First entry is wavelength equal to which, or greater than, the wavelength
 # is rejected.  Last entry is wavelength less than which is rejected.
@@ -572,7 +574,8 @@ constant = 17.569
 #zero = 245581
 #zero = 245633
 #zero = 245489
-zero = 245809
+#zero = 245809	
+zero = 246200  # BCL 2025dec11
 # For preferred order setting, the boundaries of each order in wavelength:
 # First entry is wavelength equal to which, or greater than, the wavelength
 # is rejected.  Last entry is wavelength less than which is rejected.
@@ -595,7 +598,13 @@ constant = 17.569
 #zero = 246288
 #zero = 246270
 #zero = 246205 # Ema 2023.10.17
-zero = 246270 # Ema 2023.11.15 
+#zero = 246270 # Ema 2023.11.15 
+#zero = 246245 # Ema 2024.07.12
+#zero = 246080 # BCL 2025.09.19
+#zero = 246070  # BCL 2025.11.05
+#zero = 246074  # BCL 2025.12.11
+#zero = 246085 # BCL 2026.01.08
+zero = 246075 # BCL 2026.04.03
 # For preferred order setting, the boundaries of each order in wavelength:
 # First entry is wavelength equal to which, or greater than, the wavelength
 # is rejected.  Last entry is wavelength less than which is rejected.
@@ -616,7 +625,11 @@ constant = 17.569
 #zero = 245535
 #zero = 246265 
 #zero = 246225 # Ema 2024.02.02
-zero = 246291 # BCL 2024.02.29 
+#zero = 246291 # BCL 2024.02.29
+#zero = 246245 # Ema & Andy, 2024.07.09  (deltaY = -0.13)
+#zero = 246000 # Ema 2025.09.25 Post full refurbishment
+#zero = 246055 # BCL 2025.10.04 Post full refurbishment
+zero = 246015 # EPF and BCL 20260831
 # For preferred order setting, the boundaries of each order in wavelength:
 # First entry is wavelength equal to which, or greater than, the wavelength
 # is rejected.  Last entry is wavelength less than which is rejected.
@@ -652,7 +665,9 @@ constant = 186.3
 #zero = -99476
 #zero = -99266
 #zero = -98682
-zero = -98702
+#zero = -98702
+#zero = -98925 	# BCL 2025sep17
+zero = -98940   # BCL 2025dec11
 # For preferred order setting, the boundaries of each order in wavelength:
 # First entry is wavelength equal to which, or greater than, the wavelength
 # is rejected.  Last entry is wavelength less than which is rejected.
@@ -670,7 +685,9 @@ constant = 186.3
 #zero = 440573
 #zero = -99647
 #zero = -99457
-zero = -98692
+#zero = -98692
+#zero = -98925  # Ema 2025.09.25 post refurbishment
+zero = -98950  # BCL 2025.12.13 
 # For preferred order setting, the boundaries of each order in wavelength:
 # First entry is wavelength equal to which, or greater than, the wavelength
 # is rejected.  Last entry is wavelength less than which is rejected.
@@ -696,7 +713,10 @@ constant = 186.3
 #zero = -98739    2020-Dec-07, SiyiX, JoanS, JohnW, AndyS
 #zero = -98709
 #zero = -98768 # Ema 2022.07.26
-zero = -98735 # BCL 2024.02.29
+#zero = -98735 # BCL 2024.02.29
+#zero = -98770 # Ema 2024.07.12
+#zero = -98733  # Ema 2025.09.24 Post refurbishment
+zero = -98975 # BCL/Ema 2025.09.30 Post refurbishment 
 # For preferred order setting, the boundaries of each order in wavelength:
 # First entry is wavelength equal to which, or greater than, the wavelength
 # is rejected.  Last entry is wavelength less than which is rejected.
@@ -735,7 +755,9 @@ constant = 61.22
 #zero = 74272
 #zero = 74632
 #zero = 74432
-zero = 75134
+#zero = 75134
+#zero = 75096 # BCL 2024dec20
+zero = 74950 # Ema 2025Aug12 - post full refurbishment
 # For preferred order setting, the boundaries of each order in wavelength:
 # First entry is wavelength equal to which, or greater than, the wavelength
 # is rejected.  Last entry is wavelength less than which is rejected.
@@ -752,7 +774,8 @@ constant = 61.22
 #constant = 61.348
 #zero = 74372
 #zero = 74312
-zero = 74600
+#zero = 74600 	
+zero = 74875	# BCL 2025dec11
 # For preferred order setting, the boundaries of each order in wavelength:
 # First entry is wavelength equal to which, or greater than, the wavelength
 # is rejected.  Last entry is wavelength less than which is rejected.
@@ -774,7 +797,9 @@ constant = 61.22
 #zero = 75029
 #zero = 75036
 #zero = 74966 # Ema 2023.10.17
-zero = 75034 # Ema 2023.11.15
+#zero = 75034 # Ema 2023.11.15
+# zero = 74800 # BCL 2025.09.19
+zero = 74740 # BCL 2026sep24, to compromise with LB + 32 l/mm + LXD
 # For preferred order setting, the boundaries of each order in wavelength:
 # First entry is wavelength equal to which, or greater than, the wavelength
 # is rejected.  Last entry is wavelength less than which is rejected.
@@ -795,7 +820,9 @@ constant = 61.22
 #zero = 74283
 #zero = 75013
 #zero = 74940 # Ema 2024.02.02
-zero = 75010 # BCL 2024.02.29
+#zero = 75010 # BCL 2024.02.29
+#zero = 74980 # Ema & Andy 2024.07.09
+zero = 74750 # Ema 2025.09.24 Post refurbishment
 # For preferred order setting, the boundaries of each order in wavelength:
 # First entry is wavelength equal to which, or greater than, the wavelength
 # is rejected.  Last entry is wavelength less than which is rejected.
@@ -807,37 +834,55 @@ bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
 
 [grating 13]  # 111 l/mm grating + long blue camera + HR-IFU
 constant = 17.569
-zero = 246176
+#zero = 246176
+zero = 245980 # BCL 2025Sep20 - post full refurbishment
 bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
 
 
 [grating 14]  # # 111 l/mm grating + long red camera + HR-IFU
 constant = 17.569
-zero = 246169
+#zero = 246169
+zero = 245975	# BCL 2025Oct04 - post full refurbishment
 bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
 
 
 [grating 15]  # 10 l/mm grating + long blue camera + HR-IFU
 constant = 186.3
-zero = -98803
+# zero = -98803
+# zero = -99025	# BCL 2025Sep20 - post full refurbishment
+# zero = -99055  # BCL+CL 2026Apr09UT
+zero = -99015 # BCL+EPF 2026Aug31 
 bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
 
 
 [grating 16]  # 10 l/mm grating + long red camera + HR-IFU
 constant = 186.3
-zero = -98795
+#zero = -98795
+zero = -99020	# BCL 2025Oct04 - post full refurbishment
 bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
 
 
 [grating 17]  # 32 l/mm grating + long blue camera + HR-IFU
 constant = 61.22
-zero = 74934
+# zero = 74934
+zero = 74700  # BCL 2025Sep20 - post full refurbishment
 bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
 
 
 [grating 18]  # 32 l/mm grating + long red camera + HR-IFU
 constant = 61.22
-zero = 74909
+#zero = 74909
+zero = 74690   # BCL 2025Oct04 - post full refurbishment
+bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
+
+
+[grating 19]  # 111 l/mm grating + long blue camera + long cross disperser
+# REL-4895: decouples 111/mmLB + LXD from 111/mmLB + LS (grating 2).
+# Seeded with grating 2's values; instrument team will tune zero.
+constant = 17.569
+# zero = 246075 # Initial value
+# zero = 246020 # EPF+BCL 20260831 Didn't read in
+zero = 246035 # BCL 2026sep11 tested with test seqexec
 bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
 
 

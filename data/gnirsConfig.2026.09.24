@@ -1,0 +1,895 @@
+##########################
+# GNIRS Configuration file
+#
+# Read with readConfig("gnirsConfig")
+#
+#
+# '#' marks the beginning of a comment; everything in the remainder of the
+# line is ignored.
+# Blank lines are ignored.
+#
+#  '[...]' Marks the beginning of a section, and the end of the previous one.
+#
+# Commas are optional when there are multiple values per line; for
+# strings, the enclosing '"' are required.
+
+# True is non-zero, false is zero.
+# For home switch type, use 0 for normal home switch, 1 for (positive) limit
+# The Limit offsets are the distances from the soft limit to the hard limit.
+
+# Bit settings --- The initial value is not used for input ports, but is
+# needed in order that the software doesn't have to distinguish between
+# input and output in the scanf statement that reads these lines.
+# "reset" is set high (disabled) while "enabled" is set low
+# which is also the disabled setting.
+
+##########################
+[Motor 0]
+name = "Cover"
+type = Binary
+controller = 0
+axis = 3
+homeLevel = "L"
+fullTravel = 140000
+backlash = 200
+parkposition = 0
+
+
+# Next 4 items have two parameters: acceleration, then velocity
+seek = 2400, 4000
+backoff = 200, 800
+probe = 20 40
+probeH = 1, 5
+
+# True is non-zero, false is zero.
+# For home switch type, use 0 for normal home switch, 1 for (positive) limit
+# switch, position,  aux offset,   port,   bit,  altInUse?,  type
+home =        0,      -42,          7,      2,      0         1
+posLimit =    0,     1240
+negLimit = -139800, -2000
+
+#          port  bit  initial value
+enable =    7,    0,      0
+reset =     7,    1,      1
+
+isenabled = 2,    4,      0
+fault =     2,    5,      0
+
+##########################
+[Motor 1]
+name = "Filter Whl 1" # limited to 12 XXX characters
+controller = 1
+axis = 0
+type = Rotary
+homeLevel = "L"
+fullTravel = 41600		# full distance between switches
+backlash = 50
+initString = "SL"
+parkposition = 0
+
+# Next 4 items have two parameters: acceleration, then velocity
+seek = 2000, 5000
+backoff = 400 800
+probe = 40,80
+probeH = 1, 5			# careful probe of home switch position
+
+# True is non-zero, false is zero.
+# For home switch type, use 0 for normal home switch, 1 for (positive) limit
+# switch position  aux offset   port   bit  altInUse?  type
+home =        0,      6,        4,    5,      0	       0
+
+#          port  bit  value
+enable =    4,    3,   0
+reset =     4,    4,   1
+
+isenabled = 0,    4,   0
+fault =     0,    5,   0
+
+##########################
+[Motor 2]
+name = "Filter Whl 2"		# limited to 12 XXX characters
+controller = 2
+axis = 0
+type = Rotary
+homeLevel = "H"
+fullTravel = 41600		# full revolution for rotary device
+backlash = 50
+initString = "SL"
+parkposition = 0
+
+# Next 4 items have two parameters: acceleration, then velocity
+seek = 2000, 5000
+backoff = 400 800
+probe = 40,80
+probeH = 1, 5			# careful probe of home switch position
+
+
+# switch position  aux offset   port   bit  altInUse?  type
+home =        0,      -2,        8,    4,      1	0
+
+#          port  bit  value
+enable =    4,    6,   0
+reset =     4,    7,   1
+
+#isenabled = 2,    6,   0
+isenabled = 0,    6,   0
+fault =     0,    7,   0
+
+
+##########################
+[Motor 3]
+name = "Slit slide"
+controller = 0
+axis = 0
+type = Linear
+homeLevel = "H"
+fullTravel = 2300000
+backlash = 1000
+initString = "SL"
+parkposition = 0
+
+# Next 4 items have two parameters: acceleration, then velocity
+seek = 3000, 7000
+backoff = 400 800
+probe = 40, 80
+probeH = 1, 5			# careful probe of home switch position
+
+
+# switch position  aux offset   port   bit  altInUse?  type
+home =        0,      881,        4,    2,      0	0
+#posLimit = 1133000,     17800 #WARM 2-5
+posLimit = 1131900,     13000 #cold 11-18-03
+#posLimit =    0,     1240
+#negLimit = -1120000,   -24000  #WARM 2-5 
+negLimit = -1120000,   -24000  #cold
+#negLimit = -139790,   -1730
+
+# Bit settings --- The initial value is not used for input ports, but is
+# needed in order that the software doesn't have to distinguish between
+# input and output in the scanf statement that reads these lines.
+# "reset" is set high (disabled) while "enabled" is set low
+# which is also the disabled setting.  "selHome" is cleared, to use the
+# 'default' home position switch.  'altInUse' above will override this if
+# necessary.
+
+#          port  bit  initial value
+enable =    4,    0,      0
+reset =     4,    1,      1
+
+isenabled = 0,    2,      0
+fault =     0,    3,      0
+
+
+##########################
+[Motor 4]
+name = "decker"
+controller = 1
+axis = 1
+type = Linear
+homeLevel = "H"
+fullTravel = 95000
+backlash = 250
+parkposition = 0
+
+
+# Next 4 items have two parameters: acceleration, then velocity
+seek = 3000, 6000
+backoff = 200 800
+probe = 40, 40
+probeH = 1, 5			# careful probe of home switch position
+initString = "SL"
+
+# switch position  aux offset   port   bit  altInUse?  type
+home =        0,      19,        6,    2,      0		0
+#posLimit = 73945,     2000
+
+posLimit =    74209,   3000   #WARM
+negLimit = -18000,   -2000   #5-27-03
+#negLimit = -22942,   -1700 	 #WARM  
+
+#          port  bit  value
+enable =    6,    0,   0
+reset =     6,    1,   1
+
+isenabled = 1,    6,   0
+fault =     1,    7,   0
+
+##########################
+[Motor 5]
+name = "acq"
+type = Binary
+controller = 0
+axis = 2
+homeLevel = "L"
+fullTravel = 186460
+backlash = 1000
+parkposition = 0
+
+# Next 4 items have two parameters: acceleration, then velocity
+seek = 16000, 3000
+#backoff = 200, 800 
+#backoff = 1000, 500 # changed 1/16/04
+backoff = 800, 500 # changed 9/21/04
+probe = 1200 400
+probeH = 1, 5
+initString = "SL"
+
+# switch position  aux offset   port   bit  altInUse?  type
+home =        0,      130,        8,    5,      0        1
+#negLimit = -2000,    -150
+#negLimit = -180000,   -1400
+#negLimit = -192750,   -1400 
+#negLimit = -192250,   -1400 # Changed 1/16/04
+#negLimit = -191050,   -1400 # Changed 9/8/04 by C. Urrutia
+negLimit = -186460,   -1400 # Changed 4/12/17 by A. Ebbers
+
+#183400
+posLimit = 0,     3040
+
+#          port  bit  value
+enable =    5,    6,   0
+reset =     5,    7,   1
+
+isenabled = 1,    4,   0
+fault =     1,    5,   0
+
+##########################
+[Motor 6]
+name = "xdisp"
+controller = 0
+axis = 1
+type = Rotary
+homeLevel = "H"
+fullTravel = 540000		# full distance between switches
+backlash = 3000
+initString = "SL"
+parkposition = 246400
+
+# Next 4 items have two parameters: acceleration, then velocity
+seek = 2000, 5000
+backoff = 200 800
+probe = 40,80
+probeH = 1, 5			# careful probe of home switch position
+
+# switch position  aux offset   port   bit  altInUse?  type
+home =        0,      130,        5,    5,      0	0
+
+#          port  bit  value
+enable =    5,    3,   0
+reset =     5,    4,   1
+
+isenabled = 1,    2,   0
+fault =     1,    3,   0
+
+##########################
+[Motor 7]
+name = "grating"
+controller = 1
+axis = 2
+type = Rotary
+homeLevel = "L"
+fullTravel = 540000		# full distance between switches
+backlash = 3000
+parkposition = 0
+initString = "SL"
+
+# Next 4 items have two parameters: acceleration, then velocity
+seek = 1000, 5000
+backoff = 200 800
+probe = 40,80
+probeH = 1, 5			# careful probe of home switch position
+
+# switch position  aux offset   port   bit  altInUse?  type
+home =        0,      255,        5,    2,      0	0
+
+#          port  bit  value
+enable =    5,    0,   0
+reset =     5,    1,   1
+
+isenabled = 1,    0,   0
+fault =     1,    1,   0
+
+##########################
+[Motor 8]
+name = "camera"
+controller = 2 
+axis = 1
+type = Rotary
+homeLevel = "L"
+fullTravel = 384000		# full distance between switches
+backlash = 500
+initString = "SL"
+parkposition = 0
+
+# Next 4 items have two parameters: acceleration, then velocity
+seek = 1000, 2500
+backoff = 200 800
+probe = 40,80
+probeH = 1, 5			# careful probe of home switch position
+# switch position  aux offset   port   bit  altInUse?  type
+home =        0,      159,        6,    5,      1	0
+#          port  bit  value
+enable =    6,    3,   0
+reset =     6,    4,   1
+
+isenabled = 2,    0,   0
+fault =     2,    1,   0
+
+##########################
+[Motor 9]
+name = "focus"
+seek = 8000, 6000
+backoff = 200 800
+probe = 40,80
+probeH = 1, 5	
+controller = 2
+backlash = 500
+parkposition = 0
+axis = 2
+type = Rotary
+fullTravel = 675000
+initString = "SL"
+# switch position  aux offset   port   bit  altInUse?  type
+home =        0,      130,        8,    6,      0	0
+#          port  bit  value
+enable =    6,    6,   0
+reset =     6,    7,   1
+
+isenabled = 2,    2,   0
+fault =     2,    3,   0
+
+
+##################################
+# Temperature sensors
+[temperature 0]
+name = "Pre-Slit Offner"
+offset = 7.69
+[temperature 1]
+name = "Bench Pre-Slit"
+offset = 7.72 
+[temperature 2]
+name = "FWD Active Shield"
+offset = 7.49
+[temperature 3]
+name = "Slit Slide Motor"
+offset = 7.12
+[temperature 4]
+name = "FW1 Motor"
+offset = 7.46
+[temperature 5]
+name = "FW2 Motor"
+offset = 7.75
+[temperature 6]
+name = "Decker Motor"
+offset = 7.35
+[temperature 7]
+name = "Bench Collimator"
+offset = 7.30
+[temperature 8]
+name = "Bench Underside"
+offset = 7.29
+[temperature 9]
+name = "AFT Active Shield"
+offset = 7.34
+[temperature 10]
+name = "Bench TempControl Point"
+offset = 7.32
+[temperature 11]
+name = "spare"
+offset = 0.
+[temperature 12]
+name = "spare"
+offset = 0.
+[temperature 13]
+name = "spare"
+offset = 0.
+[temperature 14]
+name = "Cryo #1 1st Stage"
+offset = 7.49
+[temperature 15]
+name = "Ground (A), Primary Bd"
+offset = 0.
+[temperature 16]
+name = "Cryo #2 1st Stage"
+offset = 7.49
+[temperature 17]
+name = "Cryo #1,2 2nd Stage"
+offset = 7.93
+[temperature 18]
+name = "Thermal Bus Bar Stbd"
+offset = 7.62
+[temperature 19]
+name = "Cryo #3 1st Stage"
+offset = 7.49
+[temperature 20]
+name = "Cryo#4 1st Stage"
+offset = 7.49
+[temperature 21]
+name = "Thermal Bus Bar Port"
+offset = 7.13
+[temperature 22]
+name = "Prism Motor"
+offset = 7.07
+[temperature 23]
+name = "Grating Motor"
+offset = 7.32
+[temperature 24]
+name = "Camera Motor"
+offset = 7.29
+[temperature 25]
+name = "Acq Mirror Motor"
+offset = 7.29
+[temperature 26]
+name = "Focus Motor"
+offset = 7.73
+[temperature 27]
+name = "spare"
+offset = 0
+[temperature 28]
+name = "Diode on Primary Board"
+offset = 0
+[temperature 29]
+name = "100K on Primary Board"
+offset = 0
+[temperature 30]
+name = "1 Volt on Primary Board"
+offset = 0.
+[temperature 31]
+name = "Ground (B), Primary Bd"
+offset = 0.
+[temperature 32]
+name = "spare"
+offset = 0.
+[temperature 33]
+name = "Mid Active Shield"
+offset = 5.55
+[temperature 34]
+name = "Slit Slide Motor Mnt(D)"
+offset = 6.07
+[temperature 35]
+name = "spare"
+offset = 0.
+[temperature 36]
+name = "spare"
+offset = 0.
+[temperature 37]
+name = "FW1 Housing"
+offset = 5.55
+[temperature 38]
+name = "FW2 Housing"
+offset = 5.55
+[temperature 39]
+name = "Decker Motor Mount(D)"
+offset = 5.45
+[temperature 40]
+name = "Prism Motor Mount(D)"
+offset = 5.84
+[temperature 41]
+name = "Grating Motor Mount(D)"
+offset = 5.79
+[temperature 42]
+name = "Bench WFS Gimbals"
+offset = 6.01
+[temperature 43]
+name = "Bench WFS Mount"
+offset = 5.59
+[temperature 44]
+
+
+
+
+name = "Molecular Sieve"
+offset = 5.69
+[temperature 45]
+name = "spare"
+offset = 0.
+[temperature 46]
+name = "Dewar Shell"
+offset = 0.53
+[temperature 47]
+name = "Ground (A), Diag Board"
+offset = 0.
+[temperature 48]
+name = "Passive Shield"
+offset = 1.15
+[temperature 49]
+name = "G10 Truss #1"
+offset = 5.85
+[temperature 50]
+name = "G10 Truss #2"
+offset = 5.55
+[temperature 51]
+name = "G10 Truss #3"
+offset = 2.38
+[temperature 52]
+name = "spare"
+offset = 0.
+[temperature 53]
+name = "spare"
+offset = 0.
+[temperature 54]
+name = "spare"
+offset = 0.
+[temperature 55]
+name = "Camera Motor Mount(D)"
+offset = 5.25
+[temperature 56]
+name = "Camera Turret"
+offset = 5.59
+[temperature 57]
+name = "Focus Motor Mount(D)"
+offset = 5.01
+[temperature 58]
+name = "spare"
+offset = 0.
+[temperature 59]
+name = "spare"
+offset = 0.
+[temperature 60]
+name = "Diode on Diag Board"
+offset = 0.
+[temperature 61]
+name = "100K on Diag Board"
+offset = 0.
+[temperature 62]
+name = "1 Volt on Diag Board"
+offset = 0.
+[temperature 63]
+name = "Ground (B), Diag Board"
+offset = 0.
+
+# Grating specifics for each of gratings 0 - 19
+[grating 0]
+# Grating constant (d * cos(K) ), and zero point (steps from home )
+# Constant is zero for mirror.
+# 111 l/mm grating + short blue camera
+#constant = 17.600
+constant = 17.569
+#zero = 245678
+#zero = 245674
+#zero = 245661
+#zero = 245541
+#zero = 245861
+#zero = 245681
+#zero = 246431
+#zero = 246401
+#zero = 246449 # Ema 2023.11.15
+#zero = 246359 # BCL 2024dec20
+zero = 246259 # BCL & EPF 2025sep13
+# For preferred order setting, the boundaries of each order in wavelength:
+# First entry is wavelength equal to which, or greater than, the wavelength
+# is rejected.  Last entry is wavelength less than which is rejected.
+# Other entries define the boundaries of orders 1-8.  A given order
+# accepted if wavelength passes tests preceeding and falls between entries
+# such that     left_entry > requested <= right_entry
+bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
+
+[grating 1]
+# Grating constant (d * cos(K) ), and zero point (steps from home )
+# Constant is zero for mirror.
+# 111 l/mm grating + short red camera
+#constant = 17.600
+constant = 17.569
+#zero = 245687
+#zero = 245581
+#zero = 245633
+#zero = 245489
+#zero = 245809	
+zero = 246200  # BCL 2025dec11
+# For preferred order setting, the boundaries of each order in wavelength:
+# First entry is wavelength equal to which, or greater than, the wavelength
+# is rejected.  Last entry is wavelength less than which is rejected.
+# Other entries define the boundaries of orders 1-8.  A given order
+# accepted if wavelength passes tests preceeding and falls between entries
+# such that     left_entry > requested <= right_entry
+bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
+
+[grating 2]
+# Grating constant (d * cos(K) ), and zero point (steps from home )
+# Constant is zero for mirror.
+# 111 l/mm grating + long blue camera
+#constant = 17.600
+constant = 17.569
+#zero = 245525
+#zero = 245546
+#zero = 245536
+#zero = 245409
+#zero = 245729
+#zero = 246288
+#zero = 246270
+#zero = 246205 # Ema 2023.10.17
+#zero = 246270 # Ema 2023.11.15 
+#zero = 246245 # Ema 2024.07.12
+#zero = 246080 # BCL 2025.09.19
+#zero = 246070  # BCL 2025.11.05
+#zero = 246074  # BCL 2025.12.11
+#zero = 246085 # BCL 2026.01.08
+zero = 246075 # BCL 2026.04.03
+# For preferred order setting, the boundaries of each order in wavelength:
+# First entry is wavelength equal to which, or greater than, the wavelength
+# is rejected.  Last entry is wavelength less than which is rejected.
+# Other entries define the boundaries of orders 1-8.  A given order
+# accepted if wavelength passes tests preceeding and falls between entries
+# such that     left_entry > requested <= right_entry
+bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
+
+[grating 3]
+# Grating constant (d * cos(K) ), and zero point (steps from home )
+# Constant is zero for mirror.
+# 111 l/mm grating + long red camera
+#constant = 17.600
+constant = 17.569
+#zero = 245335
+#zero = 245224
+#zero = 245149
+#zero = 245535
+#zero = 246265 
+#zero = 246225 # Ema 2024.02.02
+#zero = 246291 # BCL 2024.02.29
+#zero = 246245 # Ema & Andy, 2024.07.09  (deltaY = -0.13)
+#zero = 246000 # Ema 2025.09.25 Post full refurbishment
+zero = 246055 # BCL 2025.10.04 Post full refurbishment
+zero = 246015 # EPF and BCL 20260831
+# For preferred order setting, the boundaries of each order in wavelength:
+# First entry is wavelength equal to which, or greater than, the wavelength
+# is rejected.  Last entry is wavelength less than which is rejected.
+# Other entries define the boundaries of orders 1-8.  A given order
+# accepted if wavelength passes tests preceeding and falls between entries
+# such that     left_entry > requested <= right_entry
+bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
+
+[grating 4]
+# Grating constant (d * cos(K) ), and zero point (steps from home )
+# Constant is zero for mirror.
+# 10 l/mm grating + short cameras
+#constant = 186.
+constant = 186.3
+#zero = 441250
+zero = -98950
+# For preferred order setting, the boundaries of each order in wavelength:
+# First entry is wavelength equal to which, or greater than, the wavelength
+# is rejected.  Last entry is wavelength less than which is rejected.
+# Other entries define the boundaries of orders 1-8.  A given order
+# accepted if wavelength passes tests preceeding and falls between entries
+# such that     left_entry > requested <= right_entry
+bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
+
+[grating 5]
+# Grating constant (d * cos(K) ), and zero point (steps from home )
+# Constant is zero for mirror.
+# 10 l/mm grating + long blue camera
+#constant = 186.
+constant = 186.3
+#zero = 440780
+#zero = -99456
+#zero = -99476
+#zero = -99266
+#zero = -98682
+#zero = -98702
+#zero = -98925 	# BCL 2025sep17
+zero = -98940   # BCL 2025dec11
+# For preferred order setting, the boundaries of each order in wavelength:
+# First entry is wavelength equal to which, or greater than, the wavelength
+# is rejected.  Last entry is wavelength less than which is rejected.
+# Other entries define the boundaries of orders 1-8.  A given order
+# accepted if wavelength passes tests preceeding and falls between entries
+# such that     left_entry > requested <= right_entry
+bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
+
+[grating 6]
+# Grating constant (d * cos(K) ), and zero point (steps from home )
+# Constant is zero for mirror.
+# 10 l/mm grating + long red camera
+#constant = 186.
+constant = 186.3
+#zero = 440573
+#zero = -99647
+#zero = -99457
+#zero = -98692
+#zero = -98925  # Ema 2025.09.25 post refurbishment
+zero = -98950  # BCL 2025.12.13 
+# For preferred order setting, the boundaries of each order in wavelength:
+# First entry is wavelength equal to which, or greater than, the wavelength
+# is rejected.  Last entry is wavelength less than which is rejected.
+# Other entries define the boundaries of orders 1-8.  A given order
+# accepted if wavelength passes tests preceeding and falls between entries
+# such that     left_entry > requested <= right_entry
+bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
+
+[grating 7]
+# Grating constant (d * cos(K) ), and zero point (steps from home )
+# Constant is zero for mirror.
+# 10 l/mm grating + long blue camera + long cross disperser
+#constant = 186.
+constant = 186.3
+#zero = 440728
+#zero = -99472
+#zero = -99525
+#zero = -99315
+#zero = -98766
+#zero = -98756
+#zero = -98706
+#zero = -98666
+#zero = -98739    2020-Dec-07, SiyiX, JoanS, JohnW, AndyS
+#zero = -98709
+#zero = -98768 # Ema 2022.07.26
+#zero = -98735 # BCL 2024.02.29
+#zero = -98770 # Ema 2024.07.12
+#zero = -98733  # Ema 2025.09.24 Post refurbishment
+zero = -98975 # BCL/Ema 2025.09.30 Post refurbishment 
+# For preferred order setting, the boundaries of each order in wavelength:
+# First entry is wavelength equal to which, or greater than, the wavelength
+# is rejected.  Last entry is wavelength less than which is rejected.
+# Other entries define the boundaries of orders 1-8.  A given order
+# accepted if wavelength passes tests preceeding and falls between entries
+# such that     left_entry > requested <= right_entry
+bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
+
+[grating 8]
+# Grating constant (d * cos(K) ), and zero point (steps from home )
+# Constant is zero for mirror.
+# 10 l/mm grating + long blue camera + short cross disperser
+#constant = 186.
+constant = 186.3
+#zero = 440930
+#zero = -99470
+#zero = -99270
+zero = -98682
+# For preferred order setting, the boundaries of each order in wavelength:
+# First entry is wavelength equal to which, or greater than, the wavelength
+# is rejected.  Last entry is wavelength less than which is rejected.
+# Other entries define the boundaries of orders 1-8.  A given order
+# accepted if wavelength passes tests preceeding and falls between entries
+# such that     left_entry > requested <= right_entry
+bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
+
+[grating 9]
+# Grating constant (d * cos(K) ), and zero point (steps from home )
+# Constant is zero for mirror.
+# 32 l/mm grating + short blue camera
+constant = 61.22
+#constant = 61.348
+#zero = 74417
+#zero = 74312
+#zero = 74400
+#zero = 74272
+#zero = 74632
+#zero = 74432
+#zero = 75134
+#zero = 75096 # BCL 2024dec20
+zero = 74950 # Ema 2025Aug12 - post full refurbishment
+# For preferred order setting, the boundaries of each order in wavelength:
+# First entry is wavelength equal to which, or greater than, the wavelength
+# is rejected.  Last entry is wavelength less than which is rejected.
+# Other entries define the boundaries of orders 1-8.  A given order
+# accepted if wavelength passes tests preceeding and falls between entries
+# such that     left_entry > requested <= right_entry
+bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
+
+[grating 10]
+# Grating constant (d * cos(K) ), and zero point (steps from home )
+# Constant is zero for mirror.
+# 32 l/mm grating + short red camera
+constant = 61.22
+#constant = 61.348
+#zero = 74372
+#zero = 74312
+#zero = 74600 	
+zero = 74875	# BCL 2025dec11
+# For preferred order setting, the boundaries of each order in wavelength:
+# First entry is wavelength equal to which, or greater than, the wavelength
+# is rejected.  Last entry is wavelength less than which is rejected.
+# Other entries define the boundaries of orders 1-8.  A given order
+# accepted if wavelength passes tests preceeding and falls between entries
+# such that     left_entry > requested <= right_entry
+bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
+
+[grating 11]
+# Grating constant (d * cos(K) ), and zero point (steps from home )
+# Constant is zero for mirror.
+# 32 l/mm grating + long blue camera
+constant = 61.22
+#constant = 61.348
+#zero = 74291
+#zero = 74198
+#zero = 74294
+#zero = 74147
+#zero = 75029
+#zero = 75036
+#zero = 74966 # Ema 2023.10.17
+#zero = 75034 # Ema 2023.11.15
+zero = 74800 # BCL 2025.09.19
+# For preferred order setting, the boundaries of each order in wavelength:
+# First entry is wavelength equal to which, or greater than, the wavelength
+# is rejected.  Last entry is wavelength less than which is rejected.
+# Other entries define the boundaries of orders 1-8.  A given order
+# accepted if wavelength passes tests preceeding and falls between entries
+# such that     left_entry > requested <= right_entry
+bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
+
+[grating 12]
+# Grating constant (d * cos(K) ), and zero point (steps from home )
+# Constant is zero for mirror.
+# 32 l/mm grating + long red camera
+constant = 61.22
+#constant = 61.348
+#zero = 74108
+#zero = 73987
+#zero = 73923
+#zero = 74283
+#zero = 75013
+#zero = 74940 # Ema 2024.02.02
+#zero = 75010 # BCL 2024.02.29
+#zero = 74980 # Ema & Andy 2024.07.09
+zero = 74750 # Ema 2025.09.24 Post refurbishment
+# For preferred order setting, the boundaries of each order in wavelength:
+# First entry is wavelength equal to which, or greater than, the wavelength
+# is rejected.  Last entry is wavelength less than which is rejected.
+# Other entries define the boundaries of orders 1-8.  A given order
+# accepted if wavelength passes tests preceeding and falls between entries
+# such that     left_entry > requested <= right_entry
+bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
+
+
+[grating 13]  # 111 l/mm grating + long blue camera + HR-IFU
+constant = 17.569
+#zero = 246176
+zero = 245980 # BCL 2025Sep20 - post full refurbishment
+bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
+
+
+[grating 14]  # # 111 l/mm grating + long red camera + HR-IFU
+constant = 17.569
+#zero = 246169
+zero = 245975	# BCL 2025Oct04 - post full refurbishment
+bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
+
+
+[grating 15]  # 10 l/mm grating + long blue camera + HR-IFU
+constant = 186.3
+# zero = -98803
+# zero = -99025	# BCL 2025Sep20 - post full refurbishment
+# zero = -99055  # BCL+CL 2026Apr09UT
+zero = -99015 # BCL+EPF 2026Aug31 
+bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
+
+
+[grating 16]  # 10 l/mm grating + long red camera + HR-IFU
+constant = 186.3
+#zero = -98795
+zero = -99020	# BCL 2025Oct04 - post full refurbishment
+bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
+
+
+[grating 17]  # 32 l/mm grating + long blue camera + HR-IFU
+constant = 61.22
+# zero = 74934
+zero = 74700  # BCL 2025Sep20 - post full refurbishment
+bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
+
+
+[grating 18]  # 32 l/mm grating + long red camera + HR-IFU
+constant = 61.22
+#zero = 74909
+zero = 74690   # BCL 2025Oct04 - post full refurbishment
+bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
+
+
+[grating 19]  # 111 l/mm grating + long blue camera + long cross disperser
+# REL-4895: decouples 111/mmLB + LXD from 111/mmLB + LS (grating 2).
+# Seeded with grating 2's values; instrument team will tune zero.
+constant = 17.569
+# zero = 246075 # Initial value
+# zero = 246020 # EPF+BCL 20260831 Didn't read in
+zero = 246035 # BCL 2026sep11 tested with test seqexec
+bounds = 6.00,4.30,2.70,1.86,1.42,1.17,1.03,0.88,0.78
+
+
+[cryo ]
+#  select is computer/manual switch
+#  manual is the readback from the manual switch
+#  computer is the computer control of the cryohead on/off state
+# name	     port    	bit     level
+select =		0,		0,		0
+manual =		0,		1,		0
+computer = 		8,		0,		0

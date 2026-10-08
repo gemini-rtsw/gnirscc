@@ -1,0 +1,172 @@
+##########################
+# GNIRS Mechanism Configuration file
+#
+# Read with readConfig("gnirsMechanisms")
+#
+#
+# '#' marks the beginning of a comment; everything in the remainder of the
+# line is ignored.
+# Blank lines are ignored.
+#
+#  '[...]' Marks the beginning of a section, and the end of the previous one.
+#
+# Commas are optional when there are multiple values per line; for
+# strings, the enclosing '"' are required.
+#
+# For the environmental cover and the acquisition mirror, it is REQUIRED that
+# the closed/out positions be defined at zero, which is the home position;
+# the other limiting position must be -99999 or more negative.
+#
+# All mechanisms EXCEPT filters are defined here.
+##########################
+[mechanism cover]
+name = "Cover"
+motor = 0
+#####        name         position    focus shift
+#position = "a"		   	15100,       	0
+#position = "b"		  		-14500,       	0
+position = "Closed"	       0       			0
+position = "Open"        	-99999        		0
+
+
+####
+# For definitions of filter positions, see the file "gnirsFilters"
+####
+
+[mechanism filter wheel 1]
+name = "Filter Wheel 1"
+motor = 1
+
+[mechanism filter wheel 2]
+name = "Ferris Wheel"
+motor = 2
+
+####
+[mechanism slit]
+name = "Slit"
+motor = 3
+
+position = "0.10arcsec_G5530"                   240680          10
+position = "0.15arcsec_G5530"                   340700           0
+position = "0.20arcsec_G5530"                   290450          10
+position = "0.30arcsec_G5530"                   115600          10
+position = "0.45arcsec_G5530"                    90650          10
+position = "0.68arcsec_G5530"                    65850          10
+position = "1.00arcsec_G5530"                   315600          10
+position = "Acq_G5530"                          165500          10
+position = "PV_G5530"                           -15500           2
+position = "SmPinholes_G5530"                   265500          10
+position = "LgPinholes_G5530"                   365800          10
+position = "LR-IFU_G5530"                       839700           0
+position = "HR-IFU_G5530"                      -533900           0
+
+####
+[mechanism decker]
+motor = 4
+name = "Decker"
+
+# reached the maximum value for IFU1. 
+# IFU1 should be at 74370 whem LCXD is at 63720
+# Setting dummy value
+
+position = "IFU1_G5531"                 68040         0
+position = "LCXD_G5531"                 63040         0
+position = "SCXD_G5531"                 52420         0
+position = "Woll_G5531"                 42120         0
+position = "LCLong_G5531"               31270         0
+position = "SCLong_G5531"               20660         0
+position = "Acq_G5531"                   5320         0
+position = "IFU2_G5531"                 -5080         0
+position = "PV_G5531"                  -15980         0
+position = "LR-IFU_G5531"               49220         0
+position = "HR-IFU_G5531"               64050         0
+
+####
+[mechanism acquisition] 
+name = "Acquisition Mirror"
+motor = 5
+position = "Out"            	0,          	3
+position = "In"         	-178000,      -5
+
+####
+[mechanism cross-dispersion]
+name = "Cross Dispersion Prism"
+motor = 6
+# There is an engineering step role-over for the rotarty stage, so reported
+# positions may come in negative.
+# DO NOT USE "_" in the position names before the Gemini part number 
+# (e.g., use +10_G5537 instead of _10_G5537)
+
+position = "LB+SXD_G5536"               103789          10
+position = "SB+SXD_G5536"               103566          10
+position = "LR+SXD_G5536"               103534          10
+position = "SR+SXD_G5536"               103534          10
+position = "LB+LXD_G5535"              -166040          30
+position = "SB+LXD_G5535"               373669          30
+position = "LR+LXD_G5535"               373669          30
+position = "SR+LXD_G5535"               373669          30
+position = "MIR_G5537"                  246478          20
+position = "WOLL_G5509"                 508609          40
+position = "LB32+MIR_G5537"            246393          20
+position = "LR32+MIR_G5537"            246483          20
+position = "SB32+MIR_G5537"            246448          20
+position = "SR32+MIR_G5537"            246448          20
+position = "LB10+MIR_G5537"            246388          20
+position = "LR10+MIR_G5537"            246460          20
+position = "SB10+MIR_G5537"            246448          20
+position = "SR10+MIR_G5537"            246448          20
+position = "LB111+MIR_G5537"           246423          20
+position = "LR111+MIR_G5537"           246516          20
+position = "SB111+MIR_G5537"           246448          20
+position = "SR111+MIR_G5537"           246448          20
+
+
+####
+[mechanism grating]
+name = "Grating Turret"
+motor = 7
+# There are 4 main, never to be changed positions, which correspond to
+# the gratings themselves. These are not changed because the software
+# does not read the grating engineering positions here, but, rather, 
+# uses the  the gnirsConfig file. Tilts of a particular grating to 
+# center a wavelength are specified by the wavelength and not by a name.
+
+position = "111/mmSB_G5534"       	0 	270800
+position = "111/mmSR_G5534"       	1 	270800
+position = "111/mmLB_G5534"       	2 	270800
+position = "111/mmLR_G5534"       	3 	270800
+position = "10/mmSB_G5532"          	4	-96546
+position = "10/mmLB_G5532"         	5	-96546
+position = "10/mmLR_G5532"        	6	-96546
+position = "10/mmLBLX_G5532"      	7	-96546
+position = "10/mmLBSX_G5532"      	8	-96546
+position = "32/mmSB_G5533"		9	81500
+position = "32/mmSR_G5533"		10	81500
+position = "32/mmLB_G5533"		11	81500
+position = "32/mmLR_G5533"		12	81500
+position = "111/mmLBHR_G5534"           13      270800
+position = "111/mmLRHR_G5534"   	14      270800
+position = "10/mmLBHR_G5532" 	        15      -96546
+position = "10/mmLRHR_G5532"            16      -96546
+position = "32/mmLBHR_G5533"            17      81500
+position = "32/mmLRHR_G5533"            18      81500
+position = "111/mmLBLX_G5534"           19      270800
+
+####
+[mechanism camera]
+name = "Camera Turret"
+motor = 8
+position = "ShortRed_G5545"     	-90390		  0
+position = "LongRed_G5543"		  5520		222	
+position = "ShortBlue_G5540"   		101390		333	
+position = "LongBlue_G5542"            -186815          444	
+position = "Open"   			340890       	444	
+
+[mechanism focus]
+name = "Detector Focus Control"
+motor = 9
+zeropoint = 33
+
+position = "auto"      	0           0
+position = "manual"     0           0
+
