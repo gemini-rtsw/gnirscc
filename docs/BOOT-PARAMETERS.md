@@ -38,6 +38,31 @@ target name (tn)     : gnirscc
 startup script (s)   : /gemini/GEM5/gnirs/CC/CC/bin/mv167/startup.IS   (unchanged)
 ```
 
+**Bootsmith profile:** `MKO-PROD-GNIRSCC-new-bootserver`, in bootsmith-config
+branch `gnirscc-new-bootserver`, commit `f816031` (local, not yet pushed). It is
+`MKO-PROD-GNIRSCC` with `host_name`, `host_inet` and `file_name` changed as
+above, the same way `MKO-PROD-HRWFS-new-bootserver` was made. bootsmith's own
+loader reads it, and all 17 profiles still load.
+
+## Verified: every path the new startup touches (2026-10-08)
+
+The executed lines of the generated `local` and `startup.IS` name two hosts:
+`mkotcsbootv2-lv1` (10.2.2.145), for the hostAdd, the only nfsMount
+(`/gemini`) and nfsAuthUnixSet, and `mk-gnirs-perle` (10.2.2.86), the Perle
+terminal server for the serial lines. There is no pisces reference, no
+`/export/...`, and no `/gemdata`. `resource.def` names only 10.2.2.145.
+
+All **35** file paths those lines reference resolve in a `/gemini`
+assembled the way the new server would export it: the build at
+`GEM5/gnirs/CC/CC`, plus the staged `external/GEM5`, `{astlib,slalib,timelib}`
+and `GEM5/gnirs/IS/IS`. So do the four files the C code opens through
+`configDirectory` (`gnirsConfig`, `gnirsMechanisms`, `gnirsFilters`,
+`SafetyFilters`). The only `/gemini` paths embedded in the loaded data are
+`mechanisms.pv`'s `dirLut = /gemini/GEM5/gnirs/CC/CC/data`, which is already
+the fixed path, and two in IS files that are not live: `gmSeqSim.pv` is not
+loaded, and the `gmSeq.pv` line is commented out. The IS reads its LUT
+directory from `nirs:cc:dirLut`, so it follows the CC.
+
 ## What these confirm
 
 **1. The kernel is loaded from a personal home directory.** The kernel and
