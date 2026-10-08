@@ -134,16 +134,21 @@ echo "---------------------------------------------------------------------"
 echo "* Setting up  NIRS CC directory."
 
 #
-# applSetup overwrites startup/local.vws with the UAE stock template,
-# stripping our site customizations (mk-gnirs-perle hostAdd, the /..
-# after iocpath). Stash the file before applSetup runs and restore it
-# after. config/CONFIG.Defs and startup/resource.def are regenerated
-# from NIRS_CCINSTPATH which is fine.
+# applSetup overwrites startup/local.vws, startup/resource.def,
+# startup/UAE.dist and capfast/cad.rc with the UAE stock templates on
+# every run. Stash all four before applSetup runs and restore them after.
+# Earlier versions stashed local.vws only, so resource.def was silently
+# reset to the template (which names pisces). That went unnoticed only
+# because the committed copy happened to BE the template.
+# tools/linux-build/setup.sh does the same for the Linux build.
 #
 
-if [ -f startup/local.vws ]; then
-	cp startup/local.vws startup/local.vws.preserve
-fi
+PRESERVE="startup/local.vws startup/resource.def startup/UAE.dist capfast/cad.rc"
+for f in $PRESERVE; do
+	if [ -f $f ]; then
+		cp -p $f $f.preserve
+	fi
+done
 
 #
 # Now set up the epics directory
@@ -153,20 +158,15 @@ applSetup -install ${NIRS_CCDIR} -depends ${NIRS_CCDIR} -depends ${NIRS_ASTLIBDI
 	  -targets ${NIRS_TARGETS} -depends ${NIRS_TIMELIBDIR} -P ${NIRS_CCINSTPATH} \
 	-I startup -I ascii -I src -I sys -I capfast -I pv -s Makefile.subdirs
 
-if [ -f startup/local.vws.preserve ]; then
-	mv startup/local.vws.preserve startup/local.vws
-fi
+for f in $PRESERVE; do
+	if [ -f $f.preserve ]; then
+		mv $f.preserve $f
+	fi
+done
 
-#edit startup/UAE.dist
-ed startup/UAE.dist << eof >/dev/null
-/^FILES2
-d
-/^(\${FILES2})
-.,+2d
-.
-w
-q
-eof
+# The committed startup/UAE.dist already has FILES2 (bin/$HOST_ARCH) removed,
+# which this used to do with ed after applSetup replaced it with the
+# template. Restoring the committed copy above makes that edit unnecessary.
 
 ###########################################################################
 # Force the LIB, CC, WFS, WCS, IS, DC, and ENG directories to be included 

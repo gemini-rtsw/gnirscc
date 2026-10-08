@@ -106,6 +106,21 @@ In the production `startup.IS`, `local`, `resource.def` and the build:
 | g | kernel off a personal dir | `file name` = `~cristian/epics/GEM5/...` | `/gemini/external/GEM5/base/bin/mv167/vxWorks`, packaged |
 | h | stale comment | `####CC Simulation Mode CURRENTLY ENABLED####` above `pvload startupCC.pv` (the non-sim file) | correct or remove |
 
+**Status (2026-10-08): a-f and h are fixed in the source**, and
+`tools/linux-build/check-build.sh` now fails any build that regresses them.
+It checks that both scripts `cd` to `$DEPLOY/..`, that no relative load
+remains, that the IS loads from `$IS_DEPLOY`, that no executed line names
+pisces, that `local` mounts `/gemini` from the new server, that no build
+directory leaks into the payload, and that every object is a.out mc68020.
+Run against the pre-fix tree, it fails on all of them. Item g is a
+boot-parameter change, made at the crate.
+
+**Deploy these together with the boot-server switch.** The new `local`
+mounts `/gemini` from mkotcsbootv2-lv1. Booted with today's parameters, the
+crate would read its startup over rsh from pisces and then NFS-mount the new
+server. That only works if both serve identical trees, so treat the
+boot-parameter change and the first boot of this build as one step.
+
 No hand-maintained version string was found (`grep '"V1-'` is clean), unlike
 gmoscc's `gm:sad:name`.
 

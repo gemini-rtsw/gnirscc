@@ -1,23 +1,33 @@
 #
 # This file contains site-specific information
-# 
+#
+# Re-homed from pisces-control to mkotcsbootv2-lv1 (10.2.2.145), the boot
+# server gmoscc and hrwfs moved to (gmoscc "Migrate off pisces", hrwfs
+# 3c33e4f). The export path changes with the server: pisces-control exported
+# /export/gemini, mkotcsbootv2-lv1 exports /gemini as its own root.
+#
+# The /gemdata mount is dropped: nothing in gnirscc (sys/, include/, pv/,
+# data/) or in the IS startup data references /gemdata, so the new server
+# does not need to export it to this crate.
 
 # mv162 doesn't have logAuthority built in the kernel
-# taking lowest common factor 
+# taking lowest common factor
 # < /gemini/external/vxWorks/vxUsers
 
+# Perle terminal server for the serial lines (tnetDevCreate in startup.IS)
 hostAdd ("mk-gnirs-perle","10.2.2.86")
 
 routeAdd "0.0.0.0" , "10.2.2.1"
 routeAdd "0.0.0.0" , "10.1.2.1"
 routeAdd "0.0.0.0" , "10.1.5.1"
 
-nfsMount "pisces-control", "/export/gemini", "/gemini"
-nfsMount "pisces-control", "/export/gemdata", "/gemdata"
+hostAdd ("mkotcsbootv2-lv1","10.2.2.145")
+
+nfsMount "mkotcsbootv2-lv1", "/gemini", "/gemini"
 
 # Tell VxWorks the unix user ID and group ID of "gemvx",
 # so that file access over NFS works.
 
-nfsAuthUnixSet "pisces-control", 2966, 10, 0
+nfsAuthUnixSet "mkotcsbootv2-lv1", 2966, 10, 0
 
 cd "$(iocpath)/.."

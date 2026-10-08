@@ -8,14 +8,16 @@ tyBackspaceSet 0177
 
 shellPromptSet "GNIRS-CC> "
 # cd to application install directory (beware automounter problems)
-# This is the gnirs top directory
+# This is the gnirs top directory. Kept although every path below is
+# absolute: it sets the default device, and until `local` runs nfsMount the
+# files below are read through it over rsh from the boot host.
 cd "$(iocpath)/.."
 pwd
 
 # The local file contains site-specific information
 # such as the default router and the vxWorks password file.
 
-< ./CC/bin/$(arch)/local
+< $(iocpath)/bin/$(arch)/local
 
 #EPICS = /gemini/external/GEM5
 # Load EPICS core and record stuff
@@ -25,9 +27,9 @@ ld < /gemini/external/GEM5/base/bin/$(arch)/recSup
 ld < /gemini/external/GEM5/base/bin/$(arch)/devSup
 
 # Local install of tnetDev, drvSerial, drvAscii
-ld < ./CC/bin/mv167/tnetDev
-ld < ./CC/bin/mv167/sioSup
-ld < ./CC/bin/mv167/drvAscii
+ld < $(iocpath)/bin/$(arch)/tnetDev
+ld < $(iocpath)/bin/$(arch)/sioSup
+ld < $(iocpath)/bin/$(arch)/drvAscii
 
 #pvload program
 ld < /gemini/external/GEM5/extensions/bin/$(arch)/pvload
@@ -42,14 +44,14 @@ ld < /gemini/timelib/bin/$(arch)/timelib
 ld < /gemini/astlib/bin/$(arch)/astlib
 
 #gnirs controller code
-ld < ./CC/bin/$(arch)/ccGlobal.o
-ld < ./CC/bin/$(arch)/cicsLib.o
-ld < ./CC/bin/$(arch)/hdwrControl.o
-ld < ./CC/bin/$(arch)/epicsControl.o
+ld < $(iocpath)/bin/$(arch)/ccGlobal.o
+ld < $(iocpath)/bin/$(arch)/cicsLib.o
+ld < $(iocpath)/bin/$(arch)/hdwrControl.o
+ld < $(iocpath)/bin/$(arch)/epicsControl.o
 startStatustask
 
 # instrument sequencer code
-ld < ../IS/IS/bin/$(arch)/gmSeqAppl
+ld < /gemini/GEM5/gnirs/IS/IS/bin/$(arch)/gmSeqAppl
 
 compUseVxTime=1
 timeClockInit (0,0,60,1,0)
@@ -58,14 +60,14 @@ timeClockInit (0,0,60,1,0)
 TSconfigure( 1, 0, 60, 0, 0, 0, 0)
 
 # Load one or more ASCII databases here
-dbLoad "./CC/data/default.dctsdr"
-dbLoadRecords "./CC/data/temperatureControl.db"
-dbLoadRecords "./CC/data/nirsCCTop.db"
-dbLoadRecords "./CC/data/nirsCCSadTop.db"
+dbLoad "$(iocpath)/data/default.dctsdr"
+dbLoadRecords "$(iocpath)/data/temperatureControl.db"
+dbLoadRecords "$(iocpath)/data/nirsCCTop.db"
+dbLoadRecords "$(iocpath)/data/nirsCCSadTop.db"
 
 # is records
-dbLoadRecords "../IS/IS/data/nirsSeqTop.db"
-dbLoadRecords "../IS/IS/data/nirsSeqSadTop.db"
+dbLoadRecords "/gemini/GEM5/gnirs/IS/IS/data/nirsSeqTop.db"
+dbLoadRecords "/gemini/GEM5/gnirs/IS/IS/data/nirsSeqSadTop.db"
 
 # This turns off logging
 iocLogDisable=1
@@ -80,16 +82,16 @@ hwdbg = 1
 
 ############ start epics ###############
 #
-iocInit "./CC/data/resource.def"
+iocInit "$(iocpath)/data/resource.def"
 
 #load motor parameters
 #is variables
-pvload "./CC/data/cadVals.pv","top=nirs:cc:, sadtop=nirs:sad:cc:"
+pvload "$(iocpath)/data/cadVals.pv","top=nirs:cc:, sadtop=nirs:sad:cc:"
 
 #Quickly Turn off the lakeshore BTWC scanning for now
 dbpf "nirs:tc:btwc:sensorA.SCAN", "Passive"
 #dbpf "tc:btc:sensorA.SCAN", "Passive"
-#pvload "./CC/data/lakeshore.pv","btc=tc:btc:, btwc=tc:btwc:"
+#pvload "$(iocpath)/data/lakeshore.pv","btc=tc:btc:, btwc=tc:btwc:"
 
 dbpf "nirs:cc:fw1wcsCheck.A", "fw1"
 dbpf "nirs:cc:fw2wcsCheck.A", "fw2"
@@ -111,7 +113,7 @@ gnirsSetDebug 3
 sendToMotorDebug=1
 
 # Initialize GNIRS hardware interface
-#pvload "$(install)/data/cadInitVals.par","top=nirs:cc:,sadtop=nirs:cc:sad:"
+#pvload "$(iocpath)/data/cadInitVals.par","top=nirs:cc:,sadtop=nirs:cc:sad:"
 
 # # Simulation mode NOSIM:0  VSM:1  FASTSIM:2  FULLSIM:3
 setSimulation 0
@@ -126,34 +128,34 @@ noTempMon = 0
 noSenTorr = 0
 
 # Read the motor configuration file and initialize the motors
-#readConfig "$(install)/data/gnirsConfig.seed"
-strncpy  &configDirectory, "./CC/data/", 160
+#readConfig "$(iocpath)/data/gnirsConfig.seed"
+strncpy  &configDirectory, "$(iocpath)/data/", 160
 
 #IS 
-pvload "../IS/IS/data/gmSeq.pv","top=nirs:, sadtop=nirs:sad:"
+pvload "/gemini/GEM5/gnirs/IS/IS/data/gmSeq.pv","top=nirs:, sadtop=nirs:sad:"
 
-#ld < $(install)/bin/$(arch)/epicsCAInt.o
+#ld < $(iocpath)/bin/$(arch)/epicsCAInt.o
 # Trigger the initialisation of the instrument sequencer and components controller
 # disabling initdcCadMark to prevent the detector controller being initialised
 
-####CC Simulation Mode CURRENTLY ENABLED#####
-#CHANGE startupCCSim.pv to startupCC.pv to turn of motor simulation
+# Motor simulation is OFF: startupCC.pv is the real-hardware file.
+# Load startupCCSim.pv instead to simulate the motors.
 #
-pvload "./CC/data/startupCC.pv","top=nirs:,ccTop=nirs:cc:, sadtop=nirs:sad:cc:"
+pvload "$(iocpath)/data/startupCC.pv","top=nirs:,ccTop=nirs:cc:, sadtop=nirs:sad:cc:"
 sleep (5,0)
 
-pvload "../IS/IS/data/startup.pv","top=nirs:,ccTop=nirs:cc:, sadtop=nirs:sad:cc:"
+pvload "/gemini/GEM5/gnirs/IS/IS/data/startup.pv","top=nirs:,ccTop=nirs:cc:, sadtop=nirs:sad:cc:"
 sleep(1,0)
 #
 
 sleep(5,0)
-pvload "../IS/IS/data/loadFOCimaging.pv","top=nirs:,ccTop=nirs:cc:, sadtop=nirs:sad:cc:"
+pvload "/gemini/GEM5/gnirs/IS/IS/data/loadFOCimaging.pv","top=nirs:,ccTop=nirs:cc:, sadtop=nirs:sad:cc:"
 
 sleep(2,0)
-pvload "../IS/IS/data/loadFOCspectral.pv","top=nirs:,ccTop=nirs:cc:, sadtop=nirs:sad:cc:"
+pvload "/gemini/GEM5/gnirs/IS/IS/data/loadFOCspectral.pv","top=nirs:,ccTop=nirs:cc:, sadtop=nirs:sad:cc:"
 
 sleep(2,0)
-pvload "../IS/IS/data/loadFOCspatial.pv","top=nirs:,ccTop=nirs:cc:, sadtop=nirs:sad:cc:"
+pvload "/gemini/GEM5/gnirs/IS/IS/data/loadFOCspatial.pv","top=nirs:,ccTop=nirs:cc:, sadtop=nirs:sad:cc:"
 
 sleep(2,0)
 dbpf "nirs:apply.DIR","START"
@@ -167,10 +169,10 @@ sleep(15,0)
 dumpMech 7
 
 sleep(1,0)
-readConfig "CC/data/gnirsMechanisms"
+readConfig "$(iocpath)/data/gnirsMechanisms"
 sleep(5,0)
 dumpMech 7
 
-readSafetyFilters "CC/data/SafetyFilters"
+readSafetyFilters "$(iocpath)/data/SafetyFilters"
 
 # End of startup.vws
