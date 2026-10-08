@@ -41,7 +41,7 @@ cp -a /repo/. /build/gnirscc
 cd /build/gnirscc
 . tools/linux-build/gem5-env.sh
 set +e
-{ ./tools/linux-build/setup.sh && gmake; } > /out/build.log 2>&1
+{ ./tools/linux-build/setup.sh && gmake && ./tools/linux-build/check-build.sh; } > /out/build.log 2>&1
 status=$?
 set -e
 tail -40 /out/build.log
