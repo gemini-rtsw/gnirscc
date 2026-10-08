@@ -7,7 +7,8 @@
 #
 #   tools/linux-build/check-objects.sh [BUILT_DIR]
 #
-# BUILT_DIR defaults to compile-test.sh's output. Exit status is non-zero if
+# BUILT_DIR is either an installed tree (has bin/mv167, e.g. build.sh's
+# output) or compile-test.sh's per-directory output, which is the default. Exit status is non-zero if
 # any module would fail to load, or a product exports different symbols than
 # production does.
 set -euo pipefail
@@ -29,11 +30,19 @@ defs()  { $BIN/nm68k -g "$1" | awk 'NF==3 && $2!="U" {print $3}' | sort -u; }
 undef() { $BIN/nm68k -g "$1" | awk '$1=="U" {print $2}' | sort -u; }
 
 # product name -> path under the built tree
-declare -A B=(
-    [tnetDev]=tnetDev/tnetDev [sioSup]=drvSerial/sioSup [drvAscii]=drvAscii/drvAscii
-    [ccGlobal.o]=global/ccGlobal.o [cicsLib.o]=global/cicsLib.o
-    [hdwrControl.o]=hdwrControl/hdwrControl.o [epicsControl.o]=epicsControl/epicsControl.o
-)
+if [ -d $C/bin/mv167 ]; then
+    declare -A B=(
+        [tnetDev]=bin/mv167/tnetDev [sioSup]=bin/mv167/sioSup [drvAscii]=bin/mv167/drvAscii
+        [ccGlobal.o]=bin/mv167/ccGlobal.o [cicsLib.o]=bin/mv167/cicsLib.o
+        [hdwrControl.o]=bin/mv167/hdwrControl.o [epicsControl.o]=bin/mv167/epicsControl.o
+    )
+else
+    declare -A B=(
+        [tnetDev]=tnetDev/tnetDev [sioSup]=drvSerial/sioSup [drvAscii]=drvAscii/drvAscii
+        [ccGlobal.o]=global/ccGlobal.o [cicsLib.o]=global/cicsLib.o
+        [hdwrControl.o]=hdwrControl/hdwrControl.o [epicsControl.o]=epicsControl/epicsControl.o
+    )
+fi
 ORDER="tnetDev sioSup drvAscii ccGlobal.o cicsLib.o hdwrControl.o epicsControl.o"
 
 echo "== format, and text/data/bss: production -> built"

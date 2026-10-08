@@ -246,6 +246,43 @@ the objects load. **Not yet proven:** the full UAE `gmake` build
 the crate test (Phase 4). As with hrwfs, our modules will run beside a
 cygnus-built kernel, EPICS runtime, support libs and IS.
 
+## 0d. RESULT: the full UAE build works on Linux (2026-10-08)
+
+`tools/linux-build/build.sh` runs `setup.sh && gmake` in the
+`gnirscc-build:el9` container against the staged trees, and **exits 0 on the
+first attempt**. It descends into every directory (`ascii capfast pv src startup sys/*`, host
+and mv167) and produces **the complete production payload**:
+
+- `bin/mv167`: the same 16 files as the deployed V1-27, nothing missing or extra;
+- `data/` and `include/`: the same file lists as production;
+- `check-objects.sh build-out`: **PASS**. The format is a.out mc68020, the
+  exports match production for all 7 loaded products, and there are 0
+  unresolved symbols in boot order;
+- the generated scripts `startup`, `startup.CC.epics`, `startup.python` and
+  `startup.seed` are **byte-identical to production**. `local*` and
+  `startup.IS` differ only in the `cd`, which now reaches the fixed
+  `/gemini/GEM5/gnirs/CC/CC` instead of `V1-27`, and in one commented line
+  that embeds the build directory through `$(install)` (§0b item f);
+- `data/` content differs only in the three live-tuned files
+  (`gnirsConfig`, `gnirsMechanisms`, `mechanisms.pv`).
+
+The real build's flags come from `CONFIG_APPLIC`: `-ansi -Wall -pedantic`,
+`-nostdinc`, `-m68040`, no `-O` (`VX_OPT=NO`). EPICS headers are reached
+through the checkout's `epics/` links. That makes it marginally closer to
+production than `compile-test.sh` (sioSup 9060 vs 9116, drvAscii 45300 vs
+45972).
+
+What it took:
+- `gem5-env.sh`: `HOST_ARCH=Linux`, `VX_DIR`, and the 68k tools on `PATH`,
+  with `GCC_EXEC_PREFIX` *unset* (polaris points it at the SPARC tools).
+- `setup.sh` runs the 3.12 `applSetup` through `csh`, using nirsSetup's
+  arguments plus explicit `-b/-c/-e`. Without them applSetup looks for
+  base via `which caRepeater` and extensions via `GetVar`, which are
+  Solaris binaries. It also stashes and restores all four versioned files
+  applSetup overwrites, and seeds the Capfast `.db` files and
+  `default.{dctsdr,sdrSum}` so the dead generators never run.
+- No EPICS host tool was built or needed.
+
 ## 1. The two questions that size the project
 
 ### 1a. Can the EPICS 3.12.2 host tools build for Linux?
