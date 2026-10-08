@@ -58,16 +58,20 @@ can ship it at its existing path.
 
 The symbol table follows the kernel. The boot log shows
 `Loading symbol table from pisces-control:/home/gemvx/cristian/epics/GEM5/base/bin/mv167/vxWorks.sym`,
-and vxWorks always loads `<file name>.sym`. So changing `file name` moves both
-off the personal directory. That path was probably an oversight, but it has
-been the production boot for years. The kernel and `.sym` must be a matched
-pair (symbol addresses are only valid for their own kernel), so:
+and vxWorks always loads `<file name>.sym`, so changing `file name` moves both
+off the personal directory.
 
-- if cristian's `vxWorks` **and** `vxWorks.sym` match
-  `/gemini/external/GEM5/base/bin/mv167/` byte for byte, package those;
-- if either differs, package **cristian's pair** -- it is what has actually
-  been booting -- installed at the `/gemini/external/GEM5/...` path, and record
-  both sha256s in the changelog. **Still to confirm:** compare sha256
+**Confirmed identical (2026-10-08).** cristian's pair, pisces's
+`/gemini/external/GEM5` pair and our staged copy all match:
+
+```
+fdec7df754a2098171718defa2f86869ec1c81339068b268a5ff239166bc9e9f  vxWorks
+8e2045c5de4d9971ba0926e3fe5afecf3ae013162055f9e682ff8de1e67cc051  vxWorks.sym
+```
+
+So the new boot parameters point at `/gemini/external/GEM5/base/bin/mv167/vxWorks`
+and boot **the same kernel, bit for bit**. Package the pair at that path and
+record these hashes in the changelog, as gem-vxworks-tornado20 did. **Still to confirm:** compare sha256
 against `/home/gemvx/cristian/epics/GEM5/base/bin/mv167/vxWorks` and its
 `.sym` on pisces (sizes match; contents not yet compared). The
 `tornado2.0/mv167` kernels are *not* used by gnirscc, so the
