@@ -283,6 +283,30 @@ What it took:
   `default.{dctsdr,sdrSum}` so the dead generators never run.
 - No EPICS host tool was built or needed.
 
+## 0e. Packaging status (2026-10-08)
+
+Dependency RPMs (built by `tools/linux-build/rpm/build-dep-rpms.sh`) were
+**uploaded to GHCR as scratch tags** (`upload-rpm.sh --tag-only`):
+
+| RPM | role |
+|---|---|
+| `gem-vxworks52-linux-5.2b-1.el9.x86_64` | build: vxWorks 5.2b headers/config + ANL Linux 68k tools |
+| `gem-epics3122gem5-3.12.2-1.el9.noarch` | build: EPICS 3.12.2 config/headers/templates/applSetup + profile.d |
+| `gem5-deplibs-2026.10.08-1.el9.noarch` | build + runtime: astlib-1.3, slalib-1.1, timelib-1.3 + links |
+| `gem5-epics-runtime-3.12.2-1.el9.noarch` | runtime: /gemini/external/GEM5 incl. the boot kernel |
+| `gnirs-is-1.7-1.el9.noarch` | runtime: the frozen IS V1-7 |
+
+They become installable once **`rebuild-latest`** has run in gemini-rtsw-repo.
+After that, the gnirscc pipeline can resolve its BuildRequires. It also
+needs **Write access on the `rpm-repo` package** (org -> Packages ->
+rpm-repo -> Manage Actions access), or the build fails pulling it.
+
+`tools/linux-build/rpm/test-rpm-build.sh` has already run the whole chain
+locally in a clean rockylinux:9: dependency install, the build_rpm.sh-style
+staging, rpmbuild, installing the result, %post seeding, a tuned edit
+surviving a reinstall, and check-build.sh plus check-objects.sh on the
+installed tree. Everything passed.
+
 ## 1. The two questions that size the project
 
 ### 1a. Can the EPICS 3.12.2 host tools build for Linux?
