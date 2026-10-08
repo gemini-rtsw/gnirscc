@@ -54,7 +54,20 @@ staged kernel, read from the a.out headers:
 | `tornado2.2/mv167/vxWorks` | 815008 + ... | no |
 
 So the runtime tree's own kernel is the one booted, and `gem5-epics-runtime`
-can ship it at its existing path. **Still to confirm:** compare sha256
+can ship it at its existing path.
+
+The symbol table follows the kernel. The boot log shows
+`Loading symbol table from pisces-control:/home/gemvx/cristian/epics/GEM5/base/bin/mv167/vxWorks.sym`,
+and vxWorks always loads `<file name>.sym`. So changing `file name` moves both
+off the personal directory. That path was probably an oversight, but it has
+been the production boot for years. The kernel and `.sym` must be a matched
+pair (symbol addresses are only valid for their own kernel), so:
+
+- if cristian's `vxWorks` **and** `vxWorks.sym` match
+  `/gemini/external/GEM5/base/bin/mv167/` byte for byte, package those;
+- if either differs, package **cristian's pair** -- it is what has actually
+  been booting -- installed at the `/gemini/external/GEM5/...` path, and record
+  both sha256s in the changelog. **Still to confirm:** compare sha256
 against `/home/gemvx/cristian/epics/GEM5/base/bin/mv167/vxWorks` and its
 `.sym` on pisces (sizes match; contents not yet compared). The
 `tornado2.0/mv167` kernels are *not* used by gnirscc, so the
