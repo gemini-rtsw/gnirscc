@@ -71,10 +71,9 @@ fdec7df754a2098171718defa2f86869ec1c81339068b268a5ff239166bc9e9f  vxWorks
 
 So the new boot parameters point at `/gemini/external/GEM5/base/bin/mv167/vxWorks`
 and boot **the same kernel, bit for bit**. Package the pair at that path and
-record these hashes in the changelog, as gem-vxworks-tornado20 did. **Still to confirm:** compare sha256
-against `/home/gemvx/cristian/epics/GEM5/base/bin/mv167/vxWorks` and its
-`.sym` on pisces (sizes match; contents not yet compared). The
-`tornado2.0/mv167` kernels are *not* used by gnirscc, so the
+record these hashes in the changelog, as gem-vxworks-tornado20 did.
+
+The `tornado2.0/mv167` kernels are *not* used by gnirscc, so the
 `gem-vxworks-tornado20` ownership question from hrwfs does not arise here.
 
 **2. The deploy path is already fixed:** the startup script is read through
