@@ -160,6 +160,33 @@ files** (§2.4 is now settled in that direction).
 **`local` still mounts `pisces-control`.** The deployed `local` names
 `pisces-control:/export/gemini`, the same as the repo's.
 
+### The Instrument Sequencer tree (staged 2026-10-08)
+
+`/gemini/GEM5/gnirs/IS/IS` is in `~/work/gnirscc-buildenv/pisces/gnirs-is-deployed.tar.gz`
+(115 entries). It is unpacked beside the CC at `root/gemini/GEM5/gnirs/IS/IS`.
+
+- **IS V1-7, built 3 Dec 2012 and never rebuilt.** `gmSeqAppl` is
+  a.out mc68020, 44912 + 644 + 640 bytes, sha256 `056c5dfb248c...`. The source
+  is still in CVS.
+- **Every file `startup.IS` loads from it is present:** `gmSeqAppl`,
+  `nirsSeq{,Sad}Top.db`, `gmSeq.pv`, `startup.pv`,
+  `loadFOC{imaging,spectral,spatial}.pv`.
+- **Its `data/` is tuned live, like the CC's.** `focus{SB,SR,LB,LR}-{imaging,spectral}.dat`
+  are edited in operations and backed up by date, from 2021 to 2026-03-13. The same
+  rule applies: no RPM may own them.
+- `data/README.2024.05.20` records an **open operational workaround**. The IS
+  loaded the focusSR tables for ShortBlue, so the SR tables were overwritten
+  with SB copies (the originals are backed up as `*.2024.05.20`). That is not
+  this migration's to fix, but whoever owns the IS should know it is
+  documented only in a README on the file server.
+
+**Plan for the IS:** package the deployed V1-7 binaries and startup data
+as-is, as a frozen, prebuilt dependency (`gnirs-is`, like `gmos-deplibs`). The
+tuned focus tables stay out of the package. Port the IS source from CVS
+later as its own job. The CC's new-compiler objects will then run beside a
+cygnus-2.2.3 `gmSeqAppl`, which is the same mixed-compiler situation hrwfs
+analysed, and is covered by the same crate test.
+
 ## 1. The two questions that size the project
 
 ### 1a. Can the EPICS 3.12.2 host tools build for Linux?
