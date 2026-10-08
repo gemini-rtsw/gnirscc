@@ -103,6 +103,63 @@ confirms that `startup.CC.epics.vws` is stale.
   `pisces:/export/home/gemvx`, **the same 99%-full filesystem as
   `/gemini`**, so never stage there: it would eat production's space.
 
+### Trees staged (2026-10-08)
+
+Collected without writing to polaris: the polaris trees went over an ssh tar
+pipe to hstecher-ld1, and the pisces trees came via `stage-buildenv.sh` on
+hbftelops-ld3. They are escrowed in `~/work/gnirscc-buildenv/{polaris,pisces}`
+and unpacked at their original paths under `~/work/gnirscc-buildenv/root/`.
+The file counts match polaris exactly (EPICS 7804, vxWorks 2662).
+
+**The Vx build needs no EPICS host tools.** `CONFIG.Vx.68k` and `RULES.Vx`
+invoke only `cc68k`/`cpp68k`/`ld68k -r`/`ar68k`, `sed` and `install`. The
+exact compile line is:
+
+```
+cc68k -B$(VX_GNU_LIB)/gcc-lib/ -nostdinc -O -Wall -I. -I.. -I$(EPICS_BASE_INCLUDE)
+      -I$(EPICS_BASE_RECS) -I$(VX_INCLUDE) -DvxWorks -DV5_vxWorks
+      -DCPU=MC68040 -m68040 -DCPU_FAMILY=MC680X0 -c
+ld68k -r -o <prod> <objs>
+```
+
+The Unix side calls host tools in three places, and all three are already
+satisfied by committed output:
+- `capfast/`: `sch2edif`/`e2sr` (dead). The three `.db` files are
+  committed in `data/`.
+- `ascii/`: builds `default.dctsdr`/`.sdrSum` from `cat_ascii/{devSup,drvSup}.ascii`
+  via `base/tools/makesdr` and the SPARC `bld*` tools. The committed copies
+  are **byte-identical to production**, so seed them instead of building.
+- `.st`/`snc`: unused.
+
+**Deployed objects are `a.out SunOS mc68020`, not stripped.** Whatever
+compiler we use must emit a.out that the crate's kernel can load.
+
+**`startup.IS` is the live startup** (it matches `epicsBoot`'s `startup.IS`;
+boot parameters still to confirm). Its generated output differs from
+`startup/startup.IS.vws` only by macro substitution. The *other* variants
+(`startup.CC.epics` etc.) are stale, but `startup.IS` is not. It:
+- `cd`s to `/gemini/GEM5/gnirs/CC/V1-27/..`, then loads everything through
+  `./CC/...` -- the `CC -> V1-27` selector. An RPM can make `CC/CC` a real
+  directory, but the `cd` line embeds the versioned path via `$(iocpath)`,
+  so `APPLIC_IOCPATH` has to become `.../CC/CC`.
+- **Also loads the GNIRS Instrument Sequencer into the same crate**:
+  `ld < ../IS/IS/bin/mv167/gmSeqAppl` and `../IS/IS/data/nirsSeq{,Sad}Top.db`.
+  The IS is a separate GEM5/mv167 build that is not in this repo and not yet
+  located in git. It has to move with the CC, or the crate keeps
+  loading a Solaris-built IS beside a Linux-built CC.
+
+**`data/` is written at runtime.** The live `data/` holds 204 files: 28
+release files plus timestamped `gnirsMechanisms.*`/`gnirsConfig.*` backups,
+the newest from 2026-10-02. `gnirsConfig`, `gnirsMechanisms` and
+`mechanisms.pv` differ from the repo. **An RPM must not own `data/`'s tuned
+files** (§2.4 is now settled in that direction).
+
+**Drift fixed:** `data/nirsCCSadTop.db` lacked the GNFR-75349 thresholds
+(committed only to the `.sch`). It is now the deployed copy.
+
+**`local` still mounts `pisces-control`.** The deployed `local` names
+`pisces-control:/export/gemini`, the same as the repo's.
+
 ## 1. The two questions that size the project
 
 ### 1a. Can the EPICS 3.12.2 host tools build for Linux?
