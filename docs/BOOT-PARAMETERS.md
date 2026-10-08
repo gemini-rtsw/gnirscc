@@ -126,6 +126,9 @@ gmoscc's `gm:sad:name`.
 
 ## Boot server additions (nfsv2-bootserver, TCS variant)
 
+**Prepared:** nfsv2-bootserver branch `tcs-add-gnirscc`, commit `a12dbd9`
+(local, not yet pushed). It makes the two config edits below.
+
 - `config/tcs/exports`: add `10.2.2.87(rw,no_root_squash)` to the `/gemini`
   line. Do not add it to `/gemdata` (item 4).
 - `config/tcs/rhosts`: `10.2.2.87`, `mkognirscc-ap1.hi.gemini.edu`,
