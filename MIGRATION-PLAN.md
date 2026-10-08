@@ -73,6 +73,36 @@ confirms that `startup.CC.epics.vws` is stale.
   byte-level. It is heavy and has licensing questions, but it is the only
   route to exact output if no compiler source exists.
 
+### Second inventory (2026-10-08, `gnirscc-inv2.txt`)
+
+- **The GNU source for the cygnus 2.2.3 toolchain is on polaris**:
+  `$VX_DIR/gnu/src/{gcc,gas,ld,bfd,binutils,libiberty,...}`. It is kept as
+  a reference for the exact flags and predefines. **Decision (Hawi): we
+  will NOT rebuild or emulate the old compiler.** We move to a newer
+  compiler, then test and fix. A Solaris guest under QEMU has already
+  been tried and was not workable.
+- **EPICS 3.12.2 does ship Linux config**, from 1997: `CONFIG.Unix.Linux`,
+  `CONFIG_ARCH.Linux`, `CONFIG_SITE.Unix.Linux`, `CONFIG.Vx.Linux`,
+  `CONFIG_SITE.Vx.Linux`. So `HOST_ARCH=Linux` is a supported setting to
+  modernise, not a port from nothing.
+- `grep` for `bld|dct|sdr|snc|e2sr|e2db|antelope|e_flex` in
+  `$EPICS/config/{RULES,CONFIG}*` matched **nothing** (lowercase only;
+  check the rules for uppercase variables once the tree is staged).
+  This is promising for "no compiled host tools needed".
+- `version.h`: `VXWORKS_VERSION "5.2 Rev B"`.
+- `~/.gem5` sources `$EPICS/config/epics.csh` and sets `CVSROOT
+  :pserver:gemvx@polaris:/usr/software/dev/cvsroot/rtcvsroot`. That is
+  where the gnirscc CVS history lives, if it is ever wanted.
+- **The deploy already has a fixed path**: `/gemini/GEM5/gnirs/CC/CC -> V1-27/`,
+  a selector symlink (as gmoscc's `setgmos` and hrwfs's `hrwfs/hrwfs` were).
+  `mechanisms.pv` already names `/gemini/GEM5/gnirs/CC/CC/data`. The RPM can
+  replace the link with a real directory without a boot-parameter change,
+  if the boot line names `.../CC/CC/...` (still to confirm).
+- **Space on polaris.** `/` and `/var/tmp` have ~217 MB free.
+  `/export/home` (local) has **4 GB free**. `/home/gemvx` is
+  `pisces:/export/home/gemvx`, **the same 99%-full filesystem as
+  `/gemini`**, so never stage there: it would eat production's space.
+
 ## 1. The two questions that size the project
 
 ### 1a. Can the EPICS 3.12.2 host tools build for Linux?
