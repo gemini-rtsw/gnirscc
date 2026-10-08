@@ -39,7 +39,10 @@ inventory)
     echo "=== GEM5 environment (run the GEM5 alias before this script) ==="
     for v in EPICS EPICS_BASE EPICS_EXTENSIONS HOST_ARCH WIND_BASE WIND_HOST_TYPE \
              VX_DIR GCC_EXEC_PREFIX VW_GNU T_A ARCH; do
-        eval "val=\${$v:-<unset>}"
+        # No <unset> inside the eval: an old Bourne shell could read the
+        # angle brackets as redirections.
+        eval "val=\$$v"
+        [ -z "$val" ] && val='(unset)'
         printf "%-18s = %s\n" $v "$val"
     done
     echo "PATH ="; echo "$PATH" | tr ':' '\n' | sed 's/^/    /'
