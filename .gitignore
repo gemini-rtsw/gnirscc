@@ -2,6 +2,8 @@
 .applTop
 .epics
 .version
+# applSetup's links to EPICS base/config/extensions, made inside the checkout
+/epics/
 
 # Generated config (rebuilt from nirs.env on each applSetup run)
 config.par
@@ -17,6 +19,7 @@ bin/
 O.mv167/
 O.solaris/
 O.hkbaja60/
+O.Linux/
 
 # CVS migration leftovers — this is a git repo now
 CVS/
