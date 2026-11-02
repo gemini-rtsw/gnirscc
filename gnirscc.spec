@@ -121,6 +121,12 @@ done
 for t in %{tuned}; do
     [ -e %{deploy}/data/$t ] || cp -p %{deploy}/data.dist/$t %{deploy}/data/$t
 done
+# The software account edits the tuned files and writes their dated backups.
+if getent passwd software >/dev/null; then
+    for t in %{tuned}; do
+        chown software %{deploy}/data/$t
+    done
+fi
 :
 
 %files
@@ -129,13 +135,18 @@ done
 %{deploy}/bin
 %{deploy}/include
 %{deploy}/RELEASE.NOTES
-%dir %{deploy}/data
+%dir %attr(0755,software,root) %{deploy}/data
 %{deploy}/data/*
 %{deploy}/data.dist
 
 %files devel
 
 %changelog
+* Mon Nov 02 2026 Hawi Stecher <hawi.stecher@noirlab.edu> - 1.27-1
+- data/ and the tuned files are owned by software so they can be edited
+  in place (GNFR-75641).
+- GNFR-75641 one direction camera mode.
+
 * Thu Oct 08 2026 Hawi Stecher <hawi.stecher@noirlab.edu> - 1.27-1
 - Initial RPM packaging via the Linux cross-build (REL-5050). Source is V1-27
   plus the move off pisces-control to mkotcsbootv2-lv1 and absolute loads in
