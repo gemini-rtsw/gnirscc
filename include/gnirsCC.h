@@ -287,6 +287,13 @@ typedef struct {
     int reqArg;                 /* argument to requested operation */
     int returnValue;            /* VME_OK, VME_ERROR, etc. for req operation */
     char errorMsg[ERR_MSG_LEN];    /* storage for error message */
+    /* GNFR-75641: one direction camera movement (see oneWay.c) */
+    int oneWay;                 /* 0 off, 1 positive, -1 negative */
+    motion oneWaySeek;          /* fast legs and coarse datum */
+    motion oneWayCatch;         /* slow approach that stops on a home edge */
+    int oneWayWindow;           /* start the slow approach this far before */
+    int oneWayRevs;             /* datum revolutions */
+    int oneWayFarEdge;          /* count of the second home edge, 0 unknown */
 } motorVars;
 
 
@@ -695,6 +702,8 @@ int findSwitch(int, int);
 int setHome(int);
 int findLimit(int, int);
 int datum(int);
+int oneWayMove(int, int);
+int oneWayDatum(int);
 int motorHealthTree();
 BOOL isBusy(int);
 BOOL isInError(int);

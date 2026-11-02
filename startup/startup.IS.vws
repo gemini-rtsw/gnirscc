@@ -64,6 +64,7 @@ dbLoad "$(iocpath)/data/default.dctsdr"
 dbLoadRecords "$(iocpath)/data/temperatureControl.db"
 dbLoadRecords "$(iocpath)/data/nirsCCTop.db"
 dbLoadRecords "$(iocpath)/data/nirsCCSadTop.db"
+dbLoadRecords "$(iocpath)/data/cameraOneWay.db"
 
 # is records
 dbLoadRecords "/gemini/GEM5/gnirs/IS/IS/data/nirsSeqTop.db"

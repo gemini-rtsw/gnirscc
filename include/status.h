@@ -95,4 +95,7 @@ extern int ccTempHealth;
 #define PRESSURETC1 145
 #define PRESSURETC2 146
 #define PRESSUREIG 147
+/* GNFR-75641: camera one direction mode, lost steps at a home edge */
+#define CAMONEWAYERR 220
+#define CAMONEWAYDATUMERR 221
 #endif
