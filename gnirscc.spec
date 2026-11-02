@@ -121,12 +121,11 @@ done
 for t in %{tuned}; do
     [ -e %{deploy}/data/$t ] || cp -p %{deploy}/data.dist/$t %{deploy}/data/$t
 done
-# The software account edits the tuned files and writes their dated backups.
-if getent passwd software >/dev/null; then
-    for t in %{tuned}; do
-        chown software %{deploy}/data/$t
-    done
-fi
+# Sci/ops edit the tuned files and write their dated backups from their own
+# accounts, so data/ and the tuned files are writable by any user.
+for t in %{tuned}; do
+    chmod 0666 %{deploy}/data/$t
+done
 :
 
 %files
@@ -135,7 +134,7 @@ fi
 %{deploy}/bin
 %{deploy}/include
 %{deploy}/RELEASE.NOTES
-%dir %attr(0755,software,root) %{deploy}/data
+%dir %attr(0777,root,root) %{deploy}/data
 %{deploy}/data/*
 %{deploy}/data.dist
 
@@ -143,8 +142,8 @@ fi
 
 %changelog
 * Mon Nov 02 2026 Hawi Stecher <hawi.stecher@noirlab.edu> - 1.27-1
-- data/ and the tuned files are owned by software so they can be edited
-  in place (GNFR-75641).
+- data/ and the tuned files are writable by any user so sci/ops can edit
+  them in place (GNFR-75641).
 - GNFR-75641 one direction camera mode.
 
 * Thu Oct 08 2026 Hawi Stecher <hawi.stecher@noirlab.edu> - 1.27-1
