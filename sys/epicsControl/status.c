@@ -138,7 +138,7 @@ void initStatusNames()
 	epicsStatus[PRESSUREIG].type = EPDOUBLE;
 	sprintf (epicsStatus[CAMONEWAYERR].name,"%scameraOneWayErr",sadTop);
 	epicsStatus[CAMONEWAYERR].type = EPLONG;
-	sprintf (epicsStatus[CAMONEWAYDATUMERR].name,"%scameraOneWayDatumErr",sadTop);
+	sprintf (epicsStatus[CAMONEWAYDATUMERR].name,"%scameraDatumErr",sadTop);
 	epicsStatus[CAMONEWAYDATUMERR].type = EPLONG;
 
 	for (i=0;i<10;i++)

@@ -29,7 +29,7 @@
 		field(ADEL,"0.0")
 		field(MDEL,"0.0")
 	}
-	record(sir,"nirs:sad:cc:cameraOneWayDatumErr") {
+	record(sir,"nirs:sad:cc:cameraDatumErr") {
 		field(DESC,"Worst steps lost in datum")
 		field(FDSC,"")
 		field(SCAN,"Passive")

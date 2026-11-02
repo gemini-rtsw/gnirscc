@@ -160,7 +160,7 @@ int oneWayMove(int motor, int where) {
 }
 
 /* Coarse datum at seek speed, then oneWayRevs turns stopping on each edge.
- * cameraOneWayDatumErr is the worst error seen, not counting the first
+ * cameraDatumErr is the worst error seen, not counting the first
  * edge, which corrects the coarse datum.
  */
 int oneWayDatum(int motor) {
