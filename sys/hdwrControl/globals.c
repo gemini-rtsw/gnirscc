@@ -93,6 +93,7 @@ itemConfig motorConfig[] = {
     {"onewayfaredge",   CONF_INT,               1, OFFSETM(oneWayFarEdge) },
     {"onewayrevs",      CONF_INT,               1, OFFSETM(oneWayRevs) },
     {"onewayseek",      CONF_MOTION,            1, OFFSETM(oneWaySeek) },
+    {"onewaytravel",    CONF_INT,               1, OFFSETM(oneWayTravel) },
     {"onewaywindow",    CONF_INT,               1, OFFSETM(oneWayWindow) },
     {"oneway",          CONF_INT,               1, OFFSETM(oneWay) },
     {"parkposition",    CONF_INT,               1, OFFSETM(parkPosition) },

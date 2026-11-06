@@ -294,6 +294,7 @@ typedef struct {
     int oneWayWindow;           /* start the slow approach this far before */
     int oneWayRevs;             /* datum revolutions */
     int oneWayFarEdge;          /* count of the second home edge, 0 unknown */
+    int oneWayTravel;           /* 0 off, 1/-1: travel one way, approach + */
 } motorVars;
 
 
@@ -704,6 +705,7 @@ int findLimit(int, int);
 int datum(int);
 int oneWayMove(int, int);
 int oneWayDatum(int);
+int oneWayTravelMove(int, int);
 int motorHealthTree();
 BOOL isBusy(int);
 BOOL isInError(int);

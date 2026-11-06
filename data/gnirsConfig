@@ -313,6 +313,9 @@ oneWayCatch = 40, 80		# creep onto each home edge (KM/KR)
 oneWayWindow = 1000		# start creeping this far before an edge
 oneWayRevs = 3			# datum revolutions
 oneWayFarEdge = 0		# count of the second edge, 0 = not used
+# Moves only travel this way (0 off, 1, -1) with the normal datum and the
+# normal slow positive final approach over backlash. oneWay overrides it.
+oneWayTravel = 0
 # switch position  aux offset   port   bit  altInUse?  type
 home =        0,      159,        6,    5,      1	0
 #          port  bit  value

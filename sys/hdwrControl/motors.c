@@ -346,6 +346,7 @@ int setupMotor(int motor) {
     m->probeH.velocity = 5;
 
     m->oneWay = 0;              /* GNFR-75641: off unless the config sets it */
+    m->oneWayTravel = 0;
 
     m->home.type = HOME_SW;     /* can be POS_LIM or NEG_LIM */
     m->home.useAlt = FALSE;
@@ -1006,6 +1007,8 @@ int position(int motor, int where) {
     m->parked = FALSE;
     if (m->oneWay)
         rc = oneWayMove(motor, where);
+    else if (m->oneWayTravel)
+        rc = oneWayTravelMove(motor, where);
     else
         rc = goToPos(motor, where, TRUE);
     /* Check to see if at parked position, but only if move was successful;

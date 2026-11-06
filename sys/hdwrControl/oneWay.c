@@ -14,6 +14,13 @@
  * (oneWayFarEdge, skipped while 0).  Going positive the datum edge is seen
  * at homeLevel, going negative at the other level; the far edge is the
  * opposite of the datum edge.
+ *
+ * "oneWayTravel = 1" or "-1" is a simpler mode (Brian's suggestion): the
+ * normal datum and no edge stops, but moves only travel in that direction
+ * at seek speed and always end with the normal slow positive approach over
+ * the last 'backlash' steps, so positions match the gnirsMechanisms tuning.
+ * Going negative that means overshooting the target by 'backlash' and
+ * coming back.  oneWay, when set, takes precedence.
  */
 
 #include <vxWorks.h>
@@ -44,8 +51,14 @@ static int toEdge(motorVars *m, int edge) {
     return d ? d : m->fullTravel;
 }
 
-/* Relative move of 'steps' (>= 0) in the travel direction */
-static int oneWayStep(int motor, int steps, motion *mo) {
+/* distance from 'from' to 'to' going in direction d, 0 .. full-1 */
+static int aheadDir(motorVars *m, int d, int from, int to) {
+    int n = (d * (to - from)) % m->fullTravel;
+    return (n < 0) ? n + m->fullTravel : n;
+}
+
+/* Relative move of 'steps' (>= 0) in direction d */
+static int stepDir(int motor, int d, int steps, motion *mo) {
     motorVars *m = motors[motor];
     char cmd[MOTOR_CMD_LEN];
     int rc;
@@ -53,10 +66,30 @@ static int oneWayStep(int motor, int steps, motion *mo) {
     if (steps <= 0)
         return VME_OK;
     sprintf(cmd, "A%c AC%d VL%d MR%d GO", m->charAxis,
-            mo->acceleration, mo->velocity, m->oneWay * steps);
+            mo->acceleration, mo->velocity, d * steps);
     rc = waitFor(motor, cmd, motorTimeout(steps, mo));
     if (rc == VME_OK)
         rc = tellPV(motor);
+    return rc;
+}
+
+/* Relative move of 'steps' (>= 0) in the travel direction */
+static int oneWayStep(int motor, int steps, motion *mo) {
+    return stepDir(motor, motors[motor]->oneWay, steps, mo);
+}
+
+/* Keep the counter within half a turn, as motorPos() does */
+static int halfTurn(int motor) {
+    motorVars *m = motors[motor];
+    char cmd[MOTOR_CMD_LEN];
+    int rc = VME_OK;
+
+    if (abs(m->currPos) > m->fullTravel / 2) {
+        sprintf(cmd, "A%c LP%d", m->charAxis,
+                m->currPos - ((m->currPos > 0) ? m->fullTravel : -m->fullTravel));
+        if ((rc = noWait(motor, cmd)) == VME_OK)
+            rc = tellPV(motor);
+    }
     return rc;
 }
 
@@ -112,7 +145,6 @@ static int oneWayEdge(int motor, int edge, int *err) {
 
 int oneWayMove(int motor, int where) {
     motorVars *m = motors[motor];
-    char cmd[MOTOR_CMD_LEN];
     int rc, togo, edge, next, d, err;
 
     if (gnirsG.simulation) {
@@ -148,15 +180,43 @@ int oneWayMove(int motor, int where) {
         rc = oneWayStep(motor, ahead(m, m->currPos, where), &m->backOff);
     if (rc != VME_OK)
         return rc;
+    return halfTurn(motor);
+}
 
-    /* Keep the counter within half a turn, as motorPos() does */
-    if (abs(m->currPos) > m->fullTravel / 2) {
-        sprintf(cmd, "A%c LP%d", m->charAxis,
-                m->currPos - ((m->currPos > 0) ? m->fullTravel : -m->fullTravel));
-        if ((rc = noWait(motor, cmd)) == VME_OK)
-            rc = tellPV(motor);
+/* oneWayTravel: fast in the travel direction to where - backlash, then the
+ * last 'backlash' steps slowly, positive.
+ */
+int oneWayTravelMove(int motor, int where) {
+    motorVars *m = motors[motor];
+    int rc, d, fast;
+
+    if (gnirsG.simulation) {
+        m->currPos = where;
+        return VME_OK;
     }
-    return rc;
+    if (!m->datumed) {
+        mErrMsg(m, "%s oneWayTravel move when not datumed", m->name);
+        return VME_ERROR;
+    }
+    if ((rc = tellPV(motor)) != VME_OK)
+        return rc;
+
+    d = (m->oneWayTravel > 0) ? 1 : -1;
+    /* Going positive and already within the backlash: slow leg only */
+    if ((d > 0) && (aheadDir(m, 1, m->currPos, where) <= m->backlash))
+        fast = 0;
+    else
+        fast = aheadDir(m, d, m->currPos, where - m->backlash);
+    printf("%s oneWayTravel %d: from %d to %d, fast %d then +%d\n", m->name,
+           d, m->currPos, where, d * fast,
+           aheadDir(m, 1, m->currPos + d * fast, where));
+
+    rc = stepDir(motor, d, fast, &m->seek);
+    if (rc == VME_OK)
+        rc = stepDir(motor, 1, aheadDir(m, 1, m->currPos, where), &m->backOff);
+    if (rc != VME_OK)
+        return rc;
+    return halfTurn(motor);
 }
 
 /* Coarse datum at seek speed, then oneWayRevs turns stopping on each edge.
