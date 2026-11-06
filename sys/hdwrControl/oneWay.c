@@ -21,6 +21,13 @@
  * the last 'backlash' steps, so positions match the gnirsMechanisms tuning.
  * Going negative that means overshooting the target by 'backlash' and
  * coming back.  oneWay, when set, takes precedence.
+ *
+ * "oneWayCorrect = 1" adds the edge stops of the oneWay mode to oneWayTravel
+ * moves: every home edge crossed on the way is caught and the counter is
+ * reloaded.  The reload values must be in the regular datum's frame, which
+ * sets home.position where the datum edge trips going positive; caught in
+ * the travel direction the edge trips elsewhere (switch hysteresis), so its
+ * count is configured as oneWayDatumEdge (0 = home.position).
  */
 
 #include <vxWorks.h>
@@ -35,14 +42,25 @@ static char otherLevel(char c) {
     return (c == 'L') ? 'H' : 'L';
 }
 
-/* distance from 'from' to 'to' going in direction d, 0 .. full-1 */
+/* travel direction of whichever one way mode is on */
+static int dirOf(motorVars *m) {
+    if (m->oneWay)
+        return m->oneWay;
+    return (m->oneWayTravel > 0) ? 1 : -1;
+}
+
+/* distance from 'from' to 'to' going in the travel direction, 0 .. full-1 */
 static int ahead(motorVars *m, int from, int to) {
-    int n = (m->oneWay * (to - from)) % m->fullTravel;
+    int n = (dirOf(m) * (to - from)) % m->fullTravel;
     return (n < 0) ? n + m->fullTravel : n;
 }
 
 static int edgeCount(motorVars *m, int edge) {
-    return edge ? m->oneWayFarEdge : m->home.position;
+    if (edge)
+        return m->oneWayFarEdge;
+    if (!m->oneWay && m->oneWayDatumEdge)
+        return m->oneWayDatumEdge;
+    return m->home.position;
 }
 
 /* steps to the next time 'edge' comes round; sitting on it means a turn */
@@ -75,7 +93,7 @@ static int stepDir(int motor, int d, int steps, motion *mo) {
 
 /* Relative move of 'steps' (>= 0) in the travel direction */
 static int oneWayStep(int motor, int steps, motion *mo) {
-    return stepDir(motor, motors[motor]->oneWay, steps, mo);
+    return stepDir(motor, dirOf(motors[motor]), steps, mo);
 }
 
 /* Keep the counter within half a turn, as motorPos() does */
@@ -108,12 +126,12 @@ static int oneWayEdge(int motor, int edge, int *err) {
     if (rc != VME_OK)
         return rc;
 
-    level = (m->oneWay > 0) ? m->homeLevel : otherLevel(m->homeLevel);
+    level = (dirOf(m) > 0) ? m->homeLevel : otherLevel(m->homeLevel);
     if (edge)
         level = otherLevel(level);
     sprintf(cmd, "A%c AC%d VL%d H%c K%c", m->charAxis,
             m->oneWayCatch.acceleration, m->oneWayCatch.velocity, level,
-            (m->oneWay > 0) ? 'M' : 'R');
+            (dirOf(m) > 0) ? 'M' : 'R');
     /* Lost steps make the edge come late; allow for 3 windows of them */
     rc = waitFor(motor, cmd, motorTimeout(3 * m->oneWayWindow, &m->oneWayCatch));
     sprintf(cmd, "A%c H%c", m->charAxis, m->homeLevel);
@@ -143,22 +161,11 @@ static int oneWayEdge(int motor, int edge, int *err) {
     return rc;
 }
 
-int oneWayMove(int motor, int where) {
+/* Stop on every home edge between here and 'where' */
+static int edgesTo(int motor, int where) {
     motorVars *m = motors[motor];
     int rc, togo, edge, next, d, err;
 
-    if (gnirsG.simulation) {
-        m->currPos = where;
-        return VME_OK;
-    }
-    if (!m->datumed) {
-        mErrMsg(m, "%s oneWay move when not datumed", m->name);
-        return VME_ERROR;
-    }
-    if ((rc = tellPV(motor)) != VME_OK)
-        return rc;
-
-    /* Stop on every home edge between here and the target */
     while ((togo = ahead(m, m->currPos, where)) > 0) {
         next = -1;
         for (edge = 0; edge < 2; edge++) {
@@ -173,8 +180,28 @@ int oneWayMove(int motor, int where) {
         if ((rc = oneWayEdge(motor, next, &err)) != VME_OK)
             return rc;
     }
+    return VME_OK;
+}
+
+int oneWayMove(int motor, int where) {
+    motorVars *m = motors[motor];
+    int rc, togo;
+
+    if (gnirsG.simulation) {
+        m->currPos = where;
+        return VME_OK;
+    }
+    if (!m->datumed) {
+        mErrMsg(m, "%s oneWay move when not datumed", m->name);
+        return VME_ERROR;
+    }
+    if ((rc = tellPV(motor)) != VME_OK)
+        return rc;
+    if ((rc = edgesTo(motor, where)) != VME_OK)
+        return rc;
 
     /* Fast, then the last 'backlash' steps slowly, still the same way */
+    togo = ahead(m, m->currPos, where);
     rc = oneWayStep(motor, togo - m->backlash, &m->oneWaySeek);
     if (rc == VME_OK)
         rc = oneWayStep(motor, ahead(m, m->currPos, where), &m->backOff);
@@ -201,12 +228,16 @@ int oneWayTravelMove(int motor, int where) {
     if ((rc = tellPV(motor)) != VME_OK)
         return rc;
 
-    d = (m->oneWayTravel > 0) ? 1 : -1;
+    d = dirOf(m);
     /* Going positive and already within the backlash: slow leg only */
     if ((d > 0) && (aheadDir(m, 1, m->currPos, where) <= m->backlash))
         fast = 0;
-    else
+    else {
+        if (m->oneWayCorrect &&
+                ((rc = edgesTo(motor, where - m->backlash)) != VME_OK))
+            return rc;
         fast = aheadDir(m, d, m->currPos, where - m->backlash);
+    }
     printf("%s oneWayTravel %d: from %d to %d, fast %d then +%d\n", m->name,
            d, m->currPos, where, d * fast,
            aheadDir(m, 1, m->currPos + d * fast, where));

@@ -316,6 +316,17 @@ oneWayFarEdge = 0		# count of the second edge, 0 = not used
 # Moves only travel this way (0 off, 1, -1) with the normal datum and the
 # normal slow positive final approach over backlash. oneWay overrides it.
 oneWayTravel = 0
+# oneWayCorrect = 1 also stops oneWayTravel moves on each home edge crossed
+# (at oneWayCatch speed) and reloads the counter: oneWayDatumEdge for the
+# datum edge, oneWayFarEdge for the far edge (skipped while 0).
+oneWayCorrect = 0
+# Count of the datum edge when caught in the travel direction, in the frame
+# of the regular datum (which puts home.position, 159, where the edge trips
+# going positive). Differs from 159 by the switch hysteresis. To re-measure:
+# datum, motorOn(8), cmdR(8,"AY AC1000 VL1000 HH KR"), cmdR(8,"AY RP").
+# For the far edge carry on with HL KR (not HH), RP -> oneWayFarEdge.
+# 0 = use home.position.
+oneWayDatumEdge = 0
 # switch position  aux offset   port   bit  altInUse?  type
 home =        0,      159,        6,    5,      1	0
 #          port  bit  value

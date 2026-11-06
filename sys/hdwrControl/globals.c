@@ -90,6 +90,8 @@ itemConfig motorConfig[] = {
     {"name",            CONF_STRING, MOTOR_ID_LEN, OFFSETM(name) },
     {"neglimit",        CONF_SWITCH,            1, OFFSETM(negLimit) },
     {"onewaycatch",     CONF_MOTION,            1, OFFSETM(oneWayCatch) },
+    {"onewaycorrect",   CONF_INT,               1, OFFSETM(oneWayCorrect) },
+    {"onewaydatumedge", CONF_INT,               1, OFFSETM(oneWayDatumEdge) },
     {"onewayfaredge",   CONF_INT,               1, OFFSETM(oneWayFarEdge) },
     {"onewayrevs",      CONF_INT,               1, OFFSETM(oneWayRevs) },
     {"onewayseek",      CONF_MOTION,            1, OFFSETM(oneWaySeek) },

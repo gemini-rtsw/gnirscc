@@ -347,6 +347,8 @@ int setupMotor(int motor) {
 
     m->oneWay = 0;              /* GNFR-75641: off unless the config sets it */
     m->oneWayTravel = 0;
+    m->oneWayCorrect = 0;
+    m->oneWayDatumEdge = 0;
 
     m->home.type = HOME_SW;     /* can be POS_LIM or NEG_LIM */
     m->home.useAlt = FALSE;

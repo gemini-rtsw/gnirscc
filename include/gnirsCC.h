@@ -295,6 +295,8 @@ typedef struct {
     int oneWayRevs;             /* datum revolutions */
     int oneWayFarEdge;          /* count of the second home edge, 0 unknown */
     int oneWayTravel;           /* 0 off, 1/-1: travel one way, approach + */
+    int oneWayCorrect;          /* oneWayTravel: reload counter on home edges */
+    int oneWayDatumEdge;        /* datum edge count caught in travel dir, 0 */
 } motorVars;
 
 
