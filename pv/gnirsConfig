@@ -306,6 +306,13 @@ seek = 1000, 2500
 backoff = 200 800
 probe = 40,80
 probeH = 1, 5			# careful probe of home switch position
+# GNFR-75641 one direction mode: 0 off, 1 positive, -1 negative
+oneWay = -1
+oneWaySeek = 1000, 2500		# acceleration, velocity
+oneWayCatch = 40, 80		# creep onto each home edge (KM/KR)
+oneWayWindow = 1000		# start creeping this far before an edge
+oneWayRevs = 3			# datum revolutions
+oneWayFarEdge = 0		# count of the second edge, 0 = not used
 # switch position  aux offset   port   bit  altInUse?  type
 home =        0,      159,        6,    5,      1	0
 #          port  bit  value

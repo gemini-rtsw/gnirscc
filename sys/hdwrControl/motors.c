@@ -345,6 +345,11 @@ int setupMotor(int motor) {
     m->probeH.acceleration = 1;
     m->probeH.velocity = 5;
 
+    m->oneWay = 0;              /* GNFR-75641: off unless the config sets it */
+    m->oneWayTravel = 0;
+    m->oneWayCorrect = 0;
+    m->oneWayDatumEdge = 0;
+
     m->home.type = HOME_SW;     /* can be POS_LIM or NEG_LIM */
     m->home.useAlt = FALSE;
     m->home.offset = 130;
@@ -1002,7 +1007,12 @@ int position(int motor, int where) {
         return rc;
     }
     m->parked = FALSE;
-    rc = goToPos(motor, where, TRUE);
+    if (m->oneWay)
+        rc = oneWayMove(motor, where);
+    else if (m->oneWayTravel)
+        rc = oneWayTravelMove(motor, where);
+    else
+        rc = goToPos(motor, where, TRUE);
     /* Check to see if at parked position, but only if move was successful;
      * if it wasn't, we don't know where we are.
      */
@@ -2018,7 +2028,7 @@ int datum(int motor) {
     switch (m->home.type) {
         case HOME_SW:
             s = &(m->home);
-            rc = setHome(motor);
+            rc = m->oneWay ? oneWayDatum(motor) : setHome(motor);
             break;
         case POS_LIM:
             rc = findTheLimit(motor, POS_LIM);
