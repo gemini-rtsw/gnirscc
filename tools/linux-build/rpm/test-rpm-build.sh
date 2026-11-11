@@ -43,7 +43,9 @@ tar -czf /root/rpmbuild/SOURCES/$dir.tar.gz -C /work $dir
 cd /work/$dir
 dnf -y -q builddep ./gnirscc.spec >/dev/null
 set +e
-rpmbuild -ba ./gnirscc.spec > /out/rpmbuild.log 2>&1
+# rpmbuild runs in the staged copy, which has no .git: read the config
+# sub-repo history from the read-only checkout.
+rpmbuild -ba ./gnirscc.spec --define "cfgrepo /repo/gnirscc-config" > /out/rpmbuild.log 2>&1
 rc=$?
 set -e
 tail -5 /out/rpmbuild.log
@@ -63,6 +65,12 @@ echo "== a tuned file edited in operations must survive a reinstall"
 echo "# tuned in operations" >> $D/data/gnirsMechanisms
 dnf -y -q reinstall /out/gnirscc-1.27-*.noarch.rpm >/dev/null
 tail -1 $D/data/gnirsMechanisms | grep -q 'tuned in operations' && echo "  survived" || { echo "  OVERWRITTEN"; exit 1; }
+
+echo "== data/ is a git work tree of gnirscc-config (%posttrans)"
+[ -d $D/data/.git ] && echo "  data/.git present" || { echo "  data/.git MISSING"; exit 1; }
+git config --system --get-all safe.directory | grep -qx $D/data && echo "  safe.directory set by %post" || { echo "  safe.directory NOT set"; exit 1; }
+git -C $D/data log -1 --format='  HEAD %h %s'
+git -C $D/data status --short | sed 's/^/  /'
 
 echo "== check-build.sh on the INSTALLED tree"
 /work/$dir/tools/linux-build/check-build.sh $D
