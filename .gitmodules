@@ -2,3 +2,6 @@
 	path = gemini-rtsw-ci
 	url = https://github.com/gemini-rtsw/gemini-rtsw-ci.git
 	branch = main
+[submodule "gnirscc-config"]
+	path = gnirscc-config
+	url = https://github.com/gemini-rtsw/gnirscc-config.git
