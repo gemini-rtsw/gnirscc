@@ -14,6 +14,10 @@ shellPromptSet "GNIRS-CC> "
 cd "$(iocpath)/.."
 pwd
 
+# Name the installed package in the boot log (written by the RPM build).
+# A tree without the file (e.g. the old pisces release) prints an error here.
+copy "/gemini/GEM5/gnirs/CC/CC/VERSION"
+
 # The local file contains site-specific information
 # such as the default router and the vxWorks password file.
 
