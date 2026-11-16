@@ -140,6 +140,8 @@ mkdir -p $D/bin $D/data $D/data.dist
 cp -a bin/mv167 $D/bin/
 rm -f $D/bin/mv167/Distfile*
 cp -a include RELEASE.NOTES $D/
+# Printed by startup.IS at boot, so the console log names the package.
+echo "%{name}-%{version}-%{release}" > $D/VERSION
 for f in data/*; do
     n=$(basename "$f")
     case "$n" in
@@ -213,6 +215,7 @@ exit 0
 %{deploy}/bin
 %{deploy}/include
 %{deploy}/RELEASE.NOTES
+%{deploy}/VERSION
 %dir %attr(0777,root,root) %{deploy}/data
 %{deploy}/data/*
 %{deploy}/data.dist
@@ -222,6 +225,9 @@ exit 0
 %files devel
 
 %changelog
+* Mon Nov 16 2026 Hawi Stecher <hawi.stecher@noirlab.edu> - 1.27-1
+- Ship a VERSION file (package NVR) and print it in the boot log.
+
 * Tue Nov 10 2026 Hawi Stecher <hawi.stecher@noirlab.edu> - 1.27-1
 - Tuned files move to the gnirscc-config sub-repo: data.dist/ is seeded from
   it, and on first install data/ becomes a git work tree of it (additive
